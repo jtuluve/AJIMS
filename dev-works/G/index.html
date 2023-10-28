@@ -6,24 +6,56 @@
     <title>Document</title>
     <style>
         body {
-          background-image: url('ajims.png');
-          background-attachment: fixed;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
+            background-image: url('ajims.png');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-      </style>
+        .login-container {
+            width: 300px;
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+            padding: 20px;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .login-container input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+        }
+        .login-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head> 
 <body>
     <div class="login-container">
         <form action="/action_page.php">
-          <label for="username"></label>
-          <input type="text" placeholder="Enter Username" name="username" required>
-      
-          <label for="password"></label>
-          <input type="password" placeholder="Enter Password" name="password" required>
-      
-          <input type="submit" value="Login">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <input type="submit" value="Login">
         </form>
+    </div>
 </body>
 </html>
