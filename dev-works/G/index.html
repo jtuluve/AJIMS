@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+    <style>
+        body {
+          background-image: url('ajims.png');
+          background-attachment: fixed;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      </style>
+</head> 
 <body>
-    <h1>This is where Gauresh works</h1>
-    <h2>hello</h2>
+    <div class="login-container">
+        <form action="/action_page.php">
+          <label for="username"></label>
+          <input type="text" placeholder="Enter Username" name="username" required>
+      
+          <label for="password"></label>
+          <input type="password" placeholder="Enter Password" name="password" required>
+      
+          <input type="submit" value="Login">
+        </form>
 </body>
 </html>
