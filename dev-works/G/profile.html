@@ -43,8 +43,7 @@
             border-top-left-radius: 15px;
             border-bottom-left-radius: 15px;
             border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;  
-        
+            border-bottom-right-radius: 15px;         
             margin-right: 2px;        
         }
 
@@ -64,7 +63,17 @@
         .name {
             align-self: flex-start;
             font-size: 40px;
-            margin-top: 10px;
+            margin-top: 2%;
+            position: relative;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .name2{
+            align-self: flex-start;
+            font-size: 30px;
+            margin-top: 2%;
+            margin-left: 1% ;
             position: relative;
             width: 100%;
             text-align: center;
@@ -134,10 +143,6 @@
         .hidden-section:target {
             display: block;
         }
-
-        .hidden-section {
-            float: right;
-        }
     </style>
 </head>
 
@@ -158,25 +163,29 @@
             <!-- Your hidden sections -->
             <div id="yourProfile" class="hidden-section">
                 <!-- Content for Your Profile section -->
-
+                <a class="name2">Your Profile</a>
+                <hr>
                 <!-- ... -->
             </div>
 
             <div id="research" class="hidden-section">
                 <!-- Content for Research section -->
-
+                <a class="name2">Research</a>
+                <hr>
                 <!-- ... -->
             </div>
 
             <div id="academics" class="hidden-section">
                 <!-- Content for Academics section -->
-
+                <a class="name2">Academics</a>
+                <hr>
                 <!-- ... -->
             </div>
 
             <div id="professional" class="hidden-section">
                 <!-- Content for Professional section -->
-
+                <a class="name2">Professional</a>
+                <hr>
                 <!-- ... -->
             </div>
         </div>
