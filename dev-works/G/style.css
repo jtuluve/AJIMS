@@ -17,8 +17,8 @@ a:visited {
     background-color: #04559b;
     color: white;
     max-width: 330px;
-    border-top-right-radius: 15px; /* Smooth top right corner */
-    border-bottom-right-radius: 15px; /* Smooth bottom right corner */
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .menu * {
@@ -56,7 +56,6 @@ a:visited {
 }
 
 .menuOptions {
-    text-decoration: none;
     display: grid;
     width: 100%;
     margin-top: -15px;
@@ -78,10 +77,26 @@ a:visited {
 
 .menuOptions a.selected,
 .menuOptions .active { 
-    color: white;/* Updated color for the active class */
+    color: white;
 }
 
 .menuOptions .logout {
     width: auto;
-    color: #ff5a5a;
+    padding: 10px 20px;
+    background-color: #ff5a5a;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-size: 24px;
+    margin: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.menuOptions .logout:hover {
+    background-color: #ff0000;
 }
