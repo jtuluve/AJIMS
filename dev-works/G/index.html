@@ -6,8 +6,8 @@
     <title>Document</title>
     <style>
         body {
-            background-image: url('ajims.jpg');
-            /* Removed background-attachment: fixed; */
+            background-image: url('ajims.png');
+            background-attachment: scroll; /* Changed to scroll for a static background image */
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -46,6 +46,17 @@
         }
         .login-container input[type="submit"]:hover {
             background-color: #45a049;
+        }
+
+        /* Media query for mobile responsiveness */
+        @media only screen and (max-width: 600px) {
+            body {
+                justify-content: center; /* Center aligns the content horizontally */
+            }
+            .login-container {
+                width: 80%; /* Adjusted the width for smaller screens */
+                margin-left: 0; /* Removed the left margin for smaller screens */
+            }
         }
     </style>
 </head> 
