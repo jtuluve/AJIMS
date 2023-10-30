@@ -69,22 +69,24 @@
             margin-top: -15px;
         }
 
-        .menuOptions a {
+        .menuOptions button {
             font-size: 36px;
             padding: 15px 0;
             text-align: center;
             width: 100%;
             color: #c2c2c2;
             cursor: pointer;
-            text-decoration: none;
+            background: none;
+            border: none;
+            font-family: inherit;
         }
 
-        .menuOptions a:hover {
+        .menuOptions button:hover {
             color: #ff5a5a;
         }
 
-        .menuOptions a.selected,
-        .menuOptions .active {
+        .menuOptions button.selected,
+        .menuOptions .button {
             color: white;
         }
 
@@ -119,13 +121,29 @@
         <img src="user.png" alt="" class="profileImg">
         <span class="name">Username</span>
         <div class="menuOptions">
-            <a class="active">Your Profile</a>
-            <a class="active">Research</a>
-            <a class="active">Academics</a>
-            <a class="active">Professional</a>
-            <a class="logout">Logout</a>
+            <button class="button" onclick="showOutput('Your Profile')">Your Profile</button>
+            <button class="button" onclick="showOutput('Research')">Research</button>
+            <button class="button" onclick="showOutput('Academics')">Academics</button>
+            <button class="button" onclick="showOutput('Professional')">Professional</button>
+            <button class="logout" onclick="showOutput('Logout')">Logout</button>
         </div>
     </div>
+
+    <span id="output1">
+        
+    </span>
+    <span id="output2">
+
+    </span>
+    <span id="output3">
+
+    </span>
+    <span id="output4">
+
+    </span>
+    <span id="output5">
+        
+    </span>
 </body>
 
 </html>
