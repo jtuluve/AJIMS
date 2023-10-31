@@ -18,7 +18,7 @@
         }
 
         .menu {
-            width: calc(30vw - 2px); /* Adjusted width with a 2px gap */
+            width: 30%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,24 +27,16 @@
             background-color: #04559b;
             color: white;
             max-width: 330px;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;
-            margin-right: 2px; /* Added a 2px right margin */
-            margin-left: 2px; 
-            border-bottom-left-radius: 15px;
-            border-top-left-radius: 15px;
-            
+            border-radius: 15px;
+            margin: 0 2px;
         }
 
         .menu2 {
             width: 100vw;
             height: 100vh;
             background-color: #04559b;
-            border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;         
-            margin-right: 2px;        
+            border-radius: 15px;
+            margin-right: 2px;
         }
 
         .menu * {
@@ -69,11 +61,12 @@
             text-align: center;
             font-weight: bold;
         }
-        .name2{
+
+        .name2 {
             align-self: flex-start;
             font-size: 30px;
             margin-top: 2%;
-            margin-left: 1% ;
+            margin-left: 1%;
             position: relative;
             width: 100%;
             text-align: center;
@@ -148,7 +141,7 @@
 
 <body>
     <div class="menu-container">
-        <div class="menu">
+        <div class="menu" style="width: 30%;">
             <img src="user.png" alt="" class="profileImg">
             <span class="name">Username</span>
             <div class="menuOptions">
@@ -159,7 +152,7 @@
                 <a class="logout">Logout</a>
             </div>
         </div>
-        <div class="menu2">
+        <div class="menu2" style="width: 100%;">
             <!-- Your hidden sections -->
             <div id="yourProfile" class="hidden-section">
                 <!-- Content for Your Profile section -->
