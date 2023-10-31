@@ -198,6 +198,46 @@
             font-weight: bold;
             font-size: 18px; /* Adjust the font size as needed */
         }
+/*Unconfirmed section starts*/
+        .tableContainer {
+            margin-bottom: 1%;
+        }
+        .tables{
+            overflow: auto;
+        }
+        .name3{
+            align-self: flex-start;
+            font-size: 20px;
+            margin-top: 2%;
+            margin-left: 1%;
+            position: relative;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        table {
+            width: 70vw;
+            min-width: 500px;
+            border: 1px solid white;
+        }
+
+        thead {
+            background-color: #4472c4;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #cfd5ea;
+        }
+
+        tbody tr:hover {
+            background-color: #e9ebf5;
+        }
+/*Unconfirmed section ends*/
 </style>
 </head>
 <body>
@@ -232,13 +272,256 @@
                     </div>                        
                 </div>
                 <!-- Profile section ended -->
+<!--Unconfirmed section starts-->
             <div id="research" class="hidden-section">
                 <!-- Content for Research section -->
                     <a class="name2">Research</a>
                     <hr>
-                <!-- Research section ended -->
-            </div>
-
+                <div class="tables">
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>Final Score</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><!--From the database with formulea-->25<!--Example--></td>
+                                <td><!--From the database with formulea-->A+<!--Example--></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">I. Clinical Duty</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th style="min-width: 3ch">Sr. No.</th>
+                                <th >Title</th>
+                                <th >Journal Name</th>
+                                <th >Quartile</th>
+                                <th >Index</th>
+                                <th >DOI</th>
+                                <th >Authorship</th>
+                                <th >Uploads</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><input type="text" value="The real title"></td>
+                                <td><input type="text" value="The real Journal"></td>
+                                <td><select name="quartile" id="quartile">
+                                    <option value="">Q1</option>
+                                    <option value="" selected>Q2</option>
+                                    <option value="">Q3</option>
+                                    <option value="">Q4</option>
+                                    <option value="">No quartile</option>
+                                    <option value="">Nil</option>
+                                </select></td>
+                                <td><select name="index" required>
+                                    <option value="Medline" readonly>Medline</option>
+                                    <option value="Pubmed">Pubmed</option>
+                                    <option value="CSCI">CSCI</option>
+                                    <option value="SCI">SCI</option>
+                                    <option value="DC">DC</option>
+                                    <option value="Expanded Embase">Expanded Embase</option>
+                                    <option value="Scopus" selected>Scopus</option>
+                                    <option value="DoAJ">DoAJ</option>
+                                </select></td>
+                                <td><input type="text" value="The real DOI" readonly> </td>
+                                <td>
+                                <select name="category" readonly>
+                                    <option value="First">First</option>
+                                    <option value="Correspondant">Correspondant</option>
+                                    <option value="Second">Second</option>
+                                    <option value="Others">Others</option>
+                                </select></td>
+                                <td><input type="file" name="" id=""></td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><input type="text" required></td>
+                                <td><input type="text" required></td>
+                                <td><select name="quartile" id="quartile">
+                                    <option value="">Q1</option>
+                                    <option value="">Q2</option>
+                                    <option value="">Q3</option>
+                                    <option value="">Q4</option>
+                                    <option value="">No quartile</option>
+                                    <option value="">Nil</option>
+                                 </select></td>
+                                <td><select name="index" required>
+                                    <option value="Medline">Medline</option>
+                                    <option value="Pubmed">Pubmed</option>
+                                    <option value="CSCI">CSCI</option>
+                                    <option value="SCI">SCI</option>
+                                    <option value="DC">DC</option>
+                                    <option value="Expanded Embase">Expanded Embase</option>
+                                    <option value="Scopus">Scopus</option>
+                                    <option value="DoAJ">DoAJ</option>
+                                </select></td>
+                                <td><input type="text"></td>
+                                <td><select name="category">
+                                    <option value="First">First</option>
+                                    <option value="Correspondant">Correspondant</option>
+                                    <option value="Second">Second</option>
+                                    <option value="Others">Others</option>
+                                </select></td>
+                                <td><input type="file" name="" id=""></td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">II. Grants</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th style="max-width: 3ch">Sr. No.</th>
+                                <th>Title</th>
+                                <th>Applied</th>
+                                <th>Recieved</th>
+                                <th>Amount Catogory</th>
+                                <th>Uploads</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><input type="text" value="The real title"></td>
+                                <td><input type="number" value="Applied"></td>
+                                <td><input type="number" value="Recieved"></td>
+                                <td><select name="Amount Category" id="Amount Category">
+                                    <option value="">upto 1 lakh</option>
+                                    <option value="" selected>1-5 lakhs</option>
+                                    <option value="">5-10 lakhs</option>
+                                    <option value="">10-30 lakhs</option>
+                                    <option value=""> >30 lakhs</option>
+                                    <option value="">Nil</option>
+                                </select></td>
+                                <td><input type="file" name="" id=""></td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><input type="text" value="The real title"></td>
+                                <td><input type="number" value="Applied"></td>
+                                <td><input type="number" value="Recieved"></td>
+                                <td><select name="Amount Category" id="Amount Category">
+                                    <option value="">upto 1 lakh</option>
+                                    <option value="" selected>1-5 lakhs</option>
+                                    <option value="">5-10 lakhs</option>
+                                    <option value="">10-30 lakhs</option>
+                                    <option value=""> >30 lakhs</option>
+                                    <option value="">Nil</option>
+                                </select></td>
+                                <td><input type="file" name="" id=""></td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">III. Books</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th style="max-width: 3ch">Sr. No.</th>
+                                <th>Authorship</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><select name="Authorship" id="Authorship">
+                                    <option value="">Nil</option>
+                                    <option value="">Chapter</option>
+                                    <option value="">Book</option>
+                                </select></td>
+                                <td><select name="Category" id="Category">
+                                    <option value="">Nil</option>
+                                    <option value="">National</option>
+                                    <option value="">International</option>
+                                </select></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><select name="Authorship" id="Authorship">
+                                    <option value="">Nil</option>
+                                    <option value="">Chapter</option>
+                                    <option value="">Book</option>
+                                </select></td>
+                                <td><select name="Category" id="Category">
+                                    <option value="">Nil</option>
+                                    <option value="">National</option>
+                                    <option value="">International</option>
+                                </select></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">IV. Guidance</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th style="max-width: 3ch">Sr. No.</th>
+                                <th>Category</th>
+                                <th>Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><select name="Category" id="Category">
+                                    <option value="">UG</option>
+                                    <option value="">PG</option>
+                                    <option value="">PHD</option>
+                                    <option value="">Nil</option>
+                                </select></td>
+                                <td><input type="number"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><select name="Category" id="Category">
+                                    <option value="">UG</option>
+                                    <option value="">PG</option>
+                                    <option value="">PHD</option>
+                                    <option value="">Nil</option>
+                                </select></td>
+                                <td><input type="number"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">V. Conferences</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th style="max-width: 3ch">Sr. No.</th>
+                                <th>Category</th>
+                                <th>Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><select name="Category" id="Category">
+                                    <option value="">National</option>
+                                    <option value="">International</option>
+                                    <option value="">Nil</option>
+                                </select></td>
+                                <td><input type="number"> </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><select name="Category" id="Category">
+                                    <option value="">National</option>
+                                    <option value="">International</option>
+                                    <option value="">Nil</option>
+                                </select></td>
+                                <td><input type="number"> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+<!--Unconfirmed section ends-->
             <div id="academics" class="hidden-section">
                 <!-- Content for Academics section -->
                     <a class="name2">Academics</a>
