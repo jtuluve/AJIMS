@@ -40,6 +40,17 @@
                 max-width: 150px;
             }
         }
+        @media only screen and (max-width: 768px) {
+    .profileform input[type="text"] {
+        padding: 8px;
+    }
+
+    .profileform input[type="submit"] {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
         .menu-container {
             display: flex;
             width: 100vw;
@@ -164,8 +175,7 @@
             display: block;
         }
         .profileform {
-    width: 300px;
-    margin: 20px;
+    margin-top: 20px;
 }
 
 .profileform form {
@@ -177,28 +187,32 @@
     margin-bottom: 10px;
     font-weight: bold;
 }
-
 .profileform input[type="text"] {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     box-sizing: border-box;
 }
 
-.profileform input[type="submit"] {
+profileform input[type="submit"] {
     background-color: #4CAF50;
     color: white;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
     width: 100%;
+    font-size: 16px;
+}
+#yourProfile {
+    padding: 20px;
 }
 
 .profileform input[type="submit"]:hover {
     background-color: #45a049;
 }
-
-
         
     </style>
 </head>
