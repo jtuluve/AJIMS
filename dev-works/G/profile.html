@@ -11,7 +11,35 @@
             padding: 0;
             display: flex;
         }
+/* Media query for mobile devices */
+@media only screen and (max-width: 768px) {
+            .menu-container {
+                flex-direction: column;
+            }
 
+            .menu,
+            .menu2 {
+                width: 100%;
+                margin: 0;
+            }
+
+            .menu2 {
+                margin-top: 20px;
+            }
+
+            .name {
+                font-size: 30px;
+            }
+
+            .name2 {
+                font-size: 24px;
+            }
+
+            .profileImg {
+                width: 50%;
+                max-width: 150px;
+            }
+        }
         .menu-container {
             display: flex;
             width: 100vw;
@@ -135,36 +163,43 @@
         .hidden-section:target {
             display: block;
         }
+        .profileform {
+    width: 300px;
+    margin: 20px;
+}
 
-        /* Media query for mobile devices */
-        @media only screen and (max-width: 768px) {
-            .menu-container {
-                flex-direction: column;
-            }
+.profileform form {
+    display: flex;
+    flex-direction: column;
+}
 
-            .menu,
-            .menu2 {
-                width: 100%;
-                margin: 0;
-            }
+.profileform label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
-            .menu2 {
-                margin-top: 20px;
-            }
+.profileform input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
 
-            .name {
-                font-size: 30px;
-            }
+.profileform input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
 
-            .name2 {
-                font-size: 24px;
-            }
+.profileform input[type="submit"]:hover {
+    background-color: #45a049;
+}
 
-            .profileImg {
-                width: 50%;
-                max-width: 150px;
-            }
-        }
+
+        
     </style>
 </head>
 
@@ -187,15 +222,21 @@
                 <!-- Content for Your Profile section -->
                 <a class="name2">Your Profile</a>
                 <hr>
-                <form action="profile.php">
-                    <label for="Name"><b>Name</b></label>
-                    <input type="text" placeholder="Enter Name">
-                    <label for="Designation"><b>Designation</b></label>
-                    <input type="text" placeholder="Enter Designation">
-                    <label for="Department"><b>Department</b></label>
-                    <input type="text" placeholder="Enter Department">
-                    <input type="submit">
-                </form>
+            <div class="profileform">
+        <form action="profile.php" method="post">
+        <label for="Name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required>
+        
+        <label for="Designation"><b>Designation</b></label>
+        <input type="text" placeholder="Enter Designation" name="designation" required>
+        
+        <label for="Department"><b>Department</b></label>
+        <input type="text" placeholder="Enter Department" name="department" required>
+        
+        <input type="submit">
+        </form>
+            </div>
+
                 <!-- ... -->
             </div>
 
