@@ -120,7 +120,6 @@
             transition: background-color 0.3s;
             font-weight: bold;
             width: fit-content;
-
         }
 
         .menuOptions .logout:hover {
@@ -135,6 +134,36 @@
 
         .hidden-section:target {
             display: block;
+        }
+
+        /* Media query for mobile devices */
+        @media only screen and (max-width: 768px) {
+            .menu-container {
+                flex-direction: column;
+            }
+
+            .menu,
+            .menu2 {
+                width: 100%;
+                margin: 0;
+            }
+
+            .menu2 {
+                margin-top: 20px;
+            }
+
+            .name {
+                font-size: 30px;
+            }
+
+            .name2 {
+                font-size: 24px;
+            }
+
+            .profileImg {
+                width: 50%;
+                max-width: 150px;
+            }
         }
     </style>
 </head>
