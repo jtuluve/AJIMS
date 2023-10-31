@@ -164,6 +164,7 @@
         .menuOptions .logout:hover {
             background-color: #ff0000;
             color: white;
+            transform: scale(1.1);
         }
 
         /* New CSS for showing and hiding sections based on target */
@@ -196,24 +197,37 @@
     box-sizing: border-box;
 }
 
-profileform input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-}
 #yourProfile {
     padding: 20px;
 }
 
-.profileform input[type="submit"]:hover {
-    background-color: #45a049;
+.profileform input[type="submit"] {
+    background-color: #ff5a5a;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    width: fit-content;
+    font-size: 24px; /* Match the font size with the logout button */
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+    font-family: inherit; /* Use the same font family as the parent element */
 }
-        
+
+.profileform input[type="submit"]:hover {
+    background-color: #ff0000;
+    transform: scale(1.1);
+}
+
+.profileform label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px; /* Adjust the font size as needed */
+}
+
     </style>
 </head>
 
