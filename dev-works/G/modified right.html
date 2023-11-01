@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<style>
-    body{
+    <style>
+        body {
             margin: 0;
             padding: 0;
             display: flex;
         }
-    /* Media query for mobile devices */
-    @media only screen and (max-width: 768px)
-    {
-        .menu-container {
-            flex-direction: column;
+        *{
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        /* Media query for mobile devices */
+        @media only screen and (max-width: 768px) {
+            .menu-container {
+                flex-direction: column;
             }
-        .menu,
-        .menu2 {
-            width: 100%;
-            margin: 0;
+
+            .menu,
+            .menu2 {
+                width: 100%;
+                margin: 0;
             }
-        .menu2 {
+
+            .menu2 {
                 margin-top: 20px;
             }
-        .name {
+
+            .name {
                 font-size: 30px;
             }
-        .name2 {
-                font-size: 24px;
-            }
-        .profileImg {
+
+            .profileImg {
                 width: 50%;
                 max-width: 150px;
             }
-        .profileform input[type="text"] {
+
+            .profileform input[type="text"] {
                 padding: 8px;
             }
-        .profileform input[type="submit"] {
+
+            .profileform input[type="submit"] {
                 padding: 10px 15px;
                 font-size: 14px;
             }
-    }
-    .menu-container {
+        }
+
+        .menu-container {
             display: flex;
             width: 100vw;
         }
-    .menu {
+
+        .menu {
             width: 30%;
             display: flex;
             flex-direction: column;
@@ -59,17 +68,21 @@
             border-radius: 15px;
             margin: 0 2px;
         }
-    .menu2 {
+
+        .menu2 {
             width: 100vw;
             height: 100vh;
+            overflow: auto;
             background-color: #04559b;
             border-radius: 15px;
             margin-right: 2px;
         }
-    .menu * {
+
+        .menu * {
             margin: auto;
         }
-    .profileImg {
+
+        .profileImg {
             width: 70%;
             max-width: 180px;
             border-radius: 50%;
@@ -77,7 +90,8 @@
             object-fit: cover;
             margin: auto auto 10px;
         }
-    .name {
+
+        .name {
             align-self: flex-start;
             font-size: 40px;
             margin-top: 2%;
@@ -86,7 +100,9 @@
             text-align: center;
             font-weight: bold;
         }
-    .name2 {
+
+        .name2 {
+            color: white;
             align-self: flex-start;
             font-size: 30px;
             margin-top: 2%;
@@ -96,7 +112,8 @@
             text-align: center;
             font-weight: bold;
         }
-    .name::after {
+
+        .name::after {
             content: "";
             width: 80%;
             height: 1px;
@@ -106,12 +123,14 @@
             left: 50%;
             transform: translateX(-50%);
         }
-    .menuOptions {
+
+        .menuOptions {
             display: grid;
             width: 100%;
             margin-top: -15px;
         }
-    .menuOptions a {
+
+        .menuOptions a {
             font-size: 30px;
             padding: 15px 0;
             text-align: center;
@@ -120,15 +139,17 @@
             cursor: pointer;
             text-decoration: none;
         }
-    .menuOptions a:hover {
+
+        .menuOptions a:hover {
             color: #ff5a5a;
         }
 
-    .menuOptions a.selected,
-    .menuOptions .active {
+        .menuOptions a.selected,
+        .menuOptions .active {
             color: white;
         }
-    .menuOptions .logout {
+
+        .menuOptions .logout {
             padding: 10px 20px;
             background-color: #ff5a5a;
             border-radius: 25px;
@@ -136,35 +157,46 @@
             font-size: 24px;
             margin: 15px auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
             font-weight: bold;
             width: fit-content;
+            transform: scale(1);
         }
-    .menuOptions .logout:hover {
+
+        .menuOptions .logout:hover {
             background-color: #ff0000;
             color: white;
             transform: scale(1.1);
         }
-    /* New CSS for showing and hiding sections based on target */
-    .hidden-section {
+
+        /* New CSS for showing and hiding sections based on target */
+        .hidden-section {
             display: none;
-            padding: 20px;
         }
-    .hidden-section:target {
+
+        .hidden-section:target {
             display: block;
         }
-    .profileform {
+
+        .menu2:not(:has(.hidden-section:target)) #yourProfile {
+            display: block;
+        }
+
+        .profileform {
             margin-top: 20px;
         }
-    .profileform form {
+
+        .profileform form {
             display: flex;
             flex-direction: column;
         }
-    .profileform label {
+
+        .profileform label {
             margin-bottom: 10px;
             font-weight: bold;
+            color: aliceblue;
         }
-    .profileform input[type="text"] {
+
+        .profileform input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -173,58 +205,81 @@
             box-sizing: border-box;
         }
 
-    .profileform input[type="submit"] {
-            background-color: #ff5a5a;
+        #yourProfile,
+        #research,
+        #academics,
+        #professional {
+            padding: 20px;
+        }
+
+        .profileform input[type="submit"] {
+            background-color: #01a701;
             color: white;
             padding: 12px 25px;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             width: fit-content;
-            font-size: 24px; /* Match the font size with the logout button */
+            font-size: 24px;
+            /* Match the font size with the logout button */
             margin: 20px auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: background-color 0.3s, transform 0.2s;
             font-weight: bold;
-            font-family: inherit; /* Use the same font family as the parent element */
+            font-family: inherit;
+            /* Use the same font family as the parent element */
         }
-    .profileform input[type="submit"]:hover {
-            background-color: #ff0000;
+
+        .profileform input[type="submit"]:hover {
+            background-color: green;
             transform: scale(1.1);
         }
-    .profileform label {
+
+        .profileform label {
             margin-bottom: 10px;
             font-weight: bold;
-            font-size: 18px; /* Adjust the font size as needed */
+            font-size: 18px;
+            /* Adjust the font size as needed */
         }
-/*Unconfirmed section starts*/
         .tableContainer {
-            margin-bottom: 1%;
+            margin-bottom: 10%;
+            margin-left: 3px;
         }
-        .tables{
+
+        .tables {
             overflow: auto;
         }
-        .name3{
-            align-self: flex-start;
+
+        .name3 {
+            color: white;
             font-size: 20px;
-            margin-top: 2%;
-            margin-left: 1%;
+            margin: 0 0 3% 0;
             position: relative;
-            width: 100%;
-            text-align: center;
             font-weight: bold;
+            display: block;
         }
-        table {
+
+        .table {
             width: 70vw;
             min-width: 500px;
             border: 1px solid white;
+            margin-bottom: 5%;
         }
 
         thead {
             background-color: #4472c4;
             color: white;
         }
-
+        thead *{
+            padding: 3px;
+        }
+        th{
+            padding: 5px;
+        }
+        td *{
+            overflow: auto;
+            min-width: 100%;
+        }
         tbody tr:nth-child(even) {
             background-color: #f2f2f2;
         }
@@ -236,48 +291,55 @@
         tbody tr:hover {
             background-color: #e9ebf5;
         }
-/*Unconfirmed section ends*/
-</style>
+        .scoreTable{
+            width:60%;
+            font-size: 120%;
+        }
+        .scoreTable td{
+            padding: 5px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="menu-container">
         <div class="menu" style="width: 30%;">
             <img src="user.png" alt="" class="profileImg">
             <span class="name">Username</span>
-                <div class="menuOptions">
-                    <a class="active" href="#yourProfile">Your Profile</a>
-                    <a class="active" href="#research">Research</a>
-                    <a class="active" href="#academics">Academics</a>
-                    <a class="active" href="#professional">Professional</a>
-                    <a class="logout">Logout</a>
-                </div>
+            <div class="menuOptions">
+                <a class="active" href="#yourProfile">Your Profile</a>
+                <a class="active" href="#research">Research</a>
+                <a class="active" href="#academics">Academics</a>
+                <a class="active" href="#professional">Professional</a>
+                <a class="logout">Logout</a>
+            </div>
         </div>
-        <div class="menu2" style="width: 100%;">
-        <!-- Your hidden sections -->
-                <div id="yourProfile" class="hidden-section">
+        <div class="menu2">
+            <!-- Your hidden sections -->
+            <div id="yourProfile" class="hidden-section">
                 <!-- Content for Your Profile section -->
-                    <a class="name2">Your Profile</a>
-                    <hr>
-                    <div class="profileform">
-                        <form action="profile.php" method="post">
+                <a class="name2">Your Profile</a>
+                <hr>
+                <div class="profileform">
+                    <form action="profile.php" method="post">
                         <label for="Name"><b>Name</b></label>
-                        <input type="text" placeholder="Enter Name" name="name" required><!--Name-->        
+                        <input type="text" placeholder="Enter Name" name="name" required><!--Name-->
                         <label for="Designation"><b>Designation</b></label>
-                        <input type="text" placeholder="Enter Designation" name="designation" required><!--Destination-->        
+                        <input type="text" placeholder="Enter Designation" name="designation"
+                            required><!--Destination-->
                         <label for="Department"><b>Department</b></label>
-                        <input type="text" placeholder="Enter Department" name="department" required><!--Department-->        
+                        <input type="text" placeholder="Enter Department" name="department" required><!--Department-->
                         <input type="submit"><!--Submit-->
-                        </form>
-                    </div>                        
+                    </form>
                 </div>
-                <!-- Profile section ended -->
-            <!--Unconfirmed section starts-->
+            </div>
+            <!-- Profile section ended -->
             <div id="research" class="hidden-section">
                 <!-- Content for Research section -->
-                    <a class="name2">Research</a>
-                    <hr>
+                <a class="name2">Research</a>
+                <hr>
                 <div class="tables">
-                    <table class="tableContainer">
+                    <table class="tableContainer scoreTable">
                         <thead>
                             <tr>
                                 <th>Final Score</th>
@@ -291,18 +353,18 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a class="name3">I.Clinical Duty</a>
+                    <a class="name3">I. Clinical Duty</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
-                                <th style="min-width: 3ch">Sr.No.</th>
-                                <th >Title</th>
-                                <th >Journal Name</th>
-                                <th >Quartile</th>
-                                <th >Index</th>
-                                <th >DOI</th>
-                                <th >Authorship</th>
-                                <th >Uploads</th>
+                                <th style="min-width: 3ch">Sr. No.</th>
+                                <th>Title</th>
+                                <th>Journal Name</th>
+                                <th>Quartile</th>
+                                <th>Index</th>
+                                <th>DOI</th>
+                                <th>Authorship</th>
+                                <th>Uploads</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -311,31 +373,32 @@
                                 <td><input type="text" value="The real title"></td>
                                 <td><input type="text" value="The real Journal"></td>
                                 <td><select name="quartile" id="quartile">
-                                    <option value="">Q1</option>
-                                    <option value="" selected>Q2</option>
-                                    <option value="">Q3</option>
-                                    <option value="">Q4</option>
-                                    <option value="">No quartile</option>
-                                    <option value="">Nil</option>
-                                </select></td>
+                                        <option value="">Q1</option>
+                                        <option value="" selected>Q2</option>
+                                        <option value="">Q3</option>
+                                        <option value="">Q4</option>
+                                        <option value="">No quartile</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><select name="index" required>
-                                    <option value="Medline" readonly>Medline</option>
-                                    <option value="Pubmed">Pubmed</option>
-                                    <option value="CSCI">CSCI</option>
-                                    <option value="SCI">SCI</option>
-                                    <option value="DC">DC</option>
-                                    <option value="Expanded Embase">Expanded Embase</option>
-                                    <option value="Scopus" selected>Scopus</option>
-                                    <option value="DoAJ">DoAJ</option>
-                                </select></td>
-                                <td><input type="text" value="The real DOI" readonly> </td>
+                                        <option value="Medline" readonly>Medline</option>
+                                        <option value="Pubmed">Pubmed</option>
+                                        <option value="CSCI">CSCI</option>
+                                        <option value="SCI">SCI</option>
+                                        <option value="DC">DC</option>
+                                        <option value="Expanded Embase">Expanded Embase</option>
+                                        <option value="Scopus" selected>Scopus</option>
+                                        <option value="DoAJ">DoAJ</option>
+                                    </select></td>
+                                <td><input type="text" value="The real DOI"> </td>
                                 <td>
-                                <select name="category" readonly>
-                                    <option value="First">First</option>
-                                    <option value="Correspondant">Correspondant</option>
-                                    <option value="Second">Second</option>
-                                    <option value="Others">Others</option>
-                                </select></td>
+                                    <select name="category" readonly>
+                                        <option value="First">First</option>
+                                        <option value="Correspondant">Correspondant</option>
+                                        <option value="Second">Second</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </td>
                                 <td><input type="file" name="" id=""></td>
                                 <td><input type="submit" value="update"></td>
                             </tr>
@@ -344,40 +407,40 @@
                                 <td><input type="text" required></td>
                                 <td><input type="text" required></td>
                                 <td><select name="quartile" id="quartile">
-                                    <option value="">Q1</option>
-                                    <option value="">Q2</option>
-                                    <option value="">Q3</option>
-                                    <option value="">Q4</option>
-                                    <option value="">No quartile</option>
-                                    <option value="">Nil</option>
-                                 </select></td>
+                                        <option value="">Q1</option>
+                                        <option value="">Q2</option>
+                                        <option value="">Q3</option>
+                                        <option value="">Q4</option>
+                                        <option value="">No quartile</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><select name="index" required>
-                                    <option value="Medline">Medline</option>
-                                    <option value="Pubmed">Pubmed</option>
-                                    <option value="CSCI">CSCI</option>
-                                    <option value="SCI">SCI</option>
-                                    <option value="DC">DC</option>
-                                    <option value="Expanded Embase">Expanded Embase</option>
-                                    <option value="Scopus">Scopus</option>
-                                    <option value="DoAJ">DoAJ</option>
-                                </select></td>
+                                        <option value="Medline">Medline</option>
+                                        <option value="Pubmed">Pubmed</option>
+                                        <option value="CSCI">CSCI</option>
+                                        <option value="SCI">SCI</option>
+                                        <option value="DC">DC</option>
+                                        <option value="Expanded Embase">Expanded Embase</option>
+                                        <option value="Scopus">Scopus</option>
+                                        <option value="DoAJ">DoAJ</option>
+                                    </select></td>
                                 <td><input type="text"></td>
                                 <td><select name="category">
-                                    <option value="First">First</option>
-                                    <option value="Correspondant">Correspondant</option>
-                                    <option value="Second">Second</option>
-                                    <option value="Others">Others</option>
-                                </select></td>
+                                        <option value="First">First</option>
+                                        <option value="Correspondant">Correspondant</option>
+                                        <option value="Second">Second</option>
+                                        <option value="Others">Others</option>
+                                    </select></td>
                                 <td><input type="file" name="" id=""></td>
                                 <td><input type="submit" value="update"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <a class="name3">II.Grants</a>
+                    <a class="name3">II. Grants</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
-                                <th style="max-width: 3ch">Sr.No.</th>
+                                <th style="min-width: 3ch">Sr. No.</th>
                                 <th>Title</th>
                                 <th>Applied</th>
                                 <th>Recieved</th>
@@ -392,13 +455,13 @@
                                 <td><input type="number" value="Applied"></td>
                                 <td><input type="number" value="Recieved"></td>
                                 <td><select name="Amount Category" id="Amount Category">
-                                    <option value="">upto 1 lakh</option>
-                                    <option value="" selected>1 - 5 lakhs</option>
-                                    <option value="">5 - 10 lakhs</option>
-                                    <option value="">10 - 30 lakhs</option>
-                                    <option value=""> > 30 lakhs</option>
-                                    <option value="">Nil</option>
-                                </select></td>
+                                        <option value="">upto 1 lakh</option>
+                                        <option value="" selected>1 - 5 lakhs</option>
+                                        <option value="">5 - 10 lakhs</option>
+                                        <option value="">10 - 30 lakhs</option>
+                                        <option value=""> > 30 lakhs</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><input type="file" name="" id=""></td>
                                 <td><input type="submit" value="update"></td>
                             </tr>
@@ -408,23 +471,23 @@
                                 <td><input type="number" value="Applied"></td>
                                 <td><input type="number" value="Recieved"></td>
                                 <td><select name="Amount Category" id="Amount Category">
-                                    <option value="">upto 1 lakh</option>
-                                    <option value="" selected>1 - 5 lakhs</option>
-                                    <option value="">5 - 10 lakhs</option>
-                                    <option value="">10 - 30 lakhs</option>
-                                    <option value=""> > 30 lakhs</option>
-                                    <option value="">Nil</option>
-                                </select></td>
+                                        <option value="">upto 1 lakh</option>
+                                        <option value="" selected>1 - 5 lakhs</option>
+                                        <option value="">5 - 10 lakhs</option>
+                                        <option value="">10 - 30 lakhs</option>
+                                        <option value=""> > 30 lakhs</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><input type="file" name="" id=""></td>
                                 <td><input type="submit" value="update"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <a class="name3">III.Books</a>
+                    <a class="name3">III. Books</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
-                                <th style="max-width: 3ch">Sr.No.</th>
+                                <th style="min-width: 3ch">Sr. No.</th>
                                 <th>Authorship</th>
                                 <th>Category</th>
                             </tr>
@@ -433,36 +496,38 @@
                             <tr>
                                 <td>1</td>
                                 <td><select name="Authorship" id="Authorship">
-                                    <option value="">Nil</option>
-                                    <option value="">Chapter</option>
-                                    <option value="">Book</option>
-                                </select></td>
+                                        <option value="">Nil</option>
+                                        <option value="">Chapter</option>
+                                        <option value="">Book</option>
+                                    </select></td>
                                 <td><select name="Category" id="Category">
-                                    <option value="">Nil</option>
-                                    <option value="">National</option>
-                                    <option value="">International</option>
-                                </select></td>
+                                        <option value="">Nil</option>
+                                        <option value="">National</option>
+                                        <option value="">International</option>
+                                    </select></td>
+                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td><select name="Authorship" id="Authorship">
-                                    <option value="">Nil</option>
-                                    <option value="">Chapter</option>
-                                    <option value="">Book</option>
-                                </select></td>
+                                        <option value="">Nil</option>
+                                        <option value="">Chapter</option>
+                                        <option value="">Book</option>
+                                    </select></td>
                                 <td><select name="Category" id="Category">
-                                    <option value="">Nil</option>
-                                    <option value="">National</option>
-                                    <option value="">International</option>
-                                </select></td>
+                                        <option value="">Nil</option>
+                                        <option value="">National</option>
+                                        <option value="">International</option>
+                                    </select></td>
+                                    <td><input type="submit" value="update"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <a class="name3">IV.Guidance</a>
+                    <a class="name3">IV. Guidance</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
-                                <th style="max-width: 3ch">Sr.No.</th>
+                                <th style="min-width: 3ch">Sr. No.</th>
                                 <th>Category</th>
                                 <th>Number</th>
                             </tr>
@@ -471,30 +536,32 @@
                             <tr>
                                 <td>1</td>
                                 <td><select name="Category" id="Category">
-                                    <option value="">UG</option>
-                                    <option value="">PG</option>
-                                    <option value="">PHD</option>
-                                    <option value="">Nil</option>
-                                </select></td>
+                                        <option value="">UG</option>
+                                        <option value="">PG</option>
+                                        <option value="">PHD</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><input type="number"></td>
+                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td><select name="Category" id="Category">
-                                    <option value="">UG</option>
-                                    <option value="">PG</option>
-                                    <option value="">PHD</option>
-                                    <option value="">Nil</option>
-                                </select></td>
+                                        <option value="">UG</option>
+                                        <option value="">PG</option>
+                                        <option value="">PHD</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><input type="number"></td>
+                                <td><input type="submit" value="update"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <a class="name3">V.Conferences</a>
+                    <a class="name3">V. Conferences</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
-                                <th style="max-width: 3ch">Sr.No.</th>
+                                <th style="min-width: 3ch">Sr. No.</th>
                                 <th>Category</th>
                                 <th>Number</th>
                             </tr>
@@ -503,38 +570,293 @@
                             <tr>
                                 <td>1</td>
                                 <td><select name="Category" id="Category">
-                                    <option value="">National</option>
-                                    <option value="">International</option>
-                                    <option value="">Nil</option>
-                                </select></td>
+                                        <option value="">National</option>
+                                        <option value="">International</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><input type="number"> </td>
+                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td><select name="Category" id="Category">
-                                    <option value="">National</option>
-                                    <option value="">International</option>
-                                    <option value="">Nil</option>
-                                </select></td>
+                                        <option value="">National</option>
+                                        <option value="">International</option>
+                                        <option value="">Nil</option>
+                                    </select></td>
                                 <td><input type="number"> </td>
+                                <td><input type="submit" value="update"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <!--Unconfirmed section ends-->
+                </div>
+            </div>
             <div id="academics" class="hidden-section">
                 <!-- Content for Academics section -->
-                    <a class="name2" >Academics</a>
-                    <hr>
+                <a class="name2">Academics</a>
+                <hr>
+                <div class="tables">
+                    <table class="tableContainer scoreTable">
+                        <thead>
+                            <tr>
+                                <th>Final Score</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><!--From the database with formulea-->25<!--Example--></td>
+                                <td><!--From the database with formulea-->A+<!--Example--></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">Teaching</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>Hours</th>
+                                <th>Clinical class hours/ practicals</th>
+                                <th>Student Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="number" value="20"></td>
+                                <td><input type="number" value="10"></td>
+                                <td><input type="number" value="12"></td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <!-- Academics section ended -->
             </div>
 
             <div id="professional" class="hidden-section">
                 <!-- Content for Professional section -->
-                    <a class="name2">Professional</a>
-                    <hr>
+                <a class="name2">Professional</a>
+                <hr>
+                <div class="tables">
+                    <table class="tableContainer scoreTable">
+                        <thead>
+                            <tr>
+                                <th>Final Score</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><!--From the database with formulea-->25<!--Example--></td>
+                                <td><!--From the database with formulea-->A+<!--Example--></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <a class="name3">Clinical Duty</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>No. of patients</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="number" value="20"></td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">Post Held</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select name="facultyTitle">
+                                        <option value="Lecturer">Lecturer</option>
+                                        <option value="Assistant Professor">Assistant Professor</option>
+                                        <option value="Associate Professor">Associate Professor</option>
+                                        <option value="Professor">Professor</option>
+                                        <option value="HOD">HOD (Head of Department)</option>
+                                    </select>
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">Exam Duties</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>Category 1</th>
+                                <th>Category 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select name="category1">
+                                        <option value="Invigilator/Room Supervisor">Invigilator/Room Supervisor</option>
+                                        <option value="Deputy Chief Superintendent">Deputy Chief Superintendent</option>
+                                        <option value="Chief Superintendent">Chief Superintendent</option>
+                                        <option value="Nil">Nil</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="category2">
+                                        <option value="Internal">Internal</option>
+                                        <option value="External">External</option>
+                                        <option value="Nil">Nil</option>
+                                    </select>
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="category1">
+                                        <option value="Invigilator/Room Supervisor">Invigilator/Room Supervisor</option>
+                                        <option value="Deputy Chief Superintendent">Deputy Chief Superintendent</option>
+                                        <option value="Chief Superintendent">Chief Superintendent</option>
+                                        <option value="Nil">Nil</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="category2">
+                                        <option value="Internal">Internal</option>
+                                        <option value="External">External</option>
+                                        <option value="Nil">Nil</option>
+                                    </select>
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">Committee</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>Designation</th>
+                                <th>Committee Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select name="designation">
+                                        <option value="Member">Member</option>
+                                        <option value="Coordinator">Coordinator</option>
+                                        <option value="Head">Head</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="real committe">
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="designation">
+                                        <option value="Member">Member</option>
+                                        <option value="Coordinator">Coordinator</option>
+                                        <option value="Head">Head</option>
+                                    </select>                                    
+                                </td>
+                                <td>
+                                    <input type="text">
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">Conferences/workshop/CME conducted</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>Designation</th>
+                                <th>Credit Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select name="designation">
+                                        <option value="Member">Member</option>
+                                        <option value="Coordinator">Coordinator</option>
+                                        <option value="Head">Head</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="creditPoints">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>                                    
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="designation">
+                                        <option value="Member">Member</option>
+                                        <option value="Coordinator">Coordinator</option>
+                                        <option value="Head">Head</option>
+                                    </select>                                    
+                                </td>
+                                <td>
+                                    <select name="creditPoints">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="name3">Guest Lectures</a>
+                    <table class="tableContainer">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="number" name="" id="">
+                                </td>
+                                <td>
+                                    <select name="category2">
+                                        <option value="Internal">Internal</option>
+                                        <option value="External">External</option>
+                                        <option value="Nil">Nil</option>
+                                    </select>                                
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" name="" id="">                                  
+                                </td>
+                                <td>
+                                    <select name="category2">
+                                        <option value="Internal">Internal</option>
+                                        <option value="External">External</option>
+                                        <option value="Nil">Nil</option>
+                                    </select>
+                                    
+                                </td>
+                                <td><input type="submit" value="update"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <!-- Professional section ended -->
             </div>
         </div>
-    </div>
 </body>
+
 </html>
