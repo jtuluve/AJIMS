@@ -7,10 +7,10 @@ export default function Home() {
       <div className={styles.mainContainer}>
         <div className={styles.loginContainer}>
           <form action="/action_page.php">
-            <label for="username"><b>Username</b></label>
+            <label htmlFor="username"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="username" required />
 
-            <label for="password"><b>Password</b></label>
+            <label htmlFor="password"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="password" required />
 
             <input type="submit" value="Login" />

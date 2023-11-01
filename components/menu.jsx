@@ -1,19 +1,28 @@
-import styles from "@css/menu.module.css"
+
 
 export default function Menu() {
     return (
         <>
-            <div className={styles.menu}>
-                <img src="user.png" alt="" className={styles.profileImg}/>
-                    <span className={styles.name}>Username</span>
-                    <div className={styles.menuOptions}>
-                        <a className={styles.active}>Your Profile</a>
-                        <a className={styles.active}>Research</a>
-                        <a className={styles.active}>Academics</a>
-                        <a className={styles.active}>Professional</a>
-                        <a className={styles.logout}>Logout</a>
-                    </div>
+            <div className="menu" style={{ width: "30%" }}>
+                <img src="user.png" alt="" className="profileImg" />
+                <span className="name">Username</span>
+                <div className="menuOptions">
+                    <a className="active" href="#yourProfile">
+                        Your Profile
+                    </a>
+                    <a className="active" href="#research">
+                        Research
+                    </a>
+                    <a className="active" href="#academics">
+                        Academics
+                    </a>
+                    <a className="active" href="#professional">
+                        Professional
+                    </a>
+                    <a className="logout">Logout</a>
+                </div>
             </div>
+
 
         </>
     )
