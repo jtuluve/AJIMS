@@ -21,11 +21,8 @@ const authOptions: NextAuthOptions = {
         };
       
         return new Promise((resolve, reject) => {
-          const db = new sqlite3.Database('users.sqlite', async (err) => {
+          const db = new sqlite3.Database('../../users.sqlite', async (err) => {
             if (err) {
-              open('users.sqlite','w',(err,data)=>{
-                if(!err) console.log("Created File")
-              })
               console.error(err.message);
               
               reject("Database Error");
