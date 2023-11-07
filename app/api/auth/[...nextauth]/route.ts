@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import sqlite3 from 'sqlite3';
 import { NextApiRequest } from "next";
-
+import {open} from'fs'
 
 
 const authOptions: NextAuthOptions = {
@@ -23,7 +23,11 @@ const authOptions: NextAuthOptions = {
         return new Promise((resolve, reject) => {
           const db = new sqlite3.Database('users.sqlite', async (err) => {
             if (err) {
+              open('users.sqlite','w',(err,data)=>{
+                if(!err) console.log("Created File")
+              })
               console.error(err.message);
+              
               reject("Database Error");
             }
       
