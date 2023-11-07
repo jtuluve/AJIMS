@@ -21,7 +21,7 @@ const authOptions: NextAuthOptions = {
         };
       
         return new Promise((resolve, reject) => {
-          const db = new sqlite3.Database('../../users.sqlite', async (err) => {
+          const db = new sqlite3.Database('users.sqlite', async (err) => {
             if (err) {
               console.error(err.message);
               
