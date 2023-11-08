@@ -9,17 +9,21 @@ export default function Home() {
   const { data: session } = useSession()
   if (session) redirect("/dashboard")
   const [userInfo, setUserInfo] = useState({ id: "", password: "" });
+
+  let [wrongCred,setWrongCred] = useState(false)
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // validate your userinfo
     e.preventDefault();
 
     const res = await signIn("credentials", {
 
-      id: userInfo.id,
+      id: userInfo.id+'@ajims.com',
       password: userInfo.password,
       redirect: false,
+      callbackUrl: "/dashboard"
     });
-    console.log(res)
+    if(res?.status==401) setWrongCred(true)
+    else setWrongCred(false)
   };
   return (
     <>
@@ -46,6 +50,7 @@ export default function Home() {
               type="password"
               placeholder="Enter Password"
             />
+            {wrongCred && <span color='red'>Wrong Credentials</span>}
             <input type="submit" value="Login" />
           </form>
         </div>

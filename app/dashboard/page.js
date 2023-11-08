@@ -8,8 +8,10 @@ import "@css/dashboard.css"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 export default function Dashboard(){
-    const { data: session } = useSession()
-  if (!session) redirect("/")
+    const { data: session } = useSession({ required: true,onUnauthenticated(){
+        redirect("/")
+    }})
+    if(!session) redirect("/")
     return(
         <div className="menu-container">
             <Menu/>
@@ -22,3 +24,5 @@ export default function Dashboard(){
         </div>
     )
 }
+
+Dashboard.requireAuth = true
