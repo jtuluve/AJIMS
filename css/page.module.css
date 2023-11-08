@@ -47,7 +47,9 @@
     border-radius: 5px;
     /* Added border radius for the submit button */
 }
-
+.loginContainer input[type="submit"]:disabled{
+    cursor:not-allowed;
+}
 .loginContainer input[type="submit"]:hover {
     background-color: #45a049;
 }
