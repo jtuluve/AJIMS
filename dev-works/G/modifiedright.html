@@ -6,16 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        *{
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-        /* Media query for mobile devices */
         @media only screen and (max-width: 768px) {
             .menu-container {
                 flex-direction: column;
@@ -50,9 +40,22 @@
             }
         }
 
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        *{
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        /* Media query for mobile devices */
+        
         .menu-container {
             display: flex;
-            width: 100vw;
+            width: 100vw;            
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .menu {
@@ -65,21 +68,25 @@
             background-color: #04559b;
             color: white;
             max-width: 330px;
-            border-radius: 15px;
-            margin: 0 2px;
+            border-radius: 5px;
+            margin: 0 2px;        
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: #000 solid 2px;
+        }
+
+        .menu * {
+            margin: auto;
         }
 
         .menu2 {
             width: 100vw;
             height: 100vh;
             overflow: auto;
-            background-color: #04559b;
-            border-radius: 15px;
+            border-radius: 5px;
             margin-right: 2px;
-        }
-
-        .menu * {
-            margin: auto;
+            background-color: #04559b;            
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: #000 solid 2px;
         }
 
         .profileImg {
