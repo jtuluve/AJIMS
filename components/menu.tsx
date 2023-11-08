@@ -1,9 +1,12 @@
-
+"use client"
+import {signOut, useSession} from "next-auth/react"
 
 export default function Menu() {
+    const {data:session}=useSession()
+    if(session)
     return (
         <>
-            <div className="menu" style={{ width: "30%" }}>
+            <div className="menu">
                 <img src="user.png" alt="" className="profileImg" />
                 <span className="name">Username</span>
                 <div className="menuOptions">
@@ -19,7 +22,7 @@ export default function Menu() {
                     <a className="active" href="#professional">
                         Professional
                     </a>
-                    <a className="logout">Logout</a>
+                    <a className="logout" onClick={()=>signOut()}>Logout</a>
                 </div>
             </div>
 
@@ -27,5 +30,3 @@ export default function Menu() {
         </>
     )
 }
-
-exports.Menu = Menu
