@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image'
 import styles from '@css/page.module.css'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
@@ -51,7 +50,7 @@ export default function Home() {
               placeholder="Enter Password"
             />
             {wrongCred && <span color='red'>Wrong Credentials</span>}
-            <input type="submit" value="Login" />
+            <input type="submit" value="Login" disabled={(!userInfo.id||!userInfo.password)}/>
           </form>
         </div>
       </div>
