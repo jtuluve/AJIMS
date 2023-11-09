@@ -6,69 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        @media only screen and (max-width: 768px) {
-            .menu-container {
-                flex-direction: column;
-            }
-
-            .menu,
-            .menu2 {
-                width: 100%;
-                margin: 0;
-            }
-
-            .menu2 {
-                margin-top: 20px;
-            }
-
-            .name {
-                font-size: 30px;
-            }
-
-            .profileImg {
-                width: 50%;
-                max-width: 150px;
-            }
-
-            .profileform input[type="text"] {
-                padding: 8px;
-            }
-
-            .profileform input[type="submit"] {
-                padding: 10px 15px;
-                font-size: 14px;
-            }
-        }
-
+        
         body {
             margin: 0;
             padding: 0;
-            display: flex;
+            display: fixed;
+            flex-direction: column;
         }
 
         *{
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
-        /* Media query for mobile devices */
         
         .menu-container {
             display: flex;
             width: 100vw;            
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            flex-direction: row;
         }
 
+        .titlebar {
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #04559b;
+            color: white;
+            padding: 10px 20px;
+            height: 8vh;
+            width: 100vw;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius:5px;        
+            border: #000 solid 2px;
+        }
+        .titlebar .logo {
+            font-size: 18px;
+            scale: 20%;
+            border-radius: 15%;
+        }
+
+        .titlebar .web-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
         .menu {
-            width: 30%;
+            width: 30vw;
+            height: 100vh;
+            border-radius: 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
             background-color: #04559b;
             color: white;
             max-width: 330px;
-            border-radius: 5px;
             margin: 0 2px;        
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             border: #000 solid 2px;
@@ -108,6 +103,17 @@
             font-weight: bold;
         }
 
+        .name::after {
+            content: "";
+            width: 80%;
+            height: 1px;
+            position: absolute;
+            background-color: gray;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
         .name2 {
             color: white;
             align-self: flex-start;
@@ -120,16 +126,6 @@
             font-weight: bold;
         }
 
-        .name::after {
-            content: "";
-            width: 80%;
-            height: 1px;
-            position: absolute;
-            background-color: gray;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
 
         .menuOptions {
             display: grid;
@@ -167,6 +163,7 @@
             font-weight: bold;
             width: fit-content;
             transform: scale(1);
+            transition: background-color 0.3s;
         }
 
         .menuOptions .logout:hover {
@@ -219,6 +216,7 @@
             padding: 20px;
         }
 
+        
         .profileform input[type="submit"] {
             background-color: #01a701;
             color: white;
@@ -308,9 +306,13 @@
     </style>
 </head>
 
-<body>
+<body>    
+    <div class="titlebar">
+        <img src="A J Logo .png" class="logo" >
+        <a class="web-name">AJIMS Management</a>
+    </div>
     <div class="menu-container">
-        <div class="menu" style="width: 30%;">
+        <div class="menu">
             <img src="user.png" alt="" class="profileImg">
             <span class="name">Username</span>
             <div class="menuOptions">
