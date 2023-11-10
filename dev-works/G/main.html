@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Additional head elements like stylesheets or scripts can go here -->
+    <style>        
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+
+        *{
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .divisions {
+            display: flex;
+            width: 100%; 
+            height: 100%;           
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            flex-direction: row;
+        }
+        
+        .titlebar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #04559b;
+            color: white;
+            height: 8vh;
+            width: 100%;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius:5px;        
+            border: #000 solid 2px;
+            
+        }
+        .titlebar .logo {
+            font-size: 18px;
+            scale: 20%;
+            border-radius: 15%;
+        }
+
+        .titlebar .web-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your content goes here -->
+    <div class="titlebar">
+        <img src="A J Logo .png" class="logo" >
+        <a class="web-name">AJIMS Employment Management</a>
+    </div>
+    <div class="divisions">
+
+        
+    </div>
+
+    <!-- Scripts and other content can be placed before the closing </body> 
+
+</body>
+</html>
