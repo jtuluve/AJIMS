@@ -10,10 +10,11 @@
         body {
             margin: 0;
             padding: 0;
-            display: fixed;
+            display: flex;
             flex-direction: column;
+            height: 100vh;
             overflow-y: hidden;
-            overflow-x:hidden ;
+            overflow-x: auto;
         }
 
         *{
@@ -23,7 +24,8 @@
         
         .menu-container {
             display: flex;
-            width: 100%;            
+            width: 100%; 
+            height: 100%;           
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             flex-direction: row;
         }
@@ -58,7 +60,6 @@
 
         .menu {
             width: 30%;
-            height: 100vh;
             border-radius: 5px;
             display: flex;
             flex-direction: column;
