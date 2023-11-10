@@ -12,22 +12,18 @@
             flex-direction: column;
             height: 100vh;
             overflow-y: hidden;
-            overflow-x: auto;
+            overflow-x: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2; /* Light gray background */
         }
 
-        *{
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-        
         .divisions {
             display: flex;
-            width: 100%; 
+            flex-direction: column; 
             height: 100%;           
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            flex-direction: row;
         }
-        
+
         .titlebar {
             position: relative;
             display: flex;
@@ -37,36 +33,35 @@
             color: white;
             height: 8vh;
             width: 100%;
-            box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
-            color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             border-radius: 5px;        
             border: 2px solid #000;
         }
 
         .titlebar .logo {
             font-size: 18px;
-            scale: 20%;
+            transform: scale(0.2);
             border-radius: 15%;
         }
-
         .titlebar .web-name {
             font-size: 18px;
             font-weight: bold;
         }
 
-        /* New styles for boxes */
+        /* Box styles */
         .box {
             flex: 1;
             padding: 20px;
             margin: 10px;
-            background-color: #fff;
+            background-color: #04559b;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
             text-align: center;
-            transition: transform 0.3s ease;
-
-            max-width: 180px;
+            transition: transform 0.2s ease;
+            max-width: 240px;
+            max-height: 240px;
             object-fit: cover;
+            position: relative;
         }
 
         .box:hover {
@@ -78,15 +73,23 @@
             max-height: 100%;
             border-radius: 5px;
         }
+
         .profileImg {
-            width: 70%;
-            max-width: 180px;
+            width: 80%;
+            max-width: 240px;
             border-radius: 50%;
             border: 1px solid #000;
             object-fit: cover;
             margin: auto auto 10px;
         }
 
+        .box a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }        
     </style>
 </head>
 <body>
@@ -105,7 +108,8 @@
         <!-- Box 2 -->
         <div class="box">
             <a href="">
-                <img src="Leave Letter" alt="Leave Letter">
+                <img src="" class="profileImg">
+                <a>Leave Letter</a>
             </a>
         </div>
         <!-- Box 3 -->
@@ -113,7 +117,8 @@
             <a href="page3.html">
                 <img src="">
             </a>
-        </div>
+        </div>       
     </div>
+
 </body>
 </html>
