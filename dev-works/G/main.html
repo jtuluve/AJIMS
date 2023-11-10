@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- Additional head elements like stylesheets or scripts can go here -->
     <style>        
         body {
             margin: 0;
@@ -40,10 +39,10 @@
             width: 100%;
             box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
             color: white;
-            border-radius:5px;        
-            border: #000 solid 2px;
-            
+            border-radius: 5px;        
+            border: 2px solid #000;
         }
+
         .titlebar .logo {
             font-size: 18px;
             scale: 20%;
@@ -54,20 +53,67 @@
             font-size: 18px;
             font-weight: bold;
         }
+
+        /* New styles for boxes */
+        .box {
+            flex: 1;
+            padding: 20px;
+            margin: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+
+            max-width: 180px;
+            object-fit: cover;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+        .box img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 5px;
+        }
+        .profileImg {
+            width: 70%;
+            max-width: 180px;
+            border-radius: 50%;
+            border: 1px solid #000;
+            object-fit: cover;
+            margin: auto auto 10px;
+        }
+
     </style>
 </head>
 <body>
-    <!-- Your content goes here -->
     <div class="titlebar">
         <img src="A J Logo .png" class="logo" >
         <a class="web-name">AJIMS Employment Management</a>
     </div>
     <div class="divisions">
-
-        
+        <!-- Box 1 -->
+        <div class="box">
+            <a href="modifiedright.html">
+                <img src="user.png" class="profileImg">
+                <a>Faculty appraisal</a>
+            </a>
+        </div>
+        <!-- Box 2 -->
+        <div class="box">
+            <a href="">
+                <img src="Leave Letter" alt="Leave Letter">
+            </a>
+        </div>
+        <!-- Box 3 -->
+        <div class="box">
+            <a href="page3.html">
+                <img src="">
+            </a>
+        </div>
     </div>
-
-    <!-- Scripts and other content can be placed before the closing </body> 
-
 </body>
 </html>
