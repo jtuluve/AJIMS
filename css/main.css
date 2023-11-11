@@ -15,9 +15,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #04559b;
+  background-color: #131d38;
   color: white;
-  height: 10vh;
+  height: 15vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   outline: 2px solid #000;
@@ -25,7 +25,7 @@ body {
 }
 
 .titlebar .logo {
-  height: 80%;
+  height: 100%;
   border-radius: 15%;
   margin-left: 10px;
 }
@@ -62,7 +62,7 @@ body {
   flex: 1;
   padding: 20px;
   margin: 10px;
-  background-color: #04559b;
+  background-color: #131d38;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   text-align: center;
