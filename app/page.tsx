@@ -9,50 +9,50 @@ export default function Home() {
   if (session) redirect("/main")
   const [userInfo, setUserInfo] = useState({ id: "", password: "" });
 
-  let [wrongCred,setWrongCred] = useState(false)
+  let [wrongCred, setWrongCred] = useState(false)
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // validate your userinfo
     e.preventDefault();
 
     const res = await signIn("credentials", {
 
-      id: userInfo.id+'@ajims.com',
+      id: userInfo.id + '@ajims.com',
       password: userInfo.password,
       redirect: false,
       callbackUrl: "/main"
     });
-    if(res?.status==401) setWrongCred(true)
+    if (res?.status == 401) setWrongCred(true)
     else setWrongCred(false)
   };
   return (
     <>
-      <div className="mainContainer">
-        <div className="loginContainer">
-          <form onSubmit={handleSubmit} method="POST">
-            <label htmlFor="id"><b>ID</b></label>
-            <input
-              value={userInfo.id}
-              onChange={({ target }) =>
-                setUserInfo({ ...userInfo, id: target.value })
-              }
-              type="text"
-              placeholder="id"
-              required
-            />
+      <div className="loginContainer">
+        <form onSubmit={handleSubmit} method="POST">
+          <label htmlFor="id"><b>ID</b></label>
+          <input
+            value={userInfo.id}
+            onChange={({ target }) =>
+              setUserInfo({ ...userInfo, id: target.value })
+            }
+            type="text"
+            id="id"
+            placeholder="id"
+            required
+          />
 
-            <label htmlFor="password"><b>Password</b></label>
-            <input
-              value={userInfo.password}
-              onChange={({ target }) =>
-                setUserInfo({ ...userInfo, password: target.value })
-              }
-              type="password"
-              placeholder="Enter Password"
-            />
-            {wrongCred && <span color='red'>Wrong Credentials</span>}
-            <input type="submit" value="Login" disabled={(!userInfo.id||!userInfo.password)}/>
-          </form>
-        </div>
+          <label htmlFor="password"><b>Password</b></label>
+          <input
+            value={userInfo.password}
+            onChange={({ target }) =>
+              setUserInfo({ ...userInfo, password: target.value })
+            }
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+          />
+          {wrongCred && <span color='red'>Wrong Credentials</span>}
+          <input type="submit" value="Login" disabled={(!userInfo.id || !userInfo.password)} />
+        </form>
       </div>
     </>
   )
