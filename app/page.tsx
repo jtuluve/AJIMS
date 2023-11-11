@@ -10,7 +10,7 @@ export default function Home() {
   const [userInfo, setUserInfo] = useState({ id: "", password: "" });
 
   let [wrongCred, setWrongCred] = useState(false)
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+  const handleSubmit= async (e) => {
     // validate your userinfo
     e.preventDefault();
 
