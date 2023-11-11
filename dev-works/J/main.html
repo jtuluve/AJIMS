@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Appraisal</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Arial', sans-serif;
+      background-color: #f2f2f2;
+      /* Light gray background */
+    }
+
+    .titlebar {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #04559b;
+      color: white;
+      height: 10vh;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+      outline: 2px solid #000;
+    }
+
+    .titlebar .logo {
+      height: 80%;
+      border-radius: 15%;
+      margin-left: 10px;
+    }
+
+    .titlebar .web-name {
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      margin: auto 10px auto auto;
+    }
+    
+    .titlebar .logout{
+      color:#ff4c4c;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    /* Main styles */
+    .wrapper {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+    }
+
+    .divisions {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: #0073d6;
+    }
+
+    .box {
+      display: flex;
+      flex: 1;
+      padding: 20px;
+      margin: 10px;
+      background-color: #04559b;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      text-align: center;
+      transition: transform 0.2s ease;
+      max-width: 240px;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+    }
+
+    .box img {
+      border-radius: 5px;
+      width: 30%;
+      max-width: 240px;
+      border: 1px solid #000;
+      background: white;
+      margin: auto 0;
+    }
+
+    .box a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+      margin: auto auto auto 10px;
+    }
+
+    .profile {
+      background-color: #04559b;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .profile h1 {
+      color: white;
+      align-self: flex-start;
+      font-size: 30px;
+      margin-left: 1%;
+      position: relative;
+      width: 100%;
+      font-weight: bold;
+      display: block;
+    }
+    .profile h3{
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="titlebar">
+    <img src="A J Logo .png" class="logo">
+    <a class="web-name">AJIMS Employees Management</a>
+    <a class="material-symbols-outlined logout" title="logout">
+      logout
+    </a>
+  </div>
+  <div class="wrapper">
+    <div class="divisions">
+      <!-- Boxes -->
+      <div class="box">
+        <img src="user.png">
+        <a href="modifiedright.html">Faculty appraisal</a>
+      </div>
+      <div class="box">
+        <img src="leave.png">
+        <a href="modifiedright.html">Apply Leave</a>
+      </div>
+      <div class="box">
+        <img src="tax.png">
+        <a href="modifiedright.html">Tax Planning</a>
+      </div>
+      <div class="box">
+        <img src="paySlip.png">
+        <a href="modifiedright.html">Pay Slip</a>
+      </div>
+      <div class="box">
+        <img src="insurance.png">
+        <a href="modifiedright.html">Faculty appraisal</a>
+      </div>
+
+    </div>
+    <div class="profile">
+      <h1>Profile</h1>
+      <hr/>
+      <h3>Name: Fake User</h3>
+      <h3>Designation: Assistant Professor</h3>
+      <h3>Department: Research</h3>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Document</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            display: flex;
         }
         *{
             transition: all 0.3s ease;
@@ -49,11 +49,28 @@
                 font-size: 14px;
             }
         }
-
-        .menu-container {
-            display: flex;
-            width: 100vw;
+        .menu-open-icon,.menu-close-icon{
+            position: fixed;
+            right:2%;
+            top: 2%;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 50%;
+            padding:4px;
+            transform: scale(1);
         }
+        .menu-close-icon{
+            display: none;
+        }
+        .menu-open-icon:hover,.menu-close-icon:hover{
+            transform: scale(1.1);
+        }
+        
+
+        /*.menu-container {
+            display: flex;
+            width: 100%;
+        }*/
 
         .menu {
             width: 30%;
@@ -67,6 +84,7 @@
             max-width: 330px;
             border-radius: 15px;
             margin: 0 2px;
+            position: fixed;
         }
 
         .menu2 {
@@ -244,7 +262,7 @@
 
         /*Unconfirmed section starts*/
         .tableContainer {
-            margin-bottom: 10%;
+            margin-bottom: 5%;
             margin-left: 3px;
         }
 
@@ -255,7 +273,7 @@
         .name3 {
             color: white;
             font-size: 20px;
-            margin: 0 0 3% 0;
+            margin-bottom:1%;
             position: relative;
             font-weight: bold;
             display: block;
@@ -306,8 +324,13 @@
 </head>
 
 <body>
-    <div class="menu-container">
-        <div class="menu" style="width: 30%;">
+        <i class="material-symbols-outlined menu-open-icon" id="menuOpenIcon">
+            menu
+        </i>
+        <i class="material-symbols-outlined menu-close-icon" id="menuCloseIcon">
+            close
+        </i>
+        <div class="menu">
             <img src="user.png" alt="" class="profileImg">
             <span class="name">Username</span>
             <div class="menuOptions">
@@ -864,6 +887,18 @@
                 <!-- Professional section ended -->
             </div>
         </div>
+        <script>
+            let menuOpenIcon = document.getElementById("menuOpenIcon")
+            let menuCloseIcon = document.getElementById("menuCloseIcon")
+            menuOpenIcon.onclick = () => {
+                menuOpenIcon.style.display = "none";
+                menuCloseIcon.style.display = "block";
+            }
+            menuCloseIcon.onclick = () => {
+                menuCloseIcon.style.display = "none";
+                menuOpenIcon.style.display = "block";
+            }
+        </script>
 </body>
 
 </html>
