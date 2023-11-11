@@ -1,5 +1,5 @@
 "use client"
-import '@css/main.css'
+import "@css/main.css"
 import { signOut, useSession } from "next-auth/react"
 import { redirect } from 'next/navigation'
 export default function Main() {
@@ -18,7 +18,7 @@ export default function Main() {
 				<img src="/logo.png" className="logo" />
 				<a className="web-name" href='/'>AJIMS Employees Management</a>
 				<a title="logout" className="material-symbols-outlined logout"
-				onClick={()=>signOut()}
+					onClick={() => signOut()}
 				>
 					logout
 				</a>

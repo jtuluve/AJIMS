@@ -1,4 +1,4 @@
-import '@css/globals.css'
+import "@css/globals.css"
 import Provider from '@components/sessionprovider'
 import { getServerSession } from 'next-auth'
 // import { Inter } from 'next/font/google'
