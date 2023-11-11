@@ -15,7 +15,7 @@ export default function Main() {
 	return (
 		<>
 			<div className="titlebar">
-				<img src="/logo.png" className="logo" />
+				<img src="/logo.jpg" className="logo" />
 				<a className="web-name" href='/'>AJIMS Employees Management</a>
 				<a title="logout" className="material-symbols-outlined logout"
 					onClick={() => signOut()}
