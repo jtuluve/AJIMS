@@ -6,7 +6,6 @@ body {
   height: 100vh;
   overflow-x: hidden;
   font-family: 'Arial', sans-serif;
-  background: #f2f2f2;
   background-image: none;
   /* Light gray background */
 }
@@ -96,9 +95,12 @@ body {
 }
 
 .profile {
-  background-color: #eaf1f8;
+  background-color: white;
   width: 100%;
   padding: 20px;
+  margin:17px;
+  border-radius: 25px;
+  box-shadow: 0 0 8px black;
 }
 
 .profile h1 {
