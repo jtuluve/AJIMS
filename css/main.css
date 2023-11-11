@@ -55,7 +55,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #0073d6;
+  background: white;
 }
 
 .box {
@@ -96,13 +96,13 @@ body {
 }
 
 .profile {
-  background-color: #04559b;
+  background-color: #eaf1f8;
   width: 100%;
   padding: 20px;
 }
 
 .profile h1 {
-  color: white;
+  color:black;
   align-self: flex-start;
   font-size: 30px;
   margin-left: 1%;
@@ -112,5 +112,5 @@ body {
   display: block;
 }
 .profile h3{
-  color: white;
+  color: black;
 }
