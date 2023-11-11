@@ -13,13 +13,13 @@ export default function Menu() {
                     <a className="active" href="#yourProfile">
                         Your Profile
                     </a>
-                    <a className="active" href="#research">
+                    <a href="#research">
                         Research
                     </a>
-                    <a className="active" href="#academics">
+                    <a href="#academics">
                         Academics
                     </a>
-                    <a className="active" href="#professional">
+                    <a href="#professional">
                         Professional
                     </a>
                     <a className="logout" onClick={()=>signOut()}>Logout</a>

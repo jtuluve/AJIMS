@@ -1,12 +1,12 @@
 "use client"
-import styles from '@css/page.module.css'
+import '@css/page.css'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { useState, FormEventHandler } from 'react'
 import { signIn } from 'next-auth/react'
 export default function Home() {
   const { data: session } = useSession()
-  if (session) redirect("/dashboard")
+  if (session) redirect("/main")
   const [userInfo, setUserInfo] = useState({ id: "", password: "" });
 
   let [wrongCred,setWrongCred] = useState(false)
@@ -19,15 +19,15 @@ export default function Home() {
       id: userInfo.id+'@ajims.com',
       password: userInfo.password,
       redirect: false,
-      callbackUrl: "/dashboard"
+      callbackUrl: "/main"
     });
     if(res?.status==401) setWrongCred(true)
     else setWrongCred(false)
   };
   return (
     <>
-      <div className={styles.mainContainer}>
-        <div className={styles.loginContainer}>
+      <div className="mainContainer">
+        <div className="loginContainer">
           <form onSubmit={handleSubmit} method="POST">
             <label htmlFor="id"><b>ID</b></label>
             <input
