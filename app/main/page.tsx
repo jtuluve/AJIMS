@@ -43,7 +43,7 @@ export default function Main() {
 					</div>
 					<div className="box">
 						<img src="/insurance.png" />
-						<a href="">Faculty appraisal</a>
+						<a href="">Insurance</a>
 					</div>
 
 				</div>
