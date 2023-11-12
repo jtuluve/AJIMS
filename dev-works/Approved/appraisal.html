@@ -16,36 +16,81 @@
             box-sizing: border-box;
         }
 
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-x: auto;
+        }
+
+        * {
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
         .menu-container {
             display: flex;
-            width: 100vw;
+            width: 100%;
+            height: 90%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            flex-direction: row;
+        }
+
+        .titlebar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #04559b;
+            color: white;
+            height: 10%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            outline: 2px solid #000;
+        }
+
+        .titlebar .logo {
+            height: 80%;
+            border-radius: 15%;
+            margin-left: 1%;
+        }
+
+        .titlebar .web-name {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            margin: auto 10px;
         }
 
         .menu {
             width: 30%;
+            max-width: 290px;
+            border-radius: 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
             background-color: #04559b;
             color: white;
-            max-width: 330px;
-            border-radius: 15px;
             margin: 0 2px;
-        }
-
-        .menu2 {
-            width: 100vw;
-            height: 100vh;
-            overflow: auto;
-            background-color: #04559b;
-            border-radius: 15px;
-            margin-right: 2px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: #000 solid 2px;
         }
 
         .menu * {
             margin: auto;
+        }
+
+        .menu2 {
+            width: 100%;
+            overflow: auto;
+            border-radius: 5px;
+            margin-right: 2px;
+            background-color: #04559b;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: #000 solid 2px;
         }
 
         .profileImg {
@@ -67,18 +112,6 @@
             font-weight: bold;
         }
 
-        .name2 {
-            color: white;
-            align-self: flex-start;
-            font-size: 30px;
-            margin-top: 2%;
-            margin-left: 1%;
-            position: relative;
-            width: 100%;
-            text-align: center;
-            font-weight: bold;
-        }
-
         .name::after {
             content: "";
             width: 80%;
@@ -90,6 +123,18 @@
             transform: translateX(-50%);
         }
 
+        .name2 {
+            color: white;
+            align-self: flex-start;
+            font-size: 30px;
+            margin-left: 1%;
+            position: relative;
+            width: 100%;
+            font-weight: bold;
+            display: block;
+        }
+
+
         .menuOptions {
             display: grid;
             width: 100%;
@@ -97,22 +142,26 @@
         }
 
         .menuOptions a {
-            font-size: 30px;
-            padding: 15px 0;
+            color: white;
+            font-size: 22px;
+            padding: 10px 10px;
             text-align: center;
-            width: 100%;
-            color: #c2c2c2;
             cursor: pointer;
+            display: block;
             text-decoration: none;
+            border: 1px solid black;
+            border-radius: 50px;
+            margin: 5px;
+            background-color: #1b69ac;
         }
 
         .menuOptions a:hover {
             color: #ff5a5a;
         }
 
-        .menuOptions a.selected,
         .menuOptions .active {
-            color: white;
+            color: black;
+            background: #869fff;
         }
 
         .menuOptions .logout {
@@ -177,6 +226,7 @@
         #professional {
             padding: 20px;
         }
+
 
         .profileform input[type="submit"] {
             background-color: #01a701;
@@ -275,15 +325,19 @@
 </head>
 
 <body>
+    <div class="titlebar">
+        <img src="logo.png" class="logo" >
+        <a class="web-name">AJIMS Employment Management</a>
+    </div>
     <div class="menu-container">
-        <div class="menu" style="width: 30%;">
+        <div class="menu">
             <img src="user.png" alt="" class="profileImg">
             <span class="name">Username</span>
             <div class="menuOptions">
                 <a class="active" href="#yourProfile">Your Profile</a>
-                <a class="active" href="#research">Research</a>
-                <a class="active" href="#academics">Academics</a>
-                <a class="active" href="#professional">Professional</a>
+                <a href="#research">Research</a>
+                <a href="#academics">Academics</a>
+                <a href="#professional">Professional</a>
                 <a class="logout">Logout</a>
             </div>
         </div>
@@ -326,7 +380,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a class="name3">I. Clinical Duty</a>
+                    <a class="name3">I. Publications</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
@@ -361,7 +415,8 @@
                                         <option value="DC">DC</option>
                                         <option value="Expanded Embase">Expanded Embase</option>
                                         <option value="Scopus" selected>Scopus</option>
-                                        <option value="DoAJ">DoAJ</option>
+                                        <option value="DoAJ">DoAJ</option>                                        
+                                        <option value="">Nil</option>
                                     </select></td>
                                 <td><input type="text" value="The real DOI"> </td>
                                 <td>
@@ -373,7 +428,6 @@
                                     </select>
                                 </td>
                                 <td><input type="file" name="" id=""></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -405,9 +459,10 @@
                                         <option value="Others">Others</option>
                                     </select></td>
                                 <td><input type="file" name="" id=""></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                         </tbody>
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">II. Grants</a>
                     <table class="tableContainer">
@@ -436,7 +491,6 @@
                                         <option value="">Nil</option>
                                     </select></td>
                                 <td><input type="file" name="" id=""></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -452,9 +506,10 @@
                                         <option value="">Nil</option>
                                     </select></td>
                                 <td><input type="file" name="" id=""></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">III. Books</a>
                     <table class="tableContainer">
@@ -478,7 +533,6 @@
                                         <option value="">National</option>
                                         <option value="">International</option>
                                     </select></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -492,9 +546,10 @@
                                         <option value="">National</option>
                                         <option value="">International</option>
                                     </select></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">IV. Guidance</a>
                     <table class="tableContainer">
@@ -515,7 +570,6 @@
                                         <option value="">Nil</option>
                                     </select></td>
                                 <td><input type="number"></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -526,9 +580,10 @@
                                         <option value="">Nil</option>
                                     </select></td>
                                 <td><input type="number"></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">V. Conferences</a>
                     <table class="tableContainer">
@@ -548,7 +603,6 @@
                                         <option value="">Nil</option>
                                     </select></td>
                                 <td><input type="number"> </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -558,9 +612,10 @@
                                         <option value="">Nil</option>
                                     </select></td>
                                 <td><input type="number"> </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                 </div>
             </div>
@@ -597,9 +652,9 @@
                                 <td><input type="number" value="20"></td>
                                 <td><input type="number" value="10"></td>
                                 <td><input type="number" value="12"></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="submit" value="update"></td>
                     </table>
                 </div>
                 <!-- Academics section ended -->
@@ -624,7 +679,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a class="name3">Clinical Duty</a>
+                <a class="name3">Clinical Duty</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
@@ -634,9 +689,9 @@
                         <tbody>
                             <tr>
                                 <td><input type="number" value="20"></td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">Post Held</a>
                     <table class="tableContainer">
@@ -656,9 +711,9 @@
                                         <option value="HOD">HOD (Head of Department)</option>
                                     </select>
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">Exam Duties</a>
                     <table class="tableContainer">
@@ -685,7 +740,6 @@
                                         <option value="Nil">Nil</option>
                                     </select>
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>
@@ -703,9 +757,10 @@
                                         <option value="Nil">Nil</option>
                                     </select>
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">Committee</a>
                     <table class="tableContainer">
@@ -727,7 +782,6 @@
                                 <td>
                                     <input type="text" value="real committe">
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>
@@ -735,14 +789,15 @@
                                         <option value="Member">Member</option>
                                         <option value="Coordinator">Coordinator</option>
                                         <option value="Head">Head</option>
-                                    </select>
+                                    </select>                                    
                                 </td>
                                 <td>
                                     <input type="text">
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">Conferences/workshop/CME conducted</a>
                     <table class="tableContainer">
@@ -765,9 +820,8 @@
                                     <select name="creditPoints">
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
-                                    </select>
+                                    </select>                                    
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>
@@ -775,18 +829,19 @@
                                         <option value="Member">Member</option>
                                         <option value="Coordinator">Coordinator</option>
                                         <option value="Head">Head</option>
-                                    </select>
+                                    </select>                                    
                                 </td>
                                 <td>
                                     <select name="creditPoints">
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
                                     </select>
-
+                                    
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                         </tbody>
+                        <td><input type="button" value="add"></td>
+                        <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">Guest Lectures</a>
                     <table class="tableContainer">
@@ -803,33 +858,40 @@
                                 </td>
                                 <td>
                                     <select name="category2">
-                                        <option value="Internal">Internal</option>
-                                        <option value="External">External</option>
+                                        <option value="Internal" selected>Internal</option>
                                         <option value="Nil">Nil</option>
-                                    </select>
+                                    </select>                                
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="number" name="" id="">
+                                    <input type="number" name="" id="">                                  
                                 </td>
                                 <td>
                                     <select name="category2">
-                                        <option value="Internal">Internal</option>
-                                        <option value="External">External</option>
+                                        <option value="External" selected>External</option>
                                         <option value="Nil">Nil</option>
                                     </select>
-
                                 </td>
-                                <td><input type="submit" value="update"></td>
                             </tr>
-                        </tbody>
+                        </tbody>                        
+                        <td><input type="submit" value="update"></td>
                     </table>
                 </div>
                 <!-- Professional section ended -->
             </div>
         </div>
+    <script>
+        let links = document.querySelectorAll('.menuOptions a')
+        links.forEach((e) => {
+            e.addEventListener('click', (event) => {
+                links.forEach(e => {
+                    e.classList.remove('active')
+                })
+                e.classList.add('active')
+            })
+        })
+    </script>
 </body>
 
 </html>
