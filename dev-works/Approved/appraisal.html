@@ -5,17 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        * {
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<style>
         body {
             margin: 0;
             padding: 0;
@@ -164,24 +155,7 @@
             background: #869fff;
         }
 
-        .menuOptions .logout {
-            padding: 10px 20px;
-            background-color: #ff5a5a;
-            border-radius: 25px;
-            color: white;
-            font-size: 24px;
-            margin: 15px auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            font-weight: bold;
-            width: fit-content;
-            transform: scale(1);
-        }
 
-        .menuOptions .logout:hover {
-            background-color: #ff0000;
-            color: white;
-            transform: scale(1.1);
-        }
 
         /* New CSS for showing and hiding sections based on target */
         .hidden-section {
@@ -321,6 +295,63 @@
         .scoreTable td {
             padding: 5px;
         }
+
+@media only screen and (max-width: 768px) {
+    .menu-container {
+        flex-direction: column;
+        min-height: 100%; /* Adjust the height as needed */
+    }
+
+    .menu {
+        width: 100%;
+        max-width: none; /* Reset max-width for smaller screens */
+        margin: 2px 0; /* Adjust margin as needed */
+        height: 5%;
+        display: fixed;
+    }
+    /* Add more adjustments as needed for smaller screens */
+    .name{
+    display: none;
+    }
+    .profileImg{
+    display: none;
+    }
+    .titlebar{
+        height: 8%;
+        display: fixed;
+    }
+    .menuOptions{
+        display: flex;
+        padding: 0%;
+        margin: 0px;
+        border-radius: 8px;  
+        margin-top: 0px;          
+    }
+    .menuOptions a {
+        color: white;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-right: 8px;
+        padding-bottom: 5px;
+        padding-left: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid black;
+        border-radius: 25%;
+        margin: 15px auto;
+        background-color: #1b69ac;
+        font-weight: bold;
+        width: fit-content;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+    .menuOptions .active {
+        color: black;
+        background: #869fff;
+    }
+
+}
+
     </style>
 </head>
 
@@ -338,7 +369,9 @@
                 <a href="#research">Research</a>
                 <a href="#academics">Academics</a>
                 <a href="#professional">Professional</a>
-                <a class="logout">Logout</a>
+                <a title="logout" class="material-symbols-outlined logout">
+                    logout
+                </a>
             </div>
         </div>
         <div class="menu2">
