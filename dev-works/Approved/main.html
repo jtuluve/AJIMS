@@ -131,8 +131,43 @@
         .profile h3 {
             color: black;
         }
+    @media only screen and (max-width:768px){
+            body{
+                padding: 0 0;
+                margin: 0 0;
+                overflow-x: hidden;
+                overflow-y: hidden;
+            }
+            .divisions{
+            display: grid;
+            background: white;
+
+            }
+            .wrapper{
+                display: grid;
+            }
+            .box{
+            display: flex;
+            padding: 5px;
+            padding-right: 70px ;
+            padding-left: 70px;
+            margin: 3px;
+            background-color: #131d38;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+            
+            }
+            .profile{
+            background-color: white;
+            width: fit-content;
+            padding: 25px;
+            margin: 17px;
+            border-radius: 25px;
+            box-shadow: 0 0 8px black;
+            }
+        }
     </style>
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
@@ -165,16 +200,16 @@
                 <img src="./insurance.png" />
                 <a href="">Insurance</a>
             </div>
-
         </div>
-        <div class="profile">
+    </div>
+    <div class="profile">
             <h1>Profile</h1>
-            <hr />
+            <hr>
             <h3>Name: Fake User</h3>
             <h3>Designation: Assistant Professor</h3>
             <h3>Department: Research</h3>
-        </div>
     </div>
+   
 </body>
 
 </html>
