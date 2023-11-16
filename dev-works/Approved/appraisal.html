@@ -155,7 +155,23 @@
             color: black;
             background: #869fff;
         }
+        .menuOptions .logout {
+            padding: 10px 20px;
+            background-color: #ff5a5a;
+            border-radius: 25px;
+            color: white;
+            font-size: 24px;
+            margin: 15px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            font-weight: bold;
+            width: fit-content;
+        }
 
+        .menuOptions .logout:hover {
+            background-color: #ff0000;
+            color:white;
+        }
 
 
         /* New CSS for showing and hiding sections based on target */
@@ -167,71 +183,17 @@
             display: block;
         }
 
-        .menu2:not(:has(.hidden-section:target)) #yourProfile {
+        .menu2:not(:has(.hidden-section:target)) #research {
             display: block;
         }
 
-        .profileform {
-            margin-top: 20px;
-        }
-
-        .profileform form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .profileform label {
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: aliceblue;
-        }
-
-        .profileform input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        #yourProfile,
+       
         #research,
         #academics,
         #professional {
             padding: 20px;
         }
 
-
-        .profileform input[type="submit"] {
-            background-color: #01a701;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            width: fit-content;
-            font-size: 24px;
-            /* Match the font size with the logout button */
-            margin: 20px auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s, transform 0.2s;
-            font-weight: bold;
-            font-family: inherit;
-            /* Use the same font family as the parent element */
-        }
-
-        .profileform input[type="submit"]:hover {
-            background-color: green;
-            transform: scale(1.1);
-        }
-
-        .profileform label {
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 18px;
-            /* Adjust the font size as needed */
-        }
 
         .tableContainer {
             margin-bottom: 5%;
@@ -356,10 +318,8 @@
     }
     body{
         overflow: hidden;
-    }
-    
+    }  
 }
-
     </style>
 </head>
 
@@ -373,35 +333,17 @@
             <img src="user.png" alt="" class="profileImg">
             <span class="name">Username</span>
             <div class="menuOptions">
-                <a class="active" href="#yourProfile">Your Profile</a>
                 <a href="#research">Research</a>
                 <a href="#academics">Academics</a>
                 <a href="#professional">Professional</a>
-                <a title="logout" class="material-symbols-outlined logout">
-                    logout
+                <a class="logout">
+                    Home
                 </a>
             </div>
         </div>
         <div class="menu2">
             <!-- Your hidden sections -->
-            <div id="yourProfile" class="hidden-section">
-                <!-- Content for Your Profile section -->
-                <a class="name2">Your Profile</a>
-                <hr>
-                <div class="profileform">
-                    <form action="profile.php" method="post">
-                        <label for="Name"><b>Name</b></label>
-                        <input type="text" placeholder="Enter Name" name="name" required><!--Name-->
-                        <label for="Designation"><b>Designation</b></label>
-                        <input type="text" placeholder="Enter Designation" name="designation"
-                            required><!--Destination-->
-                        <label for="Department"><b>Department</b></label>
-                        <input type="text" placeholder="Enter Department" name="department" required><!--Department-->
-                        <input type="submit"><!--Submit-->
-                    </form>
-                </div>
-            </div>
-            <!-- Profile section ended -->
+
             <div id="research" class="hidden-section">
                 <!-- Content for Research section -->
                 <a class="name2">Research</a>
