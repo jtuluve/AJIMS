@@ -47,6 +47,11 @@
         .login-container input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .head{
+            font-size: 22px;
+            font-display: underline;
+            background-color: initial;
+        }
 
         /* Media query for mobile responsiveness */
         @media only screen and (max-width: 600px) {
@@ -62,6 +67,8 @@
 </head> 
 <body>
     <div class="login-container">
+        <a class="head">Faculty login</a>
+        <hr>
         <form action="/action_page.php">
             <label for="username"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="username" required>
