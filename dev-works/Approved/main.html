@@ -44,10 +44,9 @@
 
         .titlebar .web-name {
             color: white;
-            font-size: 18px;
+            font-size: 28px;
             font-weight: bold;
-            display: block;
-            margin: auto 10px auto auto;
+            display:flex;
         }
 
         .titlebar .logout {
@@ -131,49 +130,45 @@
         .profile h3 {
             color: black;
         }
+        .title123 {
+    font-size: 24px; /* Adjust the font size as needed */
+    font-weight: bold;
+    text-align: center;
+}
+
+.name123 {
+    font-size: 18px; /* Adjust the font size as needed */
+    font-style: italic;
+    text-align: center;
+}
+
+        
     @media only screen and (max-width:768px){
             body{
                 padding: 0 0;
                 margin: 0 0;
                 overflow-x: hidden;
             }
-            .divisions{
-            display: grid;
-            background: white;
 
-            }
-            .wrapper{
-                display: grid;
-            }
-            .box{
-            display: flex;
-            padding: 5px;
-            padding-right: 70px ;
-            padding-left: 70px;
-            margin: 3px;
-            background-color: #131d38;
-            border-radius: 8px;
-            transition: transform 0.2s ease;
-            
-            }
-            .profile{
-            background-color: white;
-            width: fit-content;
-            padding: 25px;
-            margin: 17px;
-            border-radius: 25px;
-            box-shadow: 0 0 8px black;
-            }
         }
     </style>
-    <title>Dashboard</title>
+    <title>Home</title>
 </head>
 
 <body>
     <div class="titlebar">
         <img src="./logo.jpg" class="logo" />
-        <a class="web-name" href='/'>AJIMS Employees Management</a>
-        <a title="logout" class="material-symbols-outlined logout">
+        <div class="information">
+            <table class="web-data">
+                <tr>
+                    <td class="title123">AJ Institute of Medical Sciences and Research centre</td>
+                </tr>
+                <tr>
+                    <td class="name123">Employee Management System</td>
+                </tr>
+            </table>
+        </div>        
+        <a title="logout" class="material-symbols-outlined logout" name="logout">
             logout
         </a>
     </div>
@@ -197,7 +192,7 @@
             </div>
             <div class="box">
                 <img src="./insurance.png" />
-                <a href="">Insurance</a>
+                <a href="">Faculty Details</a>
             </div>
         </div>
         <div class="profile">
