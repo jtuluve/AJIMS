@@ -83,6 +83,7 @@
             background-color: #131d38;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             border: #000 solid 2px;
+            overflow-x: hidden;
         }
 
         .profileImg {
@@ -144,7 +145,7 @@
             border: 1px solid black;
             border-radius: 50px;
             margin: 5px;
-            background-color: #131d38;
+            background-color: #0c1f53;
         }
 
         .menuOptions a:hover {
@@ -197,7 +198,8 @@
 
         .tableContainer {
             margin-bottom: 5%;
-            margin-left: 3px;
+            margin-left: 0px;
+            
         }
 
         .tables {
@@ -308,6 +310,24 @@
         margin-top: 10%;
         margin-bottom: 10%;
     }
+    .menuOptions .logout{
+        background-color: #ff5a5a;
+        color: white;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-right: 8px;
+        padding-bottom: 5px;
+        padding-left: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid black;
+        border-radius: 25%;
+        margin: 15px auto;
+        font-weight: bold;
+        width: fit-content;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
     .menuOptions .active {
         color: black;
         background: #869fff;
@@ -318,7 +338,9 @@
     }
     body{
         overflow: hidden;
-    }  
+    } 
+     
+
 }
     </style>
 </head>
@@ -639,6 +661,10 @@
                         </tbody>                        
                         <td><input type="submit" value="update"></td>
                     </table>
+                    <div>
+                        <td><input type="submit" value="print"></td>
+                        <td><input type="file" name="" id=""></td>
+                    </div>
                 </div>
                 <!-- Academics section ended -->
             </div>
