@@ -3,7 +3,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   overflow-x: hidden;
   font-family: 'Arial', sans-serif;
   background-image: none;
@@ -24,7 +24,7 @@ a:visited {
   align-items: center;
   background-color: #131d38;
   color: white;
-  height: 15vh;
+  height: 15dvh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   outline: 2px solid #000;
