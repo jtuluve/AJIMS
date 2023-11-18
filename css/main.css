@@ -76,6 +76,7 @@ a:visited {
   text-align: center;
   transition: transform 0.2s ease;
   max-width: 240px;
+  box-sizing: content-box;
 }
 
 .box:hover {
@@ -233,4 +234,5 @@ a:visited {
     font-style: italic;
     text-align: center;
   }
+
 }

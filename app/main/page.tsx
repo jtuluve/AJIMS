@@ -46,16 +46,27 @@ export default function Main() {
 					</div>
 					<div className="box">
 						<img src="/insurance.png" />
-						<a href="">Insurance</a>
+						<a href="">Faculty Details</a>
 					</div>
 
 				</div>
 				<div className="profile">
-					<h1>Profile</h1>
-					<hr />
-					<h3>Name: Fake User</h3>
-					<h3>Designation: Assistant Professor</h3>
-					<h3>Department: Research</h3>
+					<div id="yourProfile" className="hidden-section">
+						<a className="name2">Your Profile</a>
+						<hr />
+						<div className="profileform">
+							<form action="profile.php" method="post">
+								<label htmlFor="Name"><b>Name</b></label>
+								<input type="text" placeholder="Enter Name" name="name" required />
+								<label htmlFor="Designation"><b>Designation</b></label>
+								<input type="text" placeholder="Enter Designation" name="designation"
+									required />
+								<label htmlFor="Department"><b>Department</b></label>
+								<input type="text" placeholder="Enter Department" name="department" required />
+								<input type="submit" />
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 		</>
