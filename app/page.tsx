@@ -30,6 +30,8 @@ export default function Home() {
     <>
 
       <div className="loginContainer">
+        <a className="head">Faculty login</a>
+        <hr />
         <form onSubmit={handleSubmit} method="POST">
           <label htmlFor="id"><b>ID</b></label>
           <input

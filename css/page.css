@@ -40,6 +40,11 @@ body {
 .loginContainer input[type="submit"]:hover {
     background-color: #45a049;
 }
+.head{
+    font-size: 22px;
+    font-display: underline;
+    background-color: initial;
+}
 
 /* Media query for mobile responsiveness */
 @media only screen and (max-width: 600px) {
