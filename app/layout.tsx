@@ -1,6 +1,6 @@
 import "@css/globals.css"
 import Provider from '@components/sessionprovider'
-import { getServerSession } from 'next-auth'
+import { getServerSession } from "next-auth"
 // import { Inter } from 'next/font/google'
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -12,6 +12,7 @@ export const metadata = {
 export default async function RootLayout({ children }) {
 
   const session = await getServerSession()
+  console.log(session)
   return (
     <html lang="en">
       <head>

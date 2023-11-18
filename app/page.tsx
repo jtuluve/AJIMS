@@ -2,41 +2,47 @@
 import '@css/page.css'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
-import { useState, FormEventHandler } from 'react'
+// import { useState, FormEventHandler } from 'react'
 import { RedirectType } from 'next/navigation'
+// import { useRouter } from 'next/router'
+// import { signInWithCredential } from 'firebase/auth'
+// import {handleLogin} from '@/lib/handleactions'
 import { signIn } from 'next-auth/react'
+import { revalidatePath } from 'next/cache'
+import { useState } from 'react'
+
+
+
 export default function Home() {
+
   const { data: session } = useSession()
   if (session) redirect("/main", RedirectType.push)
-  const [userInfo, setUserInfo] = useState({ id: "", password: "" });
-
-  let [wrongCred, setWrongCred] = useState(false)
-  const handleSubmit = async (e) => {
+  const [authStatus, setAuthStatus] = useState(null)
+  
+  const handleLogin = async (formData) => {
     // validate your userinfo
-    e.preventDefault();
-
+    const { id, password } = Object.fromEntries(formData)
+    if (!id || !password) return "what??"
     const res = await signIn("credentials", {
-
-      id: userInfo.id + '@ajims.com',
-      password: userInfo.password,
+      id,
+      password,
       redirect: false
     });
-    if (res?.status == 401) setWrongCred(true)
+    if (res?.status == 401) setAuthStatus("Id and Password doesn't match. Try again.")
     else {
-      setWrongCred(false)
+      setAuthStatus(null)
+      revalidatePath("/")
     }
   };
+
   return (
     <>
 
       <div className="loginContainer">
-        <form onSubmit={handleSubmit} method="POST">
+        <form action={handleLogin} onSubmit={e=>e.preventDefault()}>
           <label htmlFor="id"><b>ID</b></label>
           <input
-            value={userInfo.id}
-            onChange={({ target }) =>
-              setUserInfo({ ...userInfo, id: target.value })
-            }
+            name="id"
             type="text"
             id="id"
             placeholder="id"
@@ -45,16 +51,14 @@ export default function Home() {
 
           <label htmlFor="password"><b>Password</b></label>
           <input
-            value={userInfo.password}
-            onChange={({ target }) =>
-              setUserInfo({ ...userInfo, password: target.value })
-            }
+            name='password'
             type="password"
             id="password"
             placeholder="Enter Password"
+            required
           />
-          {wrongCred && <span color='red'>Wrong Credentials</span>}
-          <input type="submit" value="Login" disabled={(!userInfo.id || !userInfo.password)} />
+          {authStatus && <span color='red'>{authStatus}</span>}
+          <input type="submit" value="Login" />
         </form>
       </div>
     </>
