@@ -57,8 +57,20 @@
             color: #ff4c4c;
             margin-right: 10px;
             cursor: pointer;
+            position: relative;
         }
 
+        .titlebar .logout::after{
+            font-family: none;
+            color: white;
+            content: "logout";
+            position: absolute;
+            top: 100%;
+            width: fit-content;
+            text-align: center;
+            font-size: small;
+            right: 0;
+        }
         /* Main styles */
         .wrapper {
             display: flex;
@@ -135,18 +147,21 @@
             color: black;
         }
 
-        .title123 {
+        .information h2 {
             font-size: 24px;
             /* Adjust the font size as needed */
             font-weight: bold;
             text-align: center;
+            margin: 0;
         }
 
-        .name123 {
+        .information h3 {
             font-size: 18px;
-            /* Adjust the font size as needed */
             font-style: italic;
             text-align: center;
+            font-weight: lighter;
+            margin: 0;
+            margin-top:2px;
         }
 
         .profileform {
@@ -227,14 +242,14 @@
                 display: flex;
             }
 
-            .title123 {
+            .information h2 {
                 font-size: 18px;
                 /* Adjust the font size as needed */
                 font-weight: bold;
                 text-align: center;
             }
 
-            .name123 {
+            .information h3 {
                 font-size: 12px;
                 /* Adjust the font size as needed */
                 font-style: italic;
@@ -250,14 +265,8 @@
     <div class="titlebar">
         <img src="./logo.jpg" class="logo" />
         <div class="information">
-            <table class="web-data">
-                <tr>
-                    <td class="title123">AJ Institute of Medical Sciences and Research centre</td>
-                </tr>
-                <tr>
-                    <td class="name123">Employee Management System</td>
-                </tr>
-            </table>
+            <h2>AJ Institute of Medical Sciences and Research centre</h2>
+            <h3>Employee Management System</h3>
         </div>
         <a title="logout" class="material-symbols-outlined logout" name="logout">
             logout

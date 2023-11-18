@@ -48,8 +48,20 @@ a:visited {
   color: #ff4c4c;
   margin-right: 10px;
   cursor: pointer;
+  position: relative;
 }
 
+.titlebar .logout::after{
+  font-family: none;
+  color: white;
+  content: "logout";
+  position: absolute;
+  top: 100%;
+  width: fit-content;
+  text-align: center;
+  font-size: small;
+  right: 0;
+}
 /* Main styles */
 .wrapper {
   display: flex;
@@ -221,14 +233,14 @@ a:visited {
     display: flex;
   }
 
-  .title123 {
+  .information h2{
     font-size: 18px;
     /* Adjust the font size as needed */
     font-weight: bold;
     text-align: center;
   }
 
-  .name123 {
+  .information h3 {
     font-size: 12px;
     /* Adjust the font size as needed */
     font-style: italic;
