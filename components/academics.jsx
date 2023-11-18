@@ -43,12 +43,18 @@ export default function Academics() {
                                 <td>
                                     <input type="number" defaultValue={12} />
                                 </td>
+                            </tr>
+                            <tr>
                                 <td>
                                     <input type="submit" defaultValue="update" />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div>
+                        <input type="submit" defaultValue="print" />
+                        <input type="file" name="" id="" />
+                    </div>
                 </div>
                 
             </div>

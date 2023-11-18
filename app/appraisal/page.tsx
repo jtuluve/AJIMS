@@ -17,13 +17,13 @@ export default function Dashboard() {
     return (
         <>
             <div className="titlebar">
-                <img src="/logo.png" className="logo" />
+                <img src="/logo.jpg" className="logo" />
                 <a className="web-name">AJIMS Employment Management</a>
             </div>
             <div className="menu-container">
                 <Menu />
                 <div className="menu2">
-                    <Profile />
+                    {/* <Profile /> */}
                     <Research />
                     <Academics />
                     <Professional />

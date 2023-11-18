@@ -7,7 +7,14 @@ body {
   overflow-x: hidden;
   font-family: 'Arial', sans-serif;
   background-image: none;
-  /* Light gray background */
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
 }
 
 .titlebar {
@@ -31,17 +38,18 @@ body {
 }
 
 .titlebar .web-name {
-  font-size: 18px;
+  color: white;
+  font-size: 28px;
   font-weight: bold;
-  display: block;
-  margin: auto 10px auto auto;
+  display: flex;
 }
 
-.titlebar .logout{
-  color:#ff4c4c;
+.titlebar .logout {
+  color: #ff4c4c;
   margin-right: 10px;
   cursor: pointer;
 }
+
 /* Main styles */
 .wrapper {
   display: flex;
@@ -98,13 +106,13 @@ body {
   background-color: white;
   width: 100%;
   padding: 20px;
-  margin:17px;
+  margin: 17px;
   border-radius: 25px;
   box-shadow: 0 0 8px black;
 }
 
 .profile h1 {
-  color:black;
+  color: black;
   align-self: flex-start;
   font-size: 30px;
   margin-left: 1%;
@@ -113,6 +121,116 @@ body {
   font-weight: bold;
   display: block;
 }
-.profile h3{
+
+.profile h3 {
   color: black;
+}
+
+.information h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+
+.information h3 {
+  font-size: 18px;
+  font-style: italic;
+  text-align: center;
+  font-weight: lighter;
+  margin: 0;
+  margin-top:2px;
+}
+
+.profileform {
+  margin-top: 20px;
+}
+
+.profileform form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileform label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: black;
+}
+
+.profileform input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.profileform input[type="submit"] {
+  background-color: #01a701;
+  color: black;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width: fit-content;
+  font-size: 24px;
+  /* Match the font size with the logout button */
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: bold;
+  font-family: inherit;
+  /* Use the same font family as the parent element */
+}
+
+.profileform input[type="submit"]:hover {
+  background-color: green;
+  transform: scale(1.1);
+}
+
+.profileform label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  /* Adjust the font size as needed */
+}
+
+.name2 {
+  color: black;
+  align-self: flex-start;
+  font-size: 30px;
+  margin-left: 1%;
+  position: relative;
+  width: 100%;
+  font-weight: bold;
+  display: block;
+}
+
+
+@media only screen and (max-width:768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .titlebar .web-name {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+  }
+
+  .title123 {
+    font-size: 18px;
+    /* Adjust the font size as needed */
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .name123 {
+    font-size: 12px;
+    /* Adjust the font size as needed */
+    font-style: italic;
+    text-align: center;
+  }
 }

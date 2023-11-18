@@ -2,7 +2,7 @@ export default function Professional() {
     return (
         <>
             <div id="professional" className="hidden-section">
-                {/* Content for Professional section */}
+                
                 <a className="name2">Professional</a>
                 <hr />
                 <div className="tables">
@@ -16,10 +16,10 @@ export default function Professional() {
                         <tbody>
                             <tr>
                                 <td>
-                                    {/*From the database with formulea*/}25{/*Example*/}
+                                    25
                                 </td>
                                 <td>
-                                    {/*From the database with formulea*/}A+{/*Example*/}
+                                    A+
                                 </td>
                             </tr>
                         </tbody>
@@ -36,6 +36,10 @@ export default function Professional() {
                                 <td>
                                     <input type="number" defaultValue={20} />
                                 </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
                                 <td>
                                     <input type="submit" defaultValue="update" />
                                 </td>
@@ -60,6 +64,10 @@ export default function Professional() {
                                         <option value="HOD">HOD (Head of Department)</option>
                                     </select>
                                 </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
                                 <td>
                                     <input type="submit" defaultValue="update" />
                                 </td>
@@ -95,9 +103,6 @@ export default function Professional() {
                                         <option value="Nil">Nil</option>
                                     </select>
                                 </td>
-                                <td>
-                                    <input type="submit" defaultValue="update" />
-                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -118,6 +123,13 @@ export default function Professional() {
                                         <option value="External">External</option>
                                         <option value="Nil">Nil</option>
                                     </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="button" defaultValue="add" />
                                 </td>
                                 <td>
                                     <input type="submit" defaultValue="update" />
@@ -145,9 +157,6 @@ export default function Professional() {
                                 <td>
                                     <input type="text" defaultValue="real committe" />
                                 </td>
-                                <td>
-                                    <input type="submit" defaultValue="update" />
-                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -159,6 +168,13 @@ export default function Professional() {
                                 </td>
                                 <td>
                                     <input type="text" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="button" defaultValue="add" />
                                 </td>
                                 <td>
                                     <input type="submit" defaultValue="update" />
@@ -189,9 +205,6 @@ export default function Professional() {
                                         <option value="no">No</option>
                                     </select>
                                 </td>
-                                <td>
-                                    <input type="submit" defaultValue="update" />
-                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -206,6 +219,13 @@ export default function Professional() {
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
                                     </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="button" defaultValue="add" />
                                 </td>
                                 <td>
                                     <input type="submit" defaultValue="update" />
@@ -228,13 +248,11 @@ export default function Professional() {
                                 </td>
                                 <td>
                                     <select name="category2">
-                                        <option value="Internal">Internal</option>
-                                        <option value="External">External</option>
+                                        <option value="Internal" defaultValue>
+                                            Internal
+                                        </option>
                                         <option value="Nil">Nil</option>
                                     </select>
-                                </td>
-                                <td>
-                                    <input type="submit" defaultValue="update" />
                                 </td>
                             </tr>
                             <tr>
@@ -243,11 +261,16 @@ export default function Professional() {
                                 </td>
                                 <td>
                                     <select name="category2">
-                                        <option value="Internal">Internal</option>
-                                        <option value="External">External</option>
+                                        <option value="External" defaultValue>
+                                            External
+                                        </option>
                                         <option value="Nil">Nil</option>
                                     </select>
                                 </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
                                 <td>
                                     <input type="submit" defaultValue="update" />
                                 </td>
@@ -255,8 +278,9 @@ export default function Professional() {
                         </tbody>
                     </table>
                 </div>
-                {/* Professional section ended */}
+                
             </div>
+
         </>
     )
 }
