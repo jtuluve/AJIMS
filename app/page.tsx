@@ -2,13 +2,8 @@
 import '@css/page.css'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
-// import { useState, FormEventHandler } from 'react'
 import { RedirectType } from 'next/navigation'
-// import { useRouter } from 'next/router'
-// import { signInWithCredential } from 'firebase/auth'
-// import {handleLogin} from '@/lib/handleactions'
 import { signIn } from 'next-auth/react'
-import { revalidatePath } from 'next/cache'
 import { useState } from 'react'
 
 
@@ -16,13 +11,17 @@ import { useState } from 'react'
 export default function Home() {
 
   const { data: session } = useSession()
-  if (session) redirect("/main", RedirectType.push)
+  if (session) redirect("/main", RedirectType.replace)
+
+  //states
+  const [formData, setFormData] = useState({ id: "", password: "" });
   const [authStatus, setAuthStatus] = useState(null)
-  
-  const handleLogin = async (formData) => {
-    // validate your userinfo
-    const { id, password } = Object.fromEntries(formData)
-    if (!id || !password) return "what??"
+
+  //event handlers
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { id, password } = formData
+    if (!id || !password) return setAuthStatus("Fill all details!")
     const res = await signIn("credentials", {
       id,
       password,
@@ -31,21 +30,29 @@ export default function Home() {
     if (res?.status == 401) setAuthStatus("Id and Password doesn't match. Try again.")
     else {
       setAuthStatus(null)
-      revalidatePath("/")
     }
   };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
 
   return (
     <>
 
       <div className="loginContainer">
-        <form action={handleLogin} onSubmit={e=>e.preventDefault()}>
+        <a className="head">Faculty login</a>
+        <hr />
+        <form onSubmit={handleLogin}>
           <label htmlFor="id"><b>ID</b></label>
           <input
             name="id"
             type="text"
             id="id"
             placeholder="id"
+            value={formData.id}
+            onChange={handleChange}
             required
           />
 
@@ -55,9 +62,11 @@ export default function Home() {
             type="password"
             id="password"
             placeholder="Enter Password"
+            value={formData.password}
+            onChange={handleChange}
             required
           />
-          {authStatus && <span color='red'>{authStatus}</span>}
+          {authStatus && <span style={{color:"black",fontSize:"small"}}>{authStatus}</span>}
           <input type="submit" value="Login" />
         </form>
       </div>
