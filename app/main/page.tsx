@@ -4,7 +4,7 @@ import "@css/main.css"
 import { signOut, useSession } from "next-auth/react"
 import { redirect } from 'next/navigation'
 import Form from "@/components/form"
-export default function Main({req}) {
+export default function Main() {
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated: () => redirect("/")
