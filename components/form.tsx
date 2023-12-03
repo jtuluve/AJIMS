@@ -1,5 +1,6 @@
 type inputs = {
   label?: string,
+  name?:string,
   required: boolean
 } & (
     {
@@ -31,9 +32,9 @@ interface formArgs {
 }
 export default function Form(props: formArgs) {
 
-  function SelectComponent({ options }){
+  function SelectComponent({ options, name }: { options: Array<{ label?: string, value: string }>,name:string}){
     return (
-      <select>
+      <select name={name}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label||option.value}
@@ -52,7 +53,7 @@ export default function Form(props: formArgs) {
             {
               e.type === "select" ?
                 <SelectComponent options={(e as selectInput).options} /> :
-                <input type={e.type || "text"} name={e.label} placeholder={(e as otherInput).placeholder || "Enter"} required={e.required || false} />
+                <input type={e.type || "text"} name={e.name||e.label} placeholder={(e as otherInput).placeholder || " "} required={e.required || false} />
             } 
           </span>
         )
