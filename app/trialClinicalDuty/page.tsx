@@ -1,16 +1,12 @@
 "use server"
 import Form from "@/components/form";
-import { addResearchClinicalDuty } from "@/lib/mongoose/functions";
-export async function handleSubmit(formData:FormData){
-    // formData.entries()
-    addResearchClinicalDuty({title:formData.get("Title"),journalName:formData.get("Jouranal Name"),Quartile:formData.get("Quartile"),index:formData.get("Index"),doi:formData.get("DOI"),authorship:formData.get("Authorship")})
-}
+import { handleResearchClinicalDuty } from "@/lib/mongoose/serverActions";
 
 export default async function page() {
     return (
         <>
             {/* name not added which is a must */}
-            <Form submitFunc={handleSubmit} inputs={[
+            <Form submitFunc={handleResearchClinicalDuty} inputs={[
                 {type:"text",label:"Title", placeholder:"Enter title",required:true},
                 {type:"text",label:"Journal Name", placeholder:"Enter Journal Name",required:true},
                 {type:"select",label:"Quartile",required:true,options:[{value:"Q1"},{value:"Q2"},{value:"Q3"},{value:"Q4"},{value:"No quartile"},{value:"Nil"}]},
