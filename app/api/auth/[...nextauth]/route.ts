@@ -4,7 +4,6 @@ import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { FirestoreAdapter } from '@auth/firebase-adapter';
 import { createUserIfNotExists } from '@/lib/mongoose/functions';
 
 const firebaseConfig = {
@@ -50,22 +49,10 @@ const authOptions:AuthOptions = {
     }),
     // other providers
   ],
-  adapter: FirestoreAdapter(app),
-  callbacks: {
-    async session({session, token}) {
-      session.user.uid = token.uid;
-      return session;
-    },
-    async jwt({token, user}) {
-      if (user) {
-        token.uid = user.uid;
-      }
-      return token;
-    },
-  },
+  
   pages: {
-    signIn: '/auth/signin',
-  },
+    signIn: '/',
+  }, 
   session: {
     strategy: "jwt",
   },
