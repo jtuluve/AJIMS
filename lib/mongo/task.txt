@@ -1,5 +1,0 @@
-Create Schema
-Create Model
-
-Create user = User.create()
-
