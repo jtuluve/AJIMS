@@ -1,5 +1,3 @@
-// pages/api/auth/[...nextauth].js
-
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
