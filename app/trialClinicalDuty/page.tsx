@@ -3,12 +3,13 @@ import Form from "@/components/form";
 import { addResearchClinicalDuty } from "@/lib/mongoose/functions";
 export async function handleSubmit(formData:FormData){
     // formData.entries()
-    updateResearchClinicalDuty({title:formData.get("Title"),journalName:formData.get("Jouranal Name"),Quartile:formData.get("Quartile"),index:formData.get("Index"),doi:formData.get("DOI"),authorship:formData.get("Authorship")})
+    addResearchClinicalDuty({title:formData.get("Title"),journalName:formData.get("Jouranal Name"),Quartile:formData.get("Quartile"),index:formData.get("Index"),doi:formData.get("DOI"),authorship:formData.get("Authorship")})
 }
 
 export default async function page() {
     return (
         <>
+            {/* name not added which is a must */}
             <Form submitFunc={handleSubmit} inputs={[
                 {type:"text",label:"Title", placeholder:"Enter title",required:true},
                 {type:"text",label:"Journal Name", placeholder:"Enter Journal Name",required:true},

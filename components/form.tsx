@@ -52,7 +52,7 @@ export default function Form(props: formArgs) {
             <b><label htmlFor={e.label}>{e.label}</label></b>
             {
               e.type === "select" ?
-                <SelectComponent options={(e as selectInput).options} /> :
+                <SelectComponent name={e.name||e.label} options={(e as selectInput).options} /> :
                 <input type={e.type || "text"} name={e.name||e.label} placeholder={(e as otherInput).placeholder || " "} required={e.required || false} />
             } 
           </span>
