@@ -53,7 +53,11 @@ export default function Main({req}) {
 						<a className="name2">Your Profile</a>
 						<hr />
 						<div className="profileform">
-							<Form submitFunc={updateProfile} inputs={[{label:"Name",type:"text",placeholder:"Enter Name",required:true},{label:"Designation",type:"text",placeholder:"Enter Designation",required:true},{label:"Department",type:"text",placeholder:"Enter Department",required:true}]}/>
+							<Form submitFunc={updateProfile} inputs={[
+								{label:"Name",name:"name",type:"text",placeholder:"Enter Name",required:true},
+								{name:"designation", label:"Designation",type:"text",placeholder:"Enter Designation",required:true},
+								{name:"department", label:"Department",type:"text",placeholder:"Enter Department",required:true}
+							]}/>
 						</div>
 					</div>
 				</div>
