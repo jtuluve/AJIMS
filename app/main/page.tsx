@@ -1,17 +1,18 @@
 "use client"
+import {updateProfile} from "@/lib/mongoose/functions"
 import "@css/main.css"
 import { signOut, useSession } from "next-auth/react"
 import { redirect } from 'next/navigation'
+import Form from "@/components/form"
 export default function Main() {
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated: () => redirect("/")
 	})
-
 	if (!session) {
 		redirect("/")
 	}
-
+	
 	return (
 		<>
 			<div className="titlebar">
@@ -55,16 +56,11 @@ export default function Main() {
 						<a className="name2">Your Profile</a>
 						<hr />
 						<div className="profileform">
-							<form action="profile.php" method="post">
-								<label htmlFor="Name"><b>Name</b></label>
-								<input type="text" placeholder="Enter Name" name="name" required />
-								<label htmlFor="Designation"><b>Designation</b></label>
-								<input type="text" placeholder="Enter Designation" name="designation"
-									required />
-								<label htmlFor="Department"><b>Department</b></label>
-								<input type="text" placeholder="Enter Department" name="department" required />
-								<input type="submit" />
-							</form>
+							<Form submitFunc={updateProfile} inputs={[
+								{label:"Name",name:"name",type:"text",placeholder:"Enter Name",required:true},
+								{name:"designation", label:"Designation",type:"text",placeholder:"Enter Designation",required:true},
+								{name:"department", label:"Department",type:"text",placeholder:"Enter Department",required:true}
+							]}/>
 						</div>
 					</div>
 				</div>

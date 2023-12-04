@@ -2,61 +2,72 @@
 import '@css/page.css'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
-import { useState, FormEventHandler } from 'react'
 import { RedirectType } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { useState } from 'react'
+
+
+
 export default function Home() {
+
   const { data: session } = useSession()
-  if (session) redirect("/main", RedirectType.push)
-  const [userInfo, setUserInfo] = useState({ id: "", password: "" });
+  if (session) redirect("/main", RedirectType.replace)
 
-  let [wrongCred, setWrongCred] = useState(false)
-  const handleSubmit = async (e) => {
-    // validate your userinfo
+  //states
+  const [formData, setFormData] = useState({ id: "", password: "" });
+  const [authStatus, setAuthStatus] = useState(null)
+
+  //event handlers
+  const handleLogin = async (e) => {
     e.preventDefault();
-
+    const { id, password } = formData
+    if (!id || !password) return setAuthStatus("Fill all details!")
     const res = await signIn("credentials", {
-
-      id: userInfo.id + '@ajims.com',
-      password: userInfo.password,
+      id,
+      password,
       redirect: false
     });
-    if (res?.status == 401) setWrongCred(true)
+    if (res?.status == 401) setAuthStatus("Id and Password doesn't match. Try again.")
     else {
-      setWrongCred(false)
+      setAuthStatus(null)
     }
   };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+
   return (
     <>
 
       <div className="loginContainer">
         <a className="head">Faculty login</a>
         <hr />
-        <form onSubmit={handleSubmit} method="POST">
+        <form onSubmit={handleLogin}>
           <label htmlFor="id"><b>ID</b></label>
           <input
-            value={userInfo.id}
-            onChange={({ target }) =>
-              setUserInfo({ ...userInfo, id: target.value })
-            }
+            name="id"
             type="text"
             id="id"
             placeholder="id"
+            value={formData.id}
+            onChange={handleChange}
             required
           />
 
           <label htmlFor="password"><b>Password</b></label>
           <input
-            value={userInfo.password}
-            onChange={({ target }) =>
-              setUserInfo({ ...userInfo, password: target.value })
-            }
+            name='password'
             type="password"
             id="password"
             placeholder="Enter Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
           />
-          {wrongCred && <span color='red'>Wrong Credentials</span>}
-          <input type="submit" value="Login" disabled={(!userInfo.id || !userInfo.password)} />
+          {authStatus && <span style={{color:"black",fontSize:"small"}}>{authStatus}</span>}
+          <input type="submit" value="Login" />
         </form>
       </div>
     </>
