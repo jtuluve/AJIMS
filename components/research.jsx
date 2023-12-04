@@ -2,8 +2,9 @@ export default function Research() {
     return (
         <>
             <div id="research" className="hidden-section">
+                
                 <a className="name2">Research</a>
-                <hr/>
+                <hr />
                 <div className="tables">
                     <table className="tableContainer scoreTable">
                         <thead>
@@ -14,12 +15,16 @@ export default function Research() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>25</td>
-                                <td>A+</td>
+                                <td>
+                                    25
+                                </td>
+                                <td>
+                                    A+
+                                </td>
                             </tr>
                         </tbody>
                     </table>
-                    <a className="name3">I. Clinical Duty</a>
+                    <a className="name3">I. Publications</a>
                     <table className="tableContainer">
                         <thead>
                             <tr>
@@ -37,15 +42,15 @@ export default function Research() {
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <input type="text" defaultValue="The real title"/>
+                                    <input type="text" defaultValue="The real title" />
                                 </td>
                                 <td>
-                                    <input type="text" defaultValue="The real Journal"/>
+                                    <input type="text" defaultValue="The real Journal" />
                                 </td>
                                 <td>
                                     <select name="quartile" id="quartile">
                                         <option value="">Q1</option>
-                                        <option value="">
+                                        <option value="" defaultValue>
                                             Q2
                                         </option>
                                         <option value="">Q3</option>
@@ -64,14 +69,15 @@ export default function Research() {
                                         <option value="SCI">SCI</option>
                                         <option value="DC">DC</option>
                                         <option value="Expanded Embase">Expanded Embase</option>
-                                        <option value="Scopus">
+                                        <option value="Scopus" defaultValue>
                                             Scopus
                                         </option>
                                         <option value="DoAJ">DoAJ</option>
+                                        <option value="">Nil</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" defaultValue="The real DOI"/>{" "}
+                                    <input type="text" defaultValue="The real DOI" />
                                 </td>
                                 <td>
                                     <select name="category" readOnly="">
@@ -82,19 +88,16 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="file" name="" id=""/>
-                                </td>
-                                <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="file" name="" id="" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>
-                                    <input type="text" required=""/>
+                                    <input type="text" required="" />
                                 </td>
                                 <td>
-                                    <input type="text" required=""/>
+                                    <input type="text" required="" />
                                 </td>
                                 <td>
                                     <select name="quartile" id="quartile">
@@ -119,7 +122,7 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text"/>
+                                    <input type="text" />
                                 </td>
                                 <td>
                                     <select name="category">
@@ -130,10 +133,17 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="file" name="" id=""/>
+                                    <input type="file" name="" id="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="button" defaultValue="add" />
                                 </td>
                                 <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="submit" defaultValue="update" />
                                 </td>
                             </tr>
                         </tbody>
@@ -154,18 +164,18 @@ export default function Research() {
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <input type="text" defaultValue="The real title"/>
+                                    <input type="text" defaultValue="The real title" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Applied"/>
+                                    <input type="number" defaultValue="Applied" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Recieved"/>
+                                    <input type="number" defaultValue="Recieved" />
                                 </td>
                                 <td>
                                     <select name="Amount Category" id="Amount Category">
                                         <option value="">upto 1 lakh</option>
-                                        <option value="">
+                                        <option value="" defaultValue>
                                             1 - 5 lakhs
                                         </option>
                                         <option value="">5 - 10 lakhs</option>
@@ -175,27 +185,24 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="file" name="" id=""/>
-                                </td>
-                                <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="file" name="" id="" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>
-                                    <input type="text" defaultValue="The real title"/>
+                                    <input type="text" defaultValue="The real title" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Applied"/>
+                                    <input type="number" defaultValue="Applied" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Recieved"/>
+                                    <input type="number" defaultValue="Recieved" />
                                 </td>
                                 <td>
                                     <select name="Amount Category" id="Amount Category">
                                         <option value="">upto 1 lakh</option>
-                                        <option value="">
+                                        <option value="" defaultValue>
                                             1 - 5 lakhs
                                         </option>
                                         <option value="">5 - 10 lakhs</option>
@@ -205,10 +212,17 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="file" name="" id=""/>
+                                    <input type="file" name="" id="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="button" defaultValue="add" />
                                 </td>
                                 <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="submit" defaultValue="update" />
                                 </td>
                             </tr>
                         </tbody>
@@ -239,9 +253,6 @@ export default function Research() {
                                         <option value="">International</option>
                                     </select>
                                 </td>
-                                <td>
-                                    <input type="submit" defaultValue="update"/>
-                                </td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -259,8 +270,15 @@ export default function Research() {
                                         <option value="">International</option>
                                     </select>
                                 </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
                                 <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="button" defaultValue="add" />
+                                </td>
+                                <td>
+                                    <input type="submit" defaultValue="update" />
                                 </td>
                             </tr>
                         </tbody>
@@ -286,10 +304,7 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number"/>
-                                </td>
-                                <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="number" />
                                 </td>
                             </tr>
                             <tr>
@@ -303,10 +318,17 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number"/>
+                                    <input type="number" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="button" defaultValue="add" />
                                 </td>
                                 <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="submit" defaultValue="update" />
                                 </td>
                             </tr>
                         </tbody>
@@ -331,10 +353,7 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number"/>{" "}
-                                </td>
-                                <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="number" />
                                 </td>
                             </tr>
                             <tr>
@@ -347,17 +366,23 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number"/>{" "}
+                                    <input type="number" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="button" defaultValue="add" />
                                 </td>
                                 <td>
-                                    <input type="submit" defaultValue="update"/>
+                                    <input type="submit" defaultValue="update" />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </>
     )
 }

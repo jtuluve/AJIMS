@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: flex-start; /* Aligns to the start (left) */
     align-items: center;
-    height: 100vh;
+    height: 100dvh;
     margin: 0;
 } 
 .loginContainer {
@@ -39,6 +39,11 @@ body {
 }
 .loginContainer input[type="submit"]:hover {
     background-color: #45a049;
+}
+.head{
+    font-size: 22px;
+    font-display: underline;
+    background-color: initial;
 }
 
 /* Media query for mobile responsiveness */

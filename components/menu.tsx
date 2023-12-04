@@ -10,10 +10,7 @@ export default function Menu() {
                 <img src="user.png" alt="" className="profileImg" />
                 <span className="name">Username</span>
                 <div className="menuOptions">
-                    <a className="active" href="#yourProfile">
-                        Your Profile
-                    </a>
-                    <a href="#research">
+                    <a href="#research" className="active">
                         Research
                     </a>
                     <a href="#academics">
@@ -22,7 +19,7 @@ export default function Menu() {
                     <a href="#professional">
                         Professional
                     </a>
-                    <a className="logout" onClick={()=>signOut()}>Logout</a>
+                    <a className="logout" href="/main">Home</a>
                 </div>
             </div>
 

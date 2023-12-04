@@ -3,8 +3,9 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    overflow-x: auto;
+    height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 * {
@@ -25,7 +26,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #04559b;
+    background-color: #131d38;
     color: white;
     height: 10%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -54,7 +55,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #04559b;
+    background-color: #131d38;
     color: white;
     margin: 0 2px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -70,9 +71,10 @@ body {
     overflow: auto;
     border-radius: 5px;
     margin-right: 2px;
-    background-color: #04559b;
+    background-color: #131d38;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border: #000 solid 2px;
+    overflow-x: hidden;
 }
 
 .profileImg {
@@ -134,7 +136,7 @@ body {
     border: 1px solid black;
     border-radius: 50px;
     margin: 5px;
-    background-color: #1b69ac;
+    background-color: #0c1f53;
 }
 
 .menuOptions a:hover {
@@ -154,16 +156,16 @@ body {
     font-size: 24px;
     margin: 15px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
     font-weight: bold;
     width: fit-content;
-    transform: scale(1);
 }
 
 .menuOptions .logout:hover {
     background-color: #ff0000;
     color: white;
-    transform: scale(1.1);
 }
+
 
 /* New CSS for showing and hiding sections based on target */
 .hidden-section {
@@ -174,35 +176,11 @@ body {
     display: block;
 }
 
-.menu2:not(:has(.hidden-section:target)) #yourProfile {
+.menu2:not(:has(.hidden-section:target)) #research {
     display: block;
 }
 
-.profileform {
-    margin-top: 20px;
-}
 
-.profileform form {
-    display: flex;
-    flex-direction: column;
-}
-
-.profileform label {
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: aliceblue;
-}
-
-.profileform input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-#yourProfile,
 #research,
 #academics,
 #professional {
@@ -210,45 +188,16 @@ body {
 }
 
 
-.profileform input[type="submit"] {
-    background-color: #01a701;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    width: fit-content;
-    font-size: 24px;
-    /* Match the font size with the logout button */
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s, transform 0.2s;
-    font-weight: bold;
-    font-family: inherit;
-    /* Use the same font family as the parent element */
-}
-
-.profileform input[type="submit"]:hover {
-    background-color: green;
-    transform: scale(1.1);
-}
-
-.profileform label {
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-size: 18px;
-    /* Adjust the font size as needed */
-}
-
 .tableContainer {
     margin-bottom: 5%;
-    margin-left: 3px;
+    margin-left: 0px;
+
 }
 
-.tables {
+.tables{
     overflow: auto;
+    padding-bottom: 20px;
 }
-
 .name3 {
     color: white;
     font-size: 20px;
@@ -266,7 +215,7 @@ body {
 }
 
 thead {
-    background-color: #4472c4;
+    background-color: #132557;
     color: white;
 }
 
@@ -302,4 +251,98 @@ tbody tr:hover {
 
 .scoreTable td {
     padding: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    .menu-container {
+        flex-direction: column;
+        /* Adjust the height as needed */
+        height: 92%;
+    }
+
+    .menu {
+        width: 100%;
+        max-width: none;
+        /* Reset max-width for smaller screens */
+        margin: 2px 0;
+        /* Adjust margin as needed */
+        height: 5%;
+        display: fixed;
+    }
+
+    /* Add more adjustments as needed for smaller screens */
+    .name {
+        display: none;
+    }
+
+    .profileImg {
+        display: none;
+    }
+
+    .titlebar {
+        height: 8%;
+        display: fixed;
+    }
+
+    .menuOptions {
+        display: flex;
+        padding: 0%;
+        margin: 0px;
+        border-radius: 8px;
+        margin-top: 0px;
+    }
+
+    .menuOptions a {
+        color: white;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-right: 8px;
+        padding-bottom: 5px;
+        padding-left: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid black;
+        border-radius: 25%;
+        margin: 15px auto;
+        background-color: #131d30;
+        font-weight: bold;
+        width: fit-content;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .menuOptions .logout {
+        background-color: #ff5a5a;
+        color: white;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-right: 8px;
+        padding-bottom: 5px;
+        padding-left: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid black;
+        border-radius: 25%;
+        margin: 15px auto;
+        font-weight: bold;
+        width: fit-content;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .menuOptions .active {
+        color: black;
+        background: #869fff;
+    }
+
+    .menu2 {
+        height: 100%;
+
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+
 }

@@ -17,7 +17,10 @@ export default function Main() {
 		<>
 			<div className="titlebar">
 				<img src="/logo.jpg" className="logo" />
-				<a className="web-name" href='/'>AJIMS Employees Management</a>
+				<div className="information">
+					<h2>AJ Institute of Medical Sciences and Research centre</h2>
+					<h3>Employee Management System</h3>
+				</div>
 				<a title="logout" className="material-symbols-outlined logout"
 					onClick={() => signOut()}
 				>
@@ -44,7 +47,7 @@ export default function Main() {
 					</div>
 					<div className="box">
 						<img src="/insurance.png" />
-						<a href="">Insurance</a>
+						<a href="">Faculty Details</a>
 					</div>
 
 				</div>
