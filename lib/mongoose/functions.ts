@@ -124,8 +124,7 @@ export async function connectToDB() {
     }
 }
 
-//update methods
-
+//profile update method
 export async function updateProfile(formdata: FormData) {
     const profile = {
         name: formdata.get("name") as string,
@@ -144,6 +143,7 @@ export async function updateProfile(formdata: FormData) {
     }
 }
 
+/*** ADD METHODS ***/
 //appraisal>research functions
 export async function addResearchClinicalDuty(clinicalDuty, uid?) {
     if (!uid) uid = await getUid();
@@ -324,5 +324,76 @@ export async function addProfessionalGuestLectures(guestLectures, uid?) {
     }catch(err){
         console.log(err?.msg||err?.message||err);
         return false;
+    }
+}
+
+
+/* Mongodb update functions */
+//appraisal->research->clinicalduty
+export async function updateResearchClinicalDuty(duty, _id, uid?) {
+    try{
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+
+        const user = await getUser(uid)
+        if(!user) throw "User not found";
+        let index = user.appraisal.research.clinicalDuty.findIndex(item => item._id == _id);
+        if(index == -1) throw "Clinical Duty not found";
+        user.appraisal.research.clinicalDuty[index].duty = [...(user.appraisal.research.clinicalDuty[index]), ...duty];
+        user.save();
+        return true;
+    }catch(err){
+
+    }
+}
+
+//appraisal->research->grants
+export async function updateResearchGrants(grants, _id, uid?) {
+    try{
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+
+        const user = await getUser(uid)
+        if(!user) throw "User not found";
+        let index = user.appraisal.research.grants.findIndex(item => item._id == _id);
+        if(index == -1) throw "Research Grant not found";
+        user.appraisal.research.grants[index] = [...(user.appraisal.research.grants[index]), ...grants];
+    }catch(err){
+        console.log(err?.msg||err.message||err)
+    }
+}
+
+//appraisal->research->books
+export async function updateResearchBooks(book, _id, uid?) {
+    try{
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+
+        const user = await getUser(uid)
+        if(!user) throw "User not found";
+        let index = user.appraisal.research.books.findIndex(item => item._id == _id);
+        if(index == -1) throw "Research Book not found";
+        user.appraisal.research.books[index] = [...(user.appraisal.research.books[index]), ...book];
+    }catch(err){
+        console.log(err?.msg||err?.message||err)
+    }
+}
+
+//appraisal->research->guidance
+export async function updateResearchGuidance(guidance, _id, uid?) {
+    try{
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        let index = user.appraisal.research.guidance.findIndex(item => item._id == _id);
+        if(index == -1) throw "Research Guidance not found";
+        user.appraisal.research.guidance[index] = [...(user.appraisal.research.guidance[index]), ...guidance];
+    }catch(err){
+        console.log(err?.msg||err?.message||err);
     }
 }
