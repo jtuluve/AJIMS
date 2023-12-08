@@ -150,6 +150,7 @@ const userSchema = new mongoose.Schema({
   name: {type: String },
   email:{type: String, required:true, unique:true},
   uid: {type: String, required: true, unique: true },
+  isAdmin: {type: Boolean, default: false},
   designation: { type: String },
   department: { type: String },
   category: { type: String },

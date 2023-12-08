@@ -5,16 +5,19 @@ import User from "./model"
 var isConnected = false;
 var isInitialized = false;
 //basic functions
-export async function createUserIfNotExists({ email, uid }: { email?, uid?}) {
+export async function createUserIfNotExists({ email, uid }: { email?, uid}) {
     await initializeDb()
     email = email || await getEmail()
     try {
-        const user = uid?await User.findOne({ email, uid }):await User.findOne({ email })
+        const user = await User.findOne({ email, uid }) || await User.findOne({ uid })
         if (!user) {
             await User.create({ uid, email })
                 .then(() => console.log("User created"))
                 .catch(err => { throw err })
+            return true;
         }
+        user.email = email;
+        user.save();
         return true;
     } catch {
         console.log("Error occured while creating user")
@@ -52,7 +55,7 @@ async function verifyUid(uid) {
     return uid == await getUid()
 }
 
-async function getUser(uid?){
+async function getUser(uid){
     try{
         return await User.findOne({uid})
     }catch{
@@ -96,7 +99,7 @@ async function initializeDb() {
     try {
         if(isInitialized) throw "Initialized"
         await connectToDB();
-        await createUserIfNotExists({});
+        await createUserIfNotExists({uid:(await getUid())});
         await defaultUser();
         isInitialized = true;
         return true;
