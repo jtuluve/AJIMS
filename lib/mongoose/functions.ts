@@ -5,7 +5,7 @@ import User from "./model"
 var isConnected = false;
 var isInitialized = false;
 //basic functions
-export async function createUserIfNotExists({ email, uid }: { email?, uid}) {
+export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
     await initializeDb()
     email = email || await getEmail()
     try {
@@ -55,10 +55,10 @@ async function verifyUid(uid) {
     return uid == await getUid()
 }
 
-async function getUser(uid){
-    try{
-        return await User.findOne({uid})
-    }catch{
+async function getUser(uid) {
+    try {
+        return await User.findOne({ uid })
+    } catch {
         console.log("Error occured while getting user");
         return false;
     }
@@ -97,14 +97,14 @@ async function defaultUser() {
 
 async function initializeDb() {
     try {
-        if(isInitialized) throw "Initialized"
+        if (isInitialized) throw "Initialized"
         await connectToDB();
-        await createUserIfNotExists({uid:(await getUid())});
+        await createUserIfNotExists({ uid: (await getUid()) });
         await defaultUser();
         isInitialized = true;
         return true;
-    } catch(err) {
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -162,7 +162,7 @@ export async function addResearchClinicalDuty(clinicalDuty, uid?) {
 }
 
 export async function addReserchGrants(grants, uid?) {
-    try{
+    try {
         if (!uid) uid = await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         await initializeDb();
@@ -171,75 +171,75 @@ export async function addReserchGrants(grants, uid?) {
         const res = user.appraisal.research.grants.push(grants);
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err)
+    } catch (err) {
+        console.log(err?.msg || err)
         return false
     }
 }
 
 export async function addResearchBooks(book, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.research.books.push(book);
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
 export async function addResearchGuidance(guidance, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.research.guidance.push(guidance);
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
 export async function addResearchConferences(conference, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.research.conferences.push(conference);
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
 
 //appraisal>academics functions
 export async function addAcademicsTeaching(teaching, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.academics.teaching = teaching;
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -247,82 +247,82 @@ export async function addAcademicsTeaching(teaching, uid?) {
 
 //appraisal>professional functions
 export async function addProfessionalClinicalDuty(clinicalDuty, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.professional.clinicalDuty = clinicalDuty;
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
 export async function addProfessionalPostHeld(postHeld, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.professional.postHeld = postHeld;
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
 export async function addProfessionalExamDuties(examDuties, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.professional.examDuties.push(examDuties)
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
 export async function addProfessionalCommittee(committee, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.professional.committee.push(committee);
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
 export async function addProfessionalGuestLectures(guestLectures, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         user.appraisal.professional.guestLectures = guestLectures;
         user.save();
         return true;
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -331,69 +331,351 @@ export async function addProfessionalGuestLectures(guestLectures, uid?) {
 /* Mongodb update functions */
 //appraisal->research->clinicalduty
 export async function updateResearchClinicalDuty(duty, _id, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         let index = user.appraisal.research.clinicalDuty.findIndex(item => item._id == _id);
-        if(index == -1) throw "Clinical Duty not found";
+        if (index == -1) throw "Clinical Duty not found";
         user.appraisal.research.clinicalDuty[index].duty = [...(user.appraisal.research.clinicalDuty[index]), ...duty];
         user.save();
         return true;
-    }catch(err){
+    } catch (err) {
 
     }
 }
 
 //appraisal->research->grants
 export async function updateResearchGrants(grants, _id, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         let index = user.appraisal.research.grants.findIndex(item => item._id == _id);
-        if(index == -1) throw "Research Grant not found";
+        if (index == -1) throw "Research Grant not found";
         user.appraisal.research.grants[index] = [...(user.appraisal.research.grants[index]), ...grants];
-    }catch(err){
-        console.log(err?.msg||err.message||err)
+    } catch (err) {
+        console.log(err?.msg || err.message || err)
     }
 }
 
 //appraisal->research->books
 export async function updateResearchBooks(book, _id, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         let index = user.appraisal.research.books.findIndex(item => item._id == _id);
-        if(index == -1) throw "Research Book not found";
+        if (index == -1) throw "Research Book not found";
         user.appraisal.research.books[index] = [...(user.appraisal.research.books[index]), ...book];
-    }catch(err){
-        console.log(err?.msg||err?.message||err)
+    } catch (err) {
+        console.log(err?.msg || err?.message || err)
     }
 }
 
 //appraisal->research->guidance
 export async function updateResearchGuidance(guidance, _id, uid?) {
-    try{
+    try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if(!user) throw "User not found";
+        if (!user) throw "User not found";
         let index = user.appraisal.research.guidance.findIndex(item => item._id == _id);
-        if(index == -1) throw "Research Guidance not found";
+        if (index == -1) throw "Research Guidance not found";
         user.appraisal.research.guidance[index] = [...(user.appraisal.research.guidance[index]), ...guidance];
-    }catch(err){
-        console.log(err?.msg||err?.message||err);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
     }
 }
+
+//appraisal->research->conferences
+export async function updateResearchConferences(conference, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        let index = user.appraisal.research.conferences.findIndex(item => item._id == _id);
+        if (index == -1) throw "Research Conference not found";
+        user.appraisal.research.conferences[index] = [...(user.appraisal.research.conferences[index]), ...conference];
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->academics->teaching
+export async function updateAcademicsTeaching(teaching, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        user.appraisal.academics.teaching = {...(user.appraisal.academics.teaching), ...teaching};
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->clinicalDuty
+export async function updateProfessionalClinicalDuty(clinicalDuty, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        user.appraisal.professional.clinicalDuty = {...(user.appraisal.professional.clinicalDuty), ...clinicalDuty};
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->postHeld
+export async function updateProfessionalPostHeld(postHeld, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        user.appraisal.professional.postHeld = {...(user.appraisal.professional.postHeld), ...postHeld};
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->examDuties (array)
+export async function updateProfessionalExamDuties(examDuties, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        user.appraisal.professional.examDuties = user.appraisal.professional.examDuties||[]
+        user.appraisal.professional.examDuties.push(examDuties);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+
+//appraisal->professional->committee (array)
+export async function updateProfessionalCommittee(committee, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        user.appraisal.professional.committee = user.appraisal.professional.committee||[]
+        user.appraisal.professional.committee.push(committee);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+
+//appraisal->professional->conferences (array)
+export async function updateProfessionalConferences(conference, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        user.appraisal.professional.conferences = user.appraisal.professional.conferences||[]
+        user.appraisal.professional.conferences.push(conference);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->guestLectures (array)
+export async function updateProfessionalGuestLectures(lecture, _id, uid?) {
+    try {
+        await initializeDb();
+        uid = uid || await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
+        const user = await getUser(uid);
+        if (!user) throw "User not found";
+        user.appraisal.professional.guestLectures = user.appraisal.professional.guestLectures||[]
+        user.appraisal.professional.guestLectures.push(lecture);
+    } catch (err) {
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+
+
+
+
+/* FUNCTIONS TO RETRIEVE DATA */
+//appraisal->research->clinicalDuty
+export async function getResearchClinicalDuty(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.research.clinicalDuty.find(d=>d._id==_id):user.appraisal.research.clinicalDuty;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->research->grants
+export async function getResearchGrants(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.research.grants.find(d=>d._id==_id):user.appraisal.research.grants;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->research->books
+export async function getResearchBooks(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.research.books.find(d=>d._id==_id):user.appraisal.research.books;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->research->guidance
+export async function getResearchGuidance(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.research.guidance.find(d=>d._id==_id):user.appraisal.research.guidance;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->research->conferences
+export async function getResearchConferences(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.research.conferences.find(d=>d._id==_id):user.appraisal.research.conferences;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->academics->teaching (object)
+export async function getAcademicsTeaching(uid?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return user.appraisal.academics.teaching;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->clinicalDuty (object)
+export async function getProfessionalClinicalDuty(uid?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return user.appraisal.professional.clinicalDuty;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->postHeld (object)
+export async function getProfessionalPostHeld(uid?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return user.appraisal.professional.postHeld;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->examDuties
+export async function getProfessionalExamDuties(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.professional.examDuties.find(exam => exam._id === _id):user.appraisal.professional.examDuties;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->committee
+export async function getProfessionalCommittee(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.professional.committee.find(comm => comm._id === _id):user.appraisal.professional.committee;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->conferences
+export async function getProfessionalConferences(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.professional.conferences.find(con => con._id === _id):user.appraisal.professional.conferences;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
+//appraisal->professional->guestLectures
+export async function getProfessionalGuestLectures(uid?:string,_id?:string){
+    if(!uid) uid = await getUid();
+    try{
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.professional.guestLectures.find(gu => gu._id === _id):user.appraisal.professional.guestLectures;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
+
