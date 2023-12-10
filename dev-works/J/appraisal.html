@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Appraisal</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-<style>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
         body {
             margin: 0;
             padding: 0;
@@ -156,6 +157,7 @@
             color: black;
             background: #869fff;
         }
+
         .menuOptions .logout {
             padding: 10px 20px;
             background-color: #ff5a5a;
@@ -171,7 +173,7 @@
 
         .menuOptions .logout:hover {
             background-color: #ff0000;
-            color:white;
+            color: white;
         }
 
 
@@ -188,7 +190,7 @@
             display: block;
         }
 
-       
+
         #research,
         #academics,
         #professional {
@@ -199,7 +201,7 @@
         .tableContainer {
             margin-bottom: 5%;
             margin-left: 0px;
-            
+
         }
 
         .tables {
@@ -261,93 +263,228 @@
             padding: 5px;
         }
 
-@media only screen and (max-width: 768px) {
-    .menu-container {
-        flex-direction: column;/* Adjust the height as needed */
-        height: 92%;
-    }
+        @media only screen and (max-width: 768px) {
+            .menu-container {
+                flex-direction: column;
+                /* Adjust the height as needed */
+                height: 92%;
+            }
 
-    .menu {
-        width: 100%;
-        max-width: none; /* Reset max-width for smaller screens */
-        margin: 2px 0; /* Adjust margin as needed */
-        height: 5%;
-        display: fixed;
-    }
-    /* Add more adjustments as needed for smaller screens */
-    .name{
-    display: none;
-    }
-    .profileImg{
-    display: none;
-    }
-    .titlebar{
-        height: 8%;
-        display: fixed;
-    }
-    .menuOptions{
-        display: flex;
-        padding: 0%;
-        margin: 0px;
-        border-radius: 8px;  
-        margin-top: 0px;          
-    }
-    .menuOptions a {
-        color: white;
-        font-size: 15px;
-        padding-top: 5px;
-        padding-right: 8px;
-        padding-bottom: 5px;
-        padding-left: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        border: 1px solid black;
-        border-radius: 25%;
-        margin: 15px auto;
-        background-color: #131d30;
-        font-weight: bold;
-        width: fit-content;
-        margin-top: 10%;
-        margin-bottom: 10%;
-    }
-    .menuOptions .logout{
-        background-color: #ff5a5a;
-        color: white;
-        font-size: 15px;
-        padding-top: 5px;
-        padding-right: 8px;
-        padding-bottom: 5px;
-        padding-left: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        border: 1px solid black;
-        border-radius: 25%;
-        margin: 15px auto;
-        font-weight: bold;
-        width: fit-content;
-        margin-top: 10%;
-        margin-bottom: 10%;
-    }
-    .menuOptions .active {
-        color: black;
-        background: #869fff;
-    }
-    .menu2{
-        height: 100%;
-    
-    }
-    body{
-        overflow: hidden;
-    } 
-     
+            .menu {
+                width: 100%;
+                max-width: none;
+                /* Reset max-width for smaller screens */
+                margin: 2px 0;
+                /* Adjust margin as needed */
+                height: 5%;
+                display: fixed;
+            }
 
-}
+            /* Add more adjustments as needed for smaller screens */
+            .name {
+                display: none;
+            }
+
+            .profileImg {
+                display: none;
+            }
+
+            .titlebar {
+                height: 8%;
+                display: fixed;
+            }
+
+            .menuOptions {
+                display: flex;
+                padding: 0%;
+                margin: 0px;
+                border-radius: 8px;
+                margin-top: 0px;
+            }
+
+            .menuOptions a {
+                color: white;
+                font-size: 15px;
+                padding-top: 5px;
+                padding-right: 8px;
+                padding-bottom: 5px;
+                padding-left: 8px;
+                cursor: pointer;
+                text-decoration: none;
+                border: 1px solid black;
+                border-radius: 25%;
+                margin: 15px auto;
+                background-color: #131d30;
+                font-weight: bold;
+                width: fit-content;
+                margin-top: 10%;
+                margin-bottom: 10%;
+            }
+
+            .menuOptions .logout {
+                background-color: #ff5a5a;
+                color: white;
+                font-size: 15px;
+                padding-top: 5px;
+                padding-right: 8px;
+                padding-bottom: 5px;
+                padding-left: 8px;
+                cursor: pointer;
+                text-decoration: none;
+                border: 1px solid black;
+                border-radius: 25%;
+                margin: 15px auto;
+                font-weight: bold;
+                width: fit-content;
+                margin-top: 10%;
+                margin-bottom: 10%;
+            }
+
+            .menuOptions .active {
+                color: black;
+                background: #869fff;
+            }
+
+            .menu2 {
+                height: 100%;
+
+            }
+
+            body {
+                overflow: hidden;
+            }
+        }
+
+        .table {
+            display: grid;
+            outline: 1px solid gray;
+            background-color: #f0f0f0;
+        }
+
+        .table>* {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr) 50px;
+        }
+
+        .table-header h4,
+        .table-row span {
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .table-header h4 {
+            background-color: #132557;
+            color:white;
+        }
+
+        .table-row {
+            background-color: #cfd5ea;
+            color: black;
+        }
+
+        .table-row input.edit {
+            cursor: pointer;
+            background-color: #00c400;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .table-row input.edit:hover {
+            background-color: #037a04;
+        }
+
+        .table-row span:hover {
+            background-color: #c4c4c4;
+        }
+
+
+
+        /*.formWrapper form style*/
+
+        .formWrapper {
+            z-index: 1;
+            display: none;
+            height: 100%;
+            background: #131d38;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: sticky;
+            overflow: auto;
+        }
+
+        .formWrapper form {
+            padding: 20px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .formWrapper form>span {
+            margin-bottom: 15px;
+        }
+
+        .formWrapper form .title {
+            color: white;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .formWrapper form label {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .formWrapper form input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+        }
+
+        .formWrapper form .value {
+            display: none;
+        }
+
+        .formWrapper form .edit {
+            display: none;
+        }
+
+        .formWrapper form input[type="file"]{
+            color:white;
+        }
+        .formWrapper form input.submit{
+            width:20%;
+            background-color: #05d705;
+            color: black;
+            cursor: pointer;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .formWrapper form button.cancel{
+            width:20%;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <div class="titlebar">
-        <img src="logo.jpg" class="logo" >
+        <img src="logo.jpg" class="logo">
         <a class="web-name">AJIMS Employment Management</a>
     </div>
     <div class="menu-container">
@@ -365,7 +502,67 @@
         </div>
         <div class="menu2">
             <!-- Your hidden sections -->
+            <div class="formWrapper">
+                <form action="#" method="post" id="columnForm">
 
+                    <span>
+                        <h2 class="title">Edit Information</h2>
+                        <label for="title">Title:</label>
+
+                        <input type="text" id="title" name="title" placeholder="Enter Title" required>
+                        
+                    </span>
+
+                    <span>
+                        <label for="journal">Journal Name:</label>
+                        <input type="text" id="journal" name="journal" placeholder="Enter Journal name" required>
+                        
+                    </span>
+
+                    <span>
+                        <label for="quartile">Quartile:</label>
+                        <select name="quartile" id="quartile">
+                            <option value="">Q1</option>
+                            <option value="">Q2</option>
+                            <option value="">Q3</option>
+                            <option value="">Q4</option>
+                            <option value="">No quartile</option>
+                            <option value="">Nil</option>
+                        </select>
+                        
+                    </span>
+
+                    <span>
+                        <label for="index">Index:</label>
+                        <input placeholder="Enter Index" type="text" id="index" name="index">
+                    </span>
+                    </span>
+
+                    <span>
+                        <label for="doi">DOI:</label>
+                        <input placeholder="Enter DOI" type="text" id="doi" name="doi" required>
+                    </span>
+                    </span>
+
+                    <span>
+                        <label for="authorship">Authorship:</label>
+                        <input placeholder="Enter Authorship" type="text" id="authorship" name="authorship">
+                    </span>
+                    </span>
+
+                    <span>
+                        <label for="uploads">Uploads:</label>
+                        <input type="file" id="uploads" name="uploads">
+                    </span>
+
+                    <span>
+                        <input type="button" value="edit" class="edit">
+                        <input type="submit" value="UPDATE" class="submit">
+                        <button class="cancel" id="cancelButton">CANCEL</button>
+                    </span>
+
+                </form>
+            </div>
             <div id="research" class="hidden-section">
                 <!-- Content for Research section -->
                 <a class="name2">Research</a>
@@ -386,89 +583,27 @@
                         </tbody>
                     </table>
                     <a class="name3">I. Publications</a>
-                    <table class="tableContainer">
-                        <thead>
-                            <tr>
-                                <th style="min-width: 3ch">Sr. No.</th>
-                                <th>Title</th>
-                                <th>Journal Name</th>
-                                <th>Quartile</th>
-                                <th>Index</th>
-                                <th>DOI</th>
-                                <th>Authorship</th>
-                                <th>Uploads</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><input type="text" value="The real title"></td>
-                                <td><input type="text" value="The real Journal"></td>
-                                <td><select name="quartile" id="quartile">
-                                        <option value="">Q1</option>
-                                        <option value="" selected>Q2</option>
-                                        <option value="">Q3</option>
-                                        <option value="">Q4</option>
-                                        <option value="">No quartile</option>
-                                        <option value="">Nil</option>
-                                    </select></td>
-                                <td><select name="index" required>
-                                        <option value="Medline" readonly>Medline</option>
-                                        <option value="Pubmed">Pubmed</option>
-                                        <option value="CSCI">CSCI</option>
-                                        <option value="SCI">SCI</option>
-                                        <option value="DC">DC</option>
-                                        <option value="Expanded Embase">Expanded Embase</option>
-                                        <option value="Scopus" selected>Scopus</option>
-                                        <option value="DoAJ">DoAJ</option>                                        
-                                        <option value="">Nil</option>
-                                    </select></td>
-                                <td><input type="text" value="The real DOI"> </td>
-                                <td>
-                                    <select name="category" readonly>
-                                        <option value="First">First</option>
-                                        <option value="Correspondant">Correspondant</option>
-                                        <option value="Second">Second</option>
-                                        <option value="Others">Others</option>
-                                    </select>
-                                </td>
-                                <td><input type="file" name="" id=""></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><input type="text" required></td>
-                                <td><input type="text" required></td>
-                                <td><select name="quartile" id="quartile">
-                                        <option value="">Q1</option>
-                                        <option value="">Q2</option>
-                                        <option value="">Q3</option>
-                                        <option value="">Q4</option>
-                                        <option value="">No quartile</option>
-                                        <option value="">Nil</option>
-                                    </select></td>
-                                <td><select name="index" required>
-                                        <option value="Medline">Medline</option>
-                                        <option value="Pubmed">Pubmed</option>
-                                        <option value="CSCI">CSCI</option>
-                                        <option value="SCI">SCI</option>
-                                        <option value="DC">DC</option>
-                                        <option value="Expanded Embase">Expanded Embase</option>
-                                        <option value="Scopus">Scopus</option>
-                                        <option value="DoAJ">DoAJ</option>
-                                    </select></td>
-                                <td><input type="text"></td>
-                                <td><select name="category">
-                                        <option value="First">First</option>
-                                        <option value="Correspondant">Correspondant</option>
-                                        <option value="Second">Second</option>
-                                        <option value="Others">Others</option>
-                                    </select></td>
-                                <td><input type="file" name="" id=""></td>
-                            </tr>
-                        </tbody>
-                        <td><input type="button" value="add"></td>
-                        <td><input type="submit" value="update"></td>
-                    </table>
+                    <div class="table">
+                        <div class="table-header">
+                            <h4>Title</h4>
+                            <h4>Journal Name</h4>
+                            <h4>Quartile</h4>
+                            <h4>Index</h4>
+                            <h4>DOI</h4>
+                            <h4>Authorship</h4>
+                            <h4>Uploads</h4>
+                        </div>
+                        <div class="table-row">
+                            <span>The title</span>
+                            <span>Journal Name</span>
+                            <span>Q1</span>
+                            <span>Medline</span>
+                            <span>The DOI</span>
+                            <span>First</span>
+                            <span>No file</span>
+                            <input type="submit" class="edit" id="columnEditButton" value="edit">
+                        </div>
+                    </div>
                     <a class="name3">II. Grants</a>
                     <table class="tableContainer">
                         <thead>
@@ -512,7 +647,7 @@
                                     </select></td>
                                 <td><input type="file" name="" id=""></td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="button" value="add"></td>
                         <td><input type="submit" value="update"></td>
                     </table>
@@ -552,7 +687,7 @@
                                         <option value="">International</option>
                                     </select></td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="button" value="add"></td>
                         <td><input type="submit" value="update"></td>
                     </table>
@@ -586,7 +721,7 @@
                                     </select></td>
                                 <td><input type="number"></td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="button" value="add"></td>
                         <td><input type="submit" value="update"></td>
                     </table>
@@ -618,7 +753,7 @@
                                     </select></td>
                                 <td><input type="number"> </td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="button" value="add"></td>
                         <td><input type="submit" value="update"></td>
                     </table>
@@ -658,7 +793,7 @@
                                 <td><input type="number" value="10"></td>
                                 <td><input type="number" value="12"></td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="submit" value="update"></td>
                     </table>
                     <div>
@@ -688,7 +823,7 @@
                             </tr>
                         </tbody>
                     </table>
-                <a class="name3">Clinical Duty</a>
+                    <a class="name3">Clinical Duty</a>
                     <table class="tableContainer">
                         <thead>
                             <tr>
@@ -699,7 +834,7 @@
                             <tr>
                                 <td><input type="number" value="20"></td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">Post Held</a>
@@ -721,7 +856,7 @@
                                     </select>
                                 </td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="submit" value="update"></td>
                     </table>
                     <a class="name3">Exam Duties</a>
@@ -767,7 +902,7 @@
                                     </select>
                                 </td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="button" value="add"></td>
                         <td><input type="submit" value="update"></td>
                     </table>
@@ -798,13 +933,13 @@
                                         <option value="Member">Member</option>
                                         <option value="Coordinator">Coordinator</option>
                                         <option value="Head">Head</option>
-                                    </select>                                    
+                                    </select>
                                 </td>
                                 <td>
                                     <input type="text">
                                 </td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="button" value="add"></td>
                         <td><input type="submit" value="update"></td>
                     </table>
@@ -829,7 +964,7 @@
                                     <select name="creditPoints">
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
-                                    </select>                                    
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -838,14 +973,14 @@
                                         <option value="Member">Member</option>
                                         <option value="Coordinator">Coordinator</option>
                                         <option value="Head">Head</option>
-                                    </select>                                    
+                                    </select>
                                 </td>
                                 <td>
                                     <select name="creditPoints">
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
                                     </select>
-                                    
+
                                 </td>
                             </tr>
                         </tbody>
@@ -869,12 +1004,12 @@
                                     <select name="category2">
                                         <option value="Internal" selected>Internal</option>
                                         <option value="Nil">Nil</option>
-                                    </select>                                
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="number" name="" id="">                                  
+                                    <input type="number" name="" id="">
                                 </td>
                                 <td>
                                     <select name="category2">
@@ -883,24 +1018,32 @@
                                     </select>
                                 </td>
                             </tr>
-                        </tbody>                        
+                        </tbody>
                         <td><input type="submit" value="update"></td>
                     </table>
                 </div>
                 <!-- Professional section ended -->
             </div>
+
+
         </div>
-    <script>
-        let links = document.querySelectorAll('.menuOptions a')
-        links.forEach((e) => {
-            e.addEventListener('click', (event) => {
-                links.forEach(e => {
-                    e.classList.remove('active')
+        <script>
+            let links = document.querySelectorAll('.menuOptions a')
+            links.forEach((e) => {
+                e.addEventListener('click', (event) => {
+                    links.forEach(e => {
+                        e.classList.remove('active')
+                    })
+                    e.classList.add('active')
                 })
-                e.classList.add('active')
             })
-        })
-    </script>
+            document.getElementById("columnEditButton").onclick = () => {
+                document.getElementsByClassName("formWrapper")[0].style.display = "block";
+            }
+            document.querySelector(".formWrapper #cancelButton").onclick = () => {
+                document.getElementsByClassName("formWrapper")[0].style.display = "none";
+            }
+        </script>
 </body>
 
 </html>
