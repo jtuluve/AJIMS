@@ -121,7 +121,7 @@ const ConferenceSchema = new mongoose.Schema({
 
 
 //Guest lectures schema
-const guestLectures = new mongoose.Schema({
+const guestLecturesSchema = new mongoose.Schema({
   number: {type:Number, default:0},
   category: {type:String, enum:["Internal","External","Nil"], default:"Nil"},
 })
@@ -133,8 +133,8 @@ const professionalSchema = new mongoose.Schema({
   postHeld: {category: {type:String, enum:["Lecturer","Assistant Professor","Associate Professor","professor","HOD (Head of Department)","Nil"], default:"Nil"}, default:{}},
   examDuties: { type:[ExamDutiesSchema], default:[] },
   committee: { type:[CommitteeSchema], default:[] },
-  conferences: { type:[conferencesSchema], default:[] },
-  guestLectures: {type:Number, default:0}
+  conferences: { type:[ConferenceSchema], default:[] },
+  guestLectures: {type:[guestLecturesSchema], default:0}
 })
 
 //Define appraisal schema
