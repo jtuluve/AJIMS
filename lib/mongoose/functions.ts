@@ -6,7 +6,6 @@ var isConnected = false;
 var isInitialized = false;
 //basic functions
 export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
-    await initializeDb()
     email = email || await getEmail()
     try {
         const user = await User.findOne({ email, uid }) || await User.findOne({ uid })
@@ -26,7 +25,7 @@ export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
 }
 
 export async function getEmail() {
-    await initializeDb()
+    await connectToDB()
     return ((await getServerSession())?.user?.email)
 }
 
@@ -43,7 +42,7 @@ export async function getUidFromEmail(email) {
 }
 export async function getUid() {
     try {
-        await initializeDb();
+        await connectToDB()
         const user = await User.findOne({ email: await getEmail() })
         return user?.uid;
     } catch {
@@ -51,7 +50,7 @@ export async function getUid() {
     }
 }
 async function verifyUid(uid) {
-    await initializeDb();
+    await connectToDB();
     return uid == await getUid()
 }
 
@@ -97,13 +96,14 @@ async function defaultUser() {
 
 async function initializeDb() {
     try {
-        if (isInitialized) throw "Initialized"
+        if (isInitialized) return;
         await connectToDB();
         await createUserIfNotExists({ uid: (await getUid()) });
         await defaultUser();
         isInitialized = true;
         return true;
     } catch (err) {
+        isInitialized = false;
         console.log(err?.msg || err?.message || err);
         return false;
     }
@@ -161,7 +161,7 @@ export async function addResearchClinicalDuty(clinicalDuty, uid?) {
     }
 }
 
-export async function addReserchGrants(grants, uid?) {
+export async function addResearchGrants(grants, uid?) {
     try {
         if (!uid) uid = await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
@@ -512,7 +512,7 @@ export async function updateProfessionalGuestLectures(lecture, _id, uid?) {
         const user = await getUser(uid);
         if (!user) throw "User not found";
         user.appraisal.professional.guestLectures = user.appraisal.professional.guestLectures||[]
-        user.appraisal.professional.guestLectures.push(lecture);
+        user.appraisal.professional.guestLectures.find(e=>JSON.stringify(e._id)==_id);
     } catch (err) {
         console.log(err?.msg || err?.message || err);
     }

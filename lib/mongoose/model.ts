@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { connectToDB } from "./functions";
 //Define score schema
 connectToDB();
@@ -13,7 +13,7 @@ const ScoreSchema = new mongoose.Schema({
 });
 
 // Define the ClinicalDuty schema
-const ClinicalDutySchema = new mongoose.Schema({
+const PublicationsSchema = new mongoose.Schema({
   title: { type: String },
   journalName: { type: String },
   quartile: {
@@ -80,7 +80,7 @@ const conferencesSchema = new mongoose.Schema({
 // Define the Research schema
 const ResearchSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default:{} },
-  clinicalDuty: { type: [ClinicalDutySchema], default:[] },
+  publications: { type: [PublicationsSchema], default:[] },
   grants:{type:[grantsSchema], default:[]},
   books:{type:[booksSchema], default:[]},
   guidance:{type:[guidanceSchema], default:[]},

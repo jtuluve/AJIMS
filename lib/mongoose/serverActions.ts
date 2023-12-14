@@ -1,7 +1,14 @@
 "use server"
+import * as database from "@/lib/mongoose/functions" ;
 
-import { addResearchClinicalDuty } from "@/lib/mongoose/functions";
-export async function handleResearchClinicalDuty(formData:FormData){
+/* GET METHODS */
+//research clinical duty
+export async function handleGetResearchClinicalDuty(formData:FormData){
     // formData.entries()
-    addResearchClinicalDuty({title:formData.get("Title"),journalName:formData.get("Jouranal Name"),Quartile:formData.get("Quartile"),index:formData.get("Index"),doi:formData.get("DOI"),authorship:formData.get("Authorship")})
+    database.addResearchClinicalDuty({title:formData.get("Title"),journalName:formData.get("Jouranal Name"),Quartile:formData.get("Quartile"),index:formData.get("Index"),doi:formData.get("DOI"),authorship:formData.get("Authorship")})
+}
+//research grants
+export async function handleGetResearchGrants(formData:FormData){
+    // TODO:wrong here. Correct it
+    database.addResearchGrants({title:formData.get("Title"),journalName:formData.get("Jouranal Name"),Quartile:formData.get("Quartile"),index:formData.get("Index"),doi:formData.get("DOI"),authorship:formData.get("Authorship")})
 }

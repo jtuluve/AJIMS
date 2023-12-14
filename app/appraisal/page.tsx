@@ -7,6 +7,7 @@ import Professional from "@components/professional"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import "@css/appraisal.css"
+import Form from "@/components/form"
 export default function Dashboard() {
     const { data: session } = useSession({
         required: true, onUnauthenticated() {
@@ -23,6 +24,7 @@ export default function Dashboard() {
             <div className="menu-container">
                 <Menu />
                 <div className="menu2">
+                    <Form/>
                     {/* <Profile /> */}
                     <Research />
                     <Academics />

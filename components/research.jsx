@@ -1,11 +1,17 @@
+import { useState } from "react"
+import Table from "./table"
+
 export default function Research() {
+    const [formState, setFormState] = useState({});
+
     return (
         <>
             <div id="research" className="hidden-section">
-                
+                <Table column={1}/>
                 <a className="name2">Research</a>
                 <hr />
                 <div className="tables">
+                    
                     <table className="tableContainer scoreTable">
                         <thead>
                             <tr>

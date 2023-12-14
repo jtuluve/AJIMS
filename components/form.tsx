@@ -28,7 +28,8 @@ type selectInput = {
 
 interface formArgs {
   submitFunc: ((formdata: FormData) => void),
-  inputs: inputs[]
+  inputs: inputs[],
+  _id?: string,
 }
 export default function Form(props: formArgs) {
 
