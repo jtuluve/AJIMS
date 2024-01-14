@@ -23,13 +23,13 @@ const authOptions:AuthOptions = {
       credentials: {},
       // credentials options
       async authorize(credentials,req) {
-        const auth = getAuth(app);
-        const { id, password } = credentials as {
-          id: string;
-          password: string;
-        };
-
+        
         try {
+          const auth = getAuth(app);
+          const { id, password } = credentials as {
+            id: string;
+            password: string;
+          };
           const userCredential = await signInWithEmailAndPassword(auth, id + '@ajims.in', password);
           const user = userCredential.user;
 
