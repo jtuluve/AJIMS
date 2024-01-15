@@ -9,7 +9,7 @@ export default function Table(
 ) {
     const [values, setValues]:[values:boolean|Array<{}>|{}, setValues:any] = useState(false);
     useEffect(()=>{
-        console.log("Started effect");
+        // console.log("Started effect");
         try{
             (async()=>{
                 let data = await getDataAny(type);

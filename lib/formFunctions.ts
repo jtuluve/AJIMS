@@ -123,13 +123,13 @@ export async function getDataAny(type, _id?) {
         data = data?.map(d => {
             if (d._doc?._id)
                 d._doc._id = d._doc._id.toString();
-            console.log("inside data map:",d._doc?._id);
+            // console.log("inside data map:",d._doc?._id);
             revalidatePath("/appraisal")
             return d._doc;
         })
         if (_id) data=data.find(e => e._id == _id)
-        console.log("after map",_id);
-        console.log("before return",data);
+        // console.log("after map",_id);
+        // console.log("before return",data);
         return data;
     }
     if (data?._doc?._id)
@@ -139,7 +139,7 @@ export async function getDataAny(type, _id?) {
     if(data?._id) data._id = data._id.toString?.();
     // if (_id) data?.find(e => e._id == _id||e._doc?._id==_id)
     
-    console.log("before return",data);
+    // console.log("before return",data);
     revalidatePath("/appraisal")
     return data;
 }

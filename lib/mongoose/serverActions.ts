@@ -20,7 +20,7 @@ export async function handleGetResearchGrants(formData: FormData) {
 //TODO:make an array of functions and use it
 export async function handleAppraisalFormSubmit(formData: FormData) {
     let obj = {};
-    console.log(formData.entries());
+    // console.log(formData.entries());
     for (let pair of formData.entries()) {
         obj[pair[0]] = pair[1];
     }

@@ -15,7 +15,7 @@ export const handleLogin = async (formData:FormData) => {
         redirect: false,
       }
     );
-    console.log(res)
+    // console.log(res)
     if (!res)
       return {ok:"false"};
     else {

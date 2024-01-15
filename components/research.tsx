@@ -8,7 +8,7 @@ export default function Research() {
     
     function changeFormState(state) {
         setFormData(state);
-        console.log(state);
+        // console.log(state);
     }
 
     return (
