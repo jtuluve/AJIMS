@@ -20,7 +20,7 @@ export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
         user.save();
         return true;
     } catch {
-        console.log("Error occured while creating user")
+      console.error("Error occured while creating user")
         return false;
     }
 }
@@ -59,7 +59,7 @@ async function getUser(uid) {
     try {
         return await User.findOne({ uid })
     } catch {
-        console.log("Error occured while getting user");
+      console.error("Error occured while getting user");
         return new Error("User Not Found");
     }
 }
@@ -91,7 +91,7 @@ async function defaultUser() {
         user.save()
         return true;
     } catch {
-        console.log("Error occured while initializing user");
+      console.error("Error occured while initializing user");
         return false;
     }
 }
@@ -107,7 +107,7 @@ async function initializeDb() {
         return true;
     } catch (err) {
         isInitialized = false;
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -141,7 +141,7 @@ export async function updateProfile(formdata: FormData) {
         await User.findOneAndUpdate({ uid }, profile, { new: true })
         return true;
     } catch (err) {
-        console.log(err)
+      console.error(err)
         return false;
     }
 }
@@ -160,7 +160,7 @@ export async function addResearchPublications(publication, uid?){
         await user.save();
         return true;
     }catch(e){
-        console.log(e.msg||e.message||e);
+      console.error(e.msg||e.message||e);
         return false
     }
 }
@@ -177,7 +177,7 @@ export async function addResearchGrants(grants, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err)
+      console.error(err?.msg || err)
         return false
     }
 }
@@ -194,7 +194,7 @@ export async function addResearchBooks(book, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -210,7 +210,7 @@ export async function addResearchGuidance(guidance, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -226,7 +226,7 @@ export async function addResearchConferences(conference, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -244,7 +244,7 @@ export async function addAcademicsTeaching(teaching, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -263,7 +263,7 @@ export async function addProfessionalClinicalDuty(clinicalDuty, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -279,7 +279,7 @@ export async function addProfessionalPostHeld(postHeld, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -295,7 +295,7 @@ export async function addProfessionalExamDuties(examDuties, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -311,7 +311,7 @@ export async function addProfessionalCommittee(committee, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -327,7 +327,7 @@ export async function addProfessionalGuestLectures(guestLectures, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
         return false;
     }
 }
@@ -349,7 +349,7 @@ export async function updateResearchPublications(publication, _id, uid?) {
         user.save();
         return true;
     } catch (err) {
-        console.log(err?.msg || err.message || err)
+      console.error(err?.msg || err.message || err)
     }
 }
 
@@ -366,7 +366,7 @@ export async function updateResearchGrants(grants, _id, uid?) {
         if (index == -1) throw "Research Grant not found";
         user.appraisal.research.grants[index] = {...(user.appraisal.research.grants[index]), ...grants};
     } catch (err) {
-        console.log(err?.msg || err.message || err)
+      console.error(err?.msg || err.message || err)
     }
 }
 
@@ -383,7 +383,7 @@ export async function updateResearchBooks(book, _id, uid?) {
         if (index == -1) throw "Research Book not found";
         user.appraisal.research.books[index] = [...(user.appraisal.research.books[index]), ...book];
     } catch (err) {
-        console.log(err?.msg || err?.message || err)
+      console.error(err?.msg || err?.message || err)
     }
 }
 
@@ -399,7 +399,7 @@ export async function updateResearchGuidance(guidance, _id, uid?) {
         if (index == -1) throw "Research Guidance not found";
         user.appraisal.research.guidance[index] = [...(user.appraisal.research.guidance[index]), ...guidance];
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -415,7 +415,7 @@ export async function updateResearchConferences(conference, _id, uid?) {
         if (index == -1) throw "Research Conference not found";
         user.appraisal.research.conferences[index] = [...(user.appraisal.research.conferences[index]), ...conference];
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -429,7 +429,7 @@ export async function updateAcademicsTeaching(teaching, _id, uid?) {
        ;
         user.appraisal.academics.teaching = {...(user.appraisal.academics.teaching), ...teaching};
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -443,7 +443,7 @@ export async function updateProfessionalClinicalDuty(clinicalDuty, _id, uid?) {
        ;
         user.appraisal.professional.clinicalDuty = {...(user.appraisal.professional.clinicalDuty), ...clinicalDuty};
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -457,7 +457,7 @@ export async function updateProfessionalPostHeld(postHeld, _id, uid?) {
        ;
         user.appraisal.professional.postHeld = {...(user.appraisal.professional.postHeld), ...postHeld};
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -472,7 +472,7 @@ export async function updateProfessionalExamDuties(examDuties, _id, uid?) {
         user.appraisal.professional.examDuties = user.appraisal.professional.examDuties||[]
         user.appraisal.professional.examDuties.push(examDuties);
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -488,7 +488,7 @@ export async function updateProfessionalCommittee(committee, _id, uid?) {
         user.appraisal.professional.committee = user.appraisal.professional.committee||[]
         user.appraisal.professional.committee.push(committee);
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -504,7 +504,7 @@ export async function updateProfessionalConferences(conference, _id, uid?) {
         user.appraisal.professional.conferences = user.appraisal.professional.conferences||[]
         user.appraisal.professional.conferences.push(conference);
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -519,7 +519,7 @@ export async function updateProfessionalGuestLectures(lecture, _id, uid?) {
         user.appraisal.professional.guestLectures = user.appraisal.professional.guestLectures||[]
         user.appraisal.professional.guestLectures.push(lecture);
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -539,7 +539,7 @@ export async function getProfile(uid?:string){
         const {appraisal, ...user2} = user;
         return user2;
     } catch (err) {
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -551,7 +551,7 @@ export async function getResearchPublications(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.research.publications.find(p=>p._id==_id):user.appraisal.research.publications;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 //appraisal->research->grants
@@ -563,7 +563,7 @@ export async function getResearchGrants(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.research.grants.find(d=>d._id==_id):user.appraisal.research.grants;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -576,7 +576,7 @@ export async function getResearchBooks(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.research.books.find(d=>d._id==_id):user.appraisal.research.books;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -589,7 +589,7 @@ export async function getResearchGuidance(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.research.guidance.find(d=>d._id==_id):user.appraisal.research.guidance;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -602,7 +602,7 @@ export async function getResearchConferences(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.research.conferences.find(d=>d._id==_id):user.appraisal.research.conferences;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -615,7 +615,7 @@ export async function getAcademicsTeaching(uid?:string){
         if(!user) throw "User not found";
         return user.appraisal.academics.teaching;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -628,7 +628,7 @@ export async function getProfessionalClinicalDuty(uid?:string){
         if(!user) throw "User not found";
         return user.appraisal.professional.clinicalDuty;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -641,7 +641,7 @@ export async function getProfessionalPostHeld(uid?:string){
         if(!user) throw "User not found";
         return user.appraisal.professional.postHeld;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -654,7 +654,7 @@ export async function getProfessionalExamDuties(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.professional.examDuties.find(exam => exam._id === _id):user.appraisal.professional.examDuties;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -667,7 +667,7 @@ export async function getProfessionalCommittee(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.professional.committee.find(comm => comm._id === _id):user.appraisal.professional.committee;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -680,7 +680,7 @@ export async function getProfessionalConferences(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.professional.conferences.find(con => con._id === _id):user.appraisal.professional.conferences;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
@@ -693,7 +693,7 @@ export async function getProfessionalGuestLectures(_id?:string, uid?:string){
         if(!user) throw "User not found";
         return _id?user.appraisal.professional.guestLectures.find(gu => gu._id === _id):user.appraisal.professional.guestLectures;
     }catch(err){
-        console.log(err?.msg || err?.message || err);
+      console.error(err?.msg || err?.message || err);
     }
 }
 
