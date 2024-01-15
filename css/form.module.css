@@ -1,0 +1,73 @@
+.formWrapper {
+    z-index: 1;
+    height: 90dvh;
+    background: #131d38;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: sticky;
+    overflow: auto;
+}
+
+.formWrapper form {
+    padding: 20px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.formWrapper form>span {
+    margin-bottom: 15px;
+}
+
+.formWrapper form .title {
+    color: white;
+    text-align: center;
+    margin: 10px;
+}
+
+.formWrapper form label {
+    display: block;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.formWrapper form input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+}
+
+.formWrapper form .value {
+    display: none;
+}
+
+.formWrapper form .edit {
+    display: none;
+}
+
+.formWrapper form input[type="file"]{
+    color:white;
+}
+.formWrapper form input.submit{
+    width:20%;
+    background-color: #05d705;
+    color: black;
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.formWrapper form button.cancel{
+    width:20%;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}

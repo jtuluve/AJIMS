@@ -149,7 +149,7 @@ const AppraisalSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   name: {type: String },
   email:{type: String, required:true, unique:true},
-  uid: {type: String, required: true, unique: true },
+  uid: {type: String, required: true, unique: true},
   isAdmin: {type: Boolean, default: false},
   designation: { type: String },
   department: { type: String },
@@ -158,6 +158,6 @@ const userSchema = new mongoose.Schema({
 });
 
 // Create the User model
-const User = mongoose.models.user||mongoose.model("user", userSchema);
+const User = mongoose.models?.user||mongoose.model("user", userSchema);
 
 export default User;

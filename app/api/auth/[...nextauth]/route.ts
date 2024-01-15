@@ -1,8 +1,10 @@
-import NextAuth, { AuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { createUserIfNotExists } from '@/lib/mongoose/functions';
+import NextAuth,{AuthOptions} from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { createUserIfNotExists } from "@/lib/mongoose/functions";
+import { NextApiRequest } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -15,15 +17,15 @@ const firebaseConfig = {
 };
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+
 const authOptions:AuthOptions = {
   providers: [
     CredentialsProvider({
-      name:"Sign In",
+      name: "Sign In",
       type: "credentials",
       credentials: {},
       // credentials options
-      async authorize(credentials,req) {
-        
+      async authorize(credentials, req) {
         try {
           const auth = getAuth(app);
           const { id, password } = credentials as {
@@ -40,21 +42,19 @@ const authOptions:AuthOptions = {
             return Promise.resolve(null);
           }
         } catch (error) {
-          console.error('Authentication error:', error);
+          console.error("Authentication error:", error);
           return Promise.resolve(null);
         }
       },
     }),
     // other providers
   ],
-  
   pages: {
-    signIn: '/',
-  }, 
+    signIn: "/",
+  },
   session: {
     strategy: "jwt",
   },
-}
+};
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };

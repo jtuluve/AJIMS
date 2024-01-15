@@ -26,14 +26,30 @@
     background-color: #cfd5ea;
     color: black;
 }
-
-.table-row input.edit {
-    cursor: pointer;
-    background-color: #00c400;
-    color: white;
+.table-row .edit, .table-row .remove {
+    display: flex;
+    align-items: center;
+    aspect-ratio: 1;
     border: none;
     border-radius: 4px;
     font-weight: bold;
+    color: white;
+}
+.table-row .edit i, .table-row .remove i {
+    font-size: 14px;
+}
+.table-row .edit {
+    cursor: pointer;
+    background-color: #00c400;
+    margin-bottom: 2px;
+}
+
+.table-row .remove{
+    background-color: #c40000;
+}
+
+.table-row .remove:hover {
+    background-color: #8b0000;
 }
 
 .table-row .edit:hover {

@@ -1,16 +1,17 @@
 "use server"
 import mongoose from "mongoose"
-import { getServerSession } from "next-auth";
 import User from "./model"
+import { getServerSession } from "next-auth";
 var isConnected = false;
 var isInitialized = false;
 //basic functions
-export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
-    email = email || await getEmail()
+export async function createUserIfNotExists({ email, uid }: { email, uid }) {
     try {
-        const user = await User.findOne({ email, uid }) || await User.findOne({ uid })
+        initializeDb();
+        email = email || await getEmail();
+        const user = await User.findOne({ email, uid }) || await User.findOne({ uid });
         if (!user) {
-            await User.create({ uid, email })
+            User.create({ uid, email })
                 .then(() => console.log("User created"))
                 .catch(err => { throw err })
             return true;
@@ -25,7 +26,7 @@ export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
 }
 
 export async function getEmail() {
-    await connectToDB()
+    await initializeDb()
     return ((await getServerSession())?.user?.email)
 }
 
@@ -42,7 +43,7 @@ export async function getUidFromEmail(email) {
 }
 export async function getUid() {
     try {
-        await connectToDB()
+        await initializeDb()
         const user = await User.findOne({ email: await getEmail() })
         return user?.uid;
     } catch {
@@ -50,7 +51,7 @@ export async function getUid() {
     }
 }
 async function verifyUid(uid) {
-    await connectToDB();
+    await initializeDb();
     return uid == await getUid()
 }
 
@@ -59,7 +60,7 @@ async function getUser(uid) {
         return await User.findOne({ uid })
     } catch {
         console.log("Error occured while getting user");
-        return false;
+        return new Error("User Not Found");
     }
 }
 
@@ -67,7 +68,8 @@ async function defaultUser() {
     try {
         const uid = await getUid();
         if (!uid) return false;
-        const user = await getUser(uid)
+        const user = await getUser(uid);
+        if (!uid) return false;
         user.appraisal = user.appraisal || {}
         user.appraisal.research = user.appraisal.research || {}
         user.appraisal.research.clinicalDuty = user.appraisal.research.clinicalDuty || [];
@@ -97,6 +99,7 @@ async function defaultUser() {
 async function initializeDb() {
     try {
         if (isInitialized) return;
+        isInitialized=true;
         await connectToDB();
         await createUserIfNotExists({ uid: (await getUid()) });
         await defaultUser();
@@ -118,8 +121,8 @@ export async function connectToDB() {
         isConnected = true;
         console.log("Connected to DB");
         return true;
-    } catch {
-        console.log("Couldn't connect to db")
+    } catch(e) {
+        console.log("Couldn't connect to db",e)
         return false
     }
 }
@@ -145,30 +148,32 @@ export async function updateProfile(formdata: FormData) {
 
 /*** ADD METHODS ***/
 //appraisal>research functions
-export async function addResearchClinicalDuty(clinicalDuty, uid?) {
-    if (!uid) uid = await getUid();
-    if (!verifyUid(uid)) return console.log("Uid doesn't match the server uid.")
-    try {
+//research->publications
+export async function addResearchPublications(publication, uid?){
+    try{
+        uid = uid || await getUid();
+        if(!verifyUid(uid)) throw "uid doesn't match the server uid"
         await initializeDb();
         const user = await getUser(uid);
-        if (!user) return console.log("User not found");
-        user.appraisal.research.clinicalDuty.push(clinicalDuty);
-        user.save();
+        if(!user) throw "User not found"
+        user.appraisal.research.publications.push(publication);
+        await user.save();
         return true;
-    } catch (err) {
-        console.log(err);
-        return false;
+    }catch(e){
+        console.log(e.msg||e.message||e);
+        return false
     }
 }
 
+
 export async function addResearchGrants(grants, uid?) {
     try {
-        if (!uid) uid = await getUid();
+        uid = uid || getUid()
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         await initializeDb();
         const user = await getUser(uid);
-        if (!user) throw "User not found";
-        const res = user.appraisal.research.grants.push(grants);
+       ;
+        user.appraisal.research.grants.push(grants);
         user.save();
         return true;
     } catch (err) {
@@ -184,7 +189,7 @@ export async function addResearchBooks(book, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.research.books.push(book);
         user.save();
         return true;
@@ -200,7 +205,7 @@ export async function addResearchGuidance(guidance, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.research.guidance.push(guidance);
         user.save();
         return true;
@@ -216,7 +221,7 @@ export async function addResearchConferences(conference, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.research.conferences.push(conference);
         user.save();
         return true;
@@ -234,7 +239,7 @@ export async function addAcademicsTeaching(teaching, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.academics.teaching = teaching;
         user.save();
         return true;
@@ -253,7 +258,7 @@ export async function addProfessionalClinicalDuty(clinicalDuty, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.clinicalDuty = clinicalDuty;
         user.save();
         return true;
@@ -269,7 +274,7 @@ export async function addProfessionalPostHeld(postHeld, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.postHeld = postHeld;
         user.save();
         return true;
@@ -285,7 +290,7 @@ export async function addProfessionalExamDuties(examDuties, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.examDuties.push(examDuties)
         user.save();
         return true;
@@ -301,7 +306,7 @@ export async function addProfessionalCommittee(committee, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.committee.push(committee);
         user.save();
         return true;
@@ -317,7 +322,7 @@ export async function addProfessionalGuestLectures(guestLectures, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.guestLectures = guestLectures;
         user.save();
         return true;
@@ -329,22 +334,22 @@ export async function addProfessionalGuestLectures(guestLectures, uid?) {
 
 
 /* Mongodb update functions */
-//appraisal->research->clinicalduty
-export async function updateResearchClinicalDuty(duty, _id, uid?) {
+//appraisal->research->publications
+export async function updateResearchPublications(publication, _id, uid?) {
     try {
         await initializeDb();
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
-        let index = user.appraisal.research.clinicalDuty.findIndex(item => item._id == _id);
-        if (index == -1) throw "Clinical Duty not found";
-        user.appraisal.research.clinicalDuty[index].duty = [...(user.appraisal.research.clinicalDuty[index]), ...duty];
+       ;
+        let index = user.appraisal.research.publications.findIndex(item => item._id == _id);
+        if (index == -1) throw "Publication not found";
+        user.appraisal.research.publications[index]={...user.appraisal.research.publications[index], ...publication}
         user.save();
         return true;
     } catch (err) {
-
+        console.log(err?.msg || err.message || err)
     }
 }
 
@@ -356,10 +361,10 @@ export async function updateResearchGrants(grants, _id, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         let index = user.appraisal.research.grants.findIndex(item => item._id == _id);
         if (index == -1) throw "Research Grant not found";
-        user.appraisal.research.grants[index] = [...(user.appraisal.research.grants[index]), ...grants];
+        user.appraisal.research.grants[index] = {...(user.appraisal.research.grants[index]), ...grants};
     } catch (err) {
         console.log(err?.msg || err.message || err)
     }
@@ -373,7 +378,7 @@ export async function updateResearchBooks(book, _id, uid?) {
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
 
         const user = await getUser(uid)
-        if (!user) throw "User not found";
+       ;
         let index = user.appraisal.research.books.findIndex(item => item._id == _id);
         if (index == -1) throw "Research Book not found";
         user.appraisal.research.books[index] = [...(user.appraisal.research.books[index]), ...book];
@@ -389,7 +394,7 @@ export async function updateResearchGuidance(guidance, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         let index = user.appraisal.research.guidance.findIndex(item => item._id == _id);
         if (index == -1) throw "Research Guidance not found";
         user.appraisal.research.guidance[index] = [...(user.appraisal.research.guidance[index]), ...guidance];
@@ -405,7 +410,7 @@ export async function updateResearchConferences(conference, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         let index = user.appraisal.research.conferences.findIndex(item => item._id == _id);
         if (index == -1) throw "Research Conference not found";
         user.appraisal.research.conferences[index] = [...(user.appraisal.research.conferences[index]), ...conference];
@@ -421,7 +426,7 @@ export async function updateAcademicsTeaching(teaching, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         user.appraisal.academics.teaching = {...(user.appraisal.academics.teaching), ...teaching};
     } catch (err) {
         console.log(err?.msg || err?.message || err);
@@ -435,7 +440,7 @@ export async function updateProfessionalClinicalDuty(clinicalDuty, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.clinicalDuty = {...(user.appraisal.professional.clinicalDuty), ...clinicalDuty};
     } catch (err) {
         console.log(err?.msg || err?.message || err);
@@ -449,7 +454,7 @@ export async function updateProfessionalPostHeld(postHeld, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.postHeld = {...(user.appraisal.professional.postHeld), ...postHeld};
     } catch (err) {
         console.log(err?.msg || err?.message || err);
@@ -463,7 +468,7 @@ export async function updateProfessionalExamDuties(examDuties, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.examDuties = user.appraisal.professional.examDuties||[]
         user.appraisal.professional.examDuties.push(examDuties);
     } catch (err) {
@@ -479,7 +484,7 @@ export async function updateProfessionalCommittee(committee, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.committee = user.appraisal.professional.committee||[]
         user.appraisal.professional.committee.push(committee);
     } catch (err) {
@@ -495,7 +500,7 @@ export async function updateProfessionalConferences(conference, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.conferences = user.appraisal.professional.conferences||[]
         user.appraisal.professional.conferences.push(conference);
     } catch (err) {
@@ -510,9 +515,9 @@ export async function updateProfessionalGuestLectures(lecture, _id, uid?) {
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if (!user) throw "User not found";
+       ;
         user.appraisal.professional.guestLectures = user.appraisal.professional.guestLectures||[]
-        user.appraisal.professional.guestLectures.find(e=>JSON.stringify(e._id)==_id);
+        user.appraisal.professional.guestLectures.push(lecture);
     } catch (err) {
         console.log(err?.msg || err?.message || err);
     }
@@ -523,22 +528,35 @@ export async function updateProfessionalGuestLectures(lecture, _id, uid?) {
 
 
 /* FUNCTIONS TO RETRIEVE DATA */
-//appraisal->research->clinicalDuty
-export async function getResearchClinicalDuty(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+//appraisal->research->publications
+export async function getProfile(uid?:string){
     try{
         await initializeDb();
+        uid = uid||await getUid();
+        if (!verifyUid(uid)) throw "uid doesn't match the server uid.";
         const user = await getUser(uid);
-        if(!user) throw "User not found";
-        return _id?user.appraisal.research.clinicalDuty.find(d=>d._id==_id):user.appraisal.research.clinicalDuty;
-    }catch(err){
+       ;
+        const {appraisal, ...user2} = user;
+        return user2;
+    } catch (err) {
         console.log(err?.msg || err?.message || err);
     }
 }
 
+export async function getResearchPublications(_id?:string, uid?:string){
+    try{
+        uid = uid || await getUid();
+        await initializeDb();
+        const user = await getUser(uid);
+        if(!user) throw "User not found";
+        return _id?user.appraisal.research.publications.find(p=>p._id==_id):user.appraisal.research.publications;
+    }catch(err){
+        console.log(err?.msg || err?.message || err);
+    }
+}
 //appraisal->research->grants
-export async function getResearchGrants(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getResearchGrants(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -550,8 +568,8 @@ export async function getResearchGrants(uid?:string,_id?:string){
 }
 
 //appraisal->research->books
-export async function getResearchBooks(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getResearchBooks(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -563,8 +581,8 @@ export async function getResearchBooks(uid?:string,_id?:string){
 }
 
 //appraisal->research->guidance
-export async function getResearchGuidance(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getResearchGuidance(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -576,8 +594,8 @@ export async function getResearchGuidance(uid?:string,_id?:string){
 }
 
 //appraisal->research->conferences
-export async function getResearchConferences(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getResearchConferences(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -590,7 +608,7 @@ export async function getResearchConferences(uid?:string,_id?:string){
 
 //appraisal->academics->teaching (object)
 export async function getAcademicsTeaching(uid?:string){
-    if(!uid) uid = await getUid();
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -603,7 +621,7 @@ export async function getAcademicsTeaching(uid?:string){
 
 //appraisal->professional->clinicalDuty (object)
 export async function getProfessionalClinicalDuty(uid?:string){
-    if(!uid) uid = await getUid();
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -616,7 +634,7 @@ export async function getProfessionalClinicalDuty(uid?:string){
 
 //appraisal->professional->postHeld (object)
 export async function getProfessionalPostHeld(uid?:string){
-    if(!uid) uid = await getUid();
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -628,8 +646,8 @@ export async function getProfessionalPostHeld(uid?:string){
 }
 
 //appraisal->professional->examDuties
-export async function getProfessionalExamDuties(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getProfessionalExamDuties(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -641,8 +659,8 @@ export async function getProfessionalExamDuties(uid?:string,_id?:string){
 }
 
 //appraisal->professional->committee
-export async function getProfessionalCommittee(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getProfessionalCommittee(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -654,8 +672,8 @@ export async function getProfessionalCommittee(uid?:string,_id?:string){
 }
 
 //appraisal->professional->conferences
-export async function getProfessionalConferences(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getProfessionalConferences(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
@@ -667,8 +685,8 @@ export async function getProfessionalConferences(uid?:string,_id?:string){
 }
 
 //appraisal->professional->guestLectures
-export async function getProfessionalGuestLectures(uid?:string,_id?:string){
-    if(!uid) uid = await getUid();
+export async function getProfessionalGuestLectures(_id?:string, uid?:string){
+    uid = uid || await getUid();
     try{
         await initializeDb();
         const user = await getUser(uid);
