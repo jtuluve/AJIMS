@@ -1,19 +1,18 @@
 "use client"
-import Menu from "@components/menu"
-import Profile from "@components/profile"
-import Research from "@components/research"
-import Academics from "@components/academics"
-import Professional from "@components/professional"
+import Menu from "@comp/menu"
+import Profile from "@comp/profile"
+import Research from "@comp/research"
+import Academics from "@comp/academics"
+import Professional from "@comp/professional"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import "@css/appraisal.css"
-export default function Dashboard() {
-    const { data: session } = useSession({
-        required: true, onUnauthenticated() {
-            redirect("/")
-        }
-    })
-    if (!session) redirect("/")
+import Form from "@/components/form"
+export default function Appraisal() {
+    const { data: session } = useSession()
+	if (!session) {
+		redirect("/")
+	}
     return (
         <>
             <div className="titlebar">
@@ -33,5 +32,3 @@ export default function Dashboard() {
         </>
     )
 }
-
-Dashboard.requireAuth = true

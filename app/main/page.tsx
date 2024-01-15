@@ -1,18 +1,24 @@
 "use client"
-import {updateProfile} from "@/lib/mongoose/functions"
+import {getProfile, updateProfile} from "@/lib/mongoose/functions"
 import "@css/main.css"
 import { signOut, useSession } from "next-auth/react"
 import { redirect } from 'next/navigation'
-import Form from "@/components/form"
+import { useEffect, useLayoutEffect, useState } from "react"
 export default function Main() {
-	const { data: session } = useSession({
-		required: true,
-		onUnauthenticated: () => redirect("/")
-	})
+	let [profileData,updateProfileData]=useState({})
+	const { data: session } = useSession()
 	if (!session) {
 		redirect("/")
 	}
 	
+	useEffect(()=>{
+		(async()=>{
+			let profile=await getProfile()
+			updateProfileData(profile)
+			// console.log(profile)
+		})()
+	},[])
+
 	return (
 		<>
 			<div className="titlebar">
@@ -56,11 +62,11 @@ export default function Main() {
 						<a className="name2">Your Profile</a>
 						<hr />
 						<div className="profileform">
-							<Form submitFunc={updateProfile} inputs={[
+							{/* <Form submitFunc={updateProfile} inputs={[
 								{label:"Name",name:"name",type:"text",placeholder:"Enter Name",required:true},
 								{name:"designation", label:"Designation",type:"text",placeholder:"Enter Designation",required:true},
 								{name:"department", label:"Department",type:"text",placeholder:"Enter Department",required:true}
-							]}/>
+							]}/> */}
 						</div>
 					</div>
 				</div>

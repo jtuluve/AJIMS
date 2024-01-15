@@ -1,51 +1,58 @@
-"use client"
-import '@css/page.css'
-import { useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
-import { RedirectType } from 'next/navigation'
-import { signIn } from 'next-auth/react'
-import { useState } from 'react'
-
-
+"use client";
+import "@css/page.css";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
 
 export default function Home() {
-
-  const { data: session } = useSession()
-  if (session) redirect("/main", RedirectType.replace)
+  const { data: session } = useSession();
+  if (session) redirect("/main");
 
   //states
   const [formData, setFormData] = useState({ id: "", password: "" });
-  const [authStatus, setAuthStatus] = useState(null)
+  const [authStatus, setAuthStatus] = useState(null);
 
   //event handlers
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { id, password } = formData
-    if (!id || !password) return setAuthStatus("Fill all details!")
+    const { id, password } = formData;
+    if (!id || !password) return setAuthStatus("Fill all details!");
     const res = await signIn("credentials", {
       id,
       password,
-      redirect: false
+      redirect: false,
     });
-    if (res?.status == 401) setAuthStatus("Id and Password doesn't match. Try again.")
+    if (res.status == 200) setAuthStatus(null);
     else {
-      setAuthStatus(null)
+      setAuthStatus("Id and Password doesn't match. Try again.");
     }
   };
   const handleChange = (e) => {
     e.preventDefault();
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
+  //submit button component
+  function SubmitButton() {
+    const { pending } = useFormStatus();
+    return (
+      <button type="submit" disabled={pending}>
+        {pending ? "Logging in..." : "Login"}
+      </button>
+    );
+  }
 
   return (
     <>
-
       <div className="loginContainer">
         <a className="head">Faculty login</a>
         <hr />
         <form onSubmit={handleLogin}>
-          <label htmlFor="id"><b>ID</b></label>
+          <label htmlFor="id">
+            <b>ID</b>
+          </label>
           <input
             name="id"
             type="text"
@@ -53,23 +60,31 @@ export default function Home() {
             placeholder="id"
             value={formData.id}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
 
-          <label htmlFor="password"><b>Password</b></label>
+          <label htmlFor="password">
+            <b>Password</b>
+          </label>
           <input
-            name='password'
+            name="password"
             type="password"
             id="password"
             placeholder="Enter Password"
+            autoComplete="off"
             value={formData.password}
             onChange={handleChange}
             required
           />
-          {authStatus && <span style={{color:"black",fontSize:"small"}}>{authStatus}</span>}
+          {authStatus && (
+            <span style={{ color: "black", fontSize: "small" }}>
+              {authStatus}
+            </span>
+          )}
           <input type="submit" value="Login" />
         </form>
       </div>
     </>
-  )
+  );
 }

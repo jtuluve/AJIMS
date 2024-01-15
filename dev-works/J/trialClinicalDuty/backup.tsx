@@ -1,11 +1,11 @@
-"use server"
+/* "use server"
 import Form from "@/components/form";
 import { handleResearchClinicalDuty } from "@/lib/mongoose/serverActions";
 
 export default async function page() {
     return (
         <>
-            {/* name not added which is a must */}
+            {/* name not added which is a must }
             <Form submitFunc={handleResearchClinicalDuty} inputs={[
                 {type:"text",label:"Title", placeholder:"Enter title",required:true},
                 {type:"text",label:"Journal Name", placeholder:"Enter Journal Name",required:true},
@@ -18,3 +18,4 @@ export default async function page() {
         </>
     );
 }
+ */

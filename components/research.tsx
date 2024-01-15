@@ -1,8 +1,26 @@
+import { useEffect, useState } from "react"
+import Table from "./table"
+import { getResearchPublications } from "@/lib/mongoose/functions";
+import Form from "@comp/form"
+import { revalidatePath } from "next/cache";
 export default function Research() {
+    const [formData, setFormData]: [formData: { type?, _id? }, setFormData:any] = useState({});
+    
+    function changeFormState(state) {
+        setFormData(state);
+        // console.log(state);
+    }
+
     return (
         <>
             <div id="research" className="hidden-section">
-                
+                {
+                    Object.keys(formData).length !== 0
+                        ?
+                        <Form formStatusUpdate={changeFormState} type={formData.type||""} _id={formData._id?.toString?.()}/>
+                        :
+                        <></>
+                }
                 <a className="name2">Research</a>
                 <hr />
                 <div className="tables">
@@ -25,6 +43,7 @@ export default function Research() {
                         </tbody>
                     </table>
                     <a className="name3">I. Publications</a>
+                    <Table type="researchPublications"column={7} header_row={["Title","Journal Name", "Quartile", "Index", "DOI","Authorship","Uploads"]} keys={["title","journalName","quartile","index","doi","authorship","uploadUrl"]} formStatusMethod={changeFormState} />
                     <table className="tableContainer">
                         <thead>
                             <tr>
@@ -50,7 +69,7 @@ export default function Research() {
                                 <td>
                                     <select name="quartile" id="quartile">
                                         <option value="">Q1</option>
-                                        <option value="" defaultValue>
+                                        <option value="">
                                             Q2
                                         </option>
                                         <option value="">Q3</option>
@@ -60,8 +79,8 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="index" required="">
-                                        <option value="Medline" readOnly="">
+                                    <select name="index" required>
+                                        <option value="Medline" aria-readonly>
                                             Medline
                                         </option>
                                         <option value="Pubmed">Pubmed</option>
@@ -69,7 +88,7 @@ export default function Research() {
                                         <option value="SCI">SCI</option>
                                         <option value="DC">DC</option>
                                         <option value="Expanded Embase">Expanded Embase</option>
-                                        <option value="Scopus" defaultValue>
+                                        <option value="Scopus">
                                             Scopus
                                         </option>
                                         <option value="DoAJ">DoAJ</option>
@@ -80,7 +99,7 @@ export default function Research() {
                                     <input type="text" defaultValue="The real DOI" />
                                 </td>
                                 <td>
-                                    <select name="category" readOnly="">
+                                    <select name="category" aria-readonly>
                                         <option value="First">First</option>
                                         <option value="Correspondant">Correspondant</option>
                                         <option value="Second">Second</option>
@@ -94,10 +113,10 @@ export default function Research() {
                             <tr>
                                 <td>2</td>
                                 <td>
-                                    <input type="text" required="" />
+                                    <input type="text" required />
                                 </td>
                                 <td>
-                                    <input type="text" required="" />
+                                    <input type="text" required />
                                 </td>
                                 <td>
                                     <select name="quartile" id="quartile">
@@ -110,7 +129,7 @@ export default function Research() {
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="index" required="">
+                                    <select name="index" required>
                                         <option value="Medline">Medline</option>
                                         <option value="Pubmed">Pubmed</option>
                                         <option value="CSCI">CSCI</option>
@@ -167,15 +186,15 @@ export default function Research() {
                                     <input type="text" defaultValue="The real title" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Applied" />
+                                    <input type="number" defaultValue="2" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Recieved" />
+                                    <input type="number" defaultValue="3" />
                                 </td>
                                 <td>
                                     <select name="Amount Category" id="Amount Category">
                                         <option value="">upto 1 lakh</option>
-                                        <option value="" defaultValue>
+                                        <option value="" >
                                             1 - 5 lakhs
                                         </option>
                                         <option value="">5 - 10 lakhs</option>
@@ -194,15 +213,15 @@ export default function Research() {
                                     <input type="text" defaultValue="The real title" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Applied" />
+                                    <input type="number" defaultValue="2" />
                                 </td>
                                 <td>
-                                    <input type="number" defaultValue="Recieved" />
+                                    <input type="number" defaultValue="2" />
                                 </td>
                                 <td>
                                     <select name="Amount Category" id="Amount Category">
                                         <option value="">upto 1 lakh</option>
-                                        <option value="" defaultValue>
+                                        <option value="" >
                                             1 - 5 lakhs
                                         </option>
                                         <option value="">5 - 10 lakhs</option>
