@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 var isConnected = false;
 var isInitialized = false;
 //basic functions
-export async function createUserIfNotExists({ email, uid }: { email, uid }) {
+export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
     try {
         initializeDb();
         email = email || await getEmail();
