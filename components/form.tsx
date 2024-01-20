@@ -140,9 +140,9 @@ export default function Form({
 
   if (formStatus.status === "submitted") return <></>;
   if (inputs.status === "loading" || formData.loading === true)
-    return <p style={{color:style["color"]||"white"}}>Loading form...</p>;
+    return <p style={{color:style?.["color"]||"white"}}>Loading form...</p>;
 
-  if (inputs.status === "error") return <p style={{color:style["color"]||"white"}}>Error... Please try again later.</p>;
+  if (inputs.status === "error") return <p style={{color:style?.["color"]||"white"}}>Error... Please try again later.</p>;
 
   return (
     <div className={styles.formWrapper}>
