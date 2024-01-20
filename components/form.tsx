@@ -35,7 +35,7 @@ export default function Form({
   type: string;
   formState: any;
   _id?: string;
-  style:any;
+  style?:any;
 }) {
   //Cannot create form without type
   if (!type) return <p>Error: Form type not provided</p>;
