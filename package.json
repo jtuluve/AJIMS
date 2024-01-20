@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/react-dom": "^18.2.18",
     "firebase": "^10.5.2",
     "firebase-admin": "^11.11.1",
     "fs": "^0.0.1-security",
@@ -23,6 +22,7 @@
   "devDependencies": {
     "@types/node": "20.8.10",
     "@types/react": "18.2.34",
+    "@types/react-dom": "^18.2.18",
     "typescript": "^5.3.3"
   }
 }
