@@ -87,11 +87,10 @@ export default function Form({
       }
     )
 
-    // console.log('hello')
   }
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
         const inputs = await getInput(type)
         setInputs({ status: 'loaded', inputs })
