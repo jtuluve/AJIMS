@@ -5,6 +5,12 @@ import { revalidatePath } from "next/cache";
 
 export async function getInput(type: string) {
     let inputs = {
+        profile:[
+            { name: "name", type: "text", label: "Name", placeholder: "Enter Name", required: true },
+            { name: "designation", type: "text", label: "Designation", placeholder: "Enter Designation", required: true },
+            { name: "department", type: "text", label: "Department", placeholder: "Enter Department", required: true }
+          ],
+
         researchPublications: [
             { name: "title", type: "text", label: "Title", placeholder: "Enter title", required: true },
             { name: "journalName", type: "text", label: "Journal Name", placeholder: "Enter Journal Name", required: true },
@@ -73,79 +79,5 @@ export async function getInput(type: string) {
 }
 
 
-export async function getUpdateFunction(type: string) {
-    let functions = {
-        researchPublications: mongomethods.updateResearchPublications,
-        researchGrants: mongomethods.updateResearchGrants,
-        researchBooks: mongomethods.updateResearchBooks,
-        researchGuidance: mongomethods.updateResearchGuidance,
-        researchConferences: mongomethods.updateResearchConferences,
-
-        academicsTeaching: mongomethods.updateAcademicsTeaching,
-
-        professionalClinicalDuty: mongomethods.updateProfessionalClinicalDuty,
-        professionalPostHeld: mongomethods.updateProfessionalPostHeld,
-        professionalExamDuties: mongomethods.updateProfessionalExamDuties,
-        professionalCommittee: mongomethods.updateProfessionalCommittee,
-        professionalConference: mongomethods.updateProfessionalConferences,
-        professionalGuestLectures: mongomethods.updateProfessionalGuestLectures,
-
-    }
-    return functions[type];
-}
-
-export async function getRetrieveFunction(type: string): Promise<() => Promise<any>> {
-
-    let functions = {
-        researchPublications: mongomethods.getResearchPublications,
-        researchGrants: mongomethods.getResearchGrants,
-        researchBooks: mongomethods.getResearchBooks,
-        researchGuidance: mongomethods.getResearchGuidance,
-        researchConferences: mongomethods.getResearchConferences,
-
-        academicsTeaching: mongomethods.getAcademicsTeaching,
-
-        professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
-        professionalPostHeld: mongomethods.getProfessionalPostHeld,
-        professionalExamDuties: mongomethods.getProfessionalExamDuties,
-        professionalCommittee: mongomethods.getProfessionalCommittee,
-        professionalConference: mongomethods.getProfessionalConferences,
-        professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
-    }
-    return functions[type] || new Error("No retrieve function found for " + type);
-}
 
 
-export async function getDataAny(type, _id?) {
-    let retrieveFunction = await getRetrieveFunction(type);
-    let data = await retrieveFunction?.();
-    if (Array.isArray(data)) {
-        data = data?.map(d => {
-            if (d._doc?._id)
-                d._doc._id = d._doc._id.toString();
-            // console.log("inside data map:",d._doc?._id);
-            revalidatePath("/appraisal")
-            return d._doc;
-        })
-        if (_id) data=data.find(e => e._id == _id)
-        // console.log("after map",_id);
-        // console.log("before return",data);
-        return data;
-    }
-    if (data?._doc?._id)
-        data._doc._id = data._doc._id.toString?.();
-    data = data?._doc || data;
-
-    if(data?._id) data._id = data._id.toString?.();
-    // if (_id) data?.find(e => e._id == _id||e._doc?._id==_id)
-    
-    // console.log("before return",data);
-    revalidatePath("/appraisal")
-    return data;
-}
-
-/* export async function deleteDataAny(type, _id) {
-    let deleteFunction = await getDeleteFunction(type);
-    let data = await deleteFunction?.(_id);
-    return data;
-} */
