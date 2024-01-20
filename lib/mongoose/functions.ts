@@ -129,11 +129,10 @@ export async function connectToDB() {
 }
 
 //profile update method
-export async function updateProfile(profile) {
+export async function updateProfile(profile,uid?) {
 
     try {
         await initializeDb();
-        let { uid, ...newProfile } = profile;
         uid = uid || await getUid();
         if (!verifyUid(uid)) throw new Error("Invalid UID");
         await User.findOneAndUpdate({ uid }, profile)
@@ -430,8 +429,8 @@ export async function getProfile(uid?: string) {
         const user = await getUser(uid);
         if (!user) throw "User not found";
         if (!user._doc || Object.keys(user._doc).length == 0) throw new Error("Internal Error or incomplete data");
-        console.log(user._doc)
-        const newUser = { name: user._doc.name, designation: user._doc.designation, department: user._doc.department, category: user._doc.category }
+        const newUser = { name: user._doc.name, designation: user._doc.designation, department: user._doc.department, category: user._doc.category, _id:user._doc._id?.toString() }
+        // console.log(newUser)
         return newUser;
     } catch (err) {
         console.error(err?.msg || err?.message || err);
