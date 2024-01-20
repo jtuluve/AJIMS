@@ -1,94 +1,71 @@
 "use server"
 import * as mongomethods from '@/lib/mongoose/functions';
+import { revalidatePath } from 'next/cache';
 
 
 
 
 
 /* GET METHODS */
-//research clinical duty
-export async function handleGetResearchPublications(formData: FormData) {
-    // formData.entries()
-    mongomethods.addResearchPublications({ title: formData.get("Title"), journalName: formData.get("Jouranal Name"), Quartile: formData.get("Quartile"), index: formData.get("Index"), doi: formData.get("DOI"), authorship: formData.get("Authorship") })
-}
-//research grants
-export async function handleGetResearchGrants(formData: FormData) {
-    // TODO:wrong here. Correct it
-    mongomethods.addResearchGrants({ title: formData.get("Title"), journalName: formData.get("Jouranal Name"), Quartile: formData.get("Quartile"), index: formData.get("Index"), doi: formData.get("DOI"), authorship: formData.get("Authorship") })
-}
-
-//TODO:make an array of functions and use it
-export async function handleAppraisalFormSubmit(formData: FormData) {
-    let obj = {};
-    // console.log(formData.entries());
-    for (let pair of formData.entries()) {
-        obj[pair[0]] = pair[1];
-    }
-}
 
 
 //Post method with one function
-export async function handleUpdateAny(formData: FormData) {
+export async function handleUpsertAny(formData: FormData) {
     let obj = Object.fromEntries(formData.entries());
-    let {type, _id, ...newobj} = obj;
-    if(_id) obj._id = _id;
-
+    let { type, ...newobj } = obj;
+    
     let functions = {
-        researchPublications: mongomethods.updateResearchPublications,
-        researchGrants: mongomethods.updateResearchGrants,
-        researchBooks: mongomethods.updateResearchBooks,
-        researchGuidance: mongomethods.updateResearchGuidance,
-        researchConferences: mongomethods.updateResearchConferences,
+        researchPublications: mongomethods.upsertResearchPublications,
+        researchGrants: mongomethods.upsertResearchGrants,
+        researchBooks: mongomethods.upsertResearchBooks,
+        researchGuidance: mongomethods.upsertResearchGuidance,
+        researchConferences: mongomethods.upsertResearchConference,
 
         academicsTeaching: mongomethods.updateAcademicsTeaching,
 
         professionalClinicalDuty: mongomethods.updateProfessionalClinicalDuty,
         professionalPostHeld: mongomethods.updateProfessionalPostHeld,
-        professionalExamDuties: mongomethods.updateProfessionalExamDuties,
-        professionalCommittee: mongomethods.updateProfessionalCommittee,
-        professionalConference: mongomethods.updateProfessionalConferences,
-        professionalGuestLectures: mongomethods.updateProfessionalGuestLectures,
+        professionalExamDuties: mongomethods.upsertProfessionalExamDuties,
+        professionalCommittee: mongomethods.upsertProfessionalCommittee,
+        professionalConference: mongomethods.upsertProfessionalConference,
+        professionalGuestLectures: mongomethods.upsertProfessionalGuestLecture,
 
     }
 
-    try{
+    try {
         let res = await functions[type as string]?.(newobj);
-        if(!res) throw "Function not found";
-        return {ok:true, ...res};
-    }catch(e){
+        if (!res) throw new Error("Function not found or upsert failed");
+        // revalidatePath("/")
+        return { submitted: true, error: false }
+    } catch (e) {
         console.error(e);
-        return {ok:false}
+        // revalidatePath("/")
+        return { submitted: false, error: true }
     }
 }
 
-export async function handleAddAny(state,formData: FormData) {
-    let obj = Object.fromEntries(formData.entries());
-    let {type, _id, ...newobj} = obj;
 
+export async function handleDeleteAny(type:string, _id: string) {
+    if (!_id||!type) {
+        return { error: "Invalid request", submitted: false };
+    }
     let functions = {
-        researchPublications: mongomethods.addResearchPublications,
-        researchGrants: mongomethods.addResearchGrants,
-        researchBooks: mongomethods.addResearchBooks,
-        researchGuidance: mongomethods.addResearchGuidance,
-        researchConferences: mongomethods.addResearchConferences,
+        researchPublications: mongomethods.deleteResearchPublication,
+        researchGrants: mongomethods.deleteResearchGrant,
+        researchBooks: mongomethods.deleteResearchBook,
+        researchGuidance: mongomethods.deleteResearchGuidance,
+        researchConferences: mongomethods.deleteResearchConference,
 
-        academicsTeaching: mongomethods.addAcademicsTeaching,
-
-        professionalClinicalDuty: mongomethods.addProfessionalClinicalDuty,
-        professionalPostHeld: mongomethods.addProfessionalPostHeld,
-        professionalExamDuties: mongomethods.addProfessionalExamDuties,
-        professionalCommittee: mongomethods.addProfessionalCommittee,
-        professionalGuestLectures: mongomethods.addProfessionalGuestLectures,
-
+        professionalExamDuties: mongomethods.deleteProfessionalExamDuty,
+        professionalCommittee: mongomethods.deleteProfessionalCommittee,
+        professionalGuestLectures: mongomethods.deleteProfessionalGuestLecture,
     }
-
-    try{
-        let res = await functions[type as string]?.(newobj);
-        if(res==undefined) throw "Function not found";
-        return {submitted:true, error:false, res}
-    }
-    catch(e){
+    try {
+        let res = await functions[type]?.(_id);
+        if (!res) throw "Failed to delete";
+        return { submitted: true, error: false, res }
+    }catch(e){
         console.error(e);
-        return {error:e, submitted:false}
+        return { error: e, submitted: false }
     }
 }
