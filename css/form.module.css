@@ -1,41 +1,50 @@
 .formWrapper {
     z-index: 1;
-    height: 90dvh;
-    background: #131d38;
+    height: 100dvh;
     width: 100%;
     top: 0;
     left: 0;
-    position: sticky;
+    position: fixed;
     overflow: auto;
+    display: grid;
+    backdrop-filter: contrast(0.5);
 }
 
 .formWrapper form {
+    margin: auto;
+    width: 90%;
     padding: 20px;
-    height: 100%;
+    position: relative;
+    min-height: 90%;
     box-sizing: border-box;
+    background: #131d38;
+    box-shadow: 0px 0px 34px black;
+    border-radius: 7px;
 }
 
 .formWrapper form>span {
+    display: block;
     margin-bottom: 15px;
 }
 
 .formWrapper form .title {
-    color: white;
     text-align: center;
-    margin: 10px;
+    color: aliceblue;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    margin: 5px 0 20px;
 }
 
 .formWrapper form label {
+    margin-block: 14px 4px;
     display: block;
     color: white;
-    margin-bottom: 5px;
 }
 
 .formWrapper form input {
     width: calc(100% - 20px);
     padding: 8px;
     box-sizing: border-box;
-    margin-bottom: 10px;
     border: 1px solid #fff;
     border-radius: 4px;
 }
@@ -53,6 +62,7 @@
 }
 .formWrapper form input.submit{
     width:20%;
+    min-width: fit-content;
     background-color: #05d705;
     color: black;
     cursor: pointer;
@@ -63,6 +73,7 @@
 }
 .formWrapper form button.cancel{
     width:20%;
+    min-width: fit-content;
     background-color: red;
     color: white;
     border: none;
