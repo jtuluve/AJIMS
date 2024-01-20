@@ -1,25 +1,19 @@
 import { useEffect, useState } from "react"
 import Table from "./table"
-import { getResearchPublications } from "@/lib/mongoose/functions";
 import Form from "@comp/form"
-import { revalidatePath } from "next/cache";
 export default function Research() {
-    const [formData, setFormData]: [formData: { type?, _id? }, setFormData:any] = useState({});
+    const [formState, setFormState]: [formState: { type?, _id? }, setFormState:any] = useState({type:"",_id:""});
     
     function changeFormState(state) {
-        setFormData(state);
-        // console.log(state);
+        setFormState(state);
     }
-
+    
     return (
         <>
             <div id="research" className="hidden-section">
                 {
-                    Object.keys(formData).length !== 0
-                        ?
-                        <Form formStatusUpdate={changeFormState} type={formData.type||""} _id={formData._id?.toString?.()}/>
-                        :
-                        <></>
+                    formState.type &&
+                        <Form formState={formState} formStatusUpdate={changeFormState} type={formState.type||""} _id={formState._id?.toString?.()}/>
                 }
                 <a className="name2">Research</a>
                 <hr />
@@ -43,7 +37,7 @@ export default function Research() {
                         </tbody>
                     </table>
                     <a className="name3">I. Publications</a>
-                    <Table type="researchPublications"column={7} header_row={["Title","Journal Name", "Quartile", "Index", "DOI","Authorship","Uploads"]} keys={["title","journalName","quartile","index","doi","authorship","uploadUrl"]} formStatusMethod={changeFormState} />
+                    <Table formState={formState} type="researchPublications"column={7} header_row={["Title","Journal Name", "Quartile", "Index", "DOI","Authorship","Uploads"]} keys={["title","journalName","quartile","index","doi","authorship","uploadUrl"]} formStatusMethod={changeFormState} />
                     <table className="tableContainer">
                         <thead>
                             <tr>

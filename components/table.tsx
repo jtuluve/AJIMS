@@ -1,7 +1,7 @@
 import { useEffect, useState, useTransition } from "react";
 
 import styles from "@css/table.module.css";
-import { getDataAny } from "@/lib/formFunctions";
+import { getDataAny } from "@/lib/mongoose/serverActions";
 import { handleDeleteAny } from "@/lib/mongoose/serverActions";
 export default function Table({
   column,
