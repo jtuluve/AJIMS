@@ -1,20 +1,24 @@
 .table {
     display: grid;
-    outline: 1px solid gray;
     background-color: #f0f0f0;
 }
 
 .table>* {
     display: grid;
-    grid-template-columns: repeat(7, 1fr) 50px;
+    grid-template-columns: repeat(7, calc(100%/7 - 50px/7)) 50px;
+    background: aliceblue;
 }
 
 .table-header h4,
 .table-row span {
+    width: auto;
     padding: 10px;
     margin: 0;
     border: 1px solid #ccc;
     text-align: center;
+    display: inline-block;
+    overflow: hidden;
+    min-width: 90px;
 }
 
 .table-header h4 {
@@ -25,6 +29,9 @@
 .table-row {
     background-color: #cfd5ea;
     color: black;
+}
+.table .table-buttons{
+    min-width: unset;
 }
 .table-row .edit, .table-row .remove {
     display: flex;
