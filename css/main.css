@@ -170,7 +170,7 @@ a:visited {
   color: black;
 }
 
-.profileform input[type="text"] {
+.profileform .info-p {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -179,7 +179,7 @@ a:visited {
   box-sizing: border-box;
 }
 
-.profileform input[type="submit"] {
+.profileform .profileEditBtn {
   background-color: #01a701;
   color: black;
   padding: 12px 25px;
@@ -197,7 +197,7 @@ a:visited {
   /* Use the same font family as the parent element */
 }
 
-.profileform input[type="submit"]:hover {
+.profileform .profileEditBtn:hover {
   background-color: green;
   transform: scale(1.1);
 }
@@ -206,7 +206,6 @@ a:visited {
   margin-bottom: 10px;
   font-weight: bold;
   font-size: 18px;
-  /* Adjust the font size as needed */
 }
 
 .name2 {
