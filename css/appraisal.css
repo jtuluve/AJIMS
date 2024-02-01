@@ -1,348 +1,341 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100dvh;
-    overflow-x: hidden;
-    overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 * {
-    transition: all 0.3s ease;
-    box-sizing: border-box;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .menu-container {
-    display: flex;
-    width: 100%;
-    height: 90%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    flex-direction: row;
+  display: flex;
+  width: 100%;
+  height: 90%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  flex-direction: row;
 }
 
 .titlebar {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #131d38;
-    color: white;
-    height: 10%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    outline: 2px solid #000;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #131d38;
+  color: white;
+  height: 10%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  outline: 2px solid #000;
 }
 
 .titlebar .logo {
-    height: 80%;
-    border-radius: 15%;
-    margin-left: 1%;
+  height: 80%;
+  border-radius: 15%;
+  margin-left: 1%;
 }
 
 .titlebar .web-name {
-    font-size: 18px;
-    font-weight: bold;
-    display: block;
-    margin: auto 10px;
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin: auto 10px;
 }
 
 .menu {
-    width: 30%;
-    max-width: 290px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #131d38;
-    color: white;
-    margin: 0 2px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border: #000 solid 2px;
+  width: 30%;
+  max-width: 290px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #131d38;
+  color: white;
+  margin: 0 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: #000 solid 2px;
 }
 
 .menu * {
-    margin: auto;
+  margin: auto;
 }
 
 .menu2 {
-    width: 100%;
-    overflow: auto;
-    border-radius: 5px;
-    margin-right: 2px;
-    background-color: #131d38;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border: #000 solid 2px;
-    overflow-x: hidden;
+  width: 100%;
+  overflow: auto;
+  border-radius: 5px;
+  margin-right: 2px;
+  background-color: #131d38;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: #000 solid 2px;
+  overflow-x: hidden;
 }
 
 .profileImg {
-    width: 70%;
-    max-width: 180px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    object-fit: cover;
-    margin: auto auto 10px;
+  width: 70%;
+  aspect-ratio: 1;
+  max-width: 180px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  object-fit: cover;
+  margin: auto auto 10px;
 }
 
 .name {
-    align-self: flex-start;
-    font-size: 40px;
-    margin-top: 2%;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
+  align-self: flex-start;
+  font-size: 40px;
+  margin-top: 2%;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
 }
 
 .name::after {
-    content: "";
-    width: 80%;
-    height: 1px;
-    position: absolute;
-    background-color: gray;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
+  content: '';
+  width: 80%;
+  height: 1px;
+  position: absolute;
+  background-color: gray;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .name2 {
-    color: white;
-    align-self: flex-start;
-    font-size: 30px;
-    margin-left: 1%;
-    position: relative;
-    width: 100%;
-    font-weight: bold;
-    display: block;
+  color: white;
+  align-self: flex-start;
+  font-size: 30px;
+  margin-left: 1%;
+  position: relative;
+  width: 100%;
+  font-weight: bold;
+  display: block;
 }
 
-
 .menuOptions {
-    display: grid;
-    width: 100%;
-    margin-top: -15px;
+  display: grid;
+  width: 100%;
+  margin-top: -15px;
 }
 
 .menuOptions a {
-    color: white;
-    font-size: 22px;
-    padding: 10px 10px;
-    text-align: center;
-    cursor: pointer;
-    display: block;
-    text-decoration: none;
-    border: 1px solid black;
-    border-radius: 50px;
-    margin: 5px;
-    background-color: #0c1f53;
+  color: white;
+  font-size: 22px;
+  padding: 10px 10px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 50px;
+  margin: 5px;
+  background-color: #0c1f53;
 }
 
 .menuOptions a:hover {
-    color: #ff5a5a;
+  color: #ff5a5a;
 }
 
 .menuOptions .active {
-    color: black;
-    background: #869fff;
+  color: black;
+  background: #869fff;
 }
 
 .menuOptions .logout {
-    padding: 10px 20px;
-    background-color: #ff5a5a;
-    border-radius: 25px;
-    color: white;
-    font-size: 24px;
-    margin: 15px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-    font-weight: bold;
-    width: fit-content;
+  padding: 10px 20px;
+  background-color: #ff5a5a;
+  border-radius: 25px;
+  color: white;
+  font-size: 24px;
+  margin: 15px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  font-weight: bold;
+  width: fit-content;
 }
 
 .menuOptions .logout:hover {
-    background-color: #ff0000;
-    color: white;
+  background-color: #ff0000;
+  color: white;
 }
-
 
 /* New CSS for showing and hiding sections based on target */
 .hidden-section {
-    display: none;
+  display: none;
 }
 
 .hidden-section:target {
-    display: block;
+  display: block;
 }
 
 .menu2:not(:has(.hidden-section:target)) #research {
-    display: block;
+  display: block;
 }
-
 
 #research,
 #academics,
 #professional {
-    padding: 20px;
+  padding: 20px;
 }
-
 
 .tableContainer {
-    margin-bottom: 5%;
-    margin-left: 0px;
-
+  margin-bottom: 5%;
+  margin-left: 0px;
 }
 
-.tables{
-    overflow: auto;
-    padding-bottom: 20px;
+.tables {
+  overflow: auto;
+  padding-bottom: 20px;
 }
 .name3 {
-    color: white;
-    font-size: 20px;
-    margin: 0 0 1% 0;
-    position: relative;
-    font-weight: bold;
-    display: block;
+  color: white;
+  font-size: 20px;
+  margin: 0 0 1% 0;
+  position: relative;
+  font-weight: bold;
+  display: block;
 }
 
 .table {
-    width: 70vw;
-    min-width: 500px;
-    border: 1px solid white;
-    margin-bottom: 5%;
+  width: 70vw;
+  min-width: 500px;
+  border: 1px solid white;
+  margin-bottom: 5%;
 }
 
 thead {
-    background-color: #132557;
-    color: white;
+  background-color: #132557;
+  color: white;
 }
 
 thead * {
-    padding: 3px;
+  padding: 3px;
 }
 
 th {
-    padding: 5px;
+  padding: 5px;
 }
 
 td * {
-    overflow: auto;
-    min-width: 100%;
+  overflow: auto;
+  min-width: 100%;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #cfd5ea;
+  background-color: #cfd5ea;
 }
 
 tbody tr:hover {
-    background-color: #e9ebf5;
+  background-color: #e9ebf5;
 }
 
 .scoreTable {
-    width: 60%;
-    font-size: 120%;
+  width: 60%;
+  font-size: 120%;
 }
 
 .scoreTable td {
-    padding: 5px;
+  padding: 5px;
 }
 
 @media only screen and (max-width: 768px) {
-    .menu-container {
-        flex-direction: column;
-        /* Adjust the height as needed */
-        height: 92%;
-    }
+  .menu-container {
+    flex-direction: column;
+    /* Adjust the height as needed */
+    height: 92%;
+  }
 
-    .menu {
-        width: 100%;
-        max-width: none;
-        /* Reset max-width for smaller screens */
-        margin: 2px 0;
-        /* Adjust margin as needed */
-        height: 5%;
-        display: fixed;
-    }
+  .menu {
+    width: 100%;
+    max-width: none;
+    /* Reset max-width for smaller screens */
+    margin: 2px 0;
+    /* Adjust margin as needed */
+    height: 5%;
+    display: fixed;
+  }
 
-    /* Add more adjustments as needed for smaller screens */
-    .name {
-        display: none;
-    }
+  /* Add more adjustments as needed for smaller screens */
+  .name {
+    display: none;
+  }
 
-    .profileImg {
-        display: none;
-    }
+  .profileImg {
+    display: none;
+  }
 
-    .titlebar {
-        height: 8%;
-        display: fixed;
-    }
+  .titlebar {
+    height: 8%;
+    display: fixed;
+  }
 
-    .menuOptions {
-        display: flex;
-        padding: 0%;
-        margin: 0px;
-        border-radius: 8px;
-        margin-top: 0px;
-    }
+  .menuOptions {
+    display: flex;
+    padding: 0%;
+    margin: 0px;
+    border-radius: 8px;
+    margin-top: 0px;
+  }
 
-    .menuOptions a {
-        color: white;
-        font-size: 15px;
-        padding-top: 5px;
-        padding-right: 8px;
-        padding-bottom: 5px;
-        padding-left: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        border: 1px solid black;
-        border-radius: 25%;
-        margin: 15px auto;
-        background-color: #131d30;
-        font-weight: bold;
-        width: fit-content;
-        margin-top: 10%;
-        margin-bottom: 10%;
-    }
+  .menuOptions a {
+    color: white;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-right: 8px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 25%;
+    margin: 15px auto;
+    background-color: #131d30;
+    font-weight: bold;
+    width: fit-content;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
 
-    .menuOptions .logout {
-        background-color: #ff5a5a;
-        color: white;
-        font-size: 15px;
-        padding-top: 5px;
-        padding-right: 8px;
-        padding-bottom: 5px;
-        padding-left: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        border: 1px solid black;
-        border-radius: 25%;
-        margin: 15px auto;
-        font-weight: bold;
-        width: fit-content;
-        margin-top: 10%;
-        margin-bottom: 10%;
-    }
+  .menuOptions .logout {
+    background-color: #ff5a5a;
+    color: white;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-right: 8px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 25%;
+    margin: 15px auto;
+    font-weight: bold;
+    width: fit-content;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
 
-    .menuOptions .active {
-        color: black;
-        background: #869fff;
-    }
+  .menuOptions .active {
+    color: black;
+    background: #869fff;
+  }
 
-    .menu2 {
-        height: 100%;
+  .menu2 {
+    height: 100%;
+  }
 
-    }
-
-    body {
-        overflow: hidden;
-    }
-
-
+  body {
+    overflow: hidden;
+  }
 }
