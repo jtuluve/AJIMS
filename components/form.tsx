@@ -3,7 +3,7 @@ import { getDataAny } from '@/lib/mongoose/serverActions'
 import { getInput } from '@/lib/formFunctions'
 import { handleUpsertAny } from '@/lib/mongoose/serverActions'
 import styles from '@css/form.module.css'
-import { startTransition, useEffect, useState } from 'react'
+import { startTransition, useEffect, useRef, useState } from 'react'
 
 import {
   getDownloadURL,
@@ -12,6 +12,7 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage'
 import { app } from '../app/firebase'
+import { getProfile } from '@/lib/mongoose/functions'
 
 type otherInput = {
   type: string
@@ -75,11 +76,26 @@ export default function Form({
 
   useEffect(() => {
     if (file) {
-      handleFileUpload(file)
+      setUploadUrl('')
+      handleFileUpload(file, type)
     }
   }, [file])
 
-  const handleFileUpload = (file) => {
+  // upload profile picture
+  const [profilePhoto, setProfilePhoto] = useState(undefined)
+
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState('')
+
+  const photoRef = useRef(null)
+
+  useEffect(() => {
+    if (profilePhoto) {
+      setProfilePhotoUrl('')
+      handleFileUpload(profilePhoto, type)
+    }
+  }, [profilePhoto])
+
+  const handleFileUpload = (file, type) => {
     const storage = getStorage(app)
     const fileName = new Date().getTime() + file.name
     const storageRef = ref(storage, fileName)
@@ -99,56 +115,15 @@ export default function Form({
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           // console.log(downloadURL)
-          setUploadUrl(downloadURL)
+          if (type === 'profile') {
+            setProfilePhotoUrl(downloadURL)
+          } else {
+            setUploadUrl(downloadURL)
+          }
         })
       }
     )
   }
-
-  // upload profile picture
-  const [profilePhoto, setProfilePhoto] = useState(undefined)
-  const [profilePhotoPerc, setProfilePhotoPerc] = useState(0)
-  const [profilePhotoUploadError, setProfilePhotoUploadError] = useState(false)
-
-  const [profilePhotoUrl, setProfilePhotoUrl] = useState('')
-
-  useEffect(() => {
-    if (profilePhoto) {
-      handleProfilePhotoUpload(profilePhoto)
-    }
-  }, [profilePhoto])
-
-  const handleProfilePhotoUpload = (file) => {
-    const storage = getStorage(app)
-    const fileName = new Date().getTime() + file.name
-    const storageRef = ref(storage, fileName)
-    const uploadTask = uploadBytesResumable(storageRef, file)
-
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        // console.log(progress);
-        setProfilePhotoPerc(Math.round(progress))
-      },
-      (error) => {
-        console.log(error)
-        setProfilePhotoUploadError(true)
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // console.log(downloadURL)
-          setProfilePhotoUrl(downloadURL)
-        })
-      }
-    )
-  }
-
-  useEffect(() => {
-    if (formStatus.status === 'submitting')
-      localStorage.setItem('profileUrl', profilePhotoUrl)
-    // console.log(formStatus)
-  }, [formStatus])
 
   ///////////////////////////////////////////////////////////////////
 
@@ -161,6 +136,14 @@ export default function Form({
           setFormData({ loading: true })
           let formData = await getDataAny(type, _id)
           setFormData(formData)
+
+          setUploadUrl(formData.uploadUrl)
+
+          setProfilePhotoUrl(formData.profileUrl)
+
+          if (!formData.profileUrl) {
+            setProfilePhotoUrl('user.png')
+          }
         } else setFormData({ loading: false })
       } catch (e) {
         setInputs({ status: 'error' })
@@ -251,7 +234,16 @@ export default function Form({
                   }
                 />
               ) : e.type === 'file' && e.name === 'profilePhoto' ? (
-                profilePhotoUrl ? (
+                <section
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '220px',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBlock: '1rem',
+                  }}
+                >
                   <figure
                     style={{
                       borderWidth: '1px',
@@ -263,19 +255,21 @@ export default function Form({
                       justifyContent: 'center',
                       alignItems: 'center',
                       overflow: 'hidden',
+                      margin: 0,
                     }}
                   >
                     <img
                       src={profilePhotoUrl}
                       alt="profile"
-                      width={240}
-                      height={240}
+                      width={200}
+                      height={200}
                       style={{ objectFit: 'cover' }}
                     />
                   </figure>
-                ) : (
                   <div>
                     <input
+                      hidden
+                      ref={photoRef}
                       type="file"
                       accept="image/*"
                       onChange={(e) => {
@@ -293,16 +287,16 @@ export default function Form({
                         ''
                       }
                     />
-                    <p>
-                      {profilePhotoUploadError ? (
+                    <p style={{ textAlign: 'center' }}>
+                      {fileUploadError ? (
                         <span style={{ color: 'white' }}>
                           Error in profilePhoto uplaod
                         </span>
-                      ) : profilePhotoPerc > 0 && profilePhotoPerc < 100 ? (
+                      ) : filePerc > 0 && filePerc < 100 ? (
                         <span
                           style={{ color: 'white' }}
-                        >{`Uploading ${profilePhotoPerc}%...`}</span>
-                      ) : profilePhotoPerc === 100 ? (
+                        >{`Uploading ${filePerc}%...`}</span>
+                      ) : filePerc === 100 ? (
                         <span style={{ color: 'white' }}>
                           Profile Photo Succesfully uploaded
                         </span>
@@ -311,7 +305,20 @@ export default function Form({
                       )}
                     </p>
                   </div>
-                )
+                  <button
+                    type="button"
+                    style={{
+                      width: '90%',
+                      padding: '.4rem',
+                      border: 'none',
+                      borderRadius: '.4rem',
+                      fontWeight: 'bold',
+                    }}
+                    onClick={() => photoRef.current.click()}
+                  >
+                    CHANGE
+                  </button>
+                </section>
               ) : e.type === 'file' ? (
                 <div>
                   <input
@@ -364,15 +371,28 @@ export default function Form({
           )
         })}
         <span>
-          <input
-            className={styles.submit}
-            type="submit"
-            disabled={uploadUrl || profilePhotoUrl ? false : true}
-            style={{ opacity: `${uploadUrl || profilePhotoUrl}` ? 1 : 0.3 }}
-            value={
-              formStatus.status === 'submitting' ? 'SUBMITTING..' : 'SUBMIT'
-            }
-          />
+          {type === 'profile' ? (
+            <input
+              className={styles.submit}
+              type="submit"
+              disabled={profilePhotoUrl ? false : true}
+              style={{ opacity: `${profilePhotoUrl}` ? 1 : 0.3 }}
+              value={
+                formStatus.status === 'submitting' ? 'SUBMITTING..' : 'SUBMIT'
+              }
+            />
+          ) : (
+            <input
+              className={styles.submit}
+              type="submit"
+              disabled={uploadUrl ? false : true}
+              style={{ opacity: `${uploadUrl}` ? 1 : 0.3 }}
+              value={
+                formStatus.status === 'submitting' ? 'SUBMITTING..' : 'SUBMIT'
+              }
+            />
+          )}
+
           <button
             className={styles.cancel}
             onClick={(e) => {
