@@ -62,6 +62,7 @@ export default function Form({
     error: false,
     status: 'none',
   })
+
   // form upload
   const [file, setFile] = useState(undefined)
   const [filePerc, setFilePerc] = useState(0)
@@ -103,6 +104,53 @@ export default function Form({
       }
     )
   }
+
+  // upload profile picture
+  const [profilePhoto, setProfilePhoto] = useState(undefined)
+  const [profilePhotoPerc, setProfilePhotoPerc] = useState(0)
+  const [profilePhotoUploadError, setProfilePhotoUploadError] = useState(false)
+
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState('')
+
+  useEffect(() => {
+    if (profilePhoto) {
+      handleProfilePhotoUpload(profilePhoto)
+    }
+  }, [profilePhoto])
+
+  const handleProfilePhotoUpload = (file) => {
+    const storage = getStorage(app)
+    const fileName = new Date().getTime() + file.name
+    const storageRef = ref(storage, fileName)
+    const uploadTask = uploadBytesResumable(storageRef, file)
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        // console.log(progress);
+        setProfilePhotoPerc(Math.round(progress))
+      },
+      (error) => {
+        console.log(error)
+        setProfilePhotoUploadError(true)
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          // console.log(downloadURL)
+          setProfilePhotoUrl(downloadURL)
+        })
+      }
+    )
+  }
+
+  useEffect(() => {
+    if (formStatus.status === 'submitting')
+      localStorage.setItem('profileUrl', profilePhotoUrl)
+    // console.log(formStatus)
+  }, [formStatus])
+
+  ///////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     ;(async () => {
@@ -160,7 +208,10 @@ export default function Form({
           e.preventDefault()
           const formData = new FormData(e.currentTarget)
           formData.append('uploadUrl', uploadUrl)
+          formData.append('profileUrl', profilePhotoUrl)
           // const data = Object.fromEntries(formData)
+          // console.log(data)
+
           // const newData = { ...data, uploadUrl }
           // console.log(newData)
           // console.log(data)
@@ -199,6 +250,68 @@ export default function Form({
                     formData?.[e.name] || formData?.[e.label] || e.default || ''
                   }
                 />
+              ) : e.type === 'file' && e.name === 'profilePhoto' ? (
+                profilePhotoUrl ? (
+                  <figure
+                    style={{
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'lightgray',
+                      borderRadius: '1rem',
+                      width: 'min-content',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={profilePhotoUrl}
+                      alt="profile"
+                      width={240}
+                      height={240}
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </figure>
+                ) : (
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        // setFile(e.target.files[0])
+                        // console.log(e.target.files[0])
+                        setProfilePhoto(e.target.files[0])
+                      }}
+                      name={e.name}
+                      placeholder={(e as otherInput).placeholder || ' '}
+                      required={e.required || false}
+                      defaultValue={
+                        formData?.[e.name] ||
+                        formData?.[e.label] ||
+                        e.default ||
+                        ''
+                      }
+                    />
+                    <p>
+                      {profilePhotoUploadError ? (
+                        <span style={{ color: 'white' }}>
+                          Error in profilePhoto uplaod
+                        </span>
+                      ) : profilePhotoPerc > 0 && profilePhotoPerc < 100 ? (
+                        <span
+                          style={{ color: 'white' }}
+                        >{`Uploading ${profilePhotoPerc}%...`}</span>
+                      ) : profilePhotoPerc === 100 ? (
+                        <span style={{ color: 'white' }}>
+                          Profile Photo Succesfully uploaded
+                        </span>
+                      ) : (
+                        ''
+                      )}
+                    </p>
+                  </div>
+                )
               ) : e.type === 'file' ? (
                 <div>
                   <input
@@ -254,8 +367,8 @@ export default function Form({
           <input
             className={styles.submit}
             type="submit"
-            disabled={uploadUrl ? false : true}
-            style={{ opacity: `${uploadUrl}` ? 1 : 0.3 }}
+            disabled={uploadUrl || profilePhotoUrl ? false : true}
+            style={{ opacity: `${uploadUrl || profilePhotoUrl}` ? 1 : 0.3 }}
             value={
               formStatus.status === 'submitting' ? 'SUBMITTING..' : 'SUBMIT'
             }

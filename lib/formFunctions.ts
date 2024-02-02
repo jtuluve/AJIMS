@@ -1,83 +1,329 @@
-"use server"
-import * as mongomethods from "@/lib/mongoose/functions";
-import { revalidatePath } from "next/cache";
-
+'use server'
+import * as mongomethods from '@/lib/mongoose/functions'
+import { revalidatePath } from 'next/cache'
 
 export async function getInput(type: string) {
-    let inputs = {
-        profile:[
-            { name: "name", type: "text", label: "Name", placeholder: "Enter Name", required: true },
-            { name: "designation", type: "text", label: "Designation", placeholder: "Enter Designation", required: true },
-            { name: "department", type: "text", label: "Department", placeholder: "Enter Department", required: true }
-          ],
+  let inputs = {
+    profile: [
+      {
+        name: 'name',
+        type: 'text',
+        label: 'Name',
+        placeholder: 'Enter Name',
+        required: true,
+      },
+      {
+        name: 'designation',
+        type: 'text',
+        label: 'Designation',
+        placeholder: 'Enter Designation',
+        required: true,
+      },
+      {
+        name: 'department',
+        type: 'text',
+        label: 'Department',
+        placeholder: 'Enter Department',
+        required: true,
+      },
+      {
+        name: 'profilePhoto',
+        type: 'file',
+        label: 'Profile Photo',
+        required: true,
+      },
+    ],
 
-        researchPublications: [
-            { name: "title", type: "text", label: "Title", placeholder: "Enter title", required: true },
-            { name: "journalName", type: "text", label: "Journal Name", placeholder: "Enter Journal Name", required: true },
-            { name: "quartile", type: "select", label: "Quartile", required: true, options: [{ value: "Q1" }, { value: "Q2" }, { value: "Q3" }, { value: "Q4" }, { value: "No quartile" }, { value: "Nil" }] },
-            { name: "index", type: "select", label: "Index", required: true, options: [{ value: "Medline" }, { value: "Pubmed" }, { value: "CSCI" }, { value: "SCI" }, { value: "DC" }, { value: "Expanded Embase" }, { value: "Scopus" }, { value: "DoAJ" }] },
-            { name: "doi", type: "text", required: true, label: "DOI", placeholder: "Enter DOI" },
-            { name: "authorship", type: "select", label: "Authorship", required: true, options: [{ value: "First" }, { value: "Correspondant" }, { value: "Second" }, { value: "Other" }] },
-            { name: "file", type: "file", required: false, label: "File" }
+    researchPublications: [
+      {
+        name: 'title',
+        type: 'text',
+        label: 'Title',
+        placeholder: 'Enter title',
+        required: true,
+      },
+      {
+        name: 'journalName',
+        type: 'text',
+        label: 'Journal Name',
+        placeholder: 'Enter Journal Name',
+        required: true,
+      },
+      {
+        name: 'quartile',
+        type: 'select',
+        label: 'Quartile',
+        required: true,
+        options: [
+          { value: 'Q1' },
+          { value: 'Q2' },
+          { value: 'Q3' },
+          { value: 'Q4' },
+          { value: 'No quartile' },
+          { value: 'Nil' },
         ],
+      },
+      {
+        name: 'index',
+        type: 'select',
+        label: 'Index',
+        required: true,
+        options: [
+          { value: 'Medline' },
+          { value: 'Pubmed' },
+          { value: 'CSCI' },
+          { value: 'SCI' },
+          { value: 'DC' },
+          { value: 'Expanded Embase' },
+          { value: 'Scopus' },
+          { value: 'DoAJ' },
+        ],
+      },
+      {
+        name: 'doi',
+        type: 'text',
+        required: true,
+        label: 'DOI',
+        placeholder: 'Enter DOI',
+      },
+      {
+        name: 'authorship',
+        type: 'select',
+        label: 'Authorship',
+        required: true,
+        options: [
+          { value: 'First' },
+          { value: 'Correspondant' },
+          { value: 'Second' },
+          { value: 'Other' },
+        ],
+      },
+      { name: 'file', type: 'file', required: false, label: 'File' },
+    ],
 
-        researchGrants: [
-            { name: "title", type: "text", label: "Title", placeholder: "Enter title", required: true },
-            { name: "applied", type: "number", label: "Applied", placeholder: "Enter applied", required: true, default: 0 },
-            { name: "received", type: "number", label: "Received", placeholder: "Enter received", required: true, default: 0 },
-            { name: "amountCategory", type: "select", label: "Amount Category", required: true, options: ["upto 1 lakh", "1 - 5 lakhs", "5 - 10 lakhs", "10 - 30 lakhs", "> 30 lakhs", "Nil"], default: "Nil" },
-            { name: "uploadUrl", type: "file", label: "Upload URL", required: false }
+    researchGrants: [
+      {
+        name: 'title',
+        type: 'text',
+        label: 'Title',
+        placeholder: 'Enter title',
+        required: true,
+      },
+      {
+        name: 'applied',
+        type: 'number',
+        label: 'Applied',
+        placeholder: 'Enter applied',
+        required: true,
+        default: 0,
+      },
+      {
+        name: 'received',
+        type: 'number',
+        label: 'Received',
+        placeholder: 'Enter received',
+        required: true,
+        default: 0,
+      },
+      {
+        name: 'amountCategory',
+        type: 'select',
+        label: 'Amount Category',
+        required: true,
+        options: [
+          'upto 1 lakh',
+          '1 - 5 lakhs',
+          '5 - 10 lakhs',
+          '10 - 30 lakhs',
+          '> 30 lakhs',
+          'Nil',
         ],
+        default: 'Nil',
+      },
+      { name: 'uploadUrl', type: 'file', label: 'Upload URL', required: false },
+    ],
 
-        researchBooks: [
-            { name: "authorship", type: "select", placeholder: "Authorship", required: true, options: ["Nil", "Chapter", "Book"], default: "Nil" },
-            { name: "category", type: "select", placeholder: "Category", required: true, options: ["Nil", "National", "International"], default: "Nil" }
-        ],
+    researchBooks: [
+      {
+        name: 'authorship',
+        type: 'select',
+        placeholder: 'Authorship',
+        required: true,
+        options: ['Nil', 'Chapter', 'Book'],
+        default: 'Nil',
+      },
+      {
+        name: 'category',
+        type: 'select',
+        placeholder: 'Category',
+        required: true,
+        options: ['Nil', 'National', 'International'],
+        default: 'Nil',
+      },
+    ],
 
-        researchGuidance: [
-            { name: "category", type: "select", placeholder: "Category", required: true, options: ["UG", "PG", "PHD", "Nil"], default: "Nil" },
-            { name: "number", type: "number", placeholder: "Number", required: true, default: 0 }
-        ],
+    researchGuidance: [
+      {
+        name: 'category',
+        type: 'select',
+        placeholder: 'Category',
+        required: true,
+        options: ['UG', 'PG', 'PHD', 'Nil'],
+        default: 'Nil',
+      },
+      {
+        name: 'number',
+        type: 'number',
+        placeholder: 'Number',
+        required: true,
+        default: 0,
+      },
+    ],
 
-        researchConferences: [
-            { name: "category", type: "select", placeholder: "Category", required: true, options: ["Nil", "National", "International"], default: "Nil" },
-            { name: "number", type: "number", placeholder: "Number", required: true, default: 0 }
-        ],
+    researchConferences: [
+      {
+        name: 'category',
+        type: 'select',
+        placeholder: 'Category',
+        required: true,
+        options: ['Nil', 'National', 'International'],
+        default: 'Nil',
+      },
+      {
+        name: 'number',
+        type: 'number',
+        placeholder: 'Number',
+        required: true,
+        default: 0,
+      },
+    ],
 
-        academicsTeaching: [
-            { name: "hours", type: "number", placeholder: "Hours", required: true, default: 0 },
-            { name: "clinicalHours", type: "number", placeholder: "Clinical Hours", required: true, default: 0 },
-            { name: "studentsFeedback", type: "number", placeholder: "Students Feedback", required: true, default: 0 }
-        ],
+    academicsTeaching: [
+      {
+        name: 'hours',
+        type: 'number',
+        placeholder: 'Hours',
+        required: true,
+        default: 0,
+      },
+      {
+        name: 'clinicalHours',
+        type: 'number',
+        placeholder: 'Clinical Hours',
+        required: true,
+        default: 0,
+      },
+      {
+        name: 'studentsFeedback',
+        type: 'number',
+        placeholder: 'Students Feedback',
+        required: true,
+        default: 0,
+      },
+    ],
 
-        professionalClinicalDuty: [
-            { name: "patients", type: "number", placeholder: "Patients", required: true, default: 0 }
+    professionalClinicalDuty: [
+      {
+        name: 'patients',
+        type: 'number',
+        placeholder: 'Patients',
+        required: true,
+        default: 0,
+      },
+    ],
+    professionalPostHeld: [
+      {
+        name: 'category',
+        type: 'select',
+        placeholder: 'Category',
+        required: true,
+        options: [
+          'Lecturer',
+          'Assistant Professor',
+          'Associate Professor',
+          'Professor',
+          'HOD (Head of Department)',
+          'Nil',
         ],
-        professionalPostHeld: [
-            { name: "category", type: "select", placeholder: "Category", required: true, options: ["Lecturer", "Assistant Professor", "Associate Professor", "Professor", "HOD (Head of Department)", "Nil"], default: "Nil" }
-        ],
+        default: 'Nil',
+      },
+    ],
 
-        professionalExamDuties: [
-            { name: "category1", type: "select", placeholder: "Category 1", required: true, options: ["Invigilator/Room Supervisor", "Deputy Chief Superintendent", "Chief Superintendent", "Nil"], default: "Nil" },
-            { name: "category2", type: "select", placeholder: "Category 2", required: true, options: ["Internal", "External", "Nil"], default: "Nil" }
+    professionalExamDuties: [
+      {
+        name: 'category1',
+        type: 'select',
+        placeholder: 'Category 1',
+        required: true,
+        options: [
+          'Invigilator/Room Supervisor',
+          'Deputy Chief Superintendent',
+          'Chief Superintendent',
+          'Nil',
         ],
-        professionalCommittee: [
-            { name: "committeeName", type: "text", placeholder: "Committee Name", required: true },
-            { name: "designation", type: "select", placeholder: "Designation", required: true, options: ["Member", "Coordinator", "Head", "Nil"], default: "Nil" }
-        ],
-        professionalConference: [
-            { name: "designation", type: "select", placeholder: "Designation", required: true, options: ["Member", "Coordinator", "Head", "Nil"], default: "Nil" },
-            { name: "creditPoints", type: "select", placeholder: "Credit Points", required: true, options: ["Yes", "No"], default: "Yes" }
-        ],
-        professionalGuestLectures: [
-            { name: "number", type: "number", placeholder: "Number", required: true, default: 0 },
-            { name: "category", type: "select", placeholder: "Category", required: true, options: ["Internal", "External", "Nil"], default: "Nil" }
-        ],
-    }
+        default: 'Nil',
+      },
+      {
+        name: 'category2',
+        type: 'select',
+        placeholder: 'Category 2',
+        required: true,
+        options: ['Internal', 'External', 'Nil'],
+        default: 'Nil',
+      },
+    ],
+    professionalCommittee: [
+      {
+        name: 'committeeName',
+        type: 'text',
+        placeholder: 'Committee Name',
+        required: true,
+      },
+      {
+        name: 'designation',
+        type: 'select',
+        placeholder: 'Designation',
+        required: true,
+        options: ['Member', 'Coordinator', 'Head', 'Nil'],
+        default: 'Nil',
+      },
+    ],
+    professionalConference: [
+      {
+        name: 'designation',
+        type: 'select',
+        placeholder: 'Designation',
+        required: true,
+        options: ['Member', 'Coordinator', 'Head', 'Nil'],
+        default: 'Nil',
+      },
+      {
+        name: 'creditPoints',
+        type: 'select',
+        placeholder: 'Credit Points',
+        required: true,
+        options: ['Yes', 'No'],
+        default: 'Yes',
+      },
+    ],
+    professionalGuestLectures: [
+      {
+        name: 'number',
+        type: 'number',
+        placeholder: 'Number',
+        required: true,
+        default: 0,
+      },
+      {
+        name: 'category',
+        type: 'select',
+        placeholder: 'Category',
+        required: true,
+        options: ['Internal', 'External', 'Nil'],
+        default: 'Nil',
+      },
+    ],
+  }
 
-    return inputs[type]
+  return inputs[type]
 }
-
-
-
-
