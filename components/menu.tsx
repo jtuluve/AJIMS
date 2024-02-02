@@ -1,29 +1,46 @@
-"use client"
-import {signOut, useSession} from "next-auth/react"
+'use client'
+import { getProfile } from '@/lib/mongoose/functions'
+import { signOut, useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 
 export default function Menu() {
-    const {data:session}=useSession()
-    if(session)
+  const [user, setUser]: [user: any, setUser: any] = useState({})
+
+  // useEffect(() => {
+  //   setProfileUrl(localStorage.getItem('profileUrl'))
+  // }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      let profile = await getProfile()
+      setUser(profile)
+    })()
+    // setProfileUrl(localStorage.getItem('profileUrl'))
+  }, [])
+
+  const { profileUrl, name } = user
+  const { data: session } = useSession()
+  if (session)
     return (
-        <>
-            <div className="menu">
-                <img src="user.png" alt="" className="profileImg" />
-                <span className="name">Username</span>
-                <div className="menuOptions">
-                    <a href="#research" className="active">
-                        Research
-                    </a>
-                    <a href="#academics">
-                        Academics
-                    </a>
-                    <a href="#professional">
-                        Professional
-                    </a>
-                    <a className="logout" href="/main">Home</a>
-                </div>
-            </div>
-
-
-        </>
+      <>
+        <div className="menu">
+          <img
+            src={profileUrl ? profileUrl : 'user.png'}
+            alt="profile photo"
+            className="profileImg"
+          />
+          <span className="name">{name}</span>
+          <div className="menuOptions">
+            <a href="#research" className="active">
+              Research
+            </a>
+            <a href="#academics">Academics</a>
+            <a href="#professional">Professional</a>
+            <a className="logout" href="/main">
+              Home
+            </a>
+          </div>
+        </div>
+      </>
     )
 }

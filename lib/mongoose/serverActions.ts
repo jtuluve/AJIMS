@@ -1,124 +1,118 @@
-"use server"
-import * as mongomethods from '@/lib/mongoose/functions';
-import { revalidatePath } from 'next/cache';
-
-
-
-
+'use server'
+import * as mongomethods from '@/lib/mongoose/functions'
+import { revalidatePath } from 'next/cache'
 
 /* Get data method */
 //helper function
-export async function getRetrieveFunction(type: string): Promise<() => Promise<any>> {
+export async function getRetrieveFunction(
+  type: string
+): Promise<() => Promise<any>> {
+  let functions = {
+    profile: mongomethods.getProfile,
 
-    let functions = {
-        profile:mongomethods.getProfile,
-        
-        researchPublications: mongomethods.getResearchPublications,
-        researchGrants: mongomethods.getResearchGrants,
-        researchBooks: mongomethods.getResearchBooks,
-        researchGuidance: mongomethods.getResearchGuidance,
-        researchConferences: mongomethods.getResearchConferences,
+    researchPublications: mongomethods.getResearchPublications,
+    researchGrants: mongomethods.getResearchGrants,
+    researchBooks: mongomethods.getResearchBooks,
+    researchGuidance: mongomethods.getResearchGuidance,
+    researchConferences: mongomethods.getResearchConferences,
 
-        academicsTeaching: mongomethods.getAcademicsTeaching,
+    academicsTeaching: mongomethods.getAcademicsTeaching,
 
-        professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
-        professionalPostHeld: mongomethods.getProfessionalPostHeld,
-        professionalExamDuties: mongomethods.getProfessionalExamDuties,
-        professionalCommittee: mongomethods.getProfessionalCommittee,
-        professionalConference: mongomethods.getProfessionalConferences,
-        professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
-    }
-    return functions[type] || new Error("No retrieve function found for " + type);
+    professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
+    professionalPostHeld: mongomethods.getProfessionalPostHeld,
+    professionalExamDuties: mongomethods.getProfessionalExamDuties,
+    professionalCommittee: mongomethods.getProfessionalCommittee,
+    professionalConference: mongomethods.getProfessionalConferences,
+    professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
+  }
+  return functions[type] || new Error('No retrieve function found for ' + type)
 }
 
 //get method
 export async function getDataAny(type, _id?) {
-    let retrieveFunction = await getRetrieveFunction(type);
-    let data;
-    if(retrieveFunction) data = await retrieveFunction?.();
-    if (Array.isArray(data)) {
-        data = data?.map(d => {
-            if (d._doc?._id)
-                d._doc._id = d._doc._id.toString();
-            // console.log("inside data map:",d._doc?._id);
-            revalidatePath("/appraisal")
-            return d._doc;
-        })
-        if (_id) data=data.find(e => e._id == _id)
-        // console.log("after map",_id);
-        // console.log("before return",data);
-        return data;
-    }
-    if (data?._doc?._id)
-        data._doc._id = data._doc._id.toString?.();
-    data = data?._doc || data;
-
-    if(data?._id) data._id = data._id.toString?.();
-    // if (_id) data?.find(e => e._id == _id||e._doc?._id==_id)
-    
+  let retrieveFunction = await getRetrieveFunction(type)
+  let data
+  if (retrieveFunction) data = await retrieveFunction?.()
+  if (Array.isArray(data)) {
+    data = data?.map((d) => {
+      if (d._doc?._id) d._doc._id = d._doc._id.toString()
+      // console.log("inside data map:",d._doc?._id);
+      revalidatePath('/appraisal')
+      return d._doc
+    })
+    if (_id) data = data.find((e) => e._id == _id)
+    // console.log("after map",_id);
     // console.log("before return",data);
-    return data;
+    return data
+  }
+  if (data?._doc?._id) data._doc._id = data._doc._id.toString?.()
+  data = data?._doc || data
+
+  if (data?._id) data._id = data._id.toString?.()
+  // if (_id) data?.find(e => e._id == _id||e._doc?._id==_id)
+
+  // console.log("before return",data);
+  return data
 }
 
 //Post method with one function
 export async function handleUpsertAny(formData: FormData) {
-    let obj = Object.fromEntries(formData.entries());
-    let { type, ...newobj } = obj;
-    
-    let functions = {
-        profile: mongomethods.updateProfile,
+  let obj = Object.fromEntries(formData.entries())
 
-        researchPublications: mongomethods.upsertResearchPublications,
-        researchGrants: mongomethods.upsertResearchGrants,
-        researchBooks: mongomethods.upsertResearchBooks,
-        researchGuidance: mongomethods.upsertResearchGuidance,
-        researchConferences: mongomethods.upsertResearchConference,
+  let { type, ...newobj } = obj
 
-        academicsTeaching: mongomethods.updateAcademicsTeaching,
+  let functions = {
+    profile: mongomethods.updateProfile,
 
-        professionalClinicalDuty: mongomethods.updateProfessionalClinicalDuty,
-        professionalPostHeld: mongomethods.updateProfessionalPostHeld,
-        professionalExamDuties: mongomethods.upsertProfessionalExamDuties,
-        professionalCommittee: mongomethods.upsertProfessionalCommittee,
-        professionalConference: mongomethods.upsertProfessionalConference,
-        professionalGuestLectures: mongomethods.upsertProfessionalGuestLecture,
+    researchPublications: mongomethods.upsertResearchPublications,
+    researchGrants: mongomethods.upsertResearchGrants,
+    researchBooks: mongomethods.upsertResearchBooks,
+    researchGuidance: mongomethods.upsertResearchGuidance,
+    researchConferences: mongomethods.upsertResearchConference,
 
-    }
+    academicsTeaching: mongomethods.updateAcademicsTeaching,
 
-    try {
-        let res = await functions[type as string]?.(newobj);
-        if (!res) throw new Error("Function not found or upsert failed");
-        // revalidatePath("/")
-        return { submitted: true, error: false }
-    } catch (e) {
-        console.error(e);
-        // revalidatePath("/")
-        return { submitted: false, error: true }
-    }
+    professionalClinicalDuty: mongomethods.updateProfessionalClinicalDuty,
+    professionalPostHeld: mongomethods.updateProfessionalPostHeld,
+    professionalExamDuties: mongomethods.upsertProfessionalExamDuties,
+    professionalCommittee: mongomethods.upsertProfessionalCommittee,
+    professionalConference: mongomethods.upsertProfessionalConference,
+    professionalGuestLectures: mongomethods.upsertProfessionalGuestLecture,
+  }
+
+  try {
+    let res = await functions[type as string]?.(newobj)
+    if (!res) throw new Error('Function not found or upsert failed')
+    // revalidatePath("/")
+    return { submitted: true, error: false }
+  } catch (e) {
+    console.error(e)
+    // revalidatePath("/")
+    return { submitted: false, error: true }
+  }
 }
 
+export async function handleDeleteAny(type: string, _id: string) {
+  if (!_id || !type) {
+    return { error: 'Invalid request', submitted: false }
+  }
+  let functions = {
+    researchPublications: mongomethods.deleteResearchPublication,
+    researchGrants: mongomethods.deleteResearchGrant,
+    researchBooks: mongomethods.deleteResearchBook,
+    researchGuidance: mongomethods.deleteResearchGuidance,
+    researchConferences: mongomethods.deleteResearchConference,
 
-export async function handleDeleteAny(type:string, _id: string) {
-    if (!_id||!type) {
-        return { error: "Invalid request", submitted: false };
-    }
-    let functions = {
-        researchPublications: mongomethods.deleteResearchPublication,
-        researchGrants: mongomethods.deleteResearchGrant,
-        researchBooks: mongomethods.deleteResearchBook,
-        researchGuidance: mongomethods.deleteResearchGuidance,
-        researchConferences: mongomethods.deleteResearchConference,
-
-        professionalExamDuties: mongomethods.deleteProfessionalExamDuty,
-        professionalCommittee: mongomethods.deleteProfessionalCommittee,
-        professionalGuestLectures: mongomethods.deleteProfessionalGuestLecture,
-    }
-    try {
-        let res = await functions[type]?.(_id);
-        if (!res) throw "Failed to delete";
-        return { submitted: true, error: false, res }
-    }catch(e){
-        console.error(e);
-        return { error: e, submitted: false }
-    }
+    professionalExamDuties: mongomethods.deleteProfessionalExamDuty,
+    professionalCommittee: mongomethods.deleteProfessionalCommittee,
+    professionalGuestLectures: mongomethods.deleteProfessionalGuestLecture,
+  }
+  try {
+    let res = await functions[type]?.(_id)
+    if (!res) throw 'Failed to delete'
+    return { submitted: true, error: false, res }
+  } catch (e) {
+    console.error(e)
+    return { error: e, submitted: false }
+  }
 }
