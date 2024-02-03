@@ -9,15 +9,19 @@ export default function Table({
   keys,
   type,
   formStatusMethod,
-  formState
+  formState,
 }: {
   column: number;
   header_row: Array<string>;
   keys: Array<string>;
   type: string;
-  formStatusMethod: (status: any) => any;
-  formState: any;
+  formStatusMethod?: (status: any) => any;
+  formState?: any;
 }) {
+  let style =
+    type.indexOf("Score") === -1
+      ? `repeat(${column}, calc(100%/${column} - 50px/${column})) 50px`
+      : `repeat(${column}, calc(100%/${column}))`;
   const [values, setValues]: [
     values: boolean | Array<{}> | {},
     setValues: any
@@ -43,7 +47,9 @@ export default function Table({
       <div className={styles["table"]}>
         <div
           className={styles["table-header"]}
-          style={{ gridTemplateColumns: `repeat(7, calc(100%/${column} - 50px/${column})) 50px` }}
+          style={{
+            gridTemplateColumns: style,
+          }}
         >
           {header_row.map((e, i) => (
             <h4 key={i}>{e}</h4>
@@ -51,61 +57,83 @@ export default function Table({
         </div>
         {/* Check if the "values" is array or just one object and render accordingly*/}
         {Array.isArray(values) ? (
-          values.map((e) => {
-            return (
-              <div
-                className={styles["table-row"]}
-                key={e._id?.toString?.()}
-                style={{ gridTemplateColumns: `repeat(7, calc(100%/${column} - 50px/${column})) 50px` }}
-              >
-                {keys.map((key, i) => {
-                  return key == "uploadUrl" ? (
-                    <span key={key + i}>
-                      {e.uploadUrl ? "uploaded" : "Not uploaded"}
-                    </span>
-                  ) : (
-                    <span key={key + i}>{e[key]}</span>
-                  );
-                })}
-                <span className={styles["table-buttons"]}>
-                  <button
-                    data-_id={e._id?.toString?.()}
-                    className={styles["edit"]}
-                    id="columnEditButton"
-                    onClick={() => {
-                      formStatusMethod({
-                        type,
-                        _id: e._id?.toString?.() || e._id,
-                      });
-                    }}
-                  >
-                    <i className="material-symbols-outlined">edit</i>
-                  </button>
-                  <button
-                    data-_id={e._id?.toString?.()}
-                    className={styles["remove"]}
-                    id="columnDeleteButton"
-                    defaultValue="delete"
-                    onClick={() => {
-                      (async () =>
-                        await handleDeleteAny(
+          <>
+            {values.map((e) => {
+              return (
+                <div
+                  className={styles["table-row"]}
+                  key={e._id?.toString?.()}
+                  style={{
+                    gridTemplateColumns: style,
+                  }}
+                >
+                  {keys.map((key, i) => {
+                    return key == "uploadUrl" ? (
+                      <span key={key + i}>
+                        {e.uploadUrl ? (
+                          <a href={e.uploadUrl} target="_blank">
+                            download
+                          </a>
+                        ) : (
+                          "Not uploaded"
+                        )}
+                      </span>
+                    ) : (
+                      <span key={key + i}>{e[key]}</span>
+                    );
+                  })}
+                  <span className={styles["table-buttons"]}>
+                    <button
+                      data-_id={e._id?.toString?.()}
+                      className={styles["edit"]}
+                      id="columnEditButton"
+                      onClick={() => {
+                        formStatusMethod({
                           type,
-                          e._id?.toString?.() || e._id
-                        ))();
-                        formStatusMethod({})
-                    }}
-                  >
-                    <i className="material-symbols-outlined">delete</i>
-                  </button>
-                </span>
-              </div>
-            );
-          })
+                          _id: e._id?.toString?.() || e._id,
+                        });
+                      }}
+                    >
+                      <i className="material-symbols-outlined">edit</i>
+                    </button>
+                    <button
+                      data-_id={e._id?.toString?.()}
+                      className={styles["remove"]}
+                      id="columnDeleteButton"
+                      defaultValue="delete"
+                      onClick={() => {
+                        (async () =>
+                          await handleDeleteAny(
+                            type,
+                            e._id?.toString?.() || e._id
+                          ))();
+                        formStatusMethod({});
+                      }}
+                    >
+                      <i className="material-symbols-outlined">delete</i>
+                    </button>
+                  </span>
+                </div>
+              );
+            })}
+            <div className={styles["addRowBtnDiv"]}>
+              <button
+                onClick={() => {
+                  formStatusMethod({ type });
+                }}
+                style={{gridColumn:`${Math.round(column/2)}`}}
+              >
+                Add
+              </button>
+            </div>
+          </>
         ) : (
           <div
             className={styles["table-row"]}
             key={(values as { _id })?._id?.toString?.()}
-            style={{ gridTemplateColumns: `repeat(7, calc(100%/${column} - 50px/${column})) 50px` }}
+            style={{
+              gridTemplateColumns: style,
+            }}
           >
             {keys.map((key, i) => {
               if (i > column - 1) return <></>;
@@ -119,38 +147,25 @@ export default function Table({
                 <span key={key + i}>{values?.[key]}</span>
               );
             })}
-            <span>
-              <button className={styles["edit"]} id="columnEditButton">
-                <i
-                  data-_id={
-                    (values as { _id })?._id?.toString?.() ||""
-                  }
-                  className="material-symbols-outlined"
-                >
-                  edit
-                </i>
-              </button>
-              {/* <button
-                                    className={styles["remove"]}
-                                    id="columnDeleteButton"
-                                    defaultValue="delete"
-                                >
-                                    <i className="material-symbols-outlined">
-                                        delete
-                                    </i>
-                                </button> */}
-            </span>
+
+            {type.indexOf("Search") !== -1 ? (
+              <>
+                <span>
+                  <button className={styles["edit"]} id="columnEditButton">
+                    <i
+                      data-_id={(values as { _id })?._id?.toString?.() || ""}
+                      className="material-symbols-outlined"
+                    >
+                      edit
+                    </i>
+                  </button>
+                </span>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         )}
-        <div>
-          <button
-            onClick={() => {
-              formStatusMethod({ type });
-            }}
-          >
-            Add
-          </button>
-        </div>
       </div>
     </>
   );
