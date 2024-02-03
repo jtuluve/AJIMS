@@ -15,8 +15,10 @@ export async function getRetrieveFunction(
     researchBooks: mongomethods.getResearchBooks,
     researchGuidance: mongomethods.getResearchGuidance,
     researchConferences: mongomethods.getResearchConferences,
+    researchScore: mongomethods.getResearchScore,
 
     academicsTeaching: mongomethods.getAcademicsTeaching,
+    academicsScore: mongomethods.getAcademicsScore,
 
     professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.getProfessionalPostHeld,
@@ -24,6 +26,7 @@ export async function getRetrieveFunction(
     professionalCommittee: mongomethods.getProfessionalCommittee,
     professionalConference: mongomethods.getProfessionalConferences,
     professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
+    professionalScore: mongomethods.getProfessionalScore,
   }
   return functions[type] || new Error('No retrieve function found for ' + type)
 }
@@ -31,7 +34,7 @@ export async function getRetrieveFunction(
 //get method
 export async function getDataAny(type, _id?) {
   let retrieveFunction = await getRetrieveFunction(type)
-  let data
+  let data;
   if (retrieveFunction) data = await retrieveFunction?.()
   if (Array.isArray(data)) {
     data = data?.map((d) => {

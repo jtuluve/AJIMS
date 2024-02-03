@@ -556,6 +556,18 @@ export async function getResearchConferences(_id?: string, uid?: string) {
     console.error(err?.msg || err?.message || err)
   }
 }
+//appraisal->research->score (object)
+export async function getResearchScore(uid?) {
+    uid = uid || (await getUid())
+    try {
+      await initializeDb()
+      const user = await getUser(uid)
+      if (!user) throw 'User not found'
+      return user.appraisal.research?.score;
+    } catch (err) {
+      console.error(err?.msg || err?.message || err)
+    }
+}
 
 //appraisal->academics->teaching (object)
 export async function getAcademicsTeaching(uid?: string) {
@@ -568,6 +580,19 @@ export async function getAcademicsTeaching(uid?: string) {
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
+}
+
+//appraisal->academics->score (object)
+export async function getAcademicsScore(uid?) {
+    uid = uid || (await getUid())
+    try {
+      await initializeDb()
+      const user = await getUser(uid)
+      if (!user) throw 'User not found'
+      return user.appraisal.academics?.score;
+    } catch (err) {
+      console.error(err?.msg || err?.message || err)
+    }
 }
 
 //appraisal->professional->clinicalDuty (object)
@@ -654,6 +679,18 @@ export async function getProfessionalGuestLectures(_id?: string, uid?: string) {
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
+}
+//appraisal->research->score (object)
+export async function getProfessionalScore(uid?) {
+    uid = uid || (await getUid())
+    try {
+      await initializeDb()
+      const user = await getUser(uid)
+      if (!user) throw 'User not found'
+      return user.appraisal.professional?.score;
+    } catch (err) {
+      console.error(err?.msg || err?.message || err)
+    }
 }
 
 /* FUNCTIONS TO DELETE DATA */
