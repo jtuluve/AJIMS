@@ -1,6 +1,6 @@
-'use server'
-import * as mongomethods from '@/lib/mongoose/functions'
-import { revalidatePath } from 'next/cache'
+'use server';
+import * as mongomethods from '@/lib/mongoose/functions';
+import { revalidatePath } from 'next/cache';
 
 export async function getInput(type: string) {
   let inputs = {
@@ -30,7 +30,7 @@ export async function getInput(type: string) {
         name: 'profilePhoto',
         type: 'file',
         label: 'Profile Photo',
-        required: true,
+        required: false,
       },
     ],
 
@@ -323,7 +323,7 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
     ],
-  }
+  };
 
-  return inputs[type]
+  return inputs[type];
 }
