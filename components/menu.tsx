@@ -36,6 +36,7 @@ export default function Menu() {
             </a>
             <a href="#academics">Academics</a>
             <a href="#professional">Professional</a>
+            <a href="#scorepage">Score</a>
             <a className="logout" href="/main">
               Home
             </a>
