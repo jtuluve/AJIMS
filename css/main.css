@@ -9,13 +9,6 @@ body {
   background-image: none;
 }
 
-a {
-  text-decoration: none;
-}
-
-a:visited {
-  color: inherit;
-}
 
 .titlebar {
   position: relative;

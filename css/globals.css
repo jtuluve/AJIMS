@@ -9,5 +9,8 @@ a{
     text-decoration: none;
 }
 a:visited {
-    color: inherit;
+    color: blue;
+}
+button{
+    cursor: pointer;
 }
