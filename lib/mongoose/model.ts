@@ -45,6 +45,11 @@ const PublicationsSchema = new mongoose.Schema({
     default: 'First',
   },
   uploadUrl: { type: String },
+  author: {type: String, required:false, default:"N/A"},
+  volume: {type:Number, required:false, default:0},
+  issue: {type:Number, required:false, default:0},
+  year: {type:Number, required:false, default:0},
+  pageNo: {type:Number, required:false, default:0}
 })
 
 //Define grants schema
