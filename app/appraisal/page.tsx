@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import "@css/appraisal.css"
 import Form from "@/components/form"
+import Scorepage from "@/components/scorepage"
 export default function Appraisal() {
     const { data: session } = useSession()
 	if (!session) {
@@ -26,6 +27,7 @@ export default function Appraisal() {
                     <Research />
                     <Academics />
                     <Professional />
+                    <Scorepage/>
                 </div>
             </div>
             <script src="/js/dashboard.js" defer></script>
