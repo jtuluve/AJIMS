@@ -15,8 +15,10 @@ export async function getRetrieveFunction(
     researchBooks: mongomethods.getResearchBooks,
     researchGuidance: mongomethods.getResearchGuidance,
     researchConferences: mongomethods.getResearchConferences,
+    researchScore: mongomethods.getResearchScore,
 
     academicsTeaching: mongomethods.getAcademicsTeaching,
+    academicsScore: mongomethods.getAcademicsScore,
 
     professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.getProfessionalPostHeld,
@@ -24,35 +26,45 @@ export async function getRetrieveFunction(
     professionalCommittee: mongomethods.getProfessionalCommittee,
     professionalConference: mongomethods.getProfessionalConferences,
     professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
+    professionalScore: mongomethods.getProfessionalScore,
   }
-  return functions[type] || new Error('No retrieve function found for ' + type)
+  let func = functions[type]
+  if(func) return functions[type] 
+  throw new Error('No retrieve function found for ' + type)
 }
 
 //get method
 export async function getDataAny(type, _id?) {
-  let retrieveFunction = await getRetrieveFunction(type)
-  let data
-  if (retrieveFunction) data = await retrieveFunction?.()
-  if (Array.isArray(data)) {
-    data = data?.map((d) => {
-      if (d._doc?._id) d._doc._id = d._doc._id.toString()
-      // console.log("inside data map:",d._doc?._id);
-      revalidatePath('/appraisal')
-      return d._doc
-    })
-    if (_id) data = data.find((e) => e._id == _id)
-    // console.log("after map",_id);
-    // console.log("before return",data);
+  try{
+
+    let retrieveFunction = await getRetrieveFunction(type)
+    let data;
+    // console.log(type, retrieveFunction)
+    if (retrieveFunction) data = await retrieveFunction?.()
+    if (Array.isArray(data)) {
+      data = data?.filter(d=>!!d)
+      data = data?.map((d) => {
+        if (d._doc?._id) d._doc._id = d._doc._id.toString()
+        // console.log("inside data map:",d._doc?._id);
+        revalidatePath('/appraisal')
+        return d._doc
+      })
+      if (_id) data = data.find((e) => e._id == _id)
+      // console.log("after map",_id);
+      // console.log("before return",data);
+      return data
+    }
+    if (data?._doc?._id) data._doc._id = data._doc._id.toString?.()
+    data = data?._doc || data
+  
+    if (data?._id) data._id = data._id.toString?.()
+    // if (_id) data?.find(e => e._id == _id||e._doc?._id==_id)
+  
     return data
+  }catch(e){
+    console.error("error while fetching data:",e);
+    return {error:"Failed to fetch data"}
   }
-  if (data?._doc?._id) data._doc._id = data._doc._id.toString?.()
-  data = data?._doc || data
-
-  if (data?._id) data._id = data._id.toString?.()
-  // if (_id) data?.find(e => e._id == _id||e._doc?._id==_id)
-
-  // console.log("before return",data);
-  return data
 }
 
 //Post method with one function

@@ -18,24 +18,24 @@ export default function Menu() {
     // setProfileUrl(localStorage.getItem('profileUrl'))
   }, [])
 
-  const { profileUrl, name } = user
   const { data: session } = useSession()
   if (session)
     return (
       <>
         <div className="menu">
           <img
-            src={profileUrl ? profileUrl : 'user.png'}
+            src={user.profileUrl ? user.profileUrl : 'user.png'}
             alt="profile photo"
             className="profileImg"
           />
-          <span className="name">{name}</span>
+          <span className="name">{user.name}</span>
           <div className="menuOptions">
             <a href="#research" className="active">
               Research
             </a>
             <a href="#academics">Academics</a>
             <a href="#professional">Professional</a>
+            <a href="#scorepage">Score</a>
             <a className="logout" href="/main">
               Home
             </a>

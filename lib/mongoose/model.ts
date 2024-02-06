@@ -10,6 +10,7 @@ const ScoreSchema = new mongoose.Schema({
     required: false,
     default: 'C',
   },
+  readonly: { type: Boolean, default: true }
 })
 
 // Define the ClinicalDuty schema
@@ -45,6 +46,12 @@ const PublicationsSchema = new mongoose.Schema({
     default: 'First',
   },
   uploadUrl: { type: String },
+  author: { type: String, required: false, default: "N/A" },
+  volume: { type: Number, required: false, default: 0 },
+  issue: { type: Number, required: false, default: 0 },
+  year: { type: Number, required: false, default: 0 },
+  pageNo: { type: Number, required: false, default: 0 },
+  default:{}
 })
 
 //Define grants schema
@@ -65,6 +72,7 @@ const grantsSchema = new mongoose.Schema({
     default: 'Nil',
   },
   uploadUrl: { type: String },
+  default:{}
 })
 
 //Define books schema
@@ -79,6 +87,7 @@ const booksSchema = new mongoose.Schema({
     enum: ['Nil', 'National', 'International'],
     default: 'Nil',
   },
+  default:{}
 })
 
 //Define guidance schema
@@ -171,20 +180,22 @@ const guestLecturesSchema = new mongoose.Schema({
 //Define the professional schema
 const professionalSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default: {} },
-  clinicalDuty: { patients: { type: Number, default: 0 } },
+  clinicalDuty: { type: new mongoose.Schema({ patients: { type: Number, default: 0 } }), default: {} },
   postHeld: {
-    category: {
-      type: String,
-      enum: [
-        'Lecturer',
-        'Assistant Professor',
-        'Associate Professor',
-        'professor',
-        'HOD (Head of Department)',
-        'Nil',
-      ],
-      default: 'Nil',
-    },
+    type: new mongoose.Schema({
+      category: {
+        type: String,
+        enum: [
+          'Lecturer',
+          'Assistant Professor',
+          'Associate Professor',
+          'professor',
+          'HOD (Head of Department)',
+          'Nil',
+        ],
+        default: 'Nil',
+      }
+    }),
     default: {},
   },
   examDuties: { type: [ExamDutiesSchema], default: [] },

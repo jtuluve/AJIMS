@@ -165,7 +165,7 @@ export async function upsertResearchPublications(publication, uid?) {
     const { _id, ...publicationWithoutId } = publication
     if (_id) {
       const index = user.appraisal.research.publications.findIndex(
-        (p) => p._id?.toString?.() == _id
+        (p) => p?._id.toString?.() == _id
       )
       if (index == -1) throw 'Publication for given uid not found.'
       user.appraisal.research.publications[index] = {
@@ -195,7 +195,7 @@ export async function upsertResearchGrants(grants, uid?) {
     const { _id, ...grantsWithoutId } = grants
     if (_id) {
       let index = user.appraisal.research.grants.findIndex(
-        (item) => item._id?.toString() == _id
+        (item) => item?._id.toString() == _id
       )
       if (index == -1) throw 'Research Grant not found'
       user.appraisal.research.grants[index] = {
@@ -203,7 +203,7 @@ export async function upsertResearchGrants(grants, uid?) {
         ...grantsWithoutId,
       }
     } else {
-      user.appraial.research.grants.push(grantsWithoutId)
+      user.appraisal.research.grants.push(grantsWithoutId)
     }
     await user.save()
     return true
@@ -219,13 +219,13 @@ export async function upsertResearchBooks(book, uid?) {
     await initializeDb()
     uid = uid || (await getUid())
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
-
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    const { _id, bookWithoutId } = book
+    const { _id, ...bookWithoutId } = book
+    console.log(bookWithoutId)
     if (_id) {
       let index = user.appraisal.research.books.findIndex(
-        (item) => item._id?.toString() == _id
+        (item) => item?._id.toString() == _id
       )
       if (index == -1) throw 'Research Book not found'
       user.appraisal.research.books[index] = {
@@ -251,10 +251,10 @@ export async function upsertResearchGuidance(guidance, uid?) {
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    const { _id, guidanceWithoutId } = guidance
+    const { _id, ...guidanceWithoutId } = guidance
     if (_id) {
       let index = user.appraisal.research.guidance.findIndex(
-        (item) => item._id?.toString() == _id
+        (item) => item?._id.toString() == _id
       )
       if (index == -1) throw 'Research Guidance not found'
       user.appraisal.research.guidance[index] = {
@@ -283,7 +283,7 @@ export async function upsertResearchConference(conference, uid?) {
     const { _id, ...conferenceWithoutId } = conference
     if (_id) {
       let index = user.appraisal.research.conferences.findIndex(
-        (item) => item._id?.toString() == _id
+        (item) => item?._id.toString() == _id
       )
       if (index == -1) throw 'Research Conference not found'
       user.appraisal.research.conferences[index] = {
@@ -370,7 +370,7 @@ export async function upsertProfessionalExamDuties(examDuty, uid?) {
     if (!examDuty._id) user.appraisal.professional.examDuties.push(examDuty)
     else {
       let index = user.appraisal.professional.examDuties.findIndex(
-        (item) => item._id?.toString() == examDuty._id
+        (item) => item?._id.toString() == examDuty._id
       )
       if (index == -1) throw 'professional Examduty not found'
       user.appraisal.professional.examDuties[index] = examDuty
@@ -420,7 +420,7 @@ export async function upsertProfessionalConference(conference, uid?) {
       user.appraisal.professional.conferences || []
     if (conference._id) {
       const index = user.appraisal.professional.conferences.findIndex(
-        (item) => item._id?.toString() == conference._id
+        (item) => item?._id.toString() == conference._id
       )
       if (!index) throw 'Professional Conference not found'
       user.appraisal.professional.conferences[index] = conference
@@ -445,7 +445,7 @@ export async function upsertProfessionalGuestLecture(lecture, uid?) {
       user.appraisal.professional.guestLectures || []
     if (lecture._id) {
       const index = user.appraisal.professional.guestLectures.findIndex(
-        (item) => item._id?.toString() == lecture._id
+        (item) => item?._id.toString() == lecture._id
       )
       if (!index) throw 'Professional Guest Lecture not found'
       user.appraisal.professional.guestLectures[index] = lecture
@@ -474,7 +474,7 @@ export async function getProfile(uid?: string) {
       designation: user._doc.designation,
       department: user._doc.department,
       category: user._doc.category,
-      _id: user._doc._id?.toString(),
+      _id: user._doc?._id.toString(),
       profileUrl: user._doc.profileUrl,
     }
     // console.log(newUser)
@@ -556,6 +556,18 @@ export async function getResearchConferences(_id?: string, uid?: string) {
     console.error(err?.msg || err?.message || err)
   }
 }
+//appraisal->research->score (object)
+export async function getResearchScore(uid?) {
+    uid = uid || (await getUid())
+    try {
+      await initializeDb()
+      const user = await getUser(uid)
+      if (!user) throw 'User not found'
+      return user.appraisal.research?.score;
+    } catch (err) {
+      console.error(err?.msg || err?.message || err)
+    }
+}
 
 //appraisal->academics->teaching (object)
 export async function getAcademicsTeaching(uid?: string) {
@@ -568,6 +580,19 @@ export async function getAcademicsTeaching(uid?: string) {
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
+}
+
+//appraisal->academics->score (object)
+export async function getAcademicsScore(uid?) {
+    uid = uid || (await getUid())
+    try {
+      await initializeDb()
+      const user = await getUser(uid)
+      if (!user) throw 'User not found'
+      return user.appraisal.academics?.score;
+    } catch (err) {
+      console.error(err?.msg || err?.message || err)
+    }
 }
 
 //appraisal->professional->clinicalDuty (object)
@@ -604,7 +629,7 @@ export async function getProfessionalExamDuties(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.professional.examDuties.find((exam) => exam._id === _id)
+      ? user.appraisal.professional.examDuties.find((exam) => exam?._id.toString?.() === _id)
       : user.appraisal.professional.examDuties
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -619,7 +644,7 @@ export async function getProfessionalCommittee(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.professional.committee.find((comm) => comm._id === _id)
+      ? user.appraisal.professional.committee.find((comm) => comm?._id.toString?.() === _id)
       : user.appraisal.professional.committee
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -634,7 +659,7 @@ export async function getProfessionalConferences(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.professional.conferences.find((con) => con._id === _id)
+      ? user.appraisal.professional.conferences.find((con) => con?._id.toString?.() === _id)
       : user.appraisal.professional.conferences
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -649,11 +674,23 @@ export async function getProfessionalGuestLectures(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.professional.guestLectures.find((gu) => gu._id === _id)
+      ? user.appraisal.professional.guestLectures.find((gu) => gu?._id.toString?.() === _id)
       : user.appraisal.professional.guestLectures
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
+}
+//appraisal->research->score (object)
+export async function getProfessionalScore(uid?) {
+    uid = uid || (await getUid())
+    try {
+      await initializeDb()
+      const user = await getUser(uid)
+      if (!user) throw 'User not found'
+      return user.appraisal.professional?.score;
+    } catch (err) {
+      console.error(err?.msg || err?.message || err)
+    }
 }
 
 /* FUNCTIONS TO DELETE DATA */
@@ -665,7 +702,7 @@ export async function deleteResearchPublication(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.research.publications.findIndex(
-      (pub) => pub._id?.toString?.() === _id
+      (pub) => pub?._id.toString?.() === _id
     )
     if (index === -1) throw 'Publication not found'
     user.appraisal.research.publications.splice(index, 1)
@@ -684,7 +721,7 @@ export async function deleteResearchGrant(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.research.grants.findIndex(
-      (gr) => gr._id === _id
+      (gr) => gr?._id.toString?.() === _id
     )
     if (index === -1) throw 'Grant not found'
     user.appraisal.research.grants.splice(index, 1)
@@ -703,7 +740,7 @@ export async function deleteResearchBook(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.research.books.findIndex(
-      (book) => book._id === _id
+      (book) => book?._id?.toString?.() === _id
     )
     if (index === -1) throw 'Book not found'
     user.appraisal.research.books.splice(index, 1)
@@ -722,7 +759,7 @@ export async function deleteResearchGuidance(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.research.guidance.findIndex(
-      (guid) => guid._id === _id
+      (guid) => guid?._id.toString?.() === _id
     )
     if (index === -1) throw 'Guidance not found'
     user.appraisal.research.guidance.splice(index, 1)
@@ -741,7 +778,7 @@ export async function deleteResearchConference(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.research.conferences.findIndex(
-      (conference) => conference._id === _id
+      (conference) => conference?._id.toString?.() === _id
     )
     if (index === -1) throw 'Conference not found'
     user.appraisal.research.conferences.splice(index, 1)
@@ -764,7 +801,7 @@ export async function deleteProfessionalExamDuty(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.professional.examDuties.findIndex(
-      (examDuty) => examDuty._id === _id
+      (examDuty) => examDuty?._id.toString?.() === _id
     )
     if (index === -1) throw 'Exam Duty not found'
     user.appraisal.professional.examDuties.splice(index, 1)
@@ -783,7 +820,7 @@ export async function deleteProfessionalCommittee(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.professional.committee.findIndex(
-      (committee) => committee._id === _id
+      (committee) => committee?._id.toString?.() === _id
     )
     if (index === -1) throw 'Committee not found'
     user.appraisal.professional.committee.splice(index, 1)
@@ -802,7 +839,7 @@ export async function deleteProfessionalConference(_id: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.professional.conferences.findIndex(
-      (conference) => conference._id === _id
+      (conference) => conference?._id.toString?.() === _id
     )
     if (index === -1) throw 'Conference not found'
     user.appraisal.professional.conferences.splice(index, 1)
@@ -824,7 +861,7 @@ export async function deleteProfessionalGuestLecture(
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const index = user.appraisal.professional.guestLectures.findIndex(
-      (guestLecture) => guestLecture._id === _id
+      (guestLecture) => guestLecture?._id.toString?.() === _id
     )
     if (index === -1) throw 'Guest lecture not found'
     user.appraisal.professional.guestLectures.splice(index, 1)

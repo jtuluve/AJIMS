@@ -43,11 +43,41 @@ export async function getInput(type: string) {
         required: true,
       },
       {
+        name: 'author',
+        type: 'text',
+        label: 'Author',
+        placeholder: 'Enter author',
+        required: true
+      },
+      {
         name: 'journalName',
         type: 'text',
         label: 'Journal Name',
         placeholder: 'Enter Journal Name',
         required: true,
+      },
+      {
+        name: 'volume',
+        type: 'number',
+        label: 'Volume',
+        placeholder: 'Enter volume',
+        required: false
+      },
+      {
+        name: 'issue',
+        type: 'number',
+        label: 'Issue',
+        placeholder: 'Enter issue',
+        required: false,
+        min: 1900,
+        max: 2000
+      },
+      {
+        name: 'pageNo',
+        type: 'number',
+        label: 'Page No',
+        placeholder: 'Enter page no',
+        required: false
       },
       {
         name: 'quartile',

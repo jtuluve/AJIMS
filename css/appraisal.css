@@ -89,7 +89,7 @@ body {
 
 .name {
   align-self: flex-start;
-  font-size: 40px;
+  font-size: 30px;
   margin-top: 2%;
   position: relative;
   width: 100%;
@@ -181,7 +181,8 @@ body {
 
 #research,
 #academics,
-#professional {
+#professional,
+#scorepage {
   padding: 20px;
 }
 
