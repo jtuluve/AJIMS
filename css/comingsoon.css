@@ -1,0 +1,77 @@
+.titlebar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #131d38;
+    color: white;
+    height: 15dvh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    outline: 2px solid #000;
+    width: 100%;
+}
+
+.titlebar .logo {
+    height: 100%;
+    border-radius: 15%;
+    margin-left: 20px;
+}
+
+.titlebar .web-name {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+}
+
+.titlebar .clogout {
+    color: #ff4c4c;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: larger;
+    position: relative;
+    border: 2px solid #ff4c4c;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.titlebar .clogout:hover {
+    background-color: #ff4c4c;
+    color: white;
+}
+
+.titlebar .clogout::after {
+    font-family: Arial, sans-serif;
+    color: white;
+    position: absolute;
+    top: 100%;
+    width: fit-content;
+    text-align: center;
+    font-size: small;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: #ff4c4c;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.titlebar .clogout:hover::after {
+    opacity: 1;
+}
+.comingsoon {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    /* Use a common sans-serif font */
+    font-size: 24px;
+    /* Adjust the font size as needed */
+    color: #333;
+    /* Set the text color */
+    margin-top: 50px;
+    /* Add some top margin for spacing */
+}

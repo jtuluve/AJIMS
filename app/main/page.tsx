@@ -28,19 +28,19 @@ export default function Main() {
 					</div>
 					<div className="box">
 						<img src="/leave.png" />
-						<a href="">Apply Leave</a>
+						<a href="/comingsoon">Apply Leave</a>
 					</div>
 					<div className="box">
 						<img src="/tax.png" />
-						<a href="">Tax Planning</a>
+						<a href="/comingsoon">Tax Planning</a>
 					</div>
 					<div className="box">
 						<img src="/paySlip.png" />
-						<a href="">Pay Slip</a>
+						<a href="/comingsoon">Pay Slip</a>
 					</div>
 					<div className="box">
 						<img src="/insurance.png" />
-						<a href="">Faculty Details</a>
+						<a href="/comingsoon">Faculty Details</a>
 					</div>
 
 				</div>
