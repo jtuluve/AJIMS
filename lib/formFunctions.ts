@@ -90,7 +90,6 @@ export async function getInput(type: string) {
           { value: 'Q3' },
           { value: 'Q4' },
           { value: 'No quartile' },
-          { value: 'Nil' },
         ],
       },
       {
