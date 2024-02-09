@@ -6,422 +6,442 @@ import styles from "@css/form.module.css";
 import { startTransition, useEffect, useRef, useState } from "react";
 
 import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
+	getDownloadURL,
+	getStorage,
+	ref,
+	uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../app/firebase";
 import { getProfile } from "@/lib/mongoose/functions";
 
 type otherInput = {
-  type: string;
-  name: string;
-  label?: string;
-  required: boolean;
-  default?: string;
-  placeholder?: string;
+	type: string;
+	name: string;
+	label?: string;
+	required: boolean;
+	default?: string;
+	placeholder?: string;
+	tooltip?: string;
 };
 type selectInput = {
-  type: "select";
-  name: string;
-  label?: string;
-  required: boolean;
-  default?: string;
-  options: Array<{ label?: string; value: string }>;
-  placeholder: string;
+	type: "select";
+	name: string;
+	label?: string;
+	required: boolean;
+	default?: string;
+	options: Array<{ label?: string; value: string }>;
+	placeholder: string;
+	tooltip?: string;
 };
 
 type input = selectInput | otherInput;
 
 export default function Form({
-  formStatusUpdate,
-  type,
-  formState,
-  _id,
-  style,
+	formStatusUpdate,
+	type,
+	formState,
+	_id,
+	style,
 }: {
-  formStatusUpdate: (status: any) => void;
-  type: string;
-  formState: any;
-  _id?: string;
-  style?: any;
+	formStatusUpdate: (status: any) => void;
+	type: string;
+	formState: any;
+	_id?: string;
+	style?: any;
 }) {
-  //Cannot create form without type
-  if (!type) return <></>;
+	//Cannot create form without type
+	if (!type) return <></>;
 
-  const [inputs, setInputs] = useState<{ status?: string; inputs?: input[] }>({
-    status: "loading",
-  });
-  const [formData, setFormData] = useState<any>({});
-  const [formStatus, setFormStatus]: [
-    FormStatus: {
-      error: boolean;
-      status: "none" | "submitted" | "submitting" | "error";
-    },
-    setFormStatus: any
-  ] = useState({
-    error: false,
-    status: "none",
-  });
+	const [inputs, setInputs] = useState<{ status?: string; inputs?: input[] }>({
+		status: "loading",
+	});
+	const [formData, setFormData] = useState<any>({});
+	const [formStatus, setFormStatus]: [
+		FormStatus: {
+			error: boolean;
+			status: "none" | "submitted" | "submitting" | "error";
+		},
+		setFormStatus: any
+	] = useState({
+		error: false,
+		status: "none",
+	});
 
-  // form upload
-  const [file, setFile] = useState(undefined);
-  const [filePerc, setFilePerc] = useState(0);
-  const [fileUploadError, setFileUploadError] = useState(false);
-  const [uploadUrl, setUploadUrl] = useState("");
-  const [fileExists, setFileExists] = useState(false);
-  // let uploadUrl: string = ''
-  // console.log(uploadUrl)
+	// tootip
+	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
-  // console.log(file)
+	// form upload
+	const [file, setFile] = useState(undefined);
+	const [filePerc, setFilePerc] = useState(0);
+	const [fileUploadError, setFileUploadError] = useState(false);
+	const [uploadUrl, setUploadUrl] = useState("");
+	const [fileExists, setFileExists] = useState(false);
+	// let uploadUrl: string = ''
+	// console.log(uploadUrl)
 
-  useEffect(() => {
-    if (file) {
-      setUploadUrl("");
-      handleFileUpload(file, type);
-    }
-  }, [file]);
+	// console.log(file)
 
-  // upload profile picture
-  const [profilePhoto, setProfilePhoto] = useState(undefined);
+	useEffect(() => {
+		if (file) {
+			setUploadUrl("");
+			handleFileUpload(file, type);
+		}
+	}, [file]);
 
-  const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
+	// upload profile picture
+	const [profilePhoto, setProfilePhoto] = useState(undefined);
 
-  const photoRef = useRef(null);
+	const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
 
-  useEffect(() => {
-    if (profilePhoto) {
-      setProfilePhotoUrl("");
-      handleFileUpload(profilePhoto, type);
-    }
-  }, [profilePhoto]);
+	const photoRef = useRef(null);
 
-  const handleFileUpload = (file, type) => {
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + file.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+	useEffect(() => {
+		if (profilePhoto) {
+			setProfilePhotoUrl("");
+			handleFileUpload(profilePhoto, type);
+		}
+	}, [profilePhoto]);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // console.log(progress);
-        setFilePerc(Math.round(progress));
-      },
-      (error) => {
-        console.log(error);
-        setFileUploadError(true);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // console.log(downloadURL)
-          if (type === "profile") {
-            setProfilePhotoUrl(downloadURL);
-          } else {
-            setUploadUrl(downloadURL);
-          }
-        });
-      }
-    );
-  };
+	const handleFileUpload = (file, type) => {
+		const storage = getStorage(app);
+		const fileName = new Date().getTime() + file.name;
+		const storageRef = ref(storage, fileName);
+		const uploadTask = uploadBytesResumable(storageRef, file);
 
-  ///////////////////////////////////////////////////////////////////
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				const progress =
+					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				// console.log(progress);
+				setFilePerc(Math.round(progress));
+			},
+			(error) => {
+				console.log(error);
+				setFileUploadError(true);
+			},
+			() => {
+				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+					// console.log(downloadURL)
+					if (type === "profile") {
+						setProfilePhotoUrl(downloadURL);
+					} else {
+						setUploadUrl(downloadURL);
+					}
+				});
+			}
+		);
+	};
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const inputs = await getInput(type);
-        setInputs({ status: "loaded", inputs });
-        if (_id) {
-          setFormData({ loading: true });
-          let formData = await getDataAny(type, _id);
-          setFormData(formData);
+	///////////////////////////////////////////////////////////////////
 
-          setUploadUrl(formData.uploadUrl);
+	useEffect(() => {
+		(async () => {
+			try {
+				const inputs = await getInput(type);
+				setInputs({ status: "loaded", inputs });
+				if (_id) {
+					setFormData({ loading: true });
+					let formData = await getDataAny(type, _id);
+					setFormData(formData);
 
-          setProfilePhotoUrl(formData.profileUrl);
+					setUploadUrl(formData.uploadUrl);
 
-          if (!formData.profileUrl) {
-            setProfilePhotoUrl("user.png");
-          }
-        } else setFormData({ loading: false });
-        let a = inputs?.filter?.((e) => e.type === "file");
-        if (a?.length > 0) setFileExists(true);
-      } catch (e) {
-        setInputs({ status: "error" });
-        console.error(e);
-      }
-    })();
-  }, [type, _id || ""]);
+					setProfilePhotoUrl(formData.profileUrl);
 
-  /* Select component */
-  function SelectComponent({
-    options,
-    name,
-    defaultValue,
-    placeholder,
-  }: {
-    options: Array<{ label?: string; value: string }> | Array<string>;
-    name: string;
-    defaultValue: string;
-    placeholder: string;
-  }) {
-    if (typeof options[0] == "string") {
-      return (
-        <select name={name} defaultValue={defaultValue || ""}>
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      );
-    }
+					if (!formData.profileUrl) {
+						setProfilePhotoUrl("user.png");
+					}
+				} else setFormData({ loading: false });
+				let a = inputs?.filter?.((e) => e.type === "file");
+				if (a?.length > 0) setFileExists(true);
+			} catch (e) {
+				setInputs({ status: "error" });
+				console.error(e);
+			}
+		})();
+	}, [type, _id || ""]);
 
-    return (
-      <select name={name} defaultValue={defaultValue || ""}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label || option.value}
-          </option>
-        ))}
-      </select>
-    );
-  }
+	/* Select component */
+	function SelectComponent({
+		options,
+		name,
+		defaultValue,
+		placeholder,
+	}: {
+		options: Array<{ label?: string; value: string }> | Array<string>;
+		name: string;
+		defaultValue: string;
+		placeholder: string;
+	}) {
+		if (typeof options[0] == "string") {
+			return (
+				<select name={name} defaultValue={defaultValue || ""}>
+					{options.map((option) => (
+						<option key={option} value={option}>
+							{option}
+						</option>
+					))}
+				</select>
+			);
+		}
 
-  if (formStatus.status === "submitted") return <></>;
-  if (inputs.status === "loading" || formData.loading === true)
-    return (
-      <p style={{ color: style?.["color"] || "white" }}>Loading form...</p>
-    );
+		return (
+			<select name={name} defaultValue={defaultValue || ""}>
+				{options.map((option) => (
+					<option key={option.value} value={option.value}>
+						{option.label || option.value}
+					</option>
+				))}
+			</select>
+		);
+	}
 
-  if (inputs.status === "error")
-    return (
-      <p style={{ color: style?.["color"] || "white" }}>
-        Error... Please try again later.
-      </p>
-    );
+	if (formStatus.status === "submitted") return <></>;
+	if (inputs.status === "loading" || formData.loading === true)
+		return (
+			<p style={{ color: style?.["color"] || "white" }}>Loading form...</p>
+		);
 
-  return (
-    <div className={styles.formWrapper}>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          formData.append("uploadUrl", uploadUrl);
-          formData.append("profileUrl", profilePhotoUrl);
-          // const data = Object.fromEntries(formData)
-          // console.log(data)
+	if (inputs.status === "error")
+		return (
+			<p style={{ color: style?.["color"] || "white" }}>
+				Error... Please try again later.
+			</p>
+		);
 
-          // const newData = { ...data, uploadUrl }
-          // console.log(newData)
-          // console.log(data)
-          // console.log(uploadUrl)
+	return (
+		<div className={styles.formWrapper}>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					const formData = new FormData(e.currentTarget);
+					formData.append("uploadUrl", uploadUrl);
+					formData.append("profileUrl", profilePhotoUrl);
+					// const data = Object.fromEntries(formData)
+					// console.log(data)
 
-          setFormStatus({ status: "submitting" });
-          startTransition(() => {
-            handleUpsertAny(formData)
-              .then(() => {
-                setFormStatus({ status: "submitted", error: false });
-                formStatusUpdate({});
-              })
-              .catch(() => {
-                setFormStatus({ status: "submitted", error: true });
-                formStatusUpdate({});
-              });
-          });
-        }}
-      >
-        <h2 className={styles.title}>Submit Form</h2>
-        <span>
-          {_id && <input type="hidden" name="_id" value={_id || ""} />}
-          <input type="hidden" name="type" value={type} />
-        </span>
-        {inputs?.inputs?.map((e) => {
-          return (
-            <span key={(e.name || e.label || Math.random()) + "Key"}>
-              <b>
-                <label htmlFor={e.name || e.label}>
-                  {e.placeholder || e.label || e.name}
-                </label>
-              </b>
-              {e.type === "select" ? (
-                <SelectComponent
-                  name={e.name}
-                  options={(e as selectInput).options}
-                  defaultValue={
-                    formData?.[e.name] || formData?.[e.label] || e.default || ""
-                  }
-                  placeholder={(e as selectInput).placeholder}
-                />
-              ) : e.type === "file" && e.name === "profilePhoto" ? (
-                <section
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "220px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginBlock: "1rem",
-                  }}
-                >
-                  <figure
-                    style={{
-                      borderWidth: "1px",
-                      borderStyle: "solid",
-                      borderColor: "lightgray",
-                      borderRadius: "1rem",
-                      width: "min-content",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      overflow: "hidden",
-                      margin: 0,
-                    }}
-                  >
-                    <img
-                      src={profilePhotoUrl}
-                      alt="profile"
-                      width={200}
-                      height={200}
-                      style={{ objectFit: "cover" }}
-                    />
-                  </figure>
-                  <div>
-                    <input
-                      hidden
-                      ref={photoRef}
-                      type="file"
-                      accept="image/*"
-                      onLoad={() => setFileExists(true)}
-                      onChange={(e) => {
-                        // setFile(e.target.files[0])
-                        // console.log(e.target.files[0])
-                        setProfilePhoto(e.target.files[0]);
-                      }}
-                      name={e.name}
-                      placeholder={(e as otherInput).placeholder || " "}
-                      required={e.required || false}
-                      defaultValue={
-                        formData?.[e.name] ||
-                        formData?.[e.label] ||
-                        e.default ||
-                        ""
-                      }
-                    />
-                    <p style={{ textAlign: "center" }}>
-                      {fileUploadError ? (
-                        <span style={{ color: "white" }}>
-                          Error in profilePhoto uplaod
-                        </span>
-                      ) : filePerc > 0 && filePerc < 100 ? (
-                        <span
-                          style={{ color: "white" }}
-                        >{`Uploading ${filePerc}%...`}</span>
-                      ) : filePerc === 100 ? (
-                        <span style={{ color: "white" }}>
-                          Profile Photo Succesfully uploaded
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    style={{
-                      width: "90%",
-                      padding: ".4rem",
-                      border: "none",
-                      borderRadius: ".4rem",
-                      fontWeight: "bold",
-                    }}
-                    onClick={() => photoRef.current.click()}
-                  >
-                    CHANGE
-                  </button>
-                </section>
-              ) : e.type === "file" ? (
-                <div>
-                  <input
-                    type="file"
-                    accept="*/*"
-                    onChange={(e) => {
-                      setFile(e.target.files[0]);
-                      // console.log(e.target.files[0])
-                    }}
-                    name={e.name}
-                    placeholder={(e as otherInput).placeholder || " "}
-                    required={e.required || false}
-                    defaultValue={
-                      formData?.[e.name] ||
-                      formData?.[e.label] ||
-                      e.default ||
-                      ""
-                    }
-                  />
-                  <p>
-                    {fileUploadError ? (
-                      <span style={{ color: "white" }}>
-                        Error in file uplaod
-                      </span>
-                    ) : filePerc > 0 && filePerc < 100 ? (
-                      <span
-                        style={{ color: "white" }}
-                      >{`Uploading ${filePerc}%...`}</span>
-                    ) : filePerc === 100 ? (
-                      <span style={{ color: "white" }}>
-                        File Succesfully uploaded
-                      </span>
-                    ) : (
-                      ""
-                    )}
-                  </p>
-                </div>
-              ) : (
-                <input
-                  type={e.type || "text"}
-                  name={e.name}
-                  placeholder={(e as otherInput).placeholder || " "}
-                  required={e.required || false}
-                  defaultValue={
-                    formData?.[e.name] || formData?.[e.label] || e.default || ""
-                  }
-                />
-              )}
-            </span>
-          );
-        })}
-        <span>
-          <input
-            className={styles.submit}
-            type="submit"
-            disabled={
-              fileExists && !(profilePhotoUrl || uploadUrl) ? true : false
-            }
-            style={{
-              opacity: fileExists && !(profilePhotoUrl || uploadUrl) ? 0.3 : 1,
-            }}
-            value={
-              formStatus.status === "submitting" ? "SUBMITTING.." : "SUBMIT"
-            }
-          />
+					// const newData = { ...data, uploadUrl }
+					// console.log(newData)
+					// console.log(data)
+					// console.log(uploadUrl)
 
-          <button
-            className={styles.cancel}
-            onClick={(e) => {
-              e.preventDefault();
-              formStatusUpdate({});
-            }}
-            style={{ marginLeft: "10px" }}
-          >
-            CANCEL
-          </button>
-        </span>
-      </form>
-    </div>
-  );
+					setFormStatus({ status: "submitting" });
+					startTransition(() => {
+						handleUpsertAny(formData)
+							.then(() => {
+								setFormStatus({ status: "submitted", error: false });
+								formStatusUpdate({});
+							})
+							.catch(() => {
+								setFormStatus({ status: "submitted", error: true });
+								formStatusUpdate({});
+							});
+					});
+				}}
+			>
+				<h2 className={styles.title}>Submit Form</h2>
+				<span>
+					{_id && <input type="hidden" name="_id" value={_id || ""} />}
+					<input type="hidden" name="type" value={type} />
+				</span>
+				{inputs?.inputs?.map((e) => {
+					return (
+						<span key={(e.name || e.label || Math.random()) + "Key"}>
+							<b>
+								<div className={styles.quartileContainer}>
+									<label htmlFor={e.name || e.label}>
+										{e.placeholder || e.label || e.name}
+									</label>
+									{e.tooltip ? (
+										<button
+											type="button"
+											onClick={() => {
+												setIsTooltipVisible(!isTooltipVisible);
+											}}
+										>
+											i
+										</button>
+									) : null}
+									{e.tooltip && isTooltipVisible ? (
+										<p className={styles.quartileTooltip}>{e.tooltip}</p>
+									) : null}
+								</div>
+							</b>
+							{e.type === "select" ? (
+								<SelectComponent
+									name={e.name}
+									options={(e as selectInput).options}
+									defaultValue={
+										formData?.[e.name] || formData?.[e.label] || e.default || ""
+									}
+									placeholder={(e as selectInput).placeholder}
+								/>
+							) : e.type === "file" && e.name === "profilePhoto" ? (
+								<section
+									style={{
+										display: "flex",
+										flexDirection: "column",
+										width: "220px",
+										justifyContent: "center",
+										alignItems: "center",
+										marginBlock: "1rem",
+									}}
+								>
+									<figure
+										style={{
+											borderWidth: "1px",
+											borderStyle: "solid",
+											borderColor: "lightgray",
+											borderRadius: "1rem",
+											width: "min-content",
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center",
+											overflow: "hidden",
+											margin: 0,
+										}}
+									>
+										<img
+											src={profilePhotoUrl}
+											alt="profile"
+											width={200}
+											height={200}
+											style={{ objectFit: "cover" }}
+										/>
+									</figure>
+									<div>
+										<input
+											hidden
+											ref={photoRef}
+											type="file"
+											accept="image/*"
+											onLoad={() => setFileExists(true)}
+											onChange={(e) => {
+												// setFile(e.target.files[0])
+												// console.log(e.target.files[0])
+												setProfilePhoto(e.target.files[0]);
+											}}
+											name={e.name}
+											placeholder={(e as otherInput).placeholder || " "}
+											required={e.required || false}
+											defaultValue={
+												formData?.[e.name] ||
+												formData?.[e.label] ||
+												e.default ||
+												""
+											}
+										/>
+										<p style={{ textAlign: "center" }}>
+											{fileUploadError ? (
+												<span style={{ color: "white" }}>
+													Error in profilePhoto uplaod
+												</span>
+											) : filePerc > 0 && filePerc < 100 ? (
+												<span
+													style={{ color: "white" }}
+												>{`Uploading ${filePerc}%...`}</span>
+											) : filePerc === 100 ? (
+												<span style={{ color: "white" }}>
+													Profile Photo Succesfully uploaded
+												</span>
+											) : (
+												""
+											)}
+										</p>
+									</div>
+									<button
+										type="button"
+										style={{
+											width: "90%",
+											padding: ".4rem",
+											border: "none",
+											borderRadius: ".4rem",
+											fontWeight: "bold",
+										}}
+										onClick={() => photoRef.current.click()}
+									>
+										CHANGE
+									</button>
+								</section>
+							) : e.type === "file" ? (
+								<div>
+									<input
+										type="file"
+										accept="*/*"
+										onChange={(e) => {
+											setFile(e.target.files[0]);
+											// console.log(e.target.files[0])
+										}}
+										name={e.name}
+										placeholder={(e as otherInput).placeholder || " "}
+										required={e.required || false}
+										defaultValue={
+											formData?.[e.name] ||
+											formData?.[e.label] ||
+											e.default ||
+											""
+										}
+									/>
+									<p>
+										{fileUploadError ? (
+											<span style={{ color: "white" }}>
+												Error in file uplaod
+											</span>
+										) : filePerc > 0 && filePerc < 100 ? (
+											<span
+												style={{ color: "white" }}
+											>{`Uploading ${filePerc}%...`}</span>
+										) : filePerc === 100 ? (
+											<span style={{ color: "white" }}>
+												File Succesfully uploaded
+											</span>
+										) : (
+											""
+										)}
+									</p>
+								</div>
+							) : (
+								<input
+									type={e.type || "text"}
+									name={e.name}
+									placeholder={(e as otherInput).placeholder || " "}
+									required={e.required || false}
+									defaultValue={
+										formData?.[e.name] || formData?.[e.label] || e.default || ""
+									}
+								/>
+							)}
+						</span>
+					);
+				})}
+				<span>
+					<input
+						className={styles.submit}
+						type="submit"
+						disabled={
+							fileExists && !(profilePhotoUrl || uploadUrl) ? true : false
+						}
+						style={{
+							opacity: fileExists && !(profilePhotoUrl || uploadUrl) ? 0.3 : 1,
+						}}
+						value={
+							formStatus.status === "submitting" ? "SUBMITTING.." : "SUBMIT"
+						}
+					/>
+
+					<button
+						className={styles.cancel}
+						onClick={(e) => {
+							e.preventDefault();
+							formStatusUpdate({});
+						}}
+						style={{ marginLeft: "10px" }}
+					>
+						CANCEL
+					</button>
+				</span>
+			</form>
+		</div>
+	);
 }

@@ -82,3 +82,38 @@
     border-radius: 4px;
     font-weight: bold;
 }
+.quartileContainer {
+	display: flex;
+	gap: 0.5rem;
+    align-items: center;
+    position: relative;
+}
+.quartileContainer button {
+	background-color: transparent;
+	color: white;
+	font-weight: bold;
+	border: 1px solid white;
+	border-radius: 50%;
+	padding: 0.5rem 0.3rem;
+	font-size: 0.6rem;
+	height: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	aspect-ratio: 1;
+	margin-top: 8px;
+}
+.quartileContainer .quartileTooltip {
+	color: white;
+	position: absolute;
+	width: max-content;
+	max-width: 20rem;
+	font-size: 0.8rem;
+	top: -1.8rem;
+	left: 6.4rem;
+	background-color: rgba(255, 255, 255, 0.775);
+	color: #131d38;
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	z-index: 10;
+}
