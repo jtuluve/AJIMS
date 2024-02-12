@@ -19,9 +19,11 @@ export default function Academics() {
                 <hr />
                 <div className="tables">
                     <a className="name3">Teaching</a>
-                    <Table column={3} type="academicsTeaching" header_row={["Hours", "Clinical class hours/ practicals","Student Feedback"] } keys={["hours","clinicalHours","studentsFeedback"]}/>
+                    <Table column={3} type="academicsTeaching" header_row={["Hours", "Clinical class hours/ practicals","Student Feedback"] } keys={["hours","clinicalHours","studentsFeedback"]} formStatusMethod={changeFormState}/>
                     <div>
-                        <input type="submit" defaultValue="print" />
+                        <input type="button" defaultValue="print" onClick={() => {
+                            window.print()
+                        }} />
                         <input type="file" name="" id="" />
                     </div>
                 </div>
