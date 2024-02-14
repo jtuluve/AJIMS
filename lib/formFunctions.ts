@@ -46,7 +46,7 @@ export async function getInput(type: string) {
         name: 'author',
         type: 'text',
         label: 'Author',
-        placeholder: 'Enter author',
+        placeholder: 'Enter authors',
         required: true
       },
       {
@@ -107,6 +107,7 @@ export async function getInput(type: string) {
           { value: 'Expanded Embase' },
           { value: 'Scopus' },
           { value: 'DoAJ' },
+          { value: 'Nil'},
         ],
       },
       {
