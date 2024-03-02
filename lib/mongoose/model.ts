@@ -19,7 +19,7 @@ const PublicationsSchema = new mongoose.Schema({
   journalName: { type: String },
   quartile: {
     type: String,
-    enum: ['Q1', 'Q2', 'Q3', 'Q4', 'No Quartile', 'Nil'],
+    enum: ['Q1', 'Q2', 'Q3', 'Q4', 'No Quartile'],
     required: false,
     default: 'No Quartile',
   },
@@ -34,6 +34,7 @@ const PublicationsSchema = new mongoose.Schema({
       'Expanded Embase',
       'Scopus',
       'DoAJ',
+      'Nil'
     ],
     required: false,
     default: 'Medline',
