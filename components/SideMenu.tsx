@@ -9,20 +9,20 @@ export default function SideMenu(){
 						<a href="/appraisal">Faculty appraisal</a>
 					</div>
 					<div className="box">
+						<img src="/insurance.png" />
+						<a href="/faculty-details">Faculty Details</a>
+					</div>
+					<div className="box">
 						<img src="/leave.png" />
-						<a href="/comingsoon">Apply Leave</a>
+						<a href="/applyleave">Apply Leave</a>
 					</div>
 					<div className="box">
 						<img src="/tax.png" />
-						<a href="/comingsoon">Tax Planning</a>
+						<a href="/taxplanning">Tax Planning</a>
 					</div>
 					<div className="box">
 						<img src="/paySlip.png" />
-						<a href="/comingsoon">Pay Slip</a>
-					</div>
-					<div className="box">
-						<img src="/insurance.png" />
-						<a href="/faculty-details">Faculty Details</a>
+						<a href="/payslip">Pay Slip</a>
 					</div>
 
 				</div>
