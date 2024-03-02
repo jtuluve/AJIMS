@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "@css/main.css";
+import Nav from "@/components/Nav";
 
 
 export default function FacultyDetails() {
@@ -27,7 +28,7 @@ export default function FacultyDetails() {
     setFormState(state)
   }
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       let profile = await getProfile()
       updateProfileData(profile)
       setProfileUrl(profile.profileUrl)
@@ -37,6 +38,9 @@ export default function FacultyDetails() {
 
 
   return (
+    <>
+    
+    <Nav/>
     <div className="wrapper">
       <SideMenu/>
       <Form
@@ -47,5 +51,7 @@ export default function FacultyDetails() {
             _id={profileData['_id'] || ''}
           />
     </div>
+    
+    </>
   )
 }
