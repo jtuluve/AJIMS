@@ -29,7 +29,7 @@ export default function Main() {
 						<hr />
 						<Profile/>
 					</div>
-				s</div>
+				</div>
 			</div>
 		</>
 	)
