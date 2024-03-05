@@ -1,12 +1,12 @@
 "use client"
-import "@css/appraisal.css";
 import "@css/admin.css"
 import { NextResponse } from 'next/server';
 import React, { useState, useEffect } from 'react';
+import { signOut, useSession } from "next-auth/react"
 
 async function getdata() {
     try {
-        const res = await fetch("http://localhost:3001/api/posts", { cache: "no-store" });
+        const res = await fetch("http://localhost:3000/api/posts", { cache: "no-store" });
         if (!res.ok) {
             throw new Error("Failed to fetch data from localhost.");
         }
@@ -50,12 +50,19 @@ return(
         <div className="titlebar">
             <img src="/logo.jpg" className="logo" />
             <a className="web-name">AJIMS Employment Management</a>
+            <a title="logout" className="material-symbols-outlined logout"
+                onClick={() => signOut()}//Sign out function not done
+            >
+                logout
+            </a>
         </div>
-            {data.map((post) => (
+            {data.map((post,indexu) => (
                 <div key={post?._id} className="admincontainer">
+                    <h3>User {indexu+1}</h3>
                 <div>
                     <h3>Email: {post?.email}</h3>
                     <img src={post?.profileUrl} alt={post?.name} />
+                    <p>&nbsp;</p>
                     <p>UID: {post?.uid}</p>
                     <p>Department: {post?.department}</p>
                     <p>Designation: {post?.designation}</p>
@@ -65,6 +72,12 @@ return(
                     {/* Appraisal Fields */}
                     <p>Research Score: {post?.appraisal?.research?.score?.score}</p>
                     <p>Research Category: {post?.appraisal?.research?.score?.category}</p>
+                    <p>&nbsp;</p>
+                    <p>Academics Score: {post?.appraisal?.academics?.score?.score}</p>
+                    <p>Academics Category: {post?.appraisal?.academics?.score?.category}</p>
+                    <p>&nbsp;</p>
+                    <p>Professional Score: {post?.appraisal?.professional?.score?.score}</p>
+                    <p>Professional Category: {post?.appraisal?.professional?.score?.category}</p>
                 </div>
                 <div>
                     {/* Publications */}
@@ -88,21 +101,18 @@ return(
                             <p>Issue: {publication?.issue}</p>
                             <p>Year: {publication?.year}</p>
                             <p>Page Number: {publication?.pageNo}</p>
+                            <p>&nbsp;</p>
                         </div>
                     ))}
                 </div>
                 <div>
                     {/* Academics Fields */}
-                    <p>Academics Score: {post?.appraisal?.academics?.score?.score}</p>
-                    <p>Academics Category: {post?.appraisal?.academics?.score?.category}</p>
                     <p>Teaching Hours: {post?.appraisal?.academics?.teaching?.hours}</p>
                     <p>Clinical Hours: {post?.appraisal?.academics?.teaching?.clinicalHours}</p>
                     <p>Students Feedback: {post?.appraisal?.academics?.teaching?.studentsFeedback}</p>
                 </div>
                 <div>
                     {/* Professional Fields */}
-                    <p>Professional Score: {post?.appraisal?.professional?.score?.score}</p>
-                    <p>Professional Category: {post?.appraisal?.professional?.score?.category}</p>
                     <p>Clinical Duty Patients: {post?.appraisal?.professional?.clinicalDuty?.patients}</p>
                     <p>Post Held Category: {post?.appraisal?.professional?.postHeld?.category}</p>
                 </div>

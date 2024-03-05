@@ -1,62 +1,91 @@
-/* Resetting default styles */
+.adminpage {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow-x: auto;
+  overflow-y: auto;
+}
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
-/* Body styles */
-.adminpage {
-    font-family: Arial, sans-serif;
+.titlebar .logout {
+    color: #ff4c4c;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
 }
 
-/* Title bar styles */
+.titlebar .logout::after {
+    font-family: none;
+    color: white;
+    content: "logout";
+    position: absolute;
+    top: 100%;
+    width: fit-content;
+    text-align: center;
+    font-size: small;
+    right: 0;
+}
 .titlebar {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin-bottom: 20px;
+    position: relative;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    background-color: #131d38;
+    color: white;
+    height: 10%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    outline: 2px solid #000;
 }
 
-.logo {
-    width: 100px;
-    height: auto;
+.titlebar .logo {
+    height: 80%;
+    border-radius: 15%;
+    margin-left: 1%;
 }
 
-.web-name {
-    margin-left: 10px;
-    font-size: 20px;
-    text-decoration: none;
-    color: #333;
+.titlebar .web-name {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    margin: auto 10px;
 }
-
-/* User data container */
 .admincontainer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
     gap: 20px;
-    border: 1px solid #ccc;
+    border: 2px solid #000;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 10px 0 20px 0;
+    border-radius: 20px;
 }
 
 .admincontainer>div {
-    padding: 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .admincontainer h3 {
+    font-size: 20px;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
 .admincontainer img {
     max-width: 100%;
     height: auto;
+    display: block;
+    border-radius: 5px;
     margin-bottom: 10px;
 }
 
 .admincontainer p {
-    margin-bottom: 5px;
-    color: #666;
+    margin-bottom: 10px;
+    color: #333;
 }
