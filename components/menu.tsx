@@ -29,7 +29,7 @@ export default function Menu() {
             className="profileImg"
           />
           <span className="name">{user.name}</span>
-          <div className="menuOptions">
+          <div id="menuTabs" className="menuOptions">
             <a href="#research" className="active">
               Research
             </a>
