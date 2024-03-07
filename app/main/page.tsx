@@ -1,4 +1,5 @@
 "use client"
+import SideMenu from "@/components/SideMenu"
 import Profile from "@/components/profile"
 import "@css/main.css"
 import { signOut, useSession } from "next-auth/react"
@@ -21,29 +22,7 @@ export default function Main() {
 				</a>
 			</div>
 			<div className="wrapper">
-				<div className="divisions">
-					<div className="box">
-						<img src="/user.png" />
-						<a href="/appraisal">Faculty appraisal</a>
-					</div>
-					<div className="box">
-						<img src="/leave.png" />
-						<a href="/applyleave">Apply Leave</a>
-					</div>
-					<div className="box">
-						<img src="/tax.png" />
-						<a href="/taxplanning">Tax Planning</a>
-					</div>
-					<div className="box">
-						<img src="/paySlip.png" />
-						<a href="/payslip">Pay Slip</a>
-					</div>
-					<div className="box">
-						<img src="/insurance.png" />
-						<a href="/details">Faculty Details</a>
-					</div>
-
-				</div>
+				<SideMenu/>
 				<div className="profile">
 					<div id="yourProfile" className="hidden-section">
 						<a className="name2">Your Profile</a>

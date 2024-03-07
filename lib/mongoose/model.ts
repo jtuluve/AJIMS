@@ -9,8 +9,7 @@ const ScoreSchema = new mongoose.Schema({
     enum: ['A++', 'A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C'],
     required: false,
     default: 'C',
-  },
-  readonly: { type: Boolean, default: true }
+  }
 })
 
 // Define the ClinicalDuty schema
@@ -127,6 +126,7 @@ const TeachingSchema = new mongoose.Schema({
 const academicsSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default: {} },
   teaching: { type: TeachingSchema, default: {} },
+  fileUrl: {type: String, default: ''},
 })
 
 //Define Exam duties schema
@@ -212,16 +212,29 @@ const AppraisalSchema = new mongoose.Schema({
   professional: { type: professionalSchema, default: {} },
 })
 
+const profileSchema = new mongoose.Schema({
+  name: { type: String },
+  dateOfJoining:{type: Date, default: Date.now()},
+  aadharNo:{type:Number,},
+  passportNo:{type:String,},
+  phoneNo:{type:Number},
+  residentialAddress:{type:String},
+  dob:{type:Date},
+  designation: { type: String },
+  department: { type: String },
+  category: { type: String },
+  kmcRegNo: {type:Number}
+})
+
 // Define the User schema
 const userSchema = new mongoose.Schema({
   name: { type: String },
   email: { type: String, required: true, unique: true },
   uid: { type: String, required: true, unique: true },
   isAdmin: { type: Boolean, default: false },
-  designation: { type: String },
-  department: { type: String },
   profileUrl: { type: String },
   category: { type: String },
+  profile: {type:profileSchema, default:{} },
   appraisal: { type: AppraisalSchema, default: {} },
 })
 

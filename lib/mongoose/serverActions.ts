@@ -19,6 +19,7 @@ export async function getRetrieveFunction(
 
     academicsTeaching: mongomethods.getAcademicsTeaching,
     academicsScore: mongomethods.getAcademicsScore,
+    academicsFileUrl: mongomethods.getAcademicsFileUrl,
 
     professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.getProfessionalPostHeld,
@@ -113,14 +114,16 @@ export async function handleDeleteAny(type: string, _id: string) {
     researchGrants: mongomethods.deleteResearchGrant,
     researchBooks: mongomethods.deleteResearchBook,
     researchGuidance: mongomethods.deleteResearchGuidance,
-    researchConferences: mongomethods.deleteResearchConference,
+    researchConference: mongomethods.deleteResearchConference,
 
     professionalExamDuties: mongomethods.deleteProfessionalExamDuty,
     professionalCommittee: mongomethods.deleteProfessionalCommittee,
     professionalGuestLectures: mongomethods.deleteProfessionalGuestLecture,
+    professionalConference: mongomethods.deleteProfessionalConference
   }
   try {
     let res = await functions[type]?.(_id)
+    console.log(res,type)
     if (!res) throw 'Failed to delete'
     return { submitted: true, error: false, res }
   } catch (e) {

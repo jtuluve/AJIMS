@@ -162,6 +162,7 @@ export default function Table({
             ) : (
               <div className={styles["editRowBtnDiv"]}>
                 <button
+                  id="onPrintHidden"
                   onClick={() => {
                     formStatusMethod({ type, _id: values?._id?.toString?.() });
                   }}

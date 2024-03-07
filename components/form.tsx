@@ -3,7 +3,7 @@ import { getDataAny } from "@/lib/mongoose/serverActions";
 import { getInput } from "@/lib/formFunctions";
 import { handleUpsertAny } from "@/lib/mongoose/serverActions";
 import styles from "@css/form.module.css";
-import { startTransition, useEffect, useRef, useState } from "react";
+import { StyleHTMLAttributes, startTransition, useEffect, useRef, useState } from "react";
 
 import {
 	getDownloadURL,
@@ -49,6 +49,7 @@ export default function Form({
 	_id?: string;
 	style?: any;
 }) {
+	
 	//Cannot create form without type
 	if (!type) return <></>;
 
@@ -176,7 +177,7 @@ export default function Form({
 	}) {
 		if (typeof options[0] == "string") {
 			return (
-				<select name={name} defaultValue={defaultValue || ""}>
+				<select  name={name} defaultValue={defaultValue || ""}>
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}

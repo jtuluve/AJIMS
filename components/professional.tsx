@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Table from "./table";
+import Form from "./form";
 
 export default function Professional() {
   const [formState, setFormState]: [
@@ -14,6 +15,7 @@ export default function Professional() {
   return (
     <>
       <div id="professional" className="hidden-section">
+        {formState.type&&<Form formState={formState} formStatusUpdate={changeFormState} type={formState.type} _id={formState._id}/>}
         <a className="name2">Professional</a>
         <hr />
         <div className="tables">
