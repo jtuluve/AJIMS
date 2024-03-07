@@ -126,6 +126,7 @@ const TeachingSchema = new mongoose.Schema({
 const academicsSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default: {} },
   teaching: { type: TeachingSchema, default: {} },
+  fileUrl: {type: String, default: ''},
 })
 
 //Define Exam duties schema

@@ -85,6 +85,7 @@ async function defaultUser() {
     user.appraisal.academics = user.appraisal.academics || {}
     user.appraisal.academics.score = user.appraisal.academics.score || {}
     user.appraisal.academics.teaching = user.appraisal.academics.teaching || {}
+    user.appraisal.academics.fileUrl = user.appraisal.academics.fileUrl || ''
     user.appraisal.professional = user.appraisal.professional || {}
     user.appraisal.professional.score = user.appraisal.professional.score || {}
     user.appraisal.professional.clinicalDuty =
@@ -312,6 +313,25 @@ export async function updateAcademicsTeaching(teaching, uid?) {
     let { _id, ...teachingWithoutId } = teaching //remove _id from teaching object
     //direct teaching = teachingWithoutId works
     user.appraisal.academics.teaching = teachingWithoutId;
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+    return false
+  }
+}
+
+//appraisal->academics->fileUrl
+export async function updateAcademicsFileUrl(fileUrl, uid?) {
+  try {
+    await initializeDb()
+    uid = uid || (await getUid())
+    if (!verifyUid(uid)) throw "uid doesn't match the server uid."
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    console.log(fileUrl);
+    
+    user.appraisal.academics.fileUrl = fileUrl;
     await user.save()
     return true
   } catch (err) {
@@ -590,6 +610,21 @@ export async function getAcademicsScore(uid?) {
     } catch (err) {
       console.error(err?.msg || err?.message || err)
     }
+}
+
+//appraisal->academics->fileUrl (string)
+export async function getAcademicsFileUrl(uid?) {
+  uid = uid || (await getUid())
+  try {
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    console.log(user.appraisal.academics?.fileUrl);
+    
+    return user.appraisal.academics?.fileUrl;
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
 }
 
 //appraisal->professional->clinicalDuty (object)
