@@ -3,9 +3,12 @@ import SideMenu from "@/components/SideMenu"
 import Profile from "@/components/profile"
 import "@css/main.css"
 import { signOut, useSession } from "next-auth/react"
+import { redirect } from "next/navigation"
 
 export default function Main() {
-	
+	const { data: session } = useSession();
+  if (!session) redirect("/");
+
 
 	return (
 		<>
