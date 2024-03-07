@@ -5,10 +5,10 @@ import { getServerSession } from 'next-auth'
 var isConnected = false
 var isInitialized = false
 //basic functions
-export async function createUserIfNotExists({ email, uid }: { email?; uid }) {
+export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
   try {
-    initializeDb()
-    email = email || (await getEmail())
+    await connectToDB();
+    email = email || await getEmail();
     const user =
       (await User.findOne({ email, uid })) || (await User.findOne({ uid }))
     if (!user) {
@@ -19,7 +19,8 @@ export async function createUserIfNotExists({ email, uid }: { email?; uid }) {
         })
       return true
     }
-    user.email = email
+    user.email = email;
+    user.uid = uid;
     user.save()
     return true
   } catch {
@@ -29,22 +30,22 @@ export async function createUserIfNotExists({ email, uid }: { email?; uid }) {
 }
 
 export async function getEmail() {
-  await initializeDb()
+  await connectToDB()
   return (await getServerSession())?.user?.email
 }
 
 export async function getUidFromEmail(email) {
   try {
-    await initializeDb()
+    await connectToDB()
     const user = await User.findOne({ email })
-    return user.uid
+    return user?.uid
   } catch {
     return null
   }
 }
 export async function getUid() {
   try {
-    await initializeDb()
+    await connectToDB()
     const user = await User.findOne({ email: await getEmail() })
     return user?.uid
   } catch {
@@ -53,7 +54,7 @@ export async function getUid() {
 }
 async function verifyUid(uid) {
   await initializeDb()
-  return uid == (await getUid())
+  return uid == (await getUid()) || (await getUser({uid}))._doc.isAdmin
 }
 
 async function getUser(uid) {
@@ -108,7 +109,7 @@ async function defaultUser() {
 
 async function initializeDb() {
   try {
-    if (isInitialized) return
+    if (isInitialized) return true
     isInitialized = true
     await connectToDB()
     await createUserIfNotExists({ uid: await getUid() })
@@ -145,7 +146,7 @@ export async function updateProfile(profile, uid?) {
     await initializeDb()
     uid = uid || (await getUid())
     if (!verifyUid(uid)) throw new Error('Invalid UID')
-    await User.findOneAndUpdate({ uid }, profile)
+    await User.findOneAndUpdate({ uid }, {...profile,profile}); //updating both universal and inner profile property
     return true
   } catch (err) {
     console.error(err)
@@ -294,7 +295,6 @@ export async function upsertResearchConference(conference, uid?) {
       user.appraisal.research.conferences.push(conferenceWithoutId)
     }
     await user.save()
-    return false
     return true
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -310,11 +310,11 @@ export async function updateAcademicsTeaching(teaching, uid?) {
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    const { _id, ...teachingWithoutId } = teaching //remove _id from teaching object
-    user.appraisal.academics.teaching = {
-      ...user.appraisal.academics.teaching,
-      ...teachingWithoutId,
-    }
+    let { _id, ...teachingWithoutId } = teaching //remove _id from teaching object
+    //direct teaching = teachingWithoutId works
+    user.appraisal.academics.teaching = teachingWithoutId;
+    await user.save()
+    return true
   } catch (err) {
     console.error(err?.msg || err?.message || err)
     return false
@@ -330,10 +330,10 @@ export async function updateProfessionalClinicalDuty(clinicalDuty, uid?) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const { _id, ...clinicalDutyWithoutId } = clinicalDuty //remove _id from clinicalDuty object
-    user.appraisal.professional.clinicalDuty = {
-      ...user.appraisal.professional.clinicalDuty,
-      ...clinicalDutyWithoutId,
-    }
+    // user.appraisal.professional.clinicalDuty = {...user.appraisal.professional.clinicalDuty, ...clinicalDutyWithoutId}
+    user.appraisal.professional.clinicalDuty = clinicalDutyWithoutId;
+    await user.save()
+    return true
   } catch (err) {
     console.error(err?.msg || err?.message || err)
     return false
@@ -341,7 +341,7 @@ export async function updateProfessionalClinicalDuty(clinicalDuty, uid?) {
 }
 
 //appraisal->professional->postHeld
-export async function updateProfessionalPostHeld(postHeld, _id, uid?) {
+export async function updateProfessionalPostHeld(postHeld, uid?) {
   try {
     await initializeDb()
     uid = uid || (await getUid())
@@ -349,10 +349,9 @@ export async function updateProfessionalPostHeld(postHeld, _id, uid?) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const { _id, ...postHeldWithoutId } = postHeld //remove _id from postHeld object
-    user.appraisal.professional.postHeld = {
-      ...user.appraisal.professional.postHeld,
-      ...postHeldWithoutId,
-    }
+    user.appraisal.professional.postHeld = postHeldWithoutId;
+    await user.save()
+    return true
   } catch (err) {
     console.error(err?.msg || err?.message || err)
     return false
@@ -469,15 +468,12 @@ export async function getProfile(uid?: string) {
     if (!user) throw 'User not found'
     if (!user._doc || Object.keys(user._doc).length == 0)
       throw new Error('Internal Error or incomplete data')
+    const {_id, ...restUserProfile} = user.profile?._doc
     const newUser = {
       name: user._doc.name,
       designation: user._doc.designation,
-      department: user._doc.department,
-      category: user._doc.category,
-      _id: user._doc?._id.toString(),
-      profileUrl: user._doc.profileUrl,
+      ...restUserProfile
     }
-    // console.log(newUser)
     return newUser
   } catch (err) {
     console.error(err?.msg || err?.message || err)
