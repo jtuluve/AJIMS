@@ -16,3 +16,4 @@ export const GET = async (request) => {
         return new NextResponse("Error in connecting to the database", { status: 500 });
     }
 }
+
