@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Table from "./table"
 import Form from "@comp/form"
 export default function Research() {
-    const [formState, setFormState]: [formState: { type?, _id? }, setFormState:any] = useState({type:"",_id:""});
+    const [formState, setFormState]: [formState: ({ type?, _id? }), setFormState:any] = useState({type:"",_id:""});
     
     function changeFormState(state) {
         setFormState(state);
@@ -13,7 +13,7 @@ export default function Research() {
             <div id="research" className="hidden-section">
                 {
                     formState.type &&
-                        <Form formState={formState} formStatusUpdate={changeFormState} type={formState.type||""} _id={formState._id?.toString?.()}/>
+                        <Form formState={formState} formStatusUpdate={changeFormState} type={formState.type||""} _id={formState._id?.toString?.()||""}/>
                 }
                 <a className="name2">Research</a>
                 <hr />

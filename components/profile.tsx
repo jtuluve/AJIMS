@@ -23,10 +23,10 @@ export default function Profile() {
     setFormState(state)
   }
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       let profile = await getProfile()
       updateProfileData(profile)
-      setProfileUrl(profile.profileUrl)
+      setProfileUrl(profile?.profileUrl)
     })()
     // setProfileUrl(localStorage.getItem('profileUrl'))
   }, [formState])
@@ -53,15 +53,15 @@ export default function Profile() {
             <label>
               <b>Name</b>
             </label>
-            <p className="info-p">{profileData['name'] || 'N/A'}</p>
+            <p className="info-p">{profileData?.['name'] || 'N/A'}</p>
             <label>
               <b>Designation</b>
             </label>
-            <p className="info-p">{profileData['designation'] || 'N/A'}</p>
+            <p className="info-p">{profileData?.['designation'] || 'N/A'}</p>
             <label>
               <b>Department</b>
             </label>
-            <p className="info-p">{profileData['department'] || 'N/A'}</p>
+            <p className="info-p">{profileData?.['department'] || 'N/A'}</p>
           </div>
           <div
             style={{
