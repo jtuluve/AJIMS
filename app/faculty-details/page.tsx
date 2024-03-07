@@ -44,7 +44,7 @@ export default function FacultyDetails() {
     <div className="wrapper">
       <SideMenu/>
       <Form
-            style={{ color: 'black',position:'relative'}}
+            style={{ color: 'black',position:'relative',marginBlock:"10px",background:"white"}}
             type="profile"
             formStatusUpdate={formStatusUpdate}
             formState={formState}
