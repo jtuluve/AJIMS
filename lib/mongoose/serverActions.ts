@@ -19,6 +19,7 @@ export async function getRetrieveFunction(
 
     academicsTeaching: mongomethods.getAcademicsTeaching,
     academicsScore: mongomethods.getAcademicsScore,
+    academicsFileUrl: mongomethods.getAcademicsFileUrl,
 
     professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.getProfessionalPostHeld,
