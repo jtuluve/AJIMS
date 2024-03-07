@@ -213,9 +213,7 @@ const AppraisalSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   name: { type: String },
-  email: { type: String, required: true, unique: true },
-  uid: { type: String, required: true, unique: true },
-  datOfJoining:{type: Date},
+  dateOfJoining:{type: Date, default: Date.now()},
   aadharNo:{type:Number,},
   passportNo:{type:String,},
   phoneNo:{type:Number},
@@ -224,6 +222,7 @@ const profileSchema = new mongoose.Schema({
   designation: { type: String },
   department: { type: String },
   category: { type: String },
+  kmcRegNo: {type:Number}
 })
 
 // Define the User schema
@@ -234,7 +233,7 @@ const userSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false },
   profileUrl: { type: String },
   category: { type: String },
-  profile: {type:profileSchema},
+  profile: {type:profileSchema, default:{} },
   appraisal: { type: AppraisalSchema, default: {} },
 })
 
