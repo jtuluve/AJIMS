@@ -10,8 +10,7 @@ export default function Profile() {
     updateProfileData: any
   ] = useState(false)
   let router = useRouter()
-  let [formState, setFormState]: [formState: any, setFormState: any] =
-    useState(false)
+  // let [formState, setFormState]: [formState: any, setFormState: any] = useState(false)
   const { data: session } = useSession()
   if (!session) {
     router.push('/')
@@ -19,9 +18,9 @@ export default function Profile() {
 
   const [profileUrl, setProfileUrl] = useState('')
 
-  function formStatusUpdate(state) {
+  /* function formStatusUpdate(state) {
     setFormState(state)
-  }
+  } */
   useEffect(() => {
     (async () => {
       let profile = await getProfile()
@@ -29,7 +28,7 @@ export default function Profile() {
       setProfileUrl(profile?.profileUrl)
     })()
     // setProfileUrl(localStorage.getItem('profileUrl'))
-  }, [formState])
+  }, [/* formState */])
   if (profileData === false)
     return <div style={{ color: 'black' }}>Loading...</div>
 
@@ -39,7 +38,7 @@ export default function Profile() {
   return (
     <>
       <div className="profileform">
-        {formState === true && (
+        {/* {formState === true && (
           <Form
             style={{ color: 'black' }}
             type="profile"
@@ -47,7 +46,7 @@ export default function Profile() {
             formState={formState}
             _id={profileData['_id'] || ''}
           />
-        )}
+        )} */}
         <section style={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <div style={{ width: '60%' }}>
             <label>
@@ -85,7 +84,7 @@ export default function Profile() {
             </figure>
           </div>
         </section>
-        <input
+        {/* <input
           type="submit"
           className="profileEditBtn"
           value={'EDIT'}
@@ -93,7 +92,7 @@ export default function Profile() {
             e.preventDefault()
             setFormState(true)
           }}
-        />
+        /> */}
       </div>
     </>
   )
