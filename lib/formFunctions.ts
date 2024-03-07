@@ -13,6 +13,18 @@ export async function getInput(type: string) {
         required: true,
       },
       {
+        name: 'dob',
+        type: 'date',
+        label: 'Date of Birth',
+        required: true,
+      },
+      {
+        name: 'dateOfJoining',
+        type: 'date',
+        label: 'Date of Joining',
+        required: true,
+      },
+      {
         name: 'designation',
         type: 'text',
         label: 'Designation',
@@ -32,7 +44,56 @@ export async function getInput(type: string) {
         label: 'Profile Photo',
         required: false,
       },
-    ],
+      {
+        name: 'aadharNo',
+        type: 'number',
+        label: 'Aadhar Number',
+        required: false,
+      },
+      {
+        name: 'passportNo',
+        type: 'text',
+        label: 'Passport Number',
+        required: false,
+      },
+      {
+        name: 'phoneNo',
+        type: 'number',
+        label: 'Phone Number',
+        required: false,
+      },
+      {
+        name: 'residentialAddress',
+        type: 'text',
+        label: 'Residential Address',
+        required: false,
+      },
+      {
+        name: 'category',
+        type: 'text',
+        label: 'Category',
+        required: false,
+      },
+      {
+        name: 'kmcRegistrationNo',
+        type: 'number',
+        label: 'KMC Registration Number',
+        required: false,
+      },
+      {
+        name: 'educationalQualification',
+        type: 'text',
+        label: 'Educational Qualification',
+        required: false,
+      },
+      {
+        name: 'experience',
+        type: 'text',
+        label: 'Experience',
+        required: false,
+      },
+    ]
+    ,
 
     researchPublications: [
       {
