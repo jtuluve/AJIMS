@@ -472,6 +472,8 @@ export async function getProfile(uid?: string) {
     const newUser = {
       name: user._doc.name,
       designation: user._doc.designation,
+      _id: user._doc._id?.toString(),
+      profileUrl: user._doc.profileUrl,
       ...restUserProfile
     }
     return newUser
