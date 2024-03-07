@@ -122,7 +122,6 @@ export async function handleDeleteAny(type: string, _id: string) {
   }
   try {
     let res = await functions[type]?.(_id)
-    console.log(res,type)
     if (!res) throw 'Failed to delete'
     return { submitted: true, error: false, res }
   } catch (e) {
