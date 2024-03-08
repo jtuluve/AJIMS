@@ -1,13 +1,11 @@
 "use client";
 import Menu from "@comp/menu";
-import Profile from "@comp/profile";
 import Research from "@comp/research";
 import Academics from "@comp/academics";
 import Professional from "@comp/professional";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import "@css/appraisal.css";
-import Form from "@/components/form";
 import Scorepage from "@/components/scorepage";
 import FormstateContextProvider from "@/components/formstateContext";
 export default function Appraisal() {
@@ -17,8 +15,11 @@ export default function Appraisal() {
   }
   return (
     <>
+      <link rel="stylesheet" href="appraisal.css" />
       <div className="titlebar">
-        <img src="/logo.jpg" className="logo" />
+        <a href="/" className="logo">
+          <img src="/logo.jpg" style={{height:"100%"}}/>
+        </a>
         <a className="web-name">AJIMS Employment Management</a>
       </div>
       <div className="menu-container">
