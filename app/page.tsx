@@ -15,8 +15,7 @@ export default function Home() {
   const [authStatus, setAuthStatus] = useState(null);
 
   //event handlers
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     const { id, password } = formData;
     if (!id || !password) return setAuthStatus("Fill all details!");
     const res = await signIn("credentials", {
@@ -38,9 +37,7 @@ export default function Home() {
   function SubmitButton() {
     const { pending } = useFormStatus();
     return (
-      <button type="submit" disabled={pending}>
-        {pending ? "Logging in..." : "Login"}
-      </button>
+      <input type="submit" formAction={handleLogin} value={pending?"Logging in...":"Login"} />
     );
   }
 
@@ -49,7 +46,7 @@ export default function Home() {
       <div className="loginContainer">
         <a className="head">Faculty login</a>
         <hr />
-        <form onSubmit={handleLogin}>
+        <form>
           <label htmlFor="id">
             <b>ID</b>
           </label>
@@ -82,7 +79,8 @@ export default function Home() {
               {authStatus}
             </span>
           )}
-          <input type="submit" value="Login" />
+          {/* <input type="submit" value="Login" /> */}
+          <SubmitButton/>
         </form>
       </div>
     </>

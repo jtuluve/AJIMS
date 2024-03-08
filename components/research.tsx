@@ -13,7 +13,7 @@ export default function Research() {
             <div id="research" className="hidden-section">
                 {
                     formState.type &&
-                        <Form formState={formState} formStatusUpdate={changeFormState} type={formState.type||""} _id={formState._id?.toString?.()||""}/>
+                        <Form formStatusUpdate={changeFormState} type={formState.type||""} _id={formState._id?.toString?.()||""}/>
                 }
                 <a className="name2">Research</a>
                 <hr />

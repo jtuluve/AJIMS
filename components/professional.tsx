@@ -15,7 +15,7 @@ export default function Professional() {
   return (
     <>
       <div id="professional" className="hidden-section">
-        {formState.type&&<Form formState={formState} formStatusUpdate={changeFormState} type={formState.type} _id={formState._id}/>}
+        {formState.type&&<Form formStatusUpdate={changeFormState} type={formState.type} _id={formState._id}/>}
         <a className="name2">Professional</a>
         <hr />
         <div className="tables">

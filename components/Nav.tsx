@@ -2,7 +2,7 @@ import { signOut } from "next-auth/react";
 export default function Nav() {
 	return (
 		<div className="titlebar">
-			<a href="/" style={{height:"100%"}}>
+			<a href="/" style={{height:"75%"}}>
 				<img src="/logo.jpg" className="logo" />
 			</a>
 			<div className="information">

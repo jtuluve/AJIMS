@@ -81,7 +81,6 @@ export default function Academics() {
 			<div id="academics" className="hidden-section">
 				{formState.type && (
 					<Form
-						formState={formState}
 						formStatusUpdate={changeFormState}
 						type={formState.type || ""}
 						_id={formState._id?.toString?.()}
