@@ -51,7 +51,7 @@ const PublicationsSchema = new mongoose.Schema({
   issue: { type: Number, required: false, default: 0 },
   year: { type: Number, required: false, default: 0 },
   pageNo: { type: Number, required: false, default: 0 },
-  default:{}
+  default: {}
 })
 
 //Define grants schema
@@ -72,7 +72,7 @@ const grantsSchema = new mongoose.Schema({
     default: 'Nil',
   },
   uploadUrl: { type: String },
-  default:{}
+  default: {}
 })
 
 //Define books schema
@@ -87,7 +87,7 @@ const booksSchema = new mongoose.Schema({
     enum: ['Nil', 'National', 'International'],
     default: 'Nil',
   },
-  default:{}
+  default: {}
 })
 
 //Define guidance schema
@@ -177,11 +177,16 @@ const guestLecturesSchema = new mongoose.Schema({
     default: 'Nil',
   },
 })
-
+const clinicalDuty = new mongoose.Schema({ 
+  patients: { type: Number, default: 0 }, 
+  minorProcedures: { type: Number, default: 0 }, 
+  majorProcedures: { type: Number, default: 0 }, 
+  coOrdinatorDuty: { type: String, default: "1st year", enum: ["1st year", "2nd year", "3rd year", "internship", "clinical conference", "camp"] } 
+});
 //Define the professional schema
 const professionalSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default: {} },
-  clinicalDuty: { type: new mongoose.Schema({ patients: { type: Number, default: 0 } }), default: {} },
+  clinicalDuty: { type: clinicalDuty, default: {} },
   postHeld: {
     type: new mongoose.Schema({
       category: {
@@ -214,16 +219,18 @@ const AppraisalSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   name: { type: String },
-  dateOfJoining:{type: Date, default: Date.now()},
-  aadharNo:{type:Number,},
-  passportNo:{type:String,},
-  phoneNo:{type:Number},
-  residentialAddress:{type:String},
-  dob:{type:Date},
+  dateOfJoining: { type: String, default: new Date().toISOString().slice(0, 10) },
+  aadharNo: { type: Number, },
+  passportNo: { type: String, },
+  phoneNo: { type: Number },
+  residentialAddress: { type: String },
+  dob: { type: String },
   designation: { type: String },
   department: { type: String },
   category: { type: String },
-  kmcRegNo: {type:Number}
+  kmcRegistrationNo: { type: Number },
+  educationalQualification: { type: String },
+  experience: { type: String }
 })
 
 // Define the User schema
@@ -234,7 +241,7 @@ const userSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false },
   profileUrl: { type: String },
   category: { type: String },
-  profile: {type:profileSchema, default:{} },
+  profile: { type: profileSchema, default: {} },
   appraisal: { type: AppraisalSchema, default: {} },
 })
 

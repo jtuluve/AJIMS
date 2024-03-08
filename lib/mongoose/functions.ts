@@ -127,7 +127,7 @@ async function initializeDb() {
 /* Mongodb Functions */
 export async function connectToDB() {
   if (!process.env.MONGODB_URI) return console.log('MONGODB URL is not set')
-  if (isConnected) return console.log('Already connected to DB')
+  if (isConnected) return true;
   try {
     await mongoose.connect(process.env.MONGODB_URI)
     isConnected = true
@@ -224,7 +224,6 @@ export async function upsertResearchBooks(book, uid?) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const { _id, ...bookWithoutId } = book
-    console.log(bookWithoutId)
     if (_id) {
       let index = user.appraisal.research.books.findIndex(
         (item) => item?._id.toString() == _id
@@ -492,6 +491,8 @@ export async function getProfile(uid?: string) {
     const newUser = {
       name: user._doc.name,
       designation: user._doc.designation,
+      _id: user._doc._id?.toString(),
+      profileUrl: user._doc.profileUrl,
       ...restUserProfile
     }
     return newUser

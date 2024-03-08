@@ -6,11 +6,11 @@ export default function SideMenu(){
     <div className="divisions">
 					<div className="box">
 						<img src="/user.png" />
-						<a href="/appraisal">Faculty appraisal</a>
+						<a href="/faculty-details">Faculty Details</a>
 					</div>
 					<div className="box">
-						<img src="/insurance.png" />
-						<a href="/faculty-details">Faculty Details</a>
+						<img src="/appraisal.png" />
+						<a href="/appraisal">Faculty appraisal</a>
 					</div>
 					<div className="box">
 						<img src="/leave.png" />

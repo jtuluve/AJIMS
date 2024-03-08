@@ -13,6 +13,18 @@ export async function getInput(type: string) {
         required: true,
       },
       {
+        name: 'dob',
+        type: 'date',
+        label: 'Date of Birth',
+        required: true,
+      },
+      {
+        name: 'dateOfJoining',
+        type: 'date',
+        label: 'Date of Joining',
+        required: true,
+      },
+      {
         name: 'designation',
         type: 'text',
         label: 'Designation',
@@ -32,7 +44,56 @@ export async function getInput(type: string) {
         label: 'Profile Photo',
         required: false,
       },
-    ],
+      {
+        name: 'aadharNo',
+        type: 'number',
+        label: 'Aadhar Number',
+        required: false,
+      },
+      {
+        name: 'passportNo',
+        type: 'text',
+        label: 'Passport Number',
+        required: false,
+      },
+      {
+        name: 'phoneNo',
+        type: 'number',
+        label: 'Phone Number',
+        required: false,
+      },
+      {
+        name: 'residentialAddress',
+        type: 'text',
+        label: 'Residential Address',
+        required: false,
+      },
+      {
+        name: 'category',
+        type: 'text',
+        label: 'Category',
+        required: false,
+      },
+      {
+        name: 'kmcRegistrationNo',
+        type: 'number',
+        label: 'KMC Registration Number',
+        required: false,
+      },
+      {
+        name: 'educationalQualification',
+        type: 'text',
+        label: 'Educational Qualification',
+        required: false,
+      },
+      {
+        name: 'experience',
+        type: 'text',
+        label: 'Experience',
+        required: false,
+      },
+    ]
+    ,
 
     researchPublications: [
       {
@@ -257,9 +318,38 @@ export async function getInput(type: string) {
       {
         name: 'patients',
         type: 'number',
-        placeholder: 'Patients',
-        required: true,
+        label: 'Patients',
+        required: false,
         default: 0,
+      },
+      {
+        name: 'minorProcedures',
+        type: 'number',
+        label: 'Minor Procedures',
+        required: false,
+        default: 0,
+      },
+      {
+        name: 'majorProcedures',
+        type: 'number',
+        label: 'Major Procedures',
+        required: false,
+        default: 0,
+      },
+      {
+        name: 'coOrdinatorDuty',
+        type: 'select',
+        label: 'Coordinator Duty',
+        required: false,
+        default: '1st year',
+        options: [
+          { value: '1st year' },
+          { value: '2nd year' },
+          { value: '3rd year' },
+          { value: 'internship' },
+          { value: 'clinical conference' },
+          { value: 'camp' },
+        ],
       },
     ],
     professionalPostHeld: [

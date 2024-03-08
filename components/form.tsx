@@ -3,7 +3,7 @@ import { getDataAny } from "@/lib/mongoose/serverActions";
 import { getInput } from "@/lib/formFunctions";
 import { handleUpsertAny } from "@/lib/mongoose/serverActions";
 import styles from "@css/form.module.css";
-import { StyleHTMLAttributes, startTransition, useEffect, useRef, useState } from "react";
+import { CSSProperties, startTransition, useEffect, useRef, useState } from "react";
 
 import {
 	getDownloadURL,
@@ -47,7 +47,7 @@ export default function Form({
 	type: string;
 	formState: any;
 	_id?: string;
-	style?: any;
+	style?: CSSProperties;
 }) {
 	
 	//Cannot create form without type
@@ -140,20 +140,19 @@ export default function Form({
 		(async () => {
 			try {
 				const inputs = await getInput(type);
-				setInputs({ status: "loaded", inputs });
 				if (_id) {
 					setFormData({ loading: true });
 					let formData = await getDataAny(type, _id);
 					setFormData(formData);
-
 					setUploadUrl(formData.uploadUrl);
-
+					
 					setProfilePhotoUrl(formData.profileUrl);
-
+					
 					if (!formData.profileUrl) {
 						setProfilePhotoUrl("user.png");
 					}
 				} else setFormData({ loading: false });
+				setInputs({ status: "loaded", inputs });
 				let a = inputs?.filter?.((e) => e.type === "file");
 				if (a?.length > 0) setFileExists(true);
 			} catch (e) {
@@ -212,7 +211,7 @@ export default function Form({
 		);
 
 	return (
-		<div className={styles.formWrapper}>
+		<div className={styles.formWrapper} style={style}>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -252,7 +251,7 @@ export default function Form({
 							<b>
 								<div className={styles.quartileContainer}>
 									<label htmlFor={e.name || e.label}>
-										{e.placeholder || e.label || e.name}
+										{ e.label || e.placeholder || e.name}
 									</label>
 									{e.tooltip ? (
 										<button
@@ -409,7 +408,7 @@ export default function Form({
 									placeholder={(e as otherInput).placeholder || " "}
 									required={e.required || false}
 									defaultValue={
-										formData?.[e.name] || formData?.[e.label] || e.default || ""
+										formData?.[e.name] || e.default || formData?.[e.label] || ""
 									}
 								/>
 							)}
