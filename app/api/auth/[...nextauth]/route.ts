@@ -36,7 +36,7 @@ const authOptions:AuthOptions = {
           const user = userCredential.user;
 
           if (user) {
-            createUserIfNotExists({uid:user.uid, email:user.email});
+            await createUserIfNotExists({uid:user.uid, email:user.email});
             return Promise.resolve(user);
           } else {
             return Promise.resolve(null);
