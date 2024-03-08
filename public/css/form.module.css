@@ -1,6 +1,6 @@
 .formWrapper {
     z-index: 1;
-    height: 100dvh;
+    height: 100%;
     width: 100%;
     top: 0;
     left: 0;
@@ -8,6 +8,7 @@
     overflow: auto;
     display: grid;
     backdrop-filter: contrast(0.5);
+    color: white;
 }
 
 .formWrapper form {
@@ -29,7 +30,6 @@
 
 .formWrapper form .title {
     text-align: center;
-    color: aliceblue;
     text-decoration: underline;
     text-underline-offset: 6px;
     margin: 5px 0 20px;
@@ -38,14 +38,13 @@
 .formWrapper form label {
     margin-block: 14px 4px;
     display: block;
-    color: white;
 }
 
 .formWrapper form input {
     width: calc(100% - 20px);
     padding: 8px;
     box-sizing: border-box;
-    border: 1px solid #fff;
+    border: 1px solid #858585;
     border-radius: 4px;
 }
 
