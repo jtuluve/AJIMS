@@ -54,7 +54,7 @@ export async function getUid() {
 }
 async function verifyUid(uid) {
   await initializeDb()
-  return uid == (await getUid()) || (await getUser({uid}))._doc.isAdmin
+  return uid == (await getUid()) || (await getUser({uid}))?.isAdmin
 }
 
 async function getUser(uid) {
@@ -63,7 +63,7 @@ async function getUser(uid) {
     return await User.findOne({ uid })
   } catch {
     console.error('Error occured while getting user')
-    return new Error('User Not Found')
+    return null;
   }
 }
 
@@ -137,6 +137,11 @@ export async function connectToDB() {
     console.error("Couldn't connect to db", e)
     return false
   }
+}
+
+
+export async function isAdmin(uid?:string){
+  return (await getUser(uid))?.isAdmin
 }
 
 //profile update method
