@@ -3,7 +3,7 @@ import SideMenu from "@/components/SideMenu";
 import Form from "@/components/form";
 import { getProfile } from "@/lib/mongoose/functions";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import "@css/main.css";
 import Nav from "@/components/Nav";
@@ -13,12 +13,11 @@ export default function FacultyDetails() {
 		profileData: any,
 		updateProfileData: any
 	] = useState(false);
-	let router = useRouter();
 	let [formState, setFormState]: [formState: any, setFormState: any] =
 		useState(false);
 	const { data: session } = useSession();
 	if (!session) {
-		router.push("/");
+		redirect("/");
 	}
 
 	const [profileUrl, setProfileUrl] = useState("");
@@ -30,7 +29,7 @@ export default function FacultyDetails() {
 		(async () => {
 			let profile = await getProfile();
 			updateProfileData(profile);
-			setProfileUrl(profile.profileUrl);
+			setProfileUrl(profile?.profileUrl);
 		})();
 		// setProfileUrl(localStorage.getItem('profileUrl'))
 	}, [formState]);
@@ -56,7 +55,7 @@ export default function FacultyDetails() {
 					formStyle={{ width: "100%", boxShadow: "none", background: "none" }}
 					type="profile"
 					formStatusUpdate={formStatusUpdate}
-					_id={profileData["_id"] || ""}
+					_id={profileData?.["_id"] || ""}
 				/>
 			</div>
 		</>
