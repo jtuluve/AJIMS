@@ -39,15 +39,17 @@ type input = selectInput | otherInput;
 export default function Form({
 	formStatusUpdate,
 	type,
-	formState,
 	_id,
-	style,
+	wrapperStyle,
+	formStyle,
+	title
 }: {
 	formStatusUpdate: (status: any) => void;
 	type: string;
-	formState: any;
 	_id?: string;
-	style?: CSSProperties;
+	wrapperStyle?: CSSProperties;
+	formStyle?: CSSProperties;
+	title?:string;
 }) {
 	
 	//Cannot create form without type
@@ -197,22 +199,23 @@ export default function Form({
 		);
 	}
 
-	if (formStatus.status === "submitted") return <></>;
+
 	if (inputs.status === "loading" || formData.loading === true)
 		return (
-			<p style={{ color: style?.["color"] || "white" }}>Loading form...</p>
+			<p style={{ color: wrapperStyle?.["color"] || "white" }}>Loading form...</p>
 		);
 
 	if (inputs.status === "error")
 		return (
-			<p style={{ color: style?.["color"] || "white" }}>
+			<p style={{ color: wrapperStyle?.["color"] || "white" }}>
 				Error... Please try again later.
 			</p>
 		);
 
 	return (
-		<div className={styles.formWrapper} style={style}>
+		<div className={styles.formWrapper} style={wrapperStyle}>
 			<form
+				style={formStyle}
 				onSubmit={(e) => {
 					e.preventDefault();
 					const formData = new FormData(e.currentTarget);
@@ -240,7 +243,7 @@ export default function Form({
 					});
 				}}
 			>
-				<h2 className={styles.title}>Submit Form</h2>
+				<h2 className={styles.title}>{title || "Submit Form"}</h2>
 				<span>
 					{_id && <input type="hidden" name="_id" value={_id || ""} />}
 					<input type="hidden" name="type" value={type} />
@@ -442,6 +445,7 @@ export default function Form({
 					</button>
 				</span>
 			</form>
+			
 		</div>
 	);
 }
