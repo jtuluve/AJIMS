@@ -5,7 +5,6 @@ import Academics from "@comp/academics";
 import Professional from "@comp/professional";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import "@css/appraisal.css";
 import Scorepage from "@/components/scorepage";
 import FormstateContextProvider from "@/components/formstateContext";
 export default function Appraisal() {
@@ -15,7 +14,7 @@ export default function Appraisal() {
   }
   return (
     <>
-      <link rel="stylesheet" href="appraisal.css" />
+      <link rel="stylesheet" href="css/appraisal.css?v=1.2.3" />
       <div className="titlebar">
         <a href="/" className="logo">
           <img src="/logo.jpg" style={{height:"100%"}}/>
