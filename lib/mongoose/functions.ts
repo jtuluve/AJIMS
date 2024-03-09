@@ -144,6 +144,19 @@ export async function isAdmin(uid?:string){
   return (await getUser(uid))?.isAdmin
 }
 
+export const getUsers = async () => {
+	try {
+		await initializeDb();
+		const posts = await User.find()
+		// console.log(posts);
+    
+    return JSON.stringify(posts)
+	} catch (error) {
+		console.error("Error in connecting to the database:", error);
+		return null;
+	}
+};
+
 //profile update method
 export async function updateProfile(profile, uid?) {
   //   console.log(profile)
