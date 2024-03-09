@@ -49,18 +49,18 @@ export default function Profile() {
         )} */}
         <section style={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <div style={{ width: '60%' }}>
-            <label>
-              <b>Name</b>
-            </label>
-            <p className="info-p">{profileData?.['name'] || 'N/A'}</p>
-            <label>
-              <b>Designation</b>
-            </label>
-            <p className="info-p">{profileData?.['designation'] || 'N/A'}</p>
-            <label>
-              <b>Department</b>
-            </label>
-            <p className="info-p">{profileData?.['department'] || 'N/A'}</p>
+            <p className='info-d'>
+              <b>Name: </b>
+            <a>{profileData?.['name'] || 'N/A'}</a>
+            </p>
+            <p className='info-d'>
+              <b>Designation: </b>
+            <a>{profileData?.['designation'] || 'N/A'}</a>
+            </p>
+            <p className='info-d'>
+              <b>Department: </b>
+            <a>{profileData?.['department'] || 'N/A'}</a>
+            </p>
           </div>
           <div
             style={{
