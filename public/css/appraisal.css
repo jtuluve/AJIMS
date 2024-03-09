@@ -504,4 +504,5 @@ span.print-icon::after {
 	user-select: none;
 	-webkit-user-select: none;
 	touch-action: manipulation;
+  margin-inline: .5rem;
 }

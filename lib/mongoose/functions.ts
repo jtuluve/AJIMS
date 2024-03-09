@@ -102,6 +102,7 @@ async function defaultUser() {
       user.appraisal.professional.conferences || []
     user.appraisal.professional.guestLectures =
       user.appraisal.professional.guestLectures || 0
+    user.appraisal.professional.fileUrl = user.appraisal.professional.fileUrl || ''
     user.save()
     return true
   } catch {
@@ -349,7 +350,7 @@ export async function updateAcademicsFileUrl(fileUrl, uid?) {
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    console.log(fileUrl);
+    // console.log(fileUrl);
     
     user.appraisal.academics.fileUrl = fileUrl;
     await user.save()
@@ -516,6 +517,25 @@ export async function upsertProfessionalGuestLecture(lecture, uid?) {
   }
 }
 
+//appraisal->academics->fileUrl
+export async function updateProfessionalFileUrl(fileUrl, uid?) {
+  try{
+    await initializeDb()
+    uid = uid || (await getUid())
+    if (!verifyUid(uid)) throw "uid doesn't match the server uid."
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    // console.log(fileUrl);
+    
+    user.appraisal.professional.fileUrl = fileUrl;
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+    return false
+  }
+}
+
 /* FUNCTIONS TO RETRIEVE DATA */
 //appraisal->research->publications
 export async function getProfile(uid?: string) {
@@ -659,7 +679,7 @@ export async function getAcademicsFileUrl(uid?) {
     await initializeDb()
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    console.log(user.appraisal.academics?.fileUrl);
+    // console.log(user.appraisal.academics?.fileUrl);
     
     return user.appraisal.academics?.fileUrl;
   } catch (err) {
@@ -777,6 +797,21 @@ export async function getProfessionalScore(uid?) {
     } catch (err) {
       console.error(err?.msg || err?.message || err)
     }
+}
+
+//appraisal->professional->fileUrl (string)
+export async function getProfessionalFileUrl(uid?) {
+  uid = uid || (await getUid())
+  try {
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    console.log(user.appraisal.professional?.fileUrl);
+    
+    return user.appraisal.professional?.fileUrl;
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
 }
 
 /* FUNCTIONS TO DELETE DATA */

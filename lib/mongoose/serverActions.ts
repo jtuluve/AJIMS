@@ -25,6 +25,7 @@ export async function getRetrieveFunction(
     professionalPostHeld: mongomethods.getProfessionalPostHeld,
     professionalExamDuties: mongomethods.getProfessionalExamDuties,
     professionalCoordinatorDuty: mongomethods.getProfessionalCoordinatorDuty,
+    professionalFileUrl: mongomethods.getProfessionalFileUrl,
 
     professionalCommittee: mongomethods.getProfessionalCommittee,
     professionalConference: mongomethods.getProfessionalConferences,

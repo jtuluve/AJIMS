@@ -69,8 +69,8 @@ export default function Academics() {
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
 					setFileUrl(downloadURL);
-					console.log(downloadURL);
-					await updateAcademicsFileUrl(fileUrl);
+					// console.log(downloadURL);
+					await updateAcademicsFileUrl(downloadURL);
 				});
 			}
 		);

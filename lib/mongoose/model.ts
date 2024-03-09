@@ -222,6 +222,7 @@ const professionalSchema = new mongoose.Schema({
   committee: { type: [CommitteeSchema], default: [] },
   conferences: { type: [ConferenceSchema], default: [] },
   guestLectures: { type: [guestLecturesSchema], default: 0 },
+  fileUrl: {type: String, default: ''},
 })
 
 //Define appraisal schema
