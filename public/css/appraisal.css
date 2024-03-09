@@ -460,7 +460,7 @@ span.print-icon::after {
 		margin-top: auto;
 		display: flex;
 		justify-content: space-around;
-    width: max-content;
+    width: 100%;
 	}
 }
 
