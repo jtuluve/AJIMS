@@ -30,7 +30,7 @@ export default function Academics() {
 			const getFileUrl = await getRetrieveFunction("academicsFileUrl");
 			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
-			console.log(fileUrl);
+			// console.log(fileUrl);
 			setFileUrl(fileUrl);
 		}
 		getDataAny();

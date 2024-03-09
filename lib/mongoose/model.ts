@@ -181,7 +181,6 @@ const clinicalDuty = new mongoose.Schema({
   patients: { type: Number, default: 0 }, 
   minorProcedures: { type: Number, default: 0 }, 
   majorProcedures: { type: Number, default: 0 }, 
-  coOrdinatorDuty: { type: String, default: "1st year", enum: ["1st year", "2nd year", "3rd year", "internship", "clinical conference", "camp"] } 
 });
 //Define the professional schema
 const professionalSchema = new mongoose.Schema({
@@ -205,6 +204,21 @@ const professionalSchema = new mongoose.Schema({
     default: {},
   },
   examDuties: { type: [ExamDutiesSchema], default: [] },
+  coordinatorDuty: { type: new mongoose.Schema({
+    category: {
+      type: String,
+      enum: [
+        '1st year',
+        '2nd year',
+        '3rd year',
+        'internship',
+        'clinical conference',
+        'camp',
+        'Nil',
+      ],
+      default: 'Nil',
+    }
+  }), default: {} },
   committee: { type: [CommitteeSchema], default: [] },
   conferences: { type: [ConferenceSchema], default: [] },
   guestLectures: { type: [guestLecturesSchema], default: 0 },

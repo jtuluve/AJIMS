@@ -24,6 +24,8 @@ export async function getRetrieveFunction(
     professionalClinicalDuty: mongomethods.getProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.getProfessionalPostHeld,
     professionalExamDuties: mongomethods.getProfessionalExamDuties,
+    professionalCoordinatorDuty: mongomethods.getProfessionalCoordinatorDuty,
+
     professionalCommittee: mongomethods.getProfessionalCommittee,
     professionalConference: mongomethods.getProfessionalConferences,
     professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
@@ -88,6 +90,7 @@ export async function handleUpsertAny(formData: FormData) {
     professionalClinicalDuty: mongomethods.updateProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.updateProfessionalPostHeld,
     professionalExamDuties: mongomethods.upsertProfessionalExamDuties,
+    professionalCoordinatorDuty: mongomethods.updateProfessionalCoordinatorDuty,
     professionalCommittee: mongomethods.upsertProfessionalCommittee,
     professionalConference: mongomethods.upsertProfessionalConference,
     professionalGuestLectures: mongomethods.upsertProfessionalGuestLecture,
@@ -95,6 +98,7 @@ export async function handleUpsertAny(formData: FormData) {
 
   try {
     let res = await functions[type as string]?.(newobj)
+    // console.log(res);
     if (!res) throw new Error('Function not found or upsert failed')
     // revalidatePath("/")
     return { submitted: true, error: false }
