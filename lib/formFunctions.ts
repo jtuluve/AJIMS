@@ -335,22 +335,7 @@ export async function getInput(type: string) {
         label: 'Major Procedures',
         required: false,
         default: 0,
-      },
-      {
-        name: 'coOrdinatorDuty',
-        type: 'select',
-        label: 'Coordinator Duty',
-        required: false,
-        default: '1st year',
-        options: [
-          { value: '1st year' },
-          { value: '2nd year' },
-          { value: '3rd year' },
-          { value: 'internship' },
-          { value: 'clinical conference' },
-          { value: 'camp' },
-        ],
-      },
+      }, 
     ],
     professionalPostHeld: [
       {
@@ -393,6 +378,26 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
     ],
+
+    professionalCoordinatorDuty: [
+      {
+        name: 'category',
+        type: 'select',
+        placeholder: 'Category',
+        required: true,
+        options: [
+          '1st year',
+          '2nd year',
+          '3rd year',
+          'internship',
+          'clinical conference',
+          'camp',
+          'Nil',
+        ],
+        default: 'Nil',
+      },
+    ],
+    
     professionalCommittee: [
       {
         name: 'committeeName',

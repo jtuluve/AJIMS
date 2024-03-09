@@ -94,6 +94,8 @@ async function defaultUser() {
       user.appraisal.professional.postHeld || {}
     user.appraisal.professional.examDuties =
       user.appraisal.professional.examDuties || []
+    user.appraisal.professional.coordinatorDuty = 
+      user.appraisal.professional.coordinatorDuty || {}
     user.appraisal.professional.committee =
       user.appraisal.professional.committee || []
     user.appraisal.professional.conferences =
@@ -419,6 +421,26 @@ export async function upsertProfessionalExamDuties(examDuty, uid?) {
   }
 }
 
+//appraisal->professional->coordinatorDuty
+export async function updateProfessionalCoordinatorDuty(coordinatorDuty, uid?) {
+  try {
+    await initializeDb()
+    uid = uid || (await getUid())
+    if (!verifyUid(uid)) throw "uid doesn't match the server uid."
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+
+    const { _id, profileUrl, ...coordinatorDutyWithoutId } = coordinatorDuty // remove _id and profileUrl from coordinatorDuty object
+    user.appraisal.professional.coordinatorDuty = coordinatorDutyWithoutId
+    
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+    return false
+  }
+}
+
 //appraisal->professional->committee (array)
 export async function upsertProfessionalCommittee(committee, uid?) {
   try {
@@ -681,6 +703,20 @@ export async function getProfessionalExamDuties(_id?: string, uid?: string) {
     return _id
       ? user.appraisal.professional.examDuties.find((exam) => exam?._id.toString?.() === _id)
       : user.appraisal.professional.examDuties
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
+//appraisal->professional->coordiantorDuty (object)
+export async function getProfessionalCoordinatorDuty(uid?: string) {
+  uid = uid || (await getUid())
+  try {
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    // console.log(user.appraisal.professional.coordinatorDuty);
+    return user.appraisal.professional.coordinatorDuty
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }

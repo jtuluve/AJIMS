@@ -219,8 +219,8 @@ export default function Form({
 				onSubmit={(e) => {
 					e.preventDefault();
 					const formData = new FormData(e.currentTarget);
-					formData.append("uploadUrl", uploadUrl);
-					formData.append("profileUrl", profilePhotoUrl);
+					uploadUrl && formData.append("uploadUrl", uploadUrl) 
+					profilePhotoUrl && formData.append("profileUrl", profilePhotoUrl);
 					// const data = Object.fromEntries(formData)
 					// console.log(data)
 

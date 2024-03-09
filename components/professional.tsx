@@ -28,6 +28,9 @@ export default function Professional() {
 
           <a className="name3">Exam Duties</a>
           <Table type="professionalExamDuties" header_row={["Category 1","Category 2"]} keys={["category1","category2"]} column={2} formState={formState} formStatusMethod={changeFormState}/>
+          
+          <a className="name3">Coordinator Duty</a>
+          <Table type="professionalCoordinatorDuty" header_row={["Category"]} keys={["category"]} column={1} formState={formState} formStatusMethod={changeFormState}/>
 
           <a className="name3">Committee</a>
           <Table type="professionalCommittee" header_row={["Designation","Committee Name"]} keys={["designation","committeeName"]} column={2} formState={formState} formStatusMethod={changeFormState}/>
