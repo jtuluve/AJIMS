@@ -152,8 +152,8 @@ export default function Academics() {
 						</p>
 					</div>
 					<section id="signatures" style={{ display: "none" }}>
-						<div style={{ color: "#131D38" }}>Signature 1</div>
-						<div style={{ color: "#131D38" }}>Signature 2</div>
+						<div style={{ color: "#131D38" }}>Applicant</div>
+						<div style={{ color: "#131D38" }}>H.O.D</div>
 					</section>
 				</div>
 			</div>

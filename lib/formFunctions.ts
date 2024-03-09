@@ -152,7 +152,7 @@ export async function getInput(type: string) {
           { value: 'Q4' },
           { value: 'No quartile' },
         ],
-        tooltip: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus expedita magni, quas eum aliquam sunt dolores a alias accusantium sint officiis fugit facere dolore, maxime praesentium laboriosam fugiat libero architecto? Aliquam erat volutpat et justo consequ',
+        tooltip: '  1st quartile: Green | 2nd quartile: Yellow  | 3rd quartile: Orange | 4th quartile: Red  ',
       },
       {
         name: 'index',
