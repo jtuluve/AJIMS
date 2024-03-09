@@ -230,6 +230,7 @@ const AppraisalSchema = new mongoose.Schema({
   research: { type: ResearchSchema, default: {} },
   academics: { type: academicsSchema, default: {} },
   professional: { type: professionalSchema, default: {} },
+  overallScore: { type: ScoreSchema, default: {} },
 })
 
 const profileSchema = new mongoose.Schema({

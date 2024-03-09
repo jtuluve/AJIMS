@@ -31,6 +31,8 @@ export async function getRetrieveFunction(
     professionalConference: mongomethods.getProfessionalConferences,
     professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
     professionalScore: mongomethods.getProfessionalScore,
+
+    overallScore: mongomethods.getOverallScore
   }
   let func = functions[type]
   if(func) return functions[type] 

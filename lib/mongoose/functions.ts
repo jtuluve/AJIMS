@@ -103,6 +103,7 @@ async function defaultUser() {
     user.appraisal.professional.guestLectures =
       user.appraisal.professional.guestLectures || 0
     user.appraisal.professional.fileUrl = user.appraisal.professional.fileUrl || ''
+    user.appraisal.overallScore = user.appraisal.overallScore || {}
     user.save()
     return true
   } catch {
@@ -991,4 +992,16 @@ export async function deleteProfessionalGuestLecture(
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
+}
+//appraisal->research->score (object)
+export async function getOverallScore(uid?) {
+    uid = uid || (await getUid())
+    try {
+      await initializeDb()
+      const user = await getUser(uid)
+      if (!user) throw 'User not found'
+      return user.appraisal.overallScore;
+    } catch (err) {
+      console.error(err?.msg || err?.message || err)
+    }
 }
