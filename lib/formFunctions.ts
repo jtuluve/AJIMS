@@ -153,7 +153,7 @@ export async function getInput(type: string) {
           { value: 'No quartile' },
         ],
         tooltip: {
-          one: '1. Acces Scimago Journal & Country Rank from http://www.scimagojr.com/',
+          one: '1. Acces Scimago Journal & Country Rank from https://www.scimagojr.com/',
           two: "2. To find a journal's quartile ranking within a category, search for the journal by title or ISSN",
           three: '3. Click on the journal title in the results list',
           four: '4. View the quartile in the Quartile box',
