@@ -106,11 +106,17 @@ export default function Academics() {
 							type="button"
 							className="print-button"
 							onClick={() => {
+								const userName = document.getElementById("getName").innerText;
+								const parentElement = document.getElementById("academics");
+								const h2 = document.createElement("h2");
+								h2.innerText = userName;
+								parentElement.insertBefore(h2, parentElement.firstChild);
 								document.getElementById("onPrintHidden").hidden = true;
 								document.getElementById("signatures").style.display = "flex";
 								window.print();
 								document.getElementById("onPrintHidden").hidden = false;
 								document.getElementById("signatures").style.display = "none";
+								parentElement.removeChild(h2);
 							}}
 						>
 							<span className="print-icon">print</span>

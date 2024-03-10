@@ -33,6 +33,8 @@ const Admin = () => {
 		// console.log(uid);
 	};
 
+	// console.log(data);
+
 	return (
 		<section className="adminpage">
 			<div className="titlebar">
@@ -95,8 +97,77 @@ const Admin = () => {
 											</button>
 										</td>
 									</tr>
-									<tr id={uid} hidden>
-										<td>hello</td>
+									<tr className="hiddenContent" id={uid} hidden>
+										<td colSpan={2}>
+											<p>
+												{`Research Score:	${user?.appraisal?.research?.score?.score}`}
+											</p>
+											<p>
+												{`Research Category: ${user?.appraisal?.research?.score?.category}`}
+											</p>
+											<p>&nbsp;</p>
+											<p>
+												{`Academics Score: ${user?.appraisal?.academics?.score?.score}`}
+											</p>
+											<p>
+												{`Academics Category: ${user?.appraisal?.academics?.score?.category}`}
+											</p>
+											<p>&nbsp;</p>
+											<p>
+												{`Professional Score: ${user?.appraisal?.professional?.score?.score}`}
+											</p>
+											<p>
+												{`Professional Category: ${user?.appraisal?.professional?.score?.category}`}
+											</p>
+										</td>
+
+										<td colSpan={3}>
+											<div className="publication">
+												{user?.appraisal?.research?.publications?.map(
+													(publication, index) => (
+														<div key={index}>
+															<p>Publication {index + 1}:</p>
+															<p>Title: {publication?.title}</p>
+															<p>Journal Name: {publication?.journalName}</p>
+															<p>Quartile: {publication?.quartile}</p>
+															<p>Index: {publication?.index}</p>
+															<p>DOI: {publication?.doi}</p>
+															<p>Authorship: {publication?.authorship}</p>
+															<p>
+																Upload URL:{" "}
+																<a href={publication?.uploadUrl} download>
+																	View upload document
+																</a>
+															</p>
+															<p>Author: {publication?.author}</p>
+															<p>Volume: {publication?.volume}</p>
+															<p>Issue: {publication?.issue}</p>
+															<p>Year: {publication?.year}</p>
+															<p>Page Number: {publication?.pageNo}</p>
+															<p>&nbsp;</p>
+														</div>
+													)
+												)}
+											</div>
+										</td>
+
+										<td colSpan={4}>
+											<p>
+												{`Teaching Hours: ${user?.appraisal?.academics?.teaching?.hours}`}
+											</p>
+											<p>
+												{`Clinical Hours: ${user?.appraisal?.academics?.teaching?.clinicalHours}`}
+											</p>
+											<p>
+												{`Students Feedback: ${user?.appraisal?.academics?.teaching?.studentsFeedback}`}
+											</p>
+											<p>
+												{`Clinical Duty Patients: ${user?.appraisal?.professional?.clinicalDuty?.patients}`}
+											</p>
+											<p>
+												{`Post Held Category: ${user?.appraisal?.professional?.postHeld?.category}`}
+											</p>
+										</td>
 									</tr>
 								</tbody>
 							);

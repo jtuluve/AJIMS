@@ -23,7 +23,7 @@ export default function Appraisal() {
       </div>
       <div className="menu-container">
         <Menu />
-        <div className="menu2">
+        <div id="onPrintScale" className="menu2">
           {/* <Profile /> */}
           <FormstateContextProvider> {/* Not used this context */}
             <Research />

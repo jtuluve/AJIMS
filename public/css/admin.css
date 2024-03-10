@@ -160,6 +160,11 @@
 				display: flex;
 				flex-direction: column;
 			}
+
+			
+			.hiddenContent {
+				text-align: left;
+			}
 		}
 
 		th,
@@ -167,6 +172,16 @@
 			padding: 0.6rem;
 			min-height: 120px;
 		}
+
+		.publication {
+			display: flex;
+
+			& div {
+				flex: 1;
+				min-width: 22rem;
+			}
+		}
+
 
 		/* .action-btn {
 			display: flex;
