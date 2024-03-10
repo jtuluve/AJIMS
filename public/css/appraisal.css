@@ -287,6 +287,7 @@ tbody tr:hover {
     margin: 0px;
     border-radius: 8px;
     margin-top: 0px;
+    justify-content: center;
   }
 
   .menuOptions a {
