@@ -237,10 +237,10 @@ body {
   .profilepic{
     display: none;
   }
-  .info-d{
+  .profileform .info-d{
     display:flex ;
     font-size: smaller;
-    padding: 0px;
+    padding: 2px;
     row-gap: 0px;
     flex-wrap: wrap;
   }
