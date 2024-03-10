@@ -317,6 +317,19 @@ export async function getInput(type: string) {
         required: true,
         default: 0,
       },
+      {
+        name: 'resourceMaterial',
+        type: 'select',
+        placeholder: 'Resource Material',
+        options: ['Yes','No'],
+        default: 'No'
+      },
+      {
+        name: 'cc',
+        type: 'number',
+        placeholder: 'CC',
+        default: 0
+      }
     ],
 
     professionalClinicalDuty: [
@@ -354,6 +367,9 @@ export async function getInput(type: string) {
           'Associate Professor',
           'Professor',
           'HOD (Head of Department)',
+          'clinical supervisor grade 1',
+          'clinical supervisor grade 2',
+          'clinical supervisor grade 3',
           'Nil',
         ],
         default: 'Nil',

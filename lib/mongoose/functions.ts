@@ -34,7 +34,7 @@ export async function getEmail() {
   return (await getServerSession())?.user?.email
 }
 
-export async function getUidFromEmail(email) {
+export async function getUidFromEmail(email):Promise<string> {
   try {
     await connectToDB()
     const user = await User.findOne({ email })
@@ -57,12 +57,16 @@ async function verifyUid(uid) {
   return uid == (await getUid()) || (await getUser({uid}))?.isAdmin
 }
 
-async function getUser(uid) {
+export async function getUser(uid?) {
   try {
-    await initializeDb()
-    return await User.findOne({ uid })
-  } catch {
-    console.error('Error occured while getting user')
+    uid = uid || await getUid();
+    await initializeDb();
+    if(!uid) return null;
+    let user = await User.findOne({uid})
+    user = JSON.parse(JSON.stringify(user))
+    return user;
+  } catch(err) {
+    console.error('Error occured while getting user:',err)
     return null;
   }
 }
@@ -72,7 +76,7 @@ async function defaultUser() {
     const uid = await getUid()
     if (!uid) return false
     const user = await getUser(uid)
-    if (!uid) return false
+    if (!user) return false
     user.appraisal = user.appraisal || {}
     user.appraisal.research = user.appraisal.research || {}
     user.appraisal.research.clinicalDuty =
@@ -104,10 +108,9 @@ async function defaultUser() {
       user.appraisal.professional.guestLectures || 0
     user.appraisal.professional.fileUrl = user.appraisal.professional.fileUrl || ''
     user.appraisal.overallScore = user.appraisal.overallScore || {}
-    user.save()
     return true
-  } catch {
-    console.error('Error occured while initializing user')
+  } catch(err) {
+    console.error('Error occured while initializing user',err)
     return false
   }
 }
@@ -117,7 +120,7 @@ async function initializeDb() {
     if (isInitialized) return true
     isInitialized = true
     await connectToDB()
-    await createUserIfNotExists({ uid: await getUid() })
+    // await createUserIfNotExists({ uid: await getUid() })
     await defaultUser()
     isInitialized = true
     return true
@@ -144,17 +147,19 @@ export async function connectToDB() {
 }
 
 
-export async function isAdmin(uid?:string){
-  return (await getUser(uid))?.isAdmin
+export async function isAdmin(uid?:string):Promise<boolean>{
+  return ((await getUser(uid||""))?.isAdmin)
 }
 
-export const getUsers = async () => {
+export async function getUsers(){
 	try {
 		await initializeDb();
-		const posts = await User.find()
+    const user = await getUser()
+    if(!user.isAdmin) return;
+		const users = await User.find()
 		// console.log(posts);
     
-    return JSON.stringify(posts)
+    return JSON.stringify(users)
 	} catch (error) {
 		console.error("Error in connecting to the database:", error);
 		return null;
@@ -546,14 +551,12 @@ export async function getProfile(uid?: string) {
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    if (!user._doc || Object.keys(user._doc).length == 0)
-      throw new Error('Internal Error or incomplete data')
-    const {_id, ...restUserProfile} = user.profile?._doc
+    const {_id, ...restUserProfile} = user.profile
     const newUser = {
-      name: user._doc.name,
-      designation: user._doc.designation,
-      _id: user._doc._id?.toString(),
-      profileUrl: user._doc.profileUrl,
+      name: user.name,
+      designation: user.designation,
+      _id: user._id?.toString(),
+      profileUrl: user.profileUrl,
       ...restUserProfile
     }
     return newUser
