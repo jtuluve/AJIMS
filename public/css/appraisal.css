@@ -255,6 +255,7 @@ tbody tr:hover {
     flex-direction: column;
     /* Adjust the height as needed */
     height: 92%;
+    overflow-x: hidden;
   }
 
   .menu {
@@ -288,6 +289,7 @@ tbody tr:hover {
     border-radius: 8px;
     margin-top: 0px;
     justify-content: center;
+    font-size: smaller;
   }
 
   .menuOptions a {

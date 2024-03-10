@@ -239,7 +239,7 @@ body {
   }
   .profileform .info-d{
     display:flex ;
-    font-size: smaller;
+    font-size: small;
     padding: 2px;
     row-gap: 0px;
     flex-wrap: wrap;
