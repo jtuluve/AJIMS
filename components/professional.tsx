@@ -91,9 +91,9 @@ export default function Professional() {
 				<div id="print-section" className="tables">
 					<a className="name3">Clinical Duty</a>
 					<Table
-						header_row={["No. of Patients"]}
-						keys={["patients"]}
-						column={1}
+						header_row={["No. of Patients","Minor Procedures","Major Procedures"]}
+						keys={["patients","minorProcedures","majorProcedures"]}
+						column={3}
 						type="professionalClinicalDuty"
 						formState={formState}
 						formStatusMethod={changeFormState}
