@@ -48,7 +48,7 @@ export default function Profile() {
           />
         )} */}
         <section style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-          <div style={{ width: '60%' }}>
+          <div style={{ width: '60%' }} className='profileoutput'>
             <p className='info-d'>
               <b>Name: </b>
             <a>{profileData?.['name'] || 'N/A'}</a>
@@ -75,6 +75,7 @@ export default function Profile() {
             </p>
           </div>
           <div
+            className='profilepic'
             style={{
               borderWidth: '1px',
               borderStyle: 'solid',
@@ -82,7 +83,7 @@ export default function Profile() {
               borderRadius: '1rem',
             }}
           >
-            <figure>
+            <figure className='profilepic'>
               <img
                 src={profileUrl ? profileUrl : 'user.png'}
                 alt=""

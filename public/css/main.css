@@ -234,5 +234,22 @@ body {
     font-style: italic;
     text-align: center;
   }
-
+  .profilepic{
+    display: none;
+  }
+  .info-d{
+    display:flex ;
+    font-size: smaller;
+    padding: 0px;
+    row-gap: 0px;
+    flex-wrap: wrap;
+  }
+  .profileform{
+    display:flex ;
+    padding: auto;
+    height: max-content;
+  }
+  .profileoutput{
+    font-size: smaller;
+  }
 }
