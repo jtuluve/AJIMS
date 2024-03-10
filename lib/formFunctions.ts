@@ -152,7 +152,12 @@ export async function getInput(type: string) {
           { value: 'Q4' },
           { value: 'No quartile' },
         ],
-        tooltip: '  1st quartile: Green | 2nd quartile: Yellow  | 3rd quartile: Orange | 4th quartile: Red  ',
+        tooltip: {
+          one: '1st quartile: Green',
+          two: '2st quartile: Yellow',
+          three: '3st quartile: Orange',
+          four: '4st quartile: Red',
+        },
       },
       {
         name: 'index',

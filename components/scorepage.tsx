@@ -11,6 +11,8 @@ export default function Scorepage() {
       <Table type="academicsScore" column={2} header_row={["Score","Category"]} keys={["score","category"]}/>
       <h3 className="name3">Professional score</h3>
       <Table type="professionalScore" column={2} header_row={["Score","Category"]} keys={["score","category"]}/>
+      <h3 className="name3">Overall score</h3>
+      <Table type="overallScore" column={2} header_row={["Score","Category"]} keys={["score","category"]}/>
     </div>
   );
 }

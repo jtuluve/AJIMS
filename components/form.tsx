@@ -31,7 +31,7 @@ type selectInput = {
 	default?: string;
 	options: Array<{ label?: string; value: string }>;
 	placeholder: string;
-	tooltip?: string;
+	tooltip?: object;
 };
 
 type input = selectInput | otherInput;
@@ -249,6 +249,8 @@ export default function Form({
 					<input type="hidden" name="type" value={type} />
 				</span>
 				{inputs?.inputs?.map((e) => {
+					console.log(e.tooltip && e.tooltip['one']);
+					
 					return (
 						<span key={(e.name || e.label || Math.random()) + "Key"}>
 							<b>
@@ -256,6 +258,7 @@ export default function Form({
 									<label htmlFor={e.name || e.label}>
 										{ e.label || e.placeholder || e.name}
 									</label>
+									
 									{e.tooltip ? (
 										<button
 											type="button"
@@ -267,7 +270,12 @@ export default function Form({
 										</button>
 									) : null}
 									{e.tooltip && isTooltipVisible ? (
-										<p className={styles.quartileTooltip}>{e.tooltip}</p>
+										<div className={styles.quartileTooltip}>
+											<p>{e.tooltip && e.tooltip['one']}</p>
+											<p>{e.tooltip && e.tooltip['two']}</p>
+											<p>{e.tooltip && e.tooltip['three']}</p>
+											<p>{e.tooltip && e.tooltip['one']}</p>
+										</div>
 									) : null}
 								</div>
 							</b>
