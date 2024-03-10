@@ -102,7 +102,7 @@
 
 /* Media queries for mobile */
 @media (max-width: 600px){
-    .table>* {
+    .table:not(:has(.object))>* {
         grid-template-columns: 4fr 1fr !important;
     }
     .table-row *:not(:first-child):not(:last-child), .table-header *:not(:first-child){

@@ -130,7 +130,7 @@ export default function Table({
         ) : (
           <>
             <div
-              className={styles["table-header"]}
+              className={styles["table-header"]+" "+styles["object"]}
               style={{
                 gridTemplateColumns: `repeat(${column}, 1fr)`,
               }}
@@ -151,11 +151,11 @@ export default function Table({
               {keys.map((key, i) => {
                 if (i > column - 1) return <></>;
                 return key == "uploadUrl" ? (
-                  <span key={`uploadUrl` + i}>
+                  <span key={`uploadUrl` + i} style={{ display: "block" }}>
                     {values?.uploadUrl ? "uploaded" : "Not uploaded"}
                   </span>
                 ) : (
-                  <span key={key + i}>{values?.[key]}</span>
+                  <span key={key + i} style={{ display: "block" }}>{values?.[key]}</span>
                 );
               })}
             </div>
