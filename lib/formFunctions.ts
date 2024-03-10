@@ -340,7 +340,7 @@ export async function getInput(type: string) {
         label: 'Major Procedures',
         required: false,
         default: 0,
-      },
+      }, 
     ],
     professionalPostHeld: [
       {

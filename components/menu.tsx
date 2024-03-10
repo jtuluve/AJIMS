@@ -22,13 +22,13 @@ export default function Menu() {
   if (session)
     return (
       <>
-        <div className="menu">
+        <div id="hideMenu" className="menu">
           <img
             src={user.profileUrl ? user.profileUrl : 'user.png'}
             alt="profile photo"
             className="profileImg"
           />
-          <span className="name">{user.name}</span>
+          <span id="getName" className="name">{user.name}</span>
           <div id="menuTabs" className="menuOptions">
             <a href="#research" className="active">
               Research

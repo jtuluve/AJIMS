@@ -25,11 +25,14 @@ export async function getRetrieveFunction(
     professionalPostHeld: mongomethods.getProfessionalPostHeld,
     professionalExamDuties: mongomethods.getProfessionalExamDuties,
     professionalCoordinatorDuty: mongomethods.getProfessionalCoordinatorDuty,
+    professionalFileUrl: mongomethods.getProfessionalFileUrl,
 
     professionalCommittee: mongomethods.getProfessionalCommittee,
     professionalConference: mongomethods.getProfessionalConferences,
     professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
     professionalScore: mongomethods.getProfessionalScore,
+
+    overallScore: mongomethods.getOverallScore
   }
   let func = functions[type]
   if(func) return functions[type] 
