@@ -807,7 +807,7 @@ export async function getProfessionalFileUrl(uid?) {
     await initializeDb()
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    console.log(user.appraisal.professional?.fileUrl);
+    // console.log(user.appraisal.professional?.fileUrl);
     
     return user.appraisal.professional?.fileUrl;
   } catch (err) {

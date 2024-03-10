@@ -248,9 +248,7 @@ export default function Form({
 					{_id && <input type="hidden" name="_id" value={_id || ""} />}
 					<input type="hidden" name="type" value={type} />
 				</span>
-				{inputs?.inputs?.map((e) => {
-					console.log(e.tooltip && e.tooltip['one']);
-					
+				{inputs?.inputs?.map((e) => {	
 					return (
 						<span key={(e.name || e.label || Math.random()) + "Key"}>
 							<b>

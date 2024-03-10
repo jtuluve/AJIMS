@@ -81,7 +81,7 @@ export default function Table({
                         <span key={key + i}>{e[key]}</span>
                       );
                     })}
-                    <span className={styles["table-buttons"]}>
+                    <span id="onPrintHiddenButton" className={styles["table-buttons"]}>
                       <button
                         data-_id={e._id?.toString?.()}
                         className={styles["edit"]}
@@ -116,7 +116,7 @@ export default function Table({
                 );
               })
             )}
-            <div className={styles["addRowBtnDiv"]}>
+            <div id="onPrintHiddenRow" className={styles["addRowBtnDiv"]}>
               <button
                 onClick={() => {
                   formStatusMethod({ type });
@@ -162,7 +162,7 @@ export default function Table({
             {values?.readonly ? (
               <></>
             ) : (
-              <div className={styles["editRowBtnDiv"]}>
+              <div id="onPrintHideEdit" className={styles["editRowBtnDiv"]}>
                 <button
                   id="onPrintHidden"
                   onClick={() => {

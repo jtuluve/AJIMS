@@ -106,11 +106,17 @@ export default function Academics() {
 							type="button"
 							className="print-button"
 							onClick={() => {
+								const userName = document.getElementById("getName").innerText;
+								const parentElement = document.getElementById("academics");
+								const h2 = document.createElement("h2");
+								h2.innerText = userName;
+								parentElement.insertBefore(h2, parentElement.firstChild);
 								document.getElementById("onPrintHidden").hidden = true;
 								document.getElementById("signatures").style.display = "flex";
 								window.print();
 								document.getElementById("onPrintHidden").hidden = false;
 								document.getElementById("signatures").style.display = "none";
+								parentElement.removeChild(h2);
 							}}
 						>
 							<span className="print-icon">print</span>
@@ -152,8 +158,8 @@ export default function Academics() {
 						</p>
 					</div>
 					<section id="signatures" style={{ display: "none" }}>
-						<div style={{ color: "#131D38" }}>Signature 1</div>
-						<div style={{ color: "#131D38" }}>Signature 2</div>
+						<div style={{ color: "#131D38" }}>Applicant</div>
+						<div style={{ color: "#131D38" }}>H.O.D</div>
 					</section>
 				</div>
 			</div>
