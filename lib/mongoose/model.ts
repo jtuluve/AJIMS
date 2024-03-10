@@ -120,13 +120,16 @@ const TeachingSchema = new mongoose.Schema({
   hours: { type: Number, default: 0 },
   clinicalHours: { type: Number, default: 0 },
   studentsFeedback: { type: Number, default: 0 },
+  resourceMaterial: { type: String, enum: ["Yes", "No"], default: "No" },
+  publicAwarenessWriteup: { type: String, enum: ["Yes", "No"], default: "No" },
+  cc: {type:Number, default: 0}
 })
 
 //Define academics schema
 const academicsSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default: {} },
   teaching: { type: TeachingSchema, default: {} },
-  fileUrl: {type: String, default: ''},
+  fileUrl: { type: String, default: '' },
 })
 
 //Define Exam duties schema
@@ -177,10 +180,10 @@ const guestLecturesSchema = new mongoose.Schema({
     default: 'Nil',
   },
 })
-const clinicalDuty = new mongoose.Schema({ 
-  patients: { type: Number, default: 0 }, 
-  minorProcedures: { type: Number, default: 0 }, 
-  majorProcedures: { type: Number, default: 0 }, 
+const clinicalDuty = new mongoose.Schema({
+  patients: { type: Number, default: 0 },
+  minorProcedures: { type: Number, default: 0 },
+  majorProcedures: { type: Number, default: 0 },
 });
 //Define the professional schema
 const professionalSchema = new mongoose.Schema({
@@ -196,6 +199,9 @@ const professionalSchema = new mongoose.Schema({
           'Associate Professor',
           'professor',
           'HOD (Head of Department)',
+          'clinical supervisor grade 1',
+          'clinical supervisor grade 2',
+          'clinical supervisor grade 3',
           'Nil',
         ],
         default: 'Nil',
@@ -204,25 +210,27 @@ const professionalSchema = new mongoose.Schema({
     default: {},
   },
   examDuties: { type: [ExamDutiesSchema], default: [] },
-  coordinatorDuty: { type: new mongoose.Schema({
-    category: {
-      type: String,
-      enum: [
-        '1st year',
-        '2nd year',
-        '3rd year',
-        'internship',
-        'clinical conference',
-        'camp',
-        'Nil',
-      ],
-      default: 'Nil',
-    }
-  }), default: {} },
+  coordinatorDuty: {
+    type: new mongoose.Schema({
+      category: {
+        type: String,
+        enum: [
+          '1st year',
+          '2nd year',
+          '3rd year',
+          'internship',
+          'clinical conference',
+          'camp',
+          'Nil',
+        ],
+        default: 'Nil',
+      }
+    }), default: {}
+  },
   committee: { type: [CommitteeSchema], default: [] },
   conferences: { type: [ConferenceSchema], default: [] },
   guestLectures: { type: [guestLecturesSchema], default: 0 },
-  fileUrl: {type: String, default: ''},
+  fileUrl: { type: String, default: '' },
 })
 
 //Define appraisal schema
