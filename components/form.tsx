@@ -31,7 +31,7 @@ type selectInput = {
 	default?: string;
 	options: Array<{ label?: string; value: string }>;
 	placeholder: string;
-	tooltip?: string;
+	tooltip?: object;
 };
 
 type input = selectInput | otherInput;
@@ -49,9 +49,9 @@ export default function Form({
 	_id?: string;
 	wrapperStyle?: CSSProperties;
 	formStyle?: CSSProperties;
-	title?:string;
+	title?: string;
 }) {
-	
+
 	//Cannot create form without type
 	if (!type) return <></>;
 
@@ -147,9 +147,9 @@ export default function Form({
 					let formData = await getDataAny(type, _id);
 					setFormData(formData);
 					setUploadUrl(formData.uploadUrl);
-					
+
 					setProfilePhotoUrl(formData.profileUrl);
-					
+
 					if (!formData.profileUrl) {
 						setProfilePhotoUrl("user.png");
 					}
@@ -178,7 +178,7 @@ export default function Form({
 	}) {
 		if (typeof options[0] == "string") {
 			return (
-				<select  name={name} defaultValue={defaultValue || ""}>
+				<select name={name} defaultValue={defaultValue || ""}>
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}
@@ -219,7 +219,7 @@ export default function Form({
 				onSubmit={(e) => {
 					e.preventDefault();
 					const formData = new FormData(e.currentTarget);
-					uploadUrl && formData.append("uploadUrl", uploadUrl) 
+					uploadUrl && formData.append("uploadUrl", uploadUrl)
 					profilePhotoUrl && formData.append("profileUrl", profilePhotoUrl);
 					// const data = Object.fromEntries(formData)
 					// console.log(data)
@@ -249,13 +249,16 @@ export default function Form({
 					<input type="hidden" name="type" value={type} />
 				</span>
 				{inputs?.inputs?.map((e) => {
+					console.log(e.tooltip && e.tooltip['one']);
+
 					return (
 						<span key={(e.name || e.label || Math.random()) + "Key"}>
 							<b>
 								<div className={styles.quartileContainer}>
 									<label htmlFor={e.name || e.label}>
-										{ e.label || e.placeholder || e.name}
+										{e.label || e.placeholder || e.name}
 									</label>
+
 									{e.tooltip ? (
 										<button
 											type="button"
@@ -267,7 +270,12 @@ export default function Form({
 										</button>
 									) : null}
 									{e.tooltip && isTooltipVisible ? (
-										<p className={styles.quartileTooltip}>{e.tooltip}</p>
+										<div className={styles.quartileTooltip}>
+											<p>{e.tooltip && e.tooltip['one']}</p>
+											<p>{e.tooltip && e.tooltip['two']}</p>
+											<p>{e.tooltip && e.tooltip['three']}</p>
+											<p>{e.tooltip && e.tooltip['four']}</p>
+										</div>
 									) : null}
 								</div>
 							</b>
@@ -445,7 +453,7 @@ export default function Form({
 					</button>
 				</span>
 			</form>
-			
+
 		</div>
 	);
 }

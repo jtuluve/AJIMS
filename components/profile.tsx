@@ -59,7 +59,19 @@ export default function Profile() {
             </p>
             <p className='info-d'>
               <b>Department: </b>
-            <a>{profileData?.['department'] || 'N/A'}</a>
+              <a>{profileData?.['department'] || 'N/A'}</a>
+            </p>
+            <p className='info-d'>
+              <b>Educational Qualification: </b>
+              <a>{profileData?.['educationalQualification'] || 'N/A'}</a>
+            </p>
+            <p className='info-d'>
+              <b>Date of joining: </b>
+              <a>{profileData?.['dateOfJoining'] || 'N/A'}</a>
+            </p>
+            <p className='info-d'>
+              <b>KMC Registration number: </b>
+              <a>{profileData?.['kmcRegistrationNo'] || 'N/A'}</a>
             </p>
           </div>
           <div
