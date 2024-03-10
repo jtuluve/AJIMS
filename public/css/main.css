@@ -163,14 +163,9 @@ body {
   font-weight: bold;
   color: black;
 }
-
-.profileform .info-p {
-  width: 100%;
+.profileform .info-d {
   padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
+  font-size: larger;
 }
 
 .profileform .profileEditBtn {
