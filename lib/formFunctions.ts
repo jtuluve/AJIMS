@@ -152,7 +152,12 @@ export async function getInput(type: string) {
           { value: 'Q4' },
           { value: 'No quartile' },
         ],
-        tooltip: '  1st quartile: Green | 2nd quartile: Yellow  | 3rd quartile: Orange | 4th quartile: Red  ',
+        tooltip: {
+          one: '1. Acces Scimago Journal & Country Rank from http://www.scimagojr.com/',
+          two: "2. To find a journal's quartile ranking within a category, search for the journal by title or ISSN",
+          three: '3. Click on the journal title in the results list',
+          four: '4. View the quartile in the Quartile box',
+        },
       },
       {
         name: 'index',
@@ -168,7 +173,7 @@ export async function getInput(type: string) {
           { value: 'Expanded Embase' },
           { value: 'Scopus' },
           { value: 'DoAJ' },
-          { value: 'Nil'},
+          { value: 'Nil' },
         ],
       },
       {
@@ -335,7 +340,7 @@ export async function getInput(type: string) {
         label: 'Major Procedures',
         required: false,
         default: 0,
-      }, 
+      },
     ],
     professionalPostHeld: [
       {
@@ -397,7 +402,7 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
     ],
-    
+
     professionalCommittee: [
       {
         name: 'committeeName',
