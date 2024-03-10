@@ -61,7 +61,10 @@ export async function getUser(uid?) {
   try {
     uid = uid || await getUid();
     await initializeDb();
-    return await User.findOne({ uid });
+    if(!uid) return null;
+    let user = await User.findOne({uid})
+    user = JSON.parse(JSON.stringify(user))
+    return user;
   } catch(err) {
     console.error('Error occured while getting user:',err)
     return null;
@@ -73,7 +76,7 @@ async function defaultUser() {
     const uid = await getUid()
     if (!uid) return false
     const user = await getUser(uid)
-    if (!uid) return false
+    if (!user) return false
     user.appraisal = user.appraisal || {}
     user.appraisal.research = user.appraisal.research || {}
     user.appraisal.research.clinicalDuty =
@@ -105,7 +108,6 @@ async function defaultUser() {
       user.appraisal.professional.guestLectures || 0
     user.appraisal.professional.fileUrl = user.appraisal.professional.fileUrl || ''
     user.appraisal.overallScore = user.appraisal.overallScore || {}
-    user.save()
     return true
   } catch(err) {
     console.error('Error occured while initializing user',err)
@@ -145,17 +147,19 @@ export async function connectToDB() {
 }
 
 
-export async function isAdmin(uid?:string){
-  return (await getUser(uid||""))?.isAdmin
+export async function isAdmin(uid?:string):Promise<boolean>{
+  return ((await getUser(uid||""))?.isAdmin)
 }
 
 export async function getUsers(){
 	try {
 		await initializeDb();
-		const posts = await User.find()
+    const user = await getUser()
+    if(!user.isAdmin) return;
+		const users = await User.find()
 		// console.log(posts);
     
-    return JSON.stringify(posts)
+    return JSON.stringify(users)
 	} catch (error) {
 		console.error("Error in connecting to the database:", error);
 		return null;
