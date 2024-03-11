@@ -7,14 +7,16 @@ import { getUsers, isAdmin } from "@/lib/mongoose/functions";
 import { redirect, useRouter } from "next/navigation";
 
 export default function Admin(){
+	const { data: session } = useSession();
+	const router = useRouter()
+  if (!session) redirect("/");
 	const [data, setData] = useState<any[]>([]);
-	// const {data: session} = useSession();
-	// if(!session) return redirect("/main");
-	// const router = useRouter()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				// if(!(await isAdmin())) return router.replace("/main")
+				console.log("Started fetching");
+				
+				if(!(await isAdmin())) return router.replace("/main")
 				const result = await getUsers();
 				if (result) setData(JSON.parse(result));
 			} catch (error) {

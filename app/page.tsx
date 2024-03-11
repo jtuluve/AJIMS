@@ -1,5 +1,4 @@
 "use client";
-import "@css/page.css";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -43,6 +42,7 @@ export default function Home() {
 
   return (
     <>
+      <link rel="stylesheet" href="css/page.css?v=1.0.0" />
       <div className="loginContainer">
         <a className="head">Faculty login</a>
         <hr />

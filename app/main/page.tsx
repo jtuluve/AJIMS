@@ -15,7 +15,7 @@ export default function Main() {
 		(async()=>{
 			if((await isAdmin())) return router.replace("/admin")
 		})()
-	})
+	},[])
 
 	return (
 		<>
