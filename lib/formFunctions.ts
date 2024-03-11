@@ -214,26 +214,30 @@ export async function getInput(type: string) {
         required: true,
       },
       {
-        name: 'applied',
+        name: 'agency',
         type: 'number',
-        label: 'Applied',
-        placeholder: 'Enter applied',
+        label: 'Agency',
+        placeholder: 'Enter agency',
         required: true,
         default: 0,
       },
       {
         name: 'recieved',
-        type: 'number',
+        type: 'select',
         label: 'Recieved',
         placeholder: 'Enter recieved',
         required: true,
-        default: 0,
+        options:[
+          'Yes',
+          'No'
+        ],
+        default: 'No',
       },
       {
         name: 'amountCategory',
         type: 'select',
         label: 'Amount Category',
-        required: true,
+        required: false,
         options: [
           'upto 1 lakh',
           '1 - 5 lakhs',

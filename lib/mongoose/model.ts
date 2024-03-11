@@ -57,8 +57,13 @@ const PublicationsSchema = new mongoose.Schema({
 //Define grants schema
 const grantsSchema = new mongoose.Schema({
   title: { type: String },
-  applied: { type: Number, default: 0 },
-  recieved: { type: Number, default: 0 },
+  agency: { type: Number, default: 0 },
+  recieved: { type: String,
+    enum:[
+      'Yes',
+      'No'
+    ]
+    , default: 'No' },
   amountCategory: {
     type: String,
     enum: [
