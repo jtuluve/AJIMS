@@ -141,6 +141,13 @@ export async function getInput(type: string) {
         required: false
       },
       {
+        name: 'year',
+        type: 'number',
+        label: 'Year',
+        placeholder: 'Enter Year of publication',
+        required: false
+      },
+      {
         name: 'quartile',
         type: 'select',
         label: 'Quartile',
