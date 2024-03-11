@@ -38,7 +38,7 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 'Medline',
   },
-  doi: { type: String },
+  doi: { type: String, required: false },
   authorship: {
     type: String,
     enum: ['First', 'Second', 'Correspondant', 'Others'],

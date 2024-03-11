@@ -135,7 +135,7 @@ export async function getInput(type: string) {
       },
       {
         name: 'pageNo',
-        type: 'number',
+        type: 'text',
         label: 'Page No',
         placeholder: 'Enter page no',
         required: false
@@ -144,7 +144,7 @@ export async function getInput(type: string) {
         name: 'year',
         type: 'number',
         label: 'Year',
-        placeholder: 'Enter Year of publication',
+        placeholder: 'Enter Year of Publication',
         required: false
       },
       {
@@ -186,7 +186,7 @@ export async function getInput(type: string) {
       {
         name: 'doi',
         type: 'text',
-        required: true,
+        required: false,
         label: 'DOI',
         placeholder: 'Enter DOI',
       },
@@ -202,7 +202,7 @@ export async function getInput(type: string) {
           { value: 'Other' },
         ],
       },
-      { name: 'file', type: 'file', required: false, label: 'File' },
+      { name: 'file', type: 'file', required: true, label: 'File' },
     ],
 
     researchGrants: [
