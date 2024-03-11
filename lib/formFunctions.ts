@@ -215,10 +215,10 @@ export async function getInput(type: string) {
         default: 0,
       },
       {
-        name: 'received',
+        name: 'recieved',
         type: 'number',
-        label: 'Received',
-        placeholder: 'Enter received',
+        label: 'Recieved',
+        placeholder: 'Enter recieved',
         required: true,
         default: 0,
       },
