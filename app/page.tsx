@@ -7,8 +7,8 @@ import { useState } from "react";
 import { useFormStatus } from "react-dom";
 
 export default function Home() {
-  // const { data: session } = useSession();
-  // if (session) redirect("/main");
+  const { data: session } = useSession();
+  if (session) redirect("/main");
 
   //states
   const [formData, setFormData] = useState({ id: "", password: "" });

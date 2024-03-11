@@ -8,14 +8,14 @@ import { redirect, useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 export default function Main() {
-// 	const { data: session } = useSession();
-// 	const router = useRouter()
-//   if (!session) redirect("/");
-// 	useEffect(()=>{
-// 		(async()=>{
-// 			if((await isAdmin())) return router.replace("/admin")
-// 		})()
-// 	})
+	const { data: session } = useSession();
+	const router = useRouter()
+  if (!session) redirect("/");
+	useEffect(()=>{
+		(async()=>{
+			if((await isAdmin())) return router.replace("/admin")
+		})()
+	})
 
 	return (
 		<>

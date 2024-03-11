@@ -8,10 +8,10 @@ import { redirect } from "next/navigation";
 import Scorepage from "@/components/scorepage";
 import FormstateContextProvider from "@/components/formstateContext";
 export default function Appraisal() {
-  /* const { data: session } = useSession();
+  const { data: session } = useSession();
   if (!session) {
     redirect("/");
-  } */
+  }
   return (
     <>
       <link rel="stylesheet" href="css/appraisal.css?v=1.2.3" />
