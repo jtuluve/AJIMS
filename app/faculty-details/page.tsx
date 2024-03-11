@@ -15,10 +15,10 @@ export default function FacultyDetails() {
 	] = useState(false);
 	let [formState, setFormState]: [formState: any, setFormState: any] =
 		useState(false);
-	const { data: session } = useSession();
-	if (!session) {
-		redirect("/");
-	}
+	// const { data: session } = useSession();
+	// if (!session) {
+	// 	redirect("/");
+	// }
 
 	const [profileUrl, setProfileUrl] = useState("");
 

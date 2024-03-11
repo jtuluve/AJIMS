@@ -8,8 +8,8 @@ import { redirect, useRouter } from "next/navigation";
 
 export default function Admin(){
 	const [data, setData] = useState<any[]>([]);
-	const {data: session} = useSession();
-	if(!session) return redirect("/main");
+	// const {data: session} = useSession();
+	// if(!session) return redirect("/main");
 	// const router = useRouter()
 	useEffect(() => {
 		const fetchData = async () => {
