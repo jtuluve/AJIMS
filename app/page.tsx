@@ -12,9 +12,11 @@ export default function Home() {
   //states
   const [formData, setFormData] = useState({ id: "", password: "" });
   const [authStatus, setAuthStatus] = useState(null);
-
+  const [pending, setPending] = useState(false)
   //event handlers
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setPending(true)
     const { id, password } = formData;
     if (!id || !password) return setAuthStatus("Fill all details!");
     const res = await signIn("credentials", {
@@ -26,6 +28,7 @@ export default function Home() {
     else {
       setAuthStatus("Id and Password doesn't match. Try again.");
     }
+    setPending(false)
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -36,7 +39,7 @@ export default function Home() {
   function SubmitButton() {
     const { pending } = useFormStatus();
     return (
-      <input type="submit" formAction={handleLogin} value={pending?"Logging in...":"Login"} />
+      <input type="submit" value={pending?"Logging in...":"Login"} />
     );
   }
 
@@ -46,7 +49,7 @@ export default function Home() {
       <div className="loginContainer">
         <a className="head">Faculty login</a>
         <hr />
-        <form>
+        <form onSubmit={handleLogin}>
           <label htmlFor="id">
             <b>ID</b>
           </label>
@@ -79,8 +82,8 @@ export default function Home() {
               {authStatus}
             </span>
           )}
-          {/* <input type="submit" value="Login" /> */}
-          <SubmitButton/>
+          <input type="submit" value={pending?"Logging in..":"Login"} />
+          {/* <SubmitButton/> */}
         </form>
       </div>
     </>
