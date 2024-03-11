@@ -45,7 +45,7 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 'First',
   },
-  uploadUrl: { type: String },
+  uploadUrl: { type: String, default: ''},
   author: { type: String, required: false, default: "N/A" },
   volume: { type: Number, required: false, default: 0 },
   issue: { type: Number, required: false, default: 0 },

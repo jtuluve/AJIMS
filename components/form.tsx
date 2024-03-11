@@ -388,12 +388,12 @@ export default function Form({
 										name={e.name}
 										placeholder={(e as otherInput).placeholder || " "}
 										required={e.required || false}
-										defaultValue={
+										/* defaultValue={
 											formData?.[e.name] ||
 											formData?.[e.label] ||
 											e.default ||
 											""
-										}
+										} */
 									/>
 									<p>
 										{fileUploadError ? (
