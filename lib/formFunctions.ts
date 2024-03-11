@@ -215,7 +215,7 @@ export async function getInput(type: string) {
       },
       {
         name: 'agency',
-        type: 'number',
+        type: 'text',
         label: 'Agency',
         placeholder: 'Enter agency',
         required: true,
