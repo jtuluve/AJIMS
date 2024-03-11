@@ -336,6 +336,13 @@ export async function getInput(type: string) {
         default: 'No'
       },
       {
+        name: 'publicAwarenessWriteup',
+        type: 'select',
+        placeholder: 'Public Awareness Writeup',
+        options: ['Yes', 'No'],
+        default: 'No'
+      },
+      {
         name: 'cc',
         type: 'number',
         placeholder: 'CC',

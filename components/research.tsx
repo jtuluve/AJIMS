@@ -22,7 +22,7 @@ export default function Research() {
                     <Table formState={formState} type="researchPublications"column={7} header_row={["Title","Journal Name", "Quartile", "Index", "DOI","Authorship","Uploads"]} keys={["title","journalName","quartile","index","doi","authorship","uploadUrl"]} formStatusMethod={changeFormState} />
                     
                     <a className="name3">II. Grants</a>
-                    <Table formState={formState} type="researchGrants" column={5} header_row={["Title","Agency", "Recieved", "Amount Category", "Uploads"]} keys={["title","applied","recieved","amountCategory","uploadUrl"]} formStatusMethod={changeFormState} />
+                    <Table formState={formState} type="researchGrants" column={5} header_row={["Title","Agency", "Recieved", "Amount Category", "Uploads"]} keys={["title","agency","recieved","amountCategory","uploadUrl"]} formStatusMethod={changeFormState} />
 
                     <a className="name3">III. Books</a>
                     <Table formState={formState} type="researchBooks"column={2} header_row={["Authorship", "Category"]} keys={["authorship","category"]} formStatusMethod={changeFormState} />

@@ -91,14 +91,17 @@ export default function Academics() {
 				<div id="print-section" className="tables">
 					<a className="name3">Teaching</a>
 					<Table
-						column={3}
+						column={6}
 						type="academicsTeaching"
 						header_row={[
 							"Hours",
 							"Clinical class hours/ practicals",
 							"Student Feedback",
+							"Resource Material",
+							"Public Awareness Writeup",
+							"CC"
 						]}
-						keys={["hours", "clinicalHours", "studentsFeedback"]}
+						keys={["hours", "clinicalHours", "studentsFeedback", "resourceMaterial","publicAwarenessWriteup","cc"]}
 						formStatusMethod={changeFormState}
 					/>
 					<div className="btn-container" id="hiddenButton">
