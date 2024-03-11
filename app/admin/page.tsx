@@ -14,8 +14,6 @@ export default function Admin(){
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				console.log("Started fetching");
-				
 				if(!(await isAdmin())) return router.replace("/main")
 				const result = await getUsers();
 				if (result) setData(JSON.parse(result));
