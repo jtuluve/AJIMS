@@ -6,15 +6,15 @@ import { signOut, useSession } from "next-auth/react";
 import { getUsers, isAdmin } from "@/lib/mongoose/functions";
 import { redirect, useRouter } from "next/navigation";
 
-const Admin = () => {
+export default function Admin(){
 	const [data, setData] = useState<any[]>([]);
 	const {data: session} = useSession();
 	if(!session) return redirect("/main");
-	const router = useRouter()
+	// const router = useRouter()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				if(!(await isAdmin())) return router.replace("/main")
+				// if(!(await isAdmin())) return router.replace("/main")
 				const result = await getUsers();
 				if (result) setData(JSON.parse(result));
 			} catch (error) {
@@ -180,5 +180,3 @@ const Admin = () => {
 		</section>
 	);
 };
-
-export default Admin;

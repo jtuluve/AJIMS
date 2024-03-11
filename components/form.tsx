@@ -176,9 +176,10 @@ export default function Form({
 		defaultValue: string;
 		placeholder: string;
 	}) {
+		let [val,setVal] = useState(defaultValue)
 		if (typeof options[0] == "string") {
 			return (
-				<select name={name} defaultValue={defaultValue || ""}>
+				<select name={name} defaultValue={val} onChange={(e)=>setVal(e.target.value)}>
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}

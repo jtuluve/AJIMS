@@ -8,6 +8,7 @@ var isInitialized = false
 export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
   try {
     await connectToDB();
+    if(!uid) throw new Error("uid required to create account");
     email = email || await getEmail();
     const user =
       (await User.findOne({ email, uid })) || (await User.findOne({ uid }))
@@ -21,7 +22,7 @@ export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
     }
     user.email = email;
     user.uid = uid;
-    user.save()
+    
     return true
   } catch {
     console.error('Error occured while creating user')
@@ -34,7 +35,7 @@ export async function getEmail() {
   return (await getServerSession())?.user?.email
 }
 
-export async function getUidFromEmail(email):Promise<string> {
+export async function getUidFromEmail(email) {
   try {
     await connectToDB()
     const user = await User.findOne({ email })
@@ -57,13 +58,12 @@ async function verifyUid(uid) {
   return uid == (await getUid()) || (await getUser({uid}))?.isAdmin
 }
 
-export async function getUser(uid?) {
+async function getUser(uid) {
   try {
     uid = uid || await getUid();
     await initializeDb();
     if(!uid) return null;
     let user = await User.findOne({uid})
-    user = JSON.parse(JSON.stringify(user))
     return user;
   } catch(err) {
     console.error('Error occured while getting user:',err)
@@ -120,7 +120,7 @@ async function initializeDb() {
     if (isInitialized) return true
     isInitialized = true
     await connectToDB()
-    // await createUserIfNotExists({ uid: await getUid() })
+    await createUserIfNotExists({ uid: await getUid()||'' })
     await defaultUser()
     isInitialized = true
     return true
@@ -147,14 +147,14 @@ export async function connectToDB() {
 }
 
 
-export async function isAdmin(uid?:string):Promise<boolean>{
-  return ((await getUser(uid||""))?.isAdmin)
+export async function isAdmin(uid?:string){
+  return ((await getUser(uid))?.isAdmin)
 }
 
 export async function getUsers(){
 	try {
 		await initializeDb();
-    const user = await getUser()
+    const user = await getUser(await getUid())
     if(!user.isAdmin) return;
 		const users = await User.find()
 		// console.log(posts);
@@ -186,6 +186,7 @@ export async function updateProfile(profile, uid?) {
 //appraisal->research->publications
 export async function upsertResearchPublications(publication, uid?) {
   try {
+    console.log(publication)
     uid = uid || (await getUid())
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     await initializeDb()
@@ -551,12 +552,12 @@ export async function getProfile(uid?: string) {
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    const {_id, ...restUserProfile} = user.profile
+    const {_id, ...restUserProfile} = JSON.parse(JSON.stringify(user.profile))
     const newUser = {
-      name: user.name,
-      designation: user.designation,
-      _id: user._id?.toString(),
-      profileUrl: user.profileUrl,
+      name: user._doc.name,
+      designation: user._doc.designation,
+      _id: user._doc._id?.toString(),
+      profileUrl: user._doc.profileUrl,
       ...restUserProfile
     }
     return newUser
@@ -572,7 +573,7 @@ export async function getResearchPublications(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.research.publications.find((p) => p._id == _id)
+      ? user.appraisal.research.publications.find((p) => p._id?.toString?.() == _id)
       : user.appraisal.research.publications
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -586,7 +587,7 @@ export async function getResearchGrants(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.research.grants.find((d) => d._id == _id)
+      ? user.appraisal.research.grants.find((d) => d._id?.toString() == _id)
       : user.appraisal.research.grants
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -601,7 +602,7 @@ export async function getResearchBooks(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.research.books.find((d) => d._id == _id)
+      ? user.appraisal.research.books.find((d) => d._id?.toString() == _id)
       : user.appraisal.research.books
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -616,7 +617,7 @@ export async function getResearchGuidance(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.research.guidance.find((d) => d._id == _id)
+      ? user.appraisal.research.guidance.find((d) => d._id.toString() == _id)
       : user.appraisal.research.guidance
   } catch (err) {
     console.error(err?.msg || err?.message || err)
@@ -631,7 +632,7 @@ export async function getResearchConferences(_id?: string, uid?: string) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return _id
-      ? user.appraisal.research.conferences.find((d) => d._id == _id)
+      ? user.appraisal.research.conferences.find((d) => d._id.toString() == _id)
       : user.appraisal.research.conferences
   } catch (err) {
     console.error(err?.msg || err?.message || err)
