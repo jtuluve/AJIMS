@@ -202,12 +202,12 @@ const professionalSchema = new mongoose.Schema({
           'Lecturer',
           'Assistant Professor',
           'Associate Professor',
-          'professor',
+          'Professor',
           'HOD (Head of Department)',
           'clinical supervisor grade 1',
           'clinical supervisor grade 2',
           'clinical supervisor grade 3',
-          'Nil',
+          'Nil'
         ],
         default: 'Nil',
       }
@@ -259,7 +259,8 @@ const profileSchema = new mongoose.Schema({
   category: { type: String },
   kmcRegistrationNo: { type: Number },
   educationalQualification: { type: String },
-  experience: { type: String }
+  experience: { type: String },
+  profileUrl: { type: String }
 })
 
 // Define the User schema
