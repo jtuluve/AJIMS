@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 
 import styles from "@css/table.module.css";
-import { getDataAny } from "@/lib/mongoose/serverActions";
 import { handleDeleteAny } from "@/lib/mongoose/serverActions";
+import { useFormStateContext } from "./formstateContext";
 
 
 export default function Table({
@@ -10,33 +9,20 @@ export default function Table({
   header_row,
   keys,
   type,
-  formStatusMethod,
-  formState,
+  values
 }: {
   column: number;
   header_row: Array<string>;
   keys: Array<string>;
   type: string;
-  formStatusMethod?: (status: any) => any;
-  formState?: any;
+  values: any;
 }) {
-  const [values, setValues]: [values: any, setValues: any] = useState(false);
-  useEffect(() => {
-    // console.log("Started effect");
-    try {
-      (async () => {
-        let data = await getDataAny(type);
-        setValues(data);
-      })();
-    } catch (e) {
-      setValues({ error: e });
-      console.error(e);
-    }
-  }, [formState]);
+  const {setFormState} = useFormStateContext()
   if (values === false) return <p style={{ color: "white" }}>Loading..</p>;
   if (values?.error) {
     return <p style={{ color: "white" }}>Internal Error Occured</p>;
   }
+  values = Array.isArray(values) ? values.filter(v=>!!v) : values
 
   return (
     <>
@@ -87,9 +73,10 @@ export default function Table({
                         className={styles["edit"]}
                         id="columnEditButton"
                         onClick={() => {
-                          formStatusMethod({
+                          setFormState({
                             type,
                             _id: e._id?.toString?.() || e._id,
+                            data: e
                           });
                         }}
                       >
@@ -106,7 +93,7 @@ export default function Table({
                               type,
                               e._id?.toString?.() || e._id
                             ))();
-                          formStatusMethod({});
+                            setFormState({});
                         }}
                       >
                         <i className="material-symbols-outlined">delete</i>
@@ -119,7 +106,7 @@ export default function Table({
             <div id="onPrintHiddenRow" className={styles["addRowBtnDiv"]}>
               <button
                 onClick={() => {
-                  formStatusMethod({ type });
+                  setFormState({ type });
                 }}
                 style={{ gridColumn: `${Math.round(column / 2)}` }}
               >
@@ -166,7 +153,7 @@ export default function Table({
                 <button
                   id="onPrintHidden"
                   onClick={() => {
-                    formStatusMethod({ type, _id: values?._id?.toString?.() });
+                    setFormState({ type, _id: values?._id?.toString?.(), data: values });
                   }}
                   style={{ gridColumn: `${Math.round(column / 2)}` }}
                 >
