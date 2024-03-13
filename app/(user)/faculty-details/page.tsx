@@ -11,14 +11,9 @@ import { useFormStateContext } from "@/components/formstateContext";
 import { useUserData } from "@/components/UserDataContext";
 
 export default function FacultyDetails() {
-	let [profileData, updateProfileData]: [
-		profileData: any,
-		updateProfileData: any
-	] = useState(false);
 	let {formState,setFormState} = useFormStateContext();
 	let {userData} = useUserData()
 	const { data: session } = useSession();
-	const [profileUrl, setProfileUrl] = useState("");
 	
 	if (!session) {
 		redirect("/");
@@ -26,12 +21,8 @@ export default function FacultyDetails() {
 
 
 	useEffect(() => {
-		(async () => {
 			let profile = userData?.profile;
-			updateProfileData(profile);
-			setProfileUrl(profile?.profileUrl);
 			setFormState({type:"profile",data:profile})
-		})();
 		// setProfileUrl(localStorage.getItem('profileUrl'))
 	}, [formState]);
 
