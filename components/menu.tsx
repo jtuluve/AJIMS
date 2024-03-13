@@ -1,30 +1,27 @@
 'use client'
-import { getProfile } from '@/lib/mongoose/functions'
-import { signOut, useSession } from 'next-auth/react'
+import {  useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
+import { useUserData } from './UserDataContext'
 
 export default function Menu() {
   const [user, setUser]: [user: any, setUser: any] = useState({})
-
+  const { data: session } = useSession()
+  const {userData} = useUserData()
   // useEffect(() => {
   //   setProfileUrl(localStorage.getItem('profileUrl'))
   // }, [])
 
   useEffect(() => {
-    ;(async () => {
-      let profile = await getProfile()
-      setUser(profile)
-    })()
+    setUser(userData?.profile)
     // setProfileUrl(localStorage.getItem('profileUrl'))
   }, [])
 
-  const { data: session } = useSession()
   if (session)
     return (
       <>
         <div id="hideMenu" className="menu">
           <img
-            src={user.profileUrl ? user.profileUrl : 'user.png'}
+            src={user?.profileUrl ? user.profileUrl : 'user.png'}
             alt="profile photo"
             className="profileImg"
           />

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Table from "./table";
-import Form from "./form";
 import { getRetrieveFunction } from "@/lib/mongoose/serverActions";
 
 import {
@@ -11,17 +10,10 @@ import {
 } from "firebase/storage";
 import { app } from "../app/firebase";
 import { updateProfessionalFileUrl } from "@/lib/mongoose/functions";
+import { useUserData } from "./UserDataContext";
 
 export default function Professional() {
-	const [formState, setFormState]: [
-		formState: { type?; _id? },
-		setFormState: any
-	] = useState({ type: "", _id: "" });
-
-	function changeFormState(state) {
-		setFormState(state);
-	}
-
+	const {userData} = useUserData()
 	const [fileUrl, setFileUrl] = useState("");
 	const fileRef = useRef(null);
 
@@ -79,13 +71,6 @@ export default function Professional() {
 	return (
 		<>
 			<div id="professional" className="hidden-section">
-				{formState.type && (
-					<Form
-						formStatusUpdate={changeFormState}
-						type={formState.type}
-						_id={formState._id}
-					/>
-				)}
 				<a className="name2">Professional</a>
 				<hr />
 				<div id="print-section" className="tables">
@@ -95,8 +80,7 @@ export default function Professional() {
 						keys={["patients","minorProcedures","majorProcedures"]}
 						column={3}
 						type="professionalClinicalDuty"
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.clinicalDuty}
 					/>
 
 					<a className="name3">Post Held</a>
@@ -105,8 +89,7 @@ export default function Professional() {
 						header_row={["Category"]}
 						keys={["category"]}
 						column={1}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.postHeld}
 					/>
 
 					<a className="name3">Exam Duties</a>
@@ -115,8 +98,7 @@ export default function Professional() {
 						header_row={["Category 1", "Category 2"]}
 						keys={["category1", "category2"]}
 						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.examDuties}
 					/>
 
 					<a className="name3">Coordinator Duty</a>
@@ -125,8 +107,7 @@ export default function Professional() {
 						header_row={["Category"]}
 						keys={["category"]}
 						column={1}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.coordinatorDuty}
 					/>
 
 					<a className="name3">Committee</a>
@@ -135,8 +116,7 @@ export default function Professional() {
 						header_row={["Designation", "Committee Name"]}
 						keys={["designation", "committeeName"]}
 						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.committee}
 					/>
 
 					<a className="name3">Conferences/workshop/CME conducted</a>
@@ -145,8 +125,7 @@ export default function Professional() {
 						header_row={["Designation", "Credit Points"]}
 						keys={["designation", "creditPoints"]}
 						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.conferences}
 					/>
 					<a className="name3">Guest Lectures</a>
 					<Table
@@ -154,8 +133,7 @@ export default function Professional() {
 						header_row={["Number", "Category"]}
 						keys={["number", "category"]}
 						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.guestLectures}
 					/>
 
 					<div className="btn-container" id="hiddenButton">
