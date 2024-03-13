@@ -4,10 +4,12 @@ import { redirect } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
+import { isAdmin } from "@/lib/mongoose/functions";
 
 export default function Home() {
   const { data: session } = useSession();
-  if (session) redirect("/main");
+  if (session && isAdmin()) redirect("/admin");
+  if(session) redirect("/main")
 
   //states
   const [formData, setFormData] = useState({ id: "", password: "" });
