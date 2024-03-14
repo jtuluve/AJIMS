@@ -7,6 +7,7 @@ export default withAuth(
     let pathname = req.nextUrl?.pathname;
     let baseUrl = req.nextUrl?.origin;
     let token = req.nextauth?.token;
+    console.log("ran middleware for",pathname,"with token",token);
     try{
       if(!token && pathname!=="/") return NextResponse.redirect(baseUrl);
       if(!token) return NextResponse.next()
@@ -14,20 +15,19 @@ export default withAuth(
       if(isAdmin && !pathname.startsWith("/admin")) return NextResponse.redirect(baseUrl+"/admin");
       if(pathname.startsWith("/admin") && !isAdmin) return NextResponse.redirect(baseUrl+"/main"); 
     }catch(err){
-      console.error("middleware err:",err)
+      console.error("middleware err:",err,"for req:",req)
     }
     
     return NextResponse.next();
   },
   {
-    /* callbacks: {
-      authorized: async({ req, token }) => {
-        let url = new URL(req?.url);
-        if(url.pathname==="/admin") return false;
+     callbacks: {
+      authorized: async({ token }) => {
         if(!token) return false;
+        console.log("allowed")
         return true
       },
-    },  */
+    }, 
     pages: {
       signIn: "/",
     }
