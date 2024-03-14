@@ -1,17 +1,16 @@
-import { withAuth } from "next-auth/middleware"
+import { NextRequestWithAuth, withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server";
 
 export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
-  async function middleware(req) {
-    console.log("Ran middleware for:",req.nextUrl.pathname)
+  async function middleware(req:NextRequestWithAuth) {
     let pathname = req.nextUrl?.pathname;
     let baseUrl = req.nextUrl?.origin;
     let token = req.nextauth?.token;
     try{
-      let h = new Headers({cookie:req.headers.get("cookie")});
       if(!token && pathname!=="/") return NextResponse.redirect(baseUrl);
-      let isAdmin = (await (await fetch(baseUrl+"/api/isAdmin",{headers:h})).json())?.isAdmin;
+      if(!token) return NextResponse.next()
+      let isAdmin = (await (await fetch(baseUrl+"/api/isAdmin",{method:"POST",body:JSON.stringify({email:token?.email})})).json())?.isAdmin;
       if(isAdmin && !pathname.startsWith("/admin")) return NextResponse.redirect(baseUrl+"/admin");
       if(pathname.startsWith("/admin") && !isAdmin) return NextResponse.redirect(baseUrl+"/main"); 
     }catch(err){
@@ -35,4 +34,4 @@ export default withAuth(
   } 
 )
 
-export const config = { matcher: ["/((?!api|_next/static|_next/image|favicon\\.ico|[^\\.]+\\..+).*)","/"] }
+export const config = { matcher: ["/((?!api|_next/static|_next/image|favicon\\.ico|.+\\..+).*)"] }
