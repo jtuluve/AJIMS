@@ -151,6 +151,10 @@ export async function isAdmin(uid?:string){
   return ((await getUser(uid))?.isAdmin)
 }
 
+export async function isAdminByEmail(email:string){
+  return (await isAdmin(await getUidFromEmail(email)))
+}
+
 export async function getUsers(){
 	try {
 		await initializeDb();
