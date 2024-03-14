@@ -11,12 +11,11 @@ import { useEffect } from "react"
 export default function Main() {
 	const {userData} = useUserData();
 	const { data: session } = useSession();
-	const router = useRouter()
   if (!session) redirect("/");
 	if(!userData) signOut()
 	useEffect(()=>{
 		(async()=>{
-			if((await isAdmin())) return router.replace("/admin")
+			if((await isAdmin())) return redirect("/admin")
 		})()
 	},[])
 
