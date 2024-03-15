@@ -22,7 +22,8 @@ export default withAuth(
   },
   {
      callbacks: {
-      authorized: async({ token }) => {
+      authorized: async({ req, token }) => {
+        console.log("ran callback for token:",token,"and req:",req)
         if(!token) return false;
         console.log("allowed")
         return true
