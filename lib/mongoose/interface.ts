@@ -155,6 +155,12 @@ export interface UserDocument {
   isAdmin?: boolean;
   profileUrl?: string;
   category?: string;
+  designation?: string;
+  department?: string;
   profile?: Profile;
   appraisal?: Appraisal;
+}
+
+export interface AdminContextType {
+	users: UserDocument[];
 }

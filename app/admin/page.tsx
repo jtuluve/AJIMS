@@ -1,39 +1,12 @@
 "use client";
 import "@css/admin.css";
-import { NextResponse } from "next/server";
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import { signOut, useSession } from "next-auth/react";
-import { getUsers, isAdmin } from "@/lib/mongoose/functions";
-import { redirect, useRouter } from "next/navigation";
+import React from "react";
+import { signOut } from "next-auth/react";
+import { useAdminData } from "@/components/adminContext";
+import Link from "next/link";
 
-export default function Admin(){
-	const { data: session } = useSession();
-	const router = useRouter()
-  if (!session) redirect("/");
-	const [data, setData] = useState<any[]>([]);
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				if(!(await isAdmin())) return router.replace("/main")
-				const result = await getUsers();
-				if (result) setData(JSON.parse(result));
-			} catch (error) {
-				console.error("Error fetching data:", error);
-			}
-		};
-
-		fetchData();
-	}, []);
-
-	const handleAccordian = (uid) => {
-		const toggleElement = document.getElementById(uid);
-		toggleElement.hidden
-			? (toggleElement.hidden = false)
-			: (toggleElement.hidden = true);
-		// console.log(uid);
-	};
-
-	// console.log(data);
+export default function Admin() {
+	const { allUsers } = useAdminData();
 
 	return (
 		<section className="adminpage">
@@ -50,7 +23,7 @@ export default function Admin(){
 			</div>
 			<div className="usersTable">
 				<h2>Admin Dashboard</h2>
-				{data.length ? (
+				{allUsers.length ? (
 					<table>
 						<caption>Users</caption>
 						<thead>
@@ -65,7 +38,7 @@ export default function Admin(){
 							</tr>
 						</thead>
 
-						{data.map((user, index) => {
+						{allUsers.map((user, index) => {
 							const { uid } = user;
 							return (
 								<tbody key={uid} className="accordian">
@@ -88,85 +61,9 @@ export default function Admin(){
 											<button>view more</button>
 										</td> */}
 										<td>
-											<button
-												onClick={() => {
-													handleAccordian(uid);
-												}}
-											>
-												v
-											</button>
-										</td>
-									</tr>
-									<tr className="hiddenContent" id={uid} hidden>
-										<td colSpan={2}>
-											<p>
-												{`Research Score:	${user?.appraisal?.research?.score?.score}`}
-											</p>
-											<p>
-												{`Research Category: ${user?.appraisal?.research?.score?.category}`}
-											</p>
-											<p>&nbsp;</p>
-											<p>
-												{`Academics Score: ${user?.appraisal?.academics?.score?.score}`}
-											</p>
-											<p>
-												{`Academics Category: ${user?.appraisal?.academics?.score?.category}`}
-											</p>
-											<p>&nbsp;</p>
-											<p>
-												{`Professional Score: ${user?.appraisal?.professional?.score?.score}`}
-											</p>
-											<p>
-												{`Professional Category: ${user?.appraisal?.professional?.score?.category}`}
-											</p>
-										</td>
-
-										<td colSpan={3}>
-											<div className="publication">
-												{user?.appraisal?.research?.publications?.map(
-													(publication, index) => (
-														<div key={index}>
-															<p>Publication {index + 1}:</p>
-															<p>Title: {publication?.title}</p>
-															<p>Journal Name: {publication?.journalName}</p>
-															<p>Quartile: {publication?.quartile}</p>
-															<p>Index: {publication?.index}</p>
-															<p>DOI: {publication?.doi}</p>
-															<p>Authorship: {publication?.authorship}</p>
-															<p>
-																Upload URL:{" "}
-																<a href={publication?.uploadUrl} download>
-																	View upload document
-																</a>
-															</p>
-															<p>Author: {publication?.author}</p>
-															<p>Volume: {publication?.volume}</p>
-															<p>Issue: {publication?.issue}</p>
-															<p>Year: {publication?.year}</p>
-															<p>Page Number: {publication?.pageNo}</p>
-															<p>&nbsp;</p>
-														</div>
-													)
-												)}
-											</div>
-										</td>
-
-										<td colSpan={4}>
-											<p>
-												{`Teaching Hours: ${user?.appraisal?.academics?.teaching?.hours}`}
-											</p>
-											<p>
-												{`Clinical Hours: ${user?.appraisal?.academics?.teaching?.clinicalHours}`}
-											</p>
-											<p>
-												{`Students Feedback: ${user?.appraisal?.academics?.teaching?.studentsFeedback}`}
-											</p>
-											<p>
-												{`Clinical Duty Patients: ${user?.appraisal?.professional?.clinicalDuty?.patients}`}
-											</p>
-											<p>
-												{`Post Held Category: ${user?.appraisal?.professional?.postHeld?.category}`}
-											</p>
+											<Link href={`/admin/${uid}`}>
+												<button>view more</button>
+											</Link>
 										</td>
 									</tr>
 								</tbody>
@@ -179,4 +76,4 @@ export default function Admin(){
 			</div>
 		</section>
 	);
-};
+}
