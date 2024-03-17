@@ -154,6 +154,7 @@ const ExamDutiesSchema = new mongoose.Schema({
     enum: ['Internal', 'External', 'Nil'],
     default: 'Nil',
   },
+  examDutyFile: { type: String, default: '' }
 })
 
 //Committee schema
@@ -164,6 +165,7 @@ const CommitteeSchema = new mongoose.Schema({
     enum: ['Member', 'Coordinator', 'Head', 'Nil'],
     default: 'Nil',
   },
+  committeeFile: { type: String, default: '' }
 })
 
 //Conference Schema
@@ -174,6 +176,7 @@ const ConferenceSchema = new mongoose.Schema({
     default: 'Nil',
   },
   creditPoints: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
+  conferenceFile: { type: String, default: '' }
 })
 
 //Guest lectures schema
@@ -184,11 +187,13 @@ const guestLecturesSchema = new mongoose.Schema({
     enum: ['Internal', 'External', 'Nil'],
     default: 'Nil',
   },
+  guestLecturesFile: { type: String, default: '' }
 })
 const clinicalDuty = new mongoose.Schema({
   patients: { type: Number, default: 0 },
   minorProcedures: { type: Number, default: 0 },
   majorProcedures: { type: Number, default: 0 },
+  clinicalDutyFile : { type: String, default: '' }
 });
 //Define the professional schema
 const professionalSchema = new mongoose.Schema({
@@ -210,7 +215,8 @@ const professionalSchema = new mongoose.Schema({
           'Nil'
         ],
         default: 'Nil',
-      }
+      },
+      postHeldFile: {type: String, default: ''}
     }),
     default: {},
   },
@@ -229,7 +235,8 @@ const professionalSchema = new mongoose.Schema({
           'Nil',
         ],
         default: 'Nil',
-      }
+      },
+      coordinatorDutyFile: {type: String, default: ''}
     }), default: {}
   },
   committee: { type: [CommitteeSchema], default: [] },

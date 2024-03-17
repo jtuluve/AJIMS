@@ -392,6 +392,8 @@ export async function updateProfessionalClinicalDuty(clinicalDuty, uid?) {
     if (!user) throw 'User not found'
     const { _id, ...clinicalDutyWithoutId } = clinicalDuty //remove _id from clinicalDuty object
     // user.appraisal.professional.clinicalDuty = {...user.appraisal.professional.clinicalDuty, ...clinicalDutyWithoutId}
+    clinicalDutyWithoutId['clinicalDutyFile'] =  clinicalDutyWithoutId['uploadUrl']
+    delete clinicalDutyWithoutId['uploadUrl']
     user.appraisal.professional.clinicalDuty = clinicalDutyWithoutId;
     await user.save()
     return true
@@ -410,6 +412,8 @@ export async function updateProfessionalPostHeld(postHeld, uid?) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     const { _id, ...postHeldWithoutId } = postHeld //remove _id from postHeld object
+    postHeldWithoutId['postHeldFile'] = postHeldWithoutId['uploadUrl']
+    delete postHeldWithoutId['uploadUrl']
     user.appraisal.professional.postHeld = postHeldWithoutId;
     await user.save()
     return true
@@ -427,12 +431,18 @@ export async function upsertProfessionalExamDuties(examDuty, uid?) {
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    if (!examDuty._id) user.appraisal.professional.examDuties.push(examDuty)
+    if (!examDuty._id) {
+      examDuty['examDutyFile'] = examDuty['uploadUrl']
+      delete examDuty['uploadUrl']
+      user.appraisal.professional.examDuties.push(examDuty)
+    }
     else {
       let index = user.appraisal.professional.examDuties.findIndex(
         (item) => item?._id.toString() == examDuty._id
       )
       if (index == -1) throw 'professional Examduty not found'
+      examDuty['examDutyFile'] = examDuty['uploadUrl']
+      delete examDuty['uploadUrl']
       user.appraisal.professional.examDuties[index] = examDuty
     }
     await user.save()
@@ -453,6 +463,8 @@ export async function updateProfessionalCoordinatorDuty(coordinatorDuty, uid?) {
     if (!user) throw 'User not found'
 
     const { _id, profileUrl, ...coordinatorDutyWithoutId } = coordinatorDuty // remove _id and profileUrl from coordinatorDuty object
+    coordinatorDutyWithoutId['coordinatorDutyFile'] = coordinatorDutyWithoutId['uploadUrl']
+    delete coordinatorDutyWithoutId['uploadUrl']
     user.appraisal.professional.coordinatorDuty = coordinatorDutyWithoutId
 
     await user.save()
@@ -478,8 +490,14 @@ export async function upsertProfessionalCommittee(committee, uid?) {
         (x) => x._id.toString() === committee._id
       )
       if (index === -1) throw 'Professional committee not found'
+      committee['committeeFile'] = committee['uploadUrl']
+      delete committee['uploadUrl']
       user.appraisal.professional.committee[index] = committee
-    } else user.appraisal.professional.committee.push(committee)
+    } else {
+      committee['committeeFile'] = committee['uploadUrl']
+      delete committee['uploadUrl']
+      user.appraisal.professional.committee.push(committee)
+    }
     await user.save()
     return true
   } catch (err) {
@@ -502,9 +520,15 @@ export async function upsertProfessionalConference(conference, uid?) {
       const index = user.appraisal.professional.conferences.findIndex(
         (item) => item?._id.toString() == conference._id
       )
-      if (!index) throw 'Professional Conference not found'
+      if (index === -1) throw 'Professional Conference not found'
+      conference['conferenceFile'] = conference['uploadUrl']
+      delete conference['uploadUrl']
       user.appraisal.professional.conferences[index] = conference
-    } else user.appraisal.professional.conferences.push(conference)
+    } else {
+      conference['conferenceFile'] = conference['uploadUrl']
+      delete conference['uploadUrl']
+      user.appraisal.professional.conferences.push(conference)
+    }
     await user.save()
     return true
   } catch (err) {
@@ -527,9 +551,15 @@ export async function upsertProfessionalGuestLecture(lecture, uid?) {
       const index = user.appraisal.professional.guestLectures.findIndex(
         (item) => item?._id.toString() == lecture._id
       )
-      if (!index) throw 'Professional Guest Lecture not found'
+      if (index === -1) throw 'Professional Guest Lecture not found'
+      lecture['guestLecturesFile'] = lecture['uploadUrl']
+      delete lecture['uploadUrl']
       user.appraisal.professional.guestLectures[index] = lecture
-    } else user.appraisal.professional.guestLectures.push(lecture)
+    } else {
+      lecture['guestLecturesFile'] = lecture['uploadUrl']
+      delete lecture['uploadUrl']
+      user.appraisal.professional.guestLectures.push(lecture)
+    }
     await user.save()
     return true
   } catch (err) {
