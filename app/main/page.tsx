@@ -1,4 +1,5 @@
 "use client"
+
 import Nav from "@/components/Nav"
 import SideMenu from "@/components/SideMenu"
 import Profile from "@/components/profile"
