@@ -1,4 +1,5 @@
 "use client";
+
 import "@css/admin.css";
 import { NextResponse } from "next/server";
 import React, { useState, useEffect, useLayoutEffect } from "react";
@@ -9,17 +10,23 @@ import { redirect, useRouter } from "next/navigation";
 export default function Admin(){
 	const { data: session } = useSession();
 	const router = useRouter()
-  if (!session) redirect("/");
+  if (!session) 
+	redirect("/");
+
 	const [data, setData] = useState<any[]>([]);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				console.log("Started fetching");
 				
-				if(!(await isAdmin())) return router.replace("/main")
+				if(!(await isAdmin())) 
+					return router.replace("/main")
 				const result = await getUsers();
-				if (result) setData(JSON.parse(result));
-			} catch (error) {
+
+				if (result) 
+					setData(JSON.parse(result));
+			} 
+			catch (error) {
 				console.error("Error fetching data:", error);
 			}
 		};
@@ -40,7 +47,7 @@ export default function Admin(){
 	return (
 		<section className="adminpage">
 			<div className="titlebar">
-				<img src="/logo.jpg" className="logo" />
+				<img alt='logo' src="/logo.jpg" className="logo" />
 				<a className="web-name">AJIMS Employment Management</a>
 				<a
 					title="logout"
