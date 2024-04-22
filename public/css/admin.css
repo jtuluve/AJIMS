@@ -12,6 +12,7 @@
     margin: 0;
     padding: 0;
 }
+
 .titlebar .logout {
     color: #ff4c4c;
     margin-right: 10px;
@@ -25,11 +26,13 @@
     content: "logout";
     position: absolute;
     top: 100%;
-    width: fit-content;
+    width: -moz-fit-content;
+	width: fit-content;
     text-align: center;
     font-size: small;
     right: 0;
 }
+
 .titlebar {
     position: relative;
     display: flex;
@@ -55,6 +58,7 @@
     display: block;
     margin: auto 10px;
 }
+
 .admincontainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
@@ -199,7 +203,5 @@
                 background-color: blue;
             }
 		} */
-
-		
 	}
 }

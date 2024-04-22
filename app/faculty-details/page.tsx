@@ -1,4 +1,5 @@
 "use client";
+
 import SideMenu from "@/components/SideMenu";
 import Form from "@/components/form";
 import { getProfile } from "@/lib/mongoose/functions";

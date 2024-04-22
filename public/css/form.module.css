@@ -7,6 +7,7 @@
     position: fixed;
     overflow: auto;
     display: grid;
+    -webkit-backdrop-filter: contrast(0.5);
     backdrop-filter: contrast(0.5);
     color: white;
 }
@@ -59,8 +60,11 @@
 .formWrapper form input[type="file"]{
     color:white;
 }
-.formWrapper form input.submit{
-    width:20%;
+
+.formWrapper form input.submit {
+    width: 20%;
+    min-width: -moz-fit-content;
+    min-width: -webkit-fill-available;
     min-width: fit-content;
     background-color: #05d705;
     color: black;
@@ -70,8 +74,11 @@
     border-radius: 4px;
     font-weight: bold;
 }
-.formWrapper form button.cancel{
-    width:20%;
+
+.formWrapper form button.cancel {
+    width: 20%;
+    min-width: -moz-fit-content;
+    min-width: -webkit-fill-available;
     min-width: fit-content;
     background-color: red;
     color: white;
@@ -81,12 +88,14 @@
     border-radius: 4px;
     font-weight: bold;
 }
+
 .quartileContainer {
 	display: flex;
 	gap: 0.5rem;
     align-items: center;
     position: relative;
 }
+
 .quartileContainer button {
 	background-color: transparent;
 	color: white;
@@ -102,6 +111,7 @@
 	aspect-ratio: 1;
 	margin-top: 8px;
 }
+
 .quartileContainer .quartileTooltip {
 	color: white;
 	position: absolute;
