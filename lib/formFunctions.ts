@@ -1,7 +1,5 @@
 'use server';
-import * as mongomethods from '@/lib/mongoose/functions';
-import { revalidatePath } from 'next/cache';
-
+//get inputs details
 export async function getInput(type: string) {
   let inputs = {
     profile: [

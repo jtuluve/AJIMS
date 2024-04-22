@@ -4,7 +4,8 @@ import User from './model'
 import { getServerSession } from 'next-auth'
 var isConnected = false
 var isInitialized = false
-//basic functions
+/* BASIC FUNCTIONS */
+//create user if not already exists
 export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
   try {
     await connectToDB();
@@ -30,11 +31,13 @@ export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
   }
 }
 
+//get email
 export async function getEmail() {
   await connectToDB()
   return (await getServerSession())?.user?.email
 }
 
+//get uid from email
 export async function getUidFromEmail(email) {
   try {
     await connectToDB()
@@ -44,6 +47,8 @@ export async function getUidFromEmail(email) {
     return null
   }
 }
+
+//get uid 
 export async function getUid() {
   try {
     await connectToDB()
@@ -53,11 +58,14 @@ export async function getUid() {
     return null
   }
 }
+
+//verify input uid with server uid (just in case)
 async function verifyUid(uid) {
   await initializeDb()
   return uid == (await getUid()) || (await getUser({uid}))?.isAdmin
 }
 
+//get user based on uid
 async function getUser(uid) {
   try {
     uid = uid || await getUid();
@@ -71,6 +79,7 @@ async function getUser(uid) {
   }
 }
 
+//default data just in case
 async function defaultUser() {
   try {
     const uid = await getUid()
@@ -115,6 +124,7 @@ async function defaultUser() {
   }
 }
 
+//initialize db
 async function initializeDb() {
   try {
     if (isInitialized) return true
@@ -132,6 +142,7 @@ async function initializeDb() {
 }
 
 /* Mongodb Functions */
+//connect to db
 export async function connectToDB() {
   if (!process.env.MONGODB_URI) return console.log('MONGODB URL is not set')
   if (isConnected) return true;
@@ -146,11 +157,12 @@ export async function connectToDB() {
   }
 }
 
-
+//returns if the user is admin
 export async function isAdmin(uid?:string){
   return ((await getUser(uid))?.isAdmin)
 }
 
+//get all users
 export async function getUsers(){
 	try {
 		await initializeDb();
@@ -183,7 +195,7 @@ export async function updateProfile(profile, uid?) {
 }
 
 /* Mongodb upsert (update/insert) functions */
-//appraisal->research->publications
+//update/insert appraisal->research->publications
 export async function upsertResearchPublications(publication, uid?) {
   try {
     console.log(publication)
@@ -213,7 +225,7 @@ export async function upsertResearchPublications(publication, uid?) {
   }
 }
 
-//appraisal->research->grants
+//update/insert appraisal->research->grants
 export async function upsertResearchGrants(grants, uid?) {
   try {
     await initializeDb()
@@ -243,7 +255,7 @@ export async function upsertResearchGrants(grants, uid?) {
   }
 }
 
-//appraisal->research->books
+//update/insert appraisal->research->books
 export async function upsertResearchBooks(book, uid?) {
   try {
     await initializeDb()
@@ -272,7 +284,7 @@ export async function upsertResearchBooks(book, uid?) {
   }
 }
 
-//appraisal->research->guidance
+//update/insert appraisal->research->guidance
 export async function upsertResearchGuidance(guidance, uid?) {
   try {
     await initializeDb()
@@ -301,7 +313,7 @@ export async function upsertResearchGuidance(guidance, uid?) {
   }
 }
 
-//appraisal->research->conferences
+//update/insert appraisal->research->conferences
 export async function upsertResearchConference(conference, uid?) {
   try {
     await initializeDb()
@@ -330,7 +342,7 @@ export async function upsertResearchConference(conference, uid?) {
   }
 }
 
-//appraisal->academics->teaching
+//update appraisal->academics->teaching
 export async function updateAcademicsTeaching(teaching, uid?) {
   try {
     await initializeDb()
@@ -349,7 +361,7 @@ export async function updateAcademicsTeaching(teaching, uid?) {
   }
 }
 
-//appraisal->academics->fileUrl
+//update appraisal->academics->fileUrl
 export async function updateAcademicsFileUrl(fileUrl, uid?) {
   try {
     await initializeDb()
@@ -368,7 +380,7 @@ export async function updateAcademicsFileUrl(fileUrl, uid?) {
   }
 }
 
-//appraisal->professional->clinicalDuty
+//update appraisal->professional->clinicalDuty
 export async function updateProfessionalClinicalDuty(clinicalDuty, uid?) {
   try {
     await initializeDb()
@@ -387,7 +399,7 @@ export async function updateProfessionalClinicalDuty(clinicalDuty, uid?) {
   }
 }
 
-//appraisal->professional->postHeld
+//update appraisal->professional->postHeld
 export async function updateProfessionalPostHeld(postHeld, uid?) {
   try {
     await initializeDb()
@@ -405,7 +417,7 @@ export async function updateProfessionalPostHeld(postHeld, uid?) {
   }
 }
 
-//appraisal->professional->examDuties (array)
+//update/insert appraisal->professional->examDuties (array)
 export async function upsertProfessionalExamDuties(examDuty, uid?) {
   try {
     await initializeDb()
@@ -429,7 +441,7 @@ export async function upsertProfessionalExamDuties(examDuty, uid?) {
   }
 }
 
-//appraisal->professional->coordinatorDuty
+//update appraisal->professional->coordinatorDuty
 export async function updateProfessionalCoordinatorDuty(coordinatorDuty, uid?) {
   try {
     await initializeDb()
@@ -449,7 +461,7 @@ export async function updateProfessionalCoordinatorDuty(coordinatorDuty, uid?) {
   }
 }
 
-//appraisal->professional->committee (array)
+//update/insert appraisal->professional->committee (array)
 export async function upsertProfessionalCommittee(committee, uid?) {
   try {
     await initializeDb()
@@ -474,7 +486,7 @@ export async function upsertProfessionalCommittee(committee, uid?) {
   }
 }
 
-//appraisal->professional->conferences (array)
+//update/insert appraisal->professional->conferences (array)
 export async function upsertProfessionalConference(conference, uid?) {
   try {
     await initializeDb()
@@ -499,7 +511,7 @@ export async function upsertProfessionalConference(conference, uid?) {
   }
 }
 
-//appraisal->professional->guestLectures (array)
+//update/insert appraisal->professional->guestLectures (array)
 export async function upsertProfessionalGuestLecture(lecture, uid?) {
   try {
     await initializeDb()
@@ -524,7 +536,7 @@ export async function upsertProfessionalGuestLecture(lecture, uid?) {
   }
 }
 
-//appraisal->academics->fileUrl
+//update appraisal->academics->fileUrl
 export async function updateProfessionalFileUrl(fileUrl, uid?) {
   try{
     await initializeDb()
@@ -544,7 +556,7 @@ export async function updateProfessionalFileUrl(fileUrl, uid?) {
 }
 
 /* FUNCTIONS TO RETRIEVE DATA */
-//appraisal->research->publications
+//retrieve appraisal->research->publications
 export async function getProfile(uid?: string) {
   try {
     await initializeDb()
@@ -566,6 +578,7 @@ export async function getProfile(uid?: string) {
   }
 }
 
+//retrieve appraisal->research->publications
 export async function getResearchPublications(_id?: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -579,7 +592,8 @@ export async function getResearchPublications(_id?: string, uid?: string) {
     console.error(err?.msg || err?.message || err)
   }
 }
-//appraisal->research->grants
+
+//retrieve appraisal->research->grants
 export async function getResearchGrants(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -594,7 +608,7 @@ export async function getResearchGrants(_id?: string, uid?: string) {
   }
 }
 
-//appraisal->research->books
+//retrieve appraisal->research->books
 export async function getResearchBooks(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -609,7 +623,7 @@ export async function getResearchBooks(_id?: string, uid?: string) {
   }
 }
 
-//appraisal->research->guidance
+//retrieve appraisal->research->guidance
 export async function getResearchGuidance(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -624,7 +638,7 @@ export async function getResearchGuidance(_id?: string, uid?: string) {
   }
 }
 
-//appraisal->research->conferences
+//retrieve appraisal->research->conferences
 export async function getResearchConferences(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -638,7 +652,8 @@ export async function getResearchConferences(_id?: string, uid?: string) {
     console.error(err?.msg || err?.message || err)
   }
 }
-//appraisal->research->score (object)
+
+//retrieve appraisal->research->score (object)
 export async function getResearchScore(uid?) {
     uid = uid || (await getUid())
     try {
@@ -651,7 +666,7 @@ export async function getResearchScore(uid?) {
     }
 }
 
-//appraisal->academics->teaching (object)
+//retrieve appraisal->academics->teaching (object)
 export async function getAcademicsTeaching(uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -664,7 +679,7 @@ export async function getAcademicsTeaching(uid?: string) {
   }
 }
 
-//appraisal->academics->score (object)
+//retrieve appraisal->academics->score (object)
 export async function getAcademicsScore(uid?) {
     uid = uid || (await getUid())
     try {
@@ -677,7 +692,7 @@ export async function getAcademicsScore(uid?) {
     }
 }
 
-//appraisal->academics->fileUrl (string)
+//retrieve appraisal->academics->fileUrl (string)
 export async function getAcademicsFileUrl(uid?) {
   uid = uid || (await getUid())
   try {
@@ -692,7 +707,7 @@ export async function getAcademicsFileUrl(uid?) {
   }
 }
 
-//appraisal->professional->clinicalDuty (object)
+//retrieve appraisal->professional->clinicalDuty (object)
 export async function getProfessionalClinicalDuty(uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -705,7 +720,7 @@ export async function getProfessionalClinicalDuty(uid?: string) {
   }
 }
 
-//appraisal->professional->postHeld (object)
+//retrieve appraisal->professional->postHeld (object)
 export async function getProfessionalPostHeld(uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -718,7 +733,7 @@ export async function getProfessionalPostHeld(uid?: string) {
   }
 }
 
-//appraisal->professional->examDuties
+//retrieve appraisal->professional->examDuties
 export async function getProfessionalExamDuties(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -733,7 +748,7 @@ export async function getProfessionalExamDuties(_id?: string, uid?: string) {
   }
 }
 
-//appraisal->professional->coordiantorDuty (object)
+//retrieve appraisal->professional->coordiantorDuty (object)
 export async function getProfessionalCoordinatorDuty(uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -747,7 +762,7 @@ export async function getProfessionalCoordinatorDuty(uid?: string) {
   }
 }
 
-//appraisal->professional->committee
+//retrieve appraisal->professional->committee
 export async function getProfessionalCommittee(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -762,7 +777,7 @@ export async function getProfessionalCommittee(_id?: string, uid?: string) {
   }
 }
 
-//appraisal->professional->conferences
+//retrieve appraisal->professional->conferences
 export async function getProfessionalConferences(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -777,7 +792,7 @@ export async function getProfessionalConferences(_id?: string, uid?: string) {
   }
 }
 
-//appraisal->professional->guestLectures
+//retrieve appraisal->professional->guestLectures
 export async function getProfessionalGuestLectures(_id?: string, uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -791,7 +806,8 @@ export async function getProfessionalGuestLectures(_id?: string, uid?: string) {
     console.error(err?.msg || err?.message || err)
   }
 }
-//appraisal->research->score (object)
+
+//retrieve appraisal->research->score (object)
 export async function getProfessionalScore(uid?) {
     uid = uid || (await getUid())
     try {
@@ -804,7 +820,7 @@ export async function getProfessionalScore(uid?) {
     }
 }
 
-//appraisal->professional->fileUrl (string)
+//retrieve appraisal->professional->fileUrl (string)
 export async function getProfessionalFileUrl(uid?) {
   uid = uid || (await getUid())
   try {
@@ -820,7 +836,7 @@ export async function getProfessionalFileUrl(uid?) {
 }
 
 /* FUNCTIONS TO DELETE DATA */
-//appraisal->research->publications
+//delete appraisal->research->publications
 export async function deleteResearchPublication(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -839,7 +855,7 @@ export async function deleteResearchPublication(_id: string, uid?: string) {
   }
 }
 
-//appraisal->research->grants
+//delete appraisal->research->grants
 export async function deleteResearchGrant(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -858,7 +874,7 @@ export async function deleteResearchGrant(_id: string, uid?: string) {
   }
 }
 
-//appraisal->research->books
+//delete appraisal->research->books
 export async function deleteResearchBook(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -877,7 +893,7 @@ export async function deleteResearchBook(_id: string, uid?: string) {
   }
 }
 
-//appraisal->research->guidance
+//delete appraisal->research->guidance
 export async function deleteResearchGuidance(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -896,7 +912,7 @@ export async function deleteResearchGuidance(_id: string, uid?: string) {
   }
 }
 
-//appraisal->research->conferences
+//delete appraisal->research->conferences
 export async function deleteResearchConference(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -919,7 +935,7 @@ export async function deleteResearchConference(_id: string, uid?: string) {
     NOTE: Didn't cover objects. (teaching etc.)
 */
 
-//appraisal->professional->examDuties (array)
+//delete appraisal->professional->examDuties (array)
 export async function deleteProfessionalExamDuty(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -938,7 +954,7 @@ export async function deleteProfessionalExamDuty(_id: string, uid?: string) {
   }
 }
 
-//appraisal->professional->committee (array)
+//delete appraisal->professional->committee (array)
 export async function deleteProfessionalCommittee(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -957,7 +973,7 @@ export async function deleteProfessionalCommittee(_id: string, uid?: string) {
   }
 }
 
-//appraisal->professional->conferences (array)
+//delete appraisal->professional->conferences (array)
 export async function deleteProfessionalConference(_id: string, uid?: string) {
   try {
     uid = uid || (await getUid())
@@ -976,7 +992,7 @@ export async function deleteProfessionalConference(_id: string, uid?: string) {
   }
 }
 
-//appraisal->professional->guestLectures (array)
+//delete appraisal->professional->guestLectures (array)
 export async function deleteProfessionalGuestLecture(
   _id: string,
   uid?: string
@@ -997,7 +1013,8 @@ export async function deleteProfessionalGuestLecture(
     console.error(err?.msg || err?.message || err)
   }
 }
-//appraisal->research->score (object)
+
+//retrieve appraisal->research->score (object)
 export async function getOverallScore(uid?) {
     uid = uid || (await getUid())
     try {

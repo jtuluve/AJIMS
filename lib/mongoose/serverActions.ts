@@ -112,6 +112,7 @@ export async function handleUpsertAny(formData: FormData) {
   }
 }
 
+//delete function for any data
 export async function handleDeleteAny(type: string, _id: string) {
   if (!_id || !type) {
     return { error: 'Invalid request', submitted: false }
