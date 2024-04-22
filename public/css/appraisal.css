@@ -479,7 +479,7 @@ span.print-icon::after {
 	}
 
   #onPrintScale #professional {
-    transform: scale(0.55);
+    zoom: 55%;
   }
 
 	@page {
