@@ -9,6 +9,7 @@ import "@css/main.css";
 import Nav from "@/components/Nav";
 
 export default function FacultyDetails() {
+	//states and session
 	let [profileData, updateProfileData]: [
 		profileData: any,
 		updateProfileData: any
@@ -16,11 +17,12 @@ export default function FacultyDetails() {
 	let [formState, setFormState]: [formState: any, setFormState: any] =
 		useState(false);
 	const { data: session } = useSession();
+	//redirect to login page if not logged in
 	if (!session) {
 		redirect("/");
 	}
 
-	const [profileUrl, setProfileUrl] = useState("");
+	//const [profileUrl, setProfileUrl] = useState("");
 
 	function formStatusUpdate(state) {
 		setFormState(state);
@@ -29,7 +31,7 @@ export default function FacultyDetails() {
 		(async () => {
 			let profile = await getProfile();
 			updateProfileData(profile);
-			setProfileUrl(profile?.profileUrl);
+			//setProfileUrl(profile?.profileUrl);
 		})();
 		// setProfileUrl(localStorage.getItem('profileUrl'))
 	}, [formState]);

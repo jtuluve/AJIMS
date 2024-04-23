@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import "@css/comingsoon.css";
 export default function Appraisal() {
     const { data: session } = useSession();
+    //if user not logged in, redirect to login page
     if (!session) {
         redirect("/");
     }

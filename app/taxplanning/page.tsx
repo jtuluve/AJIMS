@@ -3,6 +3,7 @@ import { signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import "@css/comingsoon.css";
 export default function Appraisal() {
+    //if user not logged in, redirect to login page
     const { data: session } = useSession();
     if (!session) {
         redirect("/");

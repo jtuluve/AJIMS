@@ -11,6 +11,8 @@ export default function Profile() {
   ] = useState(false)
   let router = useRouter()
   // let [formState, setFormState]: [formState: any, setFormState: any] = useState(false)
+  
+  //if user not logged in, redirect to login page
   const { data: session } = useSession()
   if (!session) {
     router.push('/')
@@ -21,6 +23,8 @@ export default function Profile() {
   /* function formStatusUpdate(state) {
     setFormState(state)
   } */
+  
+  //effect to retrieve data
   useEffect(() => {
     (async () => {
       let profile = await getProfile()

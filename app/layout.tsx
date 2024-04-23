@@ -9,6 +9,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  //fetch user session
   const session = await getServerSession();
 
   return (
@@ -23,6 +24,7 @@ export default async function RootLayout({
         />
       </head>
       <body /* className={inter.className} */>
+        {/* User session context */}
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>

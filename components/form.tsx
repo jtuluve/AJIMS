@@ -54,7 +54,7 @@ export default function Form({
 
 	//Cannot create form without type
 	if (!type) return <></>;
-
+	//states
 	const [inputs, setInputs] = useState<{ status?: string; inputs?: input[] }>({
 		status: "loading",
 	});
@@ -84,6 +84,7 @@ export default function Form({
 
 	// console.log(file)
 
+	//effect for file state
 	useEffect(() => {
 		if (file) {
 			setUploadUrl("");
@@ -98,13 +99,14 @@ export default function Form({
 
 	const photoRef = useRef(null);
 
+	//effect for profile photo state
 	useEffect(() => {
 		if (profilePhoto) {
 			setProfilePhotoUrl("");
 			handleFileUpload(profilePhoto, type);
 		}
 	}, [profilePhoto]);
-
+	//method to handle file upload
 	const handleFileUpload = (file, type) => {
 		const storage = getStorage(app);
 		const fileName = new Date().getTime() + file.name;
@@ -137,7 +139,7 @@ export default function Form({
 	};
 
 	///////////////////////////////////////////////////////////////////
-
+	//effect to get data and inputs, update in states
 	useEffect(() => {
 		(async () => {
 			try {

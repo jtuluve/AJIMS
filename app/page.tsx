@@ -13,7 +13,8 @@ export default function Home() {
   const [formData, setFormData] = useState({ id: "", password: "" });
   const [authStatus, setAuthStatus] = useState(null);
   const [pending, setPending] = useState(false)
-  //event handlers
+  /* event handlers */
+  //login event handler
   const handleLogin = async (e) => {
     e.preventDefault();
     setPending(true)
@@ -30,6 +31,7 @@ export default function Home() {
     }
     setPending(false)
   };
+  // update formdata to state
   const handleChange = (e) => {
     e.preventDefault();
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));

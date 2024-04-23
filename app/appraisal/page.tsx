@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import Scorepage from "@/components/scorepage";
 import FormstateContextProvider from "@/components/formstateContext";
 export default function Appraisal() {
+  //if user not logged in, redirect to login page
   const { data: session } = useSession();
   if (!session) {
     redirect("/");

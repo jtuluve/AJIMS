@@ -24,7 +24,7 @@ export default function Professional() {
 
 	const [fileUrl, setFileUrl] = useState("");
 	const fileRef = useRef(null);
-
+	//effect to retrieve data
 	useEffect(() => {
 		async function getDataAny() {
 			const getFileUrl = await getRetrieveFunction("professionalFileUrl");
@@ -40,14 +40,14 @@ export default function Professional() {
 	const [file, setFile] = useState(undefined);
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
-
+	//effect to handle file upload and state
 	useEffect(() => {
 		if (file) {
 			setFileUrl("");
 			handleFileUpload(file);
 		}
 	}, [file]);
-
+	//method to handle file upload
 	const handleFileUpload = (file) => {
 		const storage = getStorage(app);
 		const fileName = new Date().getTime() + file.name;

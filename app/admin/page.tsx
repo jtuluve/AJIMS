@@ -6,17 +6,18 @@ import { signOut, useSession } from "next-auth/react";
 import { getUsers, isAdmin } from "@/lib/mongoose/functions";
 import { redirect, useRouter } from "next/navigation";
 
-export default function Admin(){
+export default function Admin() {
 	const { data: session } = useSession();
-	const router = useRouter()
-  if (!session) redirect("/");
+	const router = useRouter();
+	if (!session) redirect("/");
 	const [data, setData] = useState<any[]>([]);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				console.log("Started fetching");
-				
-				if(!(await isAdmin())) return router.replace("/main")
+				// console.log("Started fetching");
+				//if user isn't admin, redirect to home page
+				if (!(await isAdmin())) return router.replace("/main");
+				//get all users
 				const result = await getUsers();
 				if (result) setData(JSON.parse(result));
 			} catch (error) {
@@ -27,6 +28,7 @@ export default function Admin(){
 		fetchData();
 	}, []);
 
+	//accordian toggle method
 	const handleAccordian = (uid) => {
 		const toggleElement = document.getElementById(uid);
 		toggleElement.hidden
@@ -181,4 +183,4 @@ export default function Admin(){
 			</div>
 		</section>
 	);
-};
+}

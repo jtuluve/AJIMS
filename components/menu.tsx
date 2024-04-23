@@ -10,8 +10,9 @@ export default function Menu() {
   //   setProfileUrl(localStorage.getItem('profileUrl'))
   // }, [])
 
+  //effect to retrieve profile data
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       let profile = await getProfile()
       setUser(profile)
     })()

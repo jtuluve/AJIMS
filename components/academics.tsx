@@ -13,6 +13,7 @@ import {
 import { app } from "../app/firebase";
 
 export default function Academics() {
+	//states
 	const [formState, setFormState]: [
 		formState: { type?; _id? },
 		setFormState: any
@@ -24,7 +25,7 @@ export default function Academics() {
 
 	const [fileUrl, setFileUrl] = useState("");
 	const fileRef = useRef(null);
-
+	//effect to retrieve data
 	useEffect(() => {
 		async function getDataAny() {
 			const getFileUrl = await getRetrieveFunction("academicsFileUrl");
@@ -40,14 +41,14 @@ export default function Academics() {
 	const [file, setFile] = useState(undefined);
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
-
+	//effect to handle file state
 	useEffect(() => {
 		if (file) {
 			setFileUrl("");
 			handleFileUpload(file);
 		}
 	}, [file]);
-
+	//method to handle file upload
 	const handleFileUpload = (file) => {
 		const storage = getStorage(app);
 		const fileName = new Date().getTime() + file.name;

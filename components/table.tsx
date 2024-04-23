@@ -21,6 +21,7 @@ export default function Table({
   formState?: any;
 }) {
   const [values, setValues]: [values: any, setValues: any] = useState(false);
+  //effect to retrieve data
   useEffect(() => {
     // console.log("Started effect");
     try {
