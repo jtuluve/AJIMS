@@ -64,6 +64,7 @@
     color: white;
     position: absolute;
     top: 100%;
+    width: -moz-fit-content;
     width: fit-content;
     text-align: center;
     font-size: small;
@@ -79,14 +80,11 @@
 .titlebar .clogout:hover::after {
     opacity: 1;
 }
+
 .comingsoon {
     text-align: center;
     font-family: Arial, sans-serif;
-    /* Use a common sans-serif font */
     font-size: 24px;
-    /* Adjust the font size as needed */
     color: #333;
-    /* Set the text color */
     margin-top: 50px;
-    /* Add some top margin for spacing */
 }

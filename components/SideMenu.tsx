@@ -5,23 +5,23 @@ export default function SideMenu(){
   <>
     <div className="divisions">
 					<div className="box">
-						<img src="/user.png" />
+						<img alt="user" src="/user.png" />
 						<a href="/faculty-details">Faculty Details</a>
 					</div>
 					<div className="box">
-						<img src="/appraisal.png" />
+						<img alt="appraisal" src="/appraisal.png" />
 						<a href="/appraisal">Faculty appraisal</a>
 					</div>
 					<div className="box">
-						<img src="/leave.png" />
+						<img alt="leave" src="/leave.png" />
 						<a href="/applyleave">Apply Leave</a>
 					</div>
 					<div className="box">
-						<img src="/tax.png" />
+						<img alt="tax" src="/tax.png" />
 						<a href="/taxplanning">Tax Planning</a>
 					</div>
 					<div className="box">
-						<img src="/paySlip.png" />
+						<img alt="payslip" src="/paySlip.png" />
 						<a href="/payslip">Pay Slip</a>
 					</div>
 

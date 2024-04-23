@@ -11,7 +11,7 @@ export default function Appraisal() {
     return (
         <>
             <div className="titlebar">
-                <img src="/logo.jpg" className="logo" />
+                <img alt="logo" src="/logo.jpg" className="logo" />
                 <div className="information">
                     <h2>AJ Institute of Medical Sciences and Research centre</h2>
                     <h3>Employee Management System</h3>

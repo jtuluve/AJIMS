@@ -181,7 +181,7 @@ export default function Form({
 		let [val,setVal] = useState(defaultValue)
 		if (typeof options[0] == "string") {
 			return (
-				<select name={name} defaultValue={val} onChange={(e)=>setVal(e.target.value)}>
+				<select name={name} defaultValue={val} onChange={(e) => setVal(e.target.value)} title="Select an option">
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}
@@ -192,7 +192,7 @@ export default function Form({
 		}
 
 		return (
-			<select name={name} defaultValue={defaultValue || ""}>
+			<select name={name} defaultValue={defaultValue || ""} title="Select an option">
 				{options.map((option) => (
 					<option key={option.value} value={option.value}>
 						{option.label || option.value}

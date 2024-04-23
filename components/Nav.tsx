@@ -3,7 +3,7 @@ export default function Nav() {
 	return (
 		<div className="titlebar">
 			<a href="/" style={{height:"75%"}}>
-				<img src="/logo.jpg" className="logo" />
+				<img alt="logo" src="/logo.jpg" className="logo" />
 			</a>
 			<div className="information">
 				<h2>AJ Institute of Medical Sciences and Research centre</h2>
