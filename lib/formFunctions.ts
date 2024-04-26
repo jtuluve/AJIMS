@@ -140,7 +140,7 @@ export async function getInput(type: string) {
       },
       {
         name: 'year',
-        type: 'number',
+        type: 'Date',
         label: 'Year',
         placeholder: 'Enter Year of Publication',
         required: false
@@ -237,6 +237,20 @@ export async function getInput(type: string) {
         placeholder: 'Enter agency',
         required: true,
         default: 0,
+      }, 
+      {
+        name: 'startyear',
+        type: 'Date',
+        label: 'Start-Year',
+        placeholder: 'Enter the Start year',
+        required: true,
+      },
+      {
+        name: 'endyear',
+        type: 'Date',
+        label: 'End-Year',
+        placeholder: 'Enter the End year',
+        required: true,
       },
       {
         name: 'recieved',
@@ -249,6 +263,18 @@ export async function getInput(type: string) {
           'No'
         ],
         default: 'No',
+      },
+      { name: 'utCert', type: 'file',label:'Utilization Certificate',required :false},
+      {
+        name: 'workpub',
+        type: 'select',
+        label: 'Work Published',
+        required:true,
+        options: [
+          'Yes',
+          'No',
+        ],
+        default:'Yes',
       },
       {
         name: 'amountCategory',
@@ -265,7 +291,7 @@ export async function getInput(type: string) {
         ],
         default: 'Nil',
       },
-      { name: 'uploadUrl', type: 'file', label: 'Upload URL', required: false },
+      { name: 'uploadUrl', type: 'file', label: 'Upload Proposal', required: false },
     ],
 
     researchBooks: [

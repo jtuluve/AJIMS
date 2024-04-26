@@ -61,7 +61,7 @@ const PublicationsSchema = new mongoose.Schema({
   author: { type: String, required: false, default: "N/A" },
   volume: { type: Number, required: false, default: 0 },
   issue: { type: Number, required: false, default: 0 },
-  year: { type: Number, required: false, default: 0 },
+  year: { type: Date, required: false },
   pageNo: { type: Number, required: false, default: 0 },
   default: {}
 })
@@ -70,6 +70,16 @@ const PublicationsSchema = new mongoose.Schema({
 const grantsSchema = new mongoose.Schema({
   title: { type: String },
   agency: { type: String, default: 0 },
+  startyear: { type: Date, required: true },
+  endyear: { type: Date, required: true },
+  utCert: { type: String, required: false },
+  workpub: { type: String, 
+    enum: [
+      'Yes',
+      'No'
+    ],
+    default:'No'
+   },
   recieved: { type: String,
     enum:[
       'Yes',
@@ -88,7 +98,7 @@ const grantsSchema = new mongoose.Schema({
     ],
     default: 'Nil',
   },
-  uploadUrl: { type: String },
+  uploadUrl: { type: String,required: false },
   default: {}
 })
 
