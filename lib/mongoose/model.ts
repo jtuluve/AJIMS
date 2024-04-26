@@ -38,6 +38,17 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 'Medline',
   },
+  CategoryP: {
+    type: String,
+    enum: [
+      'National',
+      'International',
+      'Institutional‌',
+      'Nil'
+    ],
+    required: true,
+    default: 'Nil',
+  },
   doi: { type: String, required: false },
   authorship: {
     type: String,

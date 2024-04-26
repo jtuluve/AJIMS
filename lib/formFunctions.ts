@@ -182,6 +182,18 @@ export async function getInput(type: string) {
         ],
       },
       {
+        name: 'CategoryP',
+        type: 'select',
+        label: 'Category',
+        required: true,
+        options: [
+          { value: 'National' },
+          { value: 'International' },
+          { value: 'Institutional' },
+          { value: 'Nil' },
+        ],
+      },
+      {
         name: 'doi',
         type: 'text',
         required: false,
