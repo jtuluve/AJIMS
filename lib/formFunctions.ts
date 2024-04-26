@@ -194,6 +194,13 @@ export async function getInput(type: string) {
         ],
       },
       {
+        name: 'postheld',
+        type: 'text',
+        label: 'Post held while published',
+        required: true,
+        placeholder: 'Enter the Post held while published',
+      },
+      {
         name: 'doi',
         type: 'text',
         required: false,

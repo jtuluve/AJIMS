@@ -49,6 +49,7 @@ const PublicationsSchema = new mongoose.Schema({
     required: true,
     default: 'Nil',
   },
+  postheld:{type: String, required: true},
   doi: { type: String, required: false },
   authorship: {
     type: String,
