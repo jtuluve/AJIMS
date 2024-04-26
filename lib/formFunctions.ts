@@ -311,6 +311,37 @@ export async function getInput(type: string) {
         options: ['Nil', 'National', 'International'],
         default: 'Nil',
       },
+      {
+        name:'title',
+        type: 'text',
+        placeholder: 'Enter title of the book',
+        required: true,
+        default: 'Nil',
+      },
+      {
+        name: 'year',
+        type: 'Date',
+        placeholder: 'Enter the year of publication',
+        required: true,
+        default: 'Nil',
+      },
+      {
+        name: 'Certificate',
+        type: 'file',
+        required: false,
+      },
+      {
+        name: 'bookdetails',
+        type:'text',
+        placeholder: 'Enter the Book details',
+        required: true,
+        default: 'Nil',
+      },
+      {
+        name: 'uploadUrl',
+        type: 'file',
+        required: false,
+      },
     ],
 
     researchGuidance: [

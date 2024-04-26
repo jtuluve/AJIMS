@@ -114,6 +114,11 @@ const booksSchema = new mongoose.Schema({
     enum: ['Nil', 'National', 'International'],
     default: 'Nil',
   },
+  title: {type: String, required: true},
+  year: {type: Date, required: true},
+  Certificate: { type: String, required: false },
+  bookdetails: { type: String, required: true },
+  uploadUrl: { type: String, required: false },
   default: {}
 })
 
