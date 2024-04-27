@@ -254,10 +254,17 @@ const CommitteeSchema = new mongoose.Schema({
 const ConferenceSchema = new mongoose.Schema({
   designation: {
     type: String,
-    enum: ['Member', 'Coordinator', 'Head', 'Nil'],
+    enum: ['Member', 'Coordinator', 'Head', 'Resourse Person', 'Nil'],
     default: 'Nil',
   },
   creditPoints: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
+  Select: { type: String, enum: ['Conference','Workshop','CME','Nil'], default: 'Nil' },
+  title: {type: String, default: ''},
+  category: {
+    type: String,
+    enum: ['Nil', 'Institutional','District', 'State', 'National', 'International'],
+    default: 'Nil',
+  },
 })
 
 //Guest lectures schema
@@ -274,6 +281,7 @@ const clinicalDuty = new mongoose.Schema({
   minorProcedures: { type: Number, default: 0 },
   majorProcedures: { type: Number, default: 0 },
 });
+
 //Define the professional schema
 const professionalSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default: {} },

@@ -713,6 +713,29 @@ export async function getInput(type: string) {
         options: ['Yes', 'No'],
         default: 'Yes',
       },
+      {
+        name: 'Select',
+        type: 'select',
+        placeholder: 'Select',
+        required: true,
+        options: ['Conference', 'Workshop', 'CME', 'Nil'],
+        default: 'Nil',
+      },
+      {
+        name: 'title',
+        type:'text',
+        placeholder: 'Title',
+        required: true,
+      },
+      {
+        name: 'category',
+        type: 'select',
+        placeholder: 'Category',
+        required: true,
+        options: ['Nil', 'Institutional', 'District', 'State', 'National', 'International'],
+        default: 'Nil',
+      },
+      
     ],
     professionalGuestLectures: [
       {
