@@ -142,9 +142,9 @@ export default function Professional() {
 					<a className="name3">Conferences/workshop/CME conducted</a>
 					<Table
 						type="professionalConference"
-						header_row={["Designation", "Credit Points"]}
-						keys={["designation", "creditPoints"]}
-						column={2}
+						header_row={["Designation", "Credit Points","Selection","Title","Category"]}
+						keys={["designation", "creditPoints","Select","title","category"]}
+						column={5}
 						formState={formState}
 						formStatusMethod={changeFormState}
 					/>
