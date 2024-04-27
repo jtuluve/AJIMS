@@ -25,10 +25,10 @@ export default function Research() {
                     <Table formState={formState} type="researchGrants" column={6} header_row={["Title","Agency","Utilization Certificate", "Recieved", "Amount Category", "Uploads"]} keys={["title","agency","utCert","recieved","amountCategory","uploadUrl"]} formStatusMethod={changeFormState} />
 
                     <a className="name3">III. Books</a>
-                    <Table formState={formState} type="researchBooks" column={7} header_row={["Authorship", "Category", "Title", "Year of Publication","Certificate/Acknowledgement","Book Details","Uploads"]} keys={["authorship","category","title","year","Certificate","bookdetails","UploadUrl"]} formStatusMethod={changeFormState} />
+                    <Table formState={formState} type="researchBooks" column={7} header_row={["Authorship", "Category", "Title", "Year of Publication","Acknowledgement","Book Details","Uploads"]} keys={["authorship","category","title","year","Certificate","bookdetails","UploadUrl"]} formStatusMethod={changeFormState} />
                     
                     <a className="name3">IV. Guidance</a>
-                    <Table formState={formState} type="researchGuidance"column={2} header_row={["Category", "Number"]} keys={["category","number"]} formStatusMethod={changeFormState} />
+                    <Table formState={formState} type="researchGuidance"column={5} header_row={["Category","Title","Synopis","Thesis","Report"]} keys={["category","title","synopsis","thesis","report"]} formStatusMethod={changeFormState} />
                     {/* <table className="tableContainer">
                         <thead>
                             <tr>

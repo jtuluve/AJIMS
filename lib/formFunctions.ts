@@ -354,12 +354,101 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
       {
-        name: 'number',
-        type: 'number',
-        placeholder: 'Number',
+        name: 'studentdetails',
+        type: 'text',
+        placeholder: 'Student details',
         required: true,
-        default: 0,
       },
+      {
+        name: 'studentupload',
+        type: 'file',
+        required: false,
+        placeholder:'Upload',
+      },
+      {
+        name: 'startdate',
+        placeholder:'Start Date',
+        type: 'Date',
+        required: true,
+      },
+      {
+        name: 'enddate',
+        placeholder: 'End Date',
+        type: 'Date',
+        required: true,
+      },
+      {
+        name: 'name',
+        type: 'text',
+        placeholder: 'Name',
+        required: true,
+      },
+      {
+        name: 'title',
+        type: 'text',
+        placeholder: 'Title',
+        required: true,
+      },
+      {
+        name: 'publishstatus',
+        placeholder:'Published?',
+        type: 'select',
+        options: [
+          'Yes','No'
+        ],
+        default:'Yes',
+        required: true,
+      },
+      {
+        name: 'year',
+        type: 'Date',
+        required: true,
+      },
+      {
+        name: 'Amount',
+        type: 'number',
+        required: true,
+      },
+      {
+        name: 'GrantName',
+        type: 'text',
+        placeholder:'Grant Name',
+        required: true,
+      },
+      {
+        name: 'FundedStatus',
+        type: 'select',
+        placeholder: 'Funded?',
+        options: [
+          'Yes', 'No'
+        ],
+        default:'No',
+        required: true,
+      },
+      {
+        name: 'AgencyName',
+        type: 'text',
+        placeholder: 'Agency Name',
+        required: true, 
+      },
+      {
+        name: 'synopsis',
+        type: 'file',
+        placeholder: 'Synopsis',
+        required: true,
+      },
+      {
+        name: 'thesis',
+        type: 'file',
+        placeholder: 'Thesis',
+        required: true,
+      },
+      {
+        name: 'report',
+        type: 'file',
+        placeholder: 'Report',
+        required: true,
+      }
     ],
 
     researchConferences: [

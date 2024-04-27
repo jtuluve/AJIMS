@@ -125,7 +125,21 @@ const booksSchema = new mongoose.Schema({
 //Define guidance schema
 const guidanceSchema = new mongoose.Schema({
   category: { type: String, enum: ['UG', 'PG', 'PHD', 'Nil'], default: 'Nil' },
-  number: { type: Number, default: 0 },
+  studentdetails: { type: String, required: true },
+  studentupload: { type: String, required: true},
+  startdate: { type: Date, required: true },
+  enddate: { type: Date, required: true },
+  name: { type:String, required: true  },
+  title: { type:String, required: true },
+  publishstatus: { type:String,enum: ['Yes','No'], required: true},
+  year: { type:String, required: true },
+  Amount: {type:Number, default: 0},
+  GrantName: {type:String, required: true },
+  Fundedstatus: {type:String, enum: ['Yes','No'],default:'Yes'},
+  AgencyName: {type:String, required: true },
+  synopsis: {type:String, required: false},
+  thesis: { type: String, required: false },
+  report: { type: String, required: false },
 })
 
 const conferencesSchema = new mongoose.Schema({
