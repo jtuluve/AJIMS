@@ -346,10 +346,12 @@ const profileSchema = new mongoose.Schema({
   phoneNo: { type: Number },
   residentialAddress: { type: String },
   dob: { type: String },
+  Age: { type: Number },
   designation: { type: String },
+  attachment: { type:String },
   department: { type: String },
   category: { type: String },
-  kmcRegistrationNo: { type: Number },
+  kmcRegistrationNo: { type: String },
   educationalQualification: { type: String },
   experience: { type: String }
 })

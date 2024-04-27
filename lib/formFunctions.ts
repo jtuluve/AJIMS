@@ -17,6 +17,12 @@ export async function getInput(type: string) {
         required: true,
       },
       {
+        name: 'Age',
+        type: 'number',
+        label: 'Age',
+        required: true,
+      },
+      {
         name: 'dateOfJoining',
         type: 'date',
         label: 'Date of Joining',
@@ -27,6 +33,12 @@ export async function getInput(type: string) {
         type: 'text',
         label: 'Designation',
         placeholder: 'Enter Designation',
+        required: true,
+      },
+      {
+        name: 'attachment',
+        type: 'file',
+        label: 'Attachment',
         required: true,
       },
       {
@@ -67,14 +79,8 @@ export async function getInput(type: string) {
         required: false,
       },
       {
-        name: 'category',
-        type: 'text',
-        label: 'Category',
-        required: false,
-      },
-      {
         name: 'kmcRegistrationNo',
-        type: 'number',
+        type: 'text',
         label: 'KMC Registration Number',
         required: false,
       },
