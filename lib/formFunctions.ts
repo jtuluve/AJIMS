@@ -522,11 +522,23 @@ export async function getInput(type: string) {
         default: 0,
       },
       {
+        name:'hoursupload',
+        type:'file',
+        placeholder:'Hours acknowledgement',
+        required: true
+      },
+      {
         name: 'clinicalHours',
         type: 'number',
         placeholder: 'Clinical Hours',
         required: true,
         default: 0,
+      },
+      {
+        name: 'clinicalHoursupload',
+        type: 'file',
+        placeholder: 'Clinical Hours acknowledgement',
+        required: true
       },
       {
         name: 'studentsFeedback',
@@ -536,11 +548,23 @@ export async function getInput(type: string) {
         default: 0,
       },
       {
+        name: 'studentsFeedbackupload',
+        type: 'file',
+        placeholder: 'Students Feedback acknowledgement',
+        required: true
+      },
+      {
         name: 'resourceMaterial',
         type: 'select',
         placeholder: 'Resource Material',
         options: ['Yes','No'],
         default: 'No'
+      },
+      {
+        name: 'resourceMaterialupload',
+        type: 'file',
+        placeholder: 'Resource Material acknowledgement',
+        required: true
       },
       {
         name: 'publicAwarenessWriteup',
@@ -550,11 +574,23 @@ export async function getInput(type: string) {
         default: 'No'
       },
       {
+        name: 'publicAwarenessWriteupupload',
+        type: 'file',
+        placeholder: 'Public Awareness Writeup acknowledgement',
+        required: true
+      },
+      {
         name: 'cc',
         type: 'number',
         placeholder: 'CC',
         default: 0
-      }
+      },
+      {
+        name: 'ccupload',
+        type: 'file',
+        placeholder: 'CC acknowledgement',
+        required: true
+      },
     ],
 
     professionalClinicalDuty: [

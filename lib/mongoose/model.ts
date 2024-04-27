@@ -201,11 +201,17 @@ const ResearchSchema = new mongoose.Schema({
 //Teaching schema
 const TeachingSchema = new mongoose.Schema({
   hours: { type: Number, default: 0 },
+  hourupload: { type: String, default: '' },
   clinicalHours: { type: Number, default: 0 },
+  clinicalHoursupload: { type: String, default: '' },
   studentsFeedback: { type: Number, default: 0 },
+  studentsFeedbackupload: { type: String, default: '' },
   resourceMaterial: { type: String, enum: ["Yes", "No"], default: "No" },
+  resourceMaterialupload: { type: String, default: '' },
   publicAwarenessWriteup: { type: String, enum: ["Yes", "No"], default: "No" },
-  cc: {type:Number, default: 0}
+  publicAwarenessWriteupupload: { type: String, default: '' },
+  cc: {type:Number, default: 0},
+  ccupload: { type: String, default: '' },
 })
 
 //Define academics schema
