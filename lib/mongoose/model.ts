@@ -145,10 +145,47 @@ const guidanceSchema = new mongoose.Schema({
 const conferencesSchema = new mongoose.Schema({
   category: {
     type: String,
-    enum: ['Nil', 'National', 'International'],
+    enum: ['Nil','Zonal','State', 'National', 'International'],
     default: 'Nil',
   },
-  number: { type: Number, default: 0 },
+  Confname: { 
+    type: String, 
+    required: true,
+  },
+  year: {
+    type: Date,
+    required: true,
+  },
+  details: {
+    type: String,
+    required: true,
+  },
+  attachment: {
+    type: String,
+    required: true, 
+  },
+  type: {
+    type: String,
+    enum: [
+      'Poster','Oral','Attending'
+    ],
+    required: true,
+  },
+  place:{
+    type: String,
+    required: true,
+  },
+  awards: {
+    type:String,
+    enum: [
+      'Yes','No'
+    ],
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  }
 })
 
 // Define the Research schema

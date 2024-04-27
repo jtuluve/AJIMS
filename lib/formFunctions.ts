@@ -461,12 +461,56 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
       {
-        name: 'number',
-        type: 'number',
-        placeholder: 'Number',
+        name: 'Confname',
+        type: 'text',
+        placeholder: 'Conference Name',
         required: true,
-        default: 0,
       },
+      {
+        name: 'year',
+        type: 'Date',
+        placeholder: 'Year - Date',
+        required: true,
+      },
+      {
+        name: 'details',
+        type: 'text',
+        placeholder: 'Conference Details',
+        required: true,
+      },
+      {
+        name: 'Attachment',
+        type: 'file',
+        placeholder: 'Attachment upload',
+        required: false,
+      },
+      {
+        name: 'type',
+        type: 'select',
+        placeholder: 'type',
+        options: [ 'Poster', 'Oral', 'Attending'],
+        required: true,
+      },
+      {
+        name: 'place',
+        type: 'text',
+        placeholder: 'Place of Conference',
+        required: true,
+      },
+      {
+        name: 'awards',
+        type: 'select',
+        placeholder: 'Awards Recieved',
+        options: ['Yes', 'No'],
+        required: true,
+      },
+      {
+        name: 'description',
+        type: 'text',
+        placeholder: 'Awards description',
+        default:'Nil',
+        required: false,
+      }
     ],
 
     academicsTeaching: [
