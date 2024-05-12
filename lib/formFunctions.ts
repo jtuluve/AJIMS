@@ -373,7 +373,7 @@ export async function getInput(type: string) {
         default: 0,
       }, 
       {
-        name: 'uploadUrl',
+        name: 'clinicalDutyFile',
         type: 'file',
         label: 'Clinical duty file',
         required: false,

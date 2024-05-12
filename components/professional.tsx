@@ -13,7 +13,7 @@ import { updateProfessionalFileUrl } from "@/lib/mongoose/functions";
 import { useUserData } from "./UserDataContext";
 
 export default function Professional() {
-	const {userData} = useUserData()
+	const { userData } = useUserData();
 	const [fileUrl, setFileUrl] = useState("");
 	const fileRef = useRef(null);
 
@@ -76,9 +76,19 @@ export default function Professional() {
 				<div id="print-section" className="tables">
 					<a className="name3">Clinical Duty</a>
 					<Table
-						header_row={["No. of Patients","Minor Procedures","Major Procedures"]}
-						keys={["patients","minorProcedures","majorProcedures"]}
-						column={3}
+						header_row={[
+							"No. of Patients",
+							"Minor Procedures",
+							"Major Procedures",
+							"Uploads",
+						]}
+						keys={[
+							"patients",
+							"minorProcedures",
+							"majorProcedures",
+							"clinicalDutyFile",
+						]}
+						column={4}
 						type="professionalClinicalDuty"
 						values={userData?.appraisal?.professional?.clinicalDuty}
 					/>
@@ -86,53 +96,53 @@ export default function Professional() {
 					<a className="name3">Post Held</a>
 					<Table
 						type="professionalPostHeld"
-						header_row={["Category"]}
-						keys={["category"]}
-						column={1}
+						header_row={["Category", "Uplolads"]}
+						keys={["category", "postHeldFile"]}
+						column={2}
 						values={userData?.appraisal?.professional?.postHeld}
 					/>
 
 					<a className="name3">Exam Duties</a>
 					<Table
 						type="professionalExamDuties"
-						header_row={["Category 1", "Category 2"]}
-						keys={["category1", "category2"]}
-						column={2}
+						header_row={["Category 1", "Category 2", "Uploads"]}
+						keys={["category1", "category2", "examDutyFile"]}
+						column={3}
 						values={userData?.appraisal?.professional?.examDuties}
 					/>
 
 					<a className="name3">Coordinator Duty</a>
 					<Table
 						type="professionalCoordinatorDuty"
-						header_row={["Category"]}
-						keys={["category"]}
-						column={1}
+						header_row={["Category", "Uploads"]}
+						keys={["category", "coordinatorDutyFile"]}
+						column={2}
 						values={userData?.appraisal?.professional?.coordinatorDuty}
 					/>
 
 					<a className="name3">Committee</a>
 					<Table
 						type="professionalCommittee"
-						header_row={["Designation", "Committee Name"]}
-						keys={["designation", "committeeName"]}
-						column={2}
+						header_row={["Designation", "Committee Name", "Uploads"]}
+						keys={["designation", "committeeName", "committeeFile"]}
+						column={3}
 						values={userData?.appraisal?.professional?.committee}
 					/>
 
 					<a className="name3">Conferences/workshop/CME conducted</a>
 					<Table
 						type="professionalConference"
-						header_row={["Designation", "Credit Points"]}
-						keys={["designation", "creditPoints"]}
-						column={2}
+						header_row={["Designation", "Credit Points", "Uploads"]}
+						keys={["designation", "creditPoints", "conferenceFile"]}
+						column={3}
 						values={userData?.appraisal?.professional?.conferences}
 					/>
 					<a className="name3">Guest Lectures</a>
 					<Table
 						type="professionalGuestLectures"
-						header_row={["Number", "Category"]}
-						keys={["number", "category"]}
-						column={2}
+						header_row={["Number", "Category", "Uploads"]}
+						keys={["number", "category", "guestLecturesFile"]}
+						column={3}
 						values={userData?.appraisal?.professional?.guestLectures}
 					/>
 
@@ -146,11 +156,15 @@ export default function Professional() {
 								const h2 = document.createElement("h2");
 								h2.innerText = userName;
 								parentElement.insertBefore(h2, parentElement.firstChild);
-								document.getElementById("professionalSignatures").style.display = "flex";
+								document.getElementById(
+									"professionalSignatures"
+								).style.display = "flex";
 								document.getElementById("onPrintHidden").hidden = true;
 								window.print();
 								document.getElementById("onPrintHidden").hidden = false;
-								document.getElementById("professionalSignatures").style.display = "none";
+								document.getElementById(
+									"professionalSignatures"
+								).style.display = "none";
 								parentElement.removeChild(h2);
 							}}
 						>
@@ -201,5 +215,4 @@ export default function Professional() {
 			</div>
 		</>
 	);
-
 }

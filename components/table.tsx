@@ -1,4 +1,3 @@
-
 import styles from "@css/table.module.css";
 import { handleDeleteAny } from "@/lib/mongoose/serverActions";
 import { useFormStateContext } from "./formstateContext";
@@ -44,6 +43,7 @@ export default function Table({
               <div>No data found!</div>
             ) : (
               values.map((e) => {
+              // console.log(e)
                 return (
                   <div
                     className={styles["table-row"]}
@@ -52,21 +52,40 @@ export default function Table({
                       gridTemplateColumns: `repeat(${column}, calc(100%/${column} - 50px/${column})) 50px`,
                     }}
                   >
-                    {keys.map((key, i) => {
-                      return key == "uploadUrl" ? (
-                        <span key={key + i}>
-                          {e.uploadUrl ? (
-                            <a href={e.uploadUrl} target="_blank">
-                              download
-                            </a>
-                          ) : (
-                            "Not uploaded"
-                          )}
-                        </span>
-                      ) : (
-                        <span key={key + i}>{e[key]}</span>
-                      );
-                    })}
+                  {keys.map((key, i) => {
+											return key == "uploadUrl" ||
+												key == "clinicalDutyFile" ||
+												key == "examDutyFile" ||
+												key == "coordinatorDutyFile" ||
+												key == "committeeFile" ||
+												key == "conferenceFile" ||
+												key == "guestLecturesFile" ? (
+												<span key={key + i}>
+													{e.uploadUrl ||
+													e.examDutyFile ||
+													e.committeeFile ||
+													e.conferenceFile ||
+													e.guestLecturesFile ? (
+														<a
+															href={
+																e.uploadUrl ||
+																e.examDutyFile ||
+																e.committeeFile ||
+																e.conferenceFile ||
+																e.guestLecturesFile
+															}
+															target="_blank"
+														>
+															download
+														</a>
+													) : (
+														"Not uploaded"
+													)}
+												</span>
+											) : (
+												<span key={key + i}>{e[key]}</span>
+											);
+										})}
                     <span id="onPrintHiddenButton" className={styles["table-buttons"]}>
                       <button
                         data-_id={e._id?.toString?.()}
@@ -122,11 +141,13 @@ export default function Table({
                 gridTemplateColumns: `repeat(${column}, 1fr)`,
               }}
             >
-              {header_row.map((e, i) => (
-                <h4 key={i} style={{ display: "block" }}>
-                  {e}
-                </h4>
-              ))}
+              {header_row.map((e, i) => {
+                return(
+                  <h4 key={i} style={{ display: "block" }}>
+                    {e}
+                  </h4>
+                )
+              })}
             </div>
             <div
               className={styles["table-row"]}
@@ -137,9 +158,28 @@ export default function Table({
             >
               {keys.map((key, i) => {
                 if (i > column - 1) return <></>;
-                return key == "uploadUrl" ? (
-                  <span key={`uploadUrl` + i} style={{ display: "block" }}>
-                    {values?.uploadUrl ? "uploaded" : "Not uploaded"}
+                return key == "uploadUrl" || key == "clinicalDutyFile" || key == "postHeldFile" || key == "coordinatorDutyFile" ? (
+                  <span key={`uploadUrl` + i || `clinicalDutyFile` + i || `coordinatorDutyFile` + i || `postHeldFile` + i} style={{ display: "block" }}>
+                    {
+                      values?.uploadUrl ||
+                      values?.clinicalDutyFile ||
+                      values?.postHeldFile ||
+                      values?.coordinatorDutyFile ?
+                        <a href={
+                          values?.uploadUrl ||
+                          values?.clinicalDutyFile ||
+                          values?.postHeldFile ||
+                          values?.coordinatorDutyFile
+                        }
+                        onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            console.log(values?.uploadUrl || values?.clinicalDutyFile || values?.postHeldFile || values?.coordinatorDutyFile)
+                          }
+                        }
+                        >download</a>
+                      : "Not uploaded"
+                    }
                   </span>
                 ) : (
                   <span key={key + i} style={{ display: "block" }}>{values?.[key]}</span>
