@@ -1,5 +1,4 @@
 "use client";
-import { getDataAny } from "@/lib/mongoose/serverActions";
 import { getInput } from "@/lib/formFunctions";
 import { handleUpsertAny } from "@/lib/mongoose/serverActions";
 import styles from "@css/form.module.css";
@@ -12,7 +11,8 @@ import {
 	uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../app/firebase";
-import { getProfile } from "@/lib/mongoose/functions";
+import { useFormStateContext } from "./formstateContext";
+import { useUserData } from "./UserDataContext";
 
 type otherInput = {
 	type: string;
@@ -37,28 +37,27 @@ type selectInput = {
 type input = selectInput | otherInput;
 
 export default function Form({
-	formStatusUpdate,
-	type,
-	_id,
 	wrapperStyle,
 	formStyle,
 	title
 }: {
-	formStatusUpdate: (status: any) => void;
-	type: string;
-	_id?: string;
 	wrapperStyle?: CSSProperties;
 	formStyle?: CSSProperties;
 	title?: string;
 }) {
+	const {formState,setFormState} = useFormStateContext();
+	const {setUserData} = useUserData();
+	let formData = formState?.data;
 
-	//Cannot create form without type
-	if (!type) return <></>;
-	//states
+  useEffect(()=>{
+    (async()=>{
+      setUserData(await getUserObject())
+    })()
+  },[formState])
+	
 	const [inputs, setInputs] = useState<{ status?: string; inputs?: input[] }>({
 		status: "loading",
 	});
-	const [formData, setFormData] = useState<any>({});
 	const [formStatus, setFormStatus]: [
 		FormStatus: {
 			error: boolean;
@@ -69,55 +68,49 @@ export default function Form({
 		error: false,
 		status: "none",
 	});
-
+	
 	// tootip
 	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
+	
 	// form upload
 	const [file, setFile] = useState(undefined);
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
 	const [uploadUrl, setUploadUrl] = useState("");
 	const [fileExists, setFileExists] = useState(false);
-	// let uploadUrl: string = ''
-	// console.log(uploadUrl)
 
-	// console.log(file)
-
-	//effect for file state
 	useEffect(() => {
 		if (file) {
 			setUploadUrl("");
-			handleFileUpload(file, type);
+			handleFileUpload(file, formState?.type);
 		}
 	}, [file]);
-
+	
 	// upload profile picture
 	const [profilePhoto, setProfilePhoto] = useState(undefined);
-
+	
 	const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
-
+	
 	const photoRef = useRef(null);
 
-	//effect for profile photo state
 	useEffect(() => {
 		if (profilePhoto) {
 			setProfilePhotoUrl("");
-			handleFileUpload(profilePhoto, type);
+			handleFileUpload(profilePhoto, formState?.type);
 		}
 	}, [profilePhoto]);
-	//method to handle file upload
+
 	const handleFileUpload = (file, type) => {
 		const storage = getStorage(app);
 		const fileName = new Date().getTime() + file.name;
 		const storageRef = ref(storage, fileName);
 		const uploadTask = uploadBytesResumable(storageRef, file);
-
+		
 		uploadTask.on(
 			"state_changed",
 			(snapshot) => {
 				const progress =
-					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				// console.log(progress);
 				setFilePerc(Math.round(progress));
 			},
@@ -135,53 +128,57 @@ export default function Form({
 					}
 				});
 			}
-		);
-	};
-
-	///////////////////////////////////////////////////////////////////
-	//effect to get data and inputs, update in states
-	useEffect(() => {
-		(async () => {
-			try {
-				const inputs = await getInput(type);
-				if (_id) {
-					setFormData({ loading: true });
-					let formData = await getDataAny(type, _id);
-					setFormData(formData);
-					setUploadUrl(formData.uploadUrl);
-
-					setProfilePhotoUrl(formData.profileUrl);
-
-					if (!formData.profileUrl) {
-						setProfilePhotoUrl("user.png");
-					}
-				} else setFormData({ loading: false });
-				setInputs({ status: "loaded", inputs });
-				let a = inputs?.filter?.((e) => e.type === "file");
-				if (a?.length > 0) setFileExists(true);
-			} catch (e) {
-				setInputs({ status: "error" });
-				console.error(e);
-			}
-		})();
-	}, [type, _id || ""]);
-
-	/* Select component */
-	function SelectComponent({
-		options,
-		name,
-		defaultValue,
-		placeholder,
-	}: {
-		options: Array<{ label?: string; value: string }> | Array<string>;
-		name: string;
-		defaultValue: string;
-		placeholder: string;
-	}) {
-		let [val,setVal] = useState(defaultValue)
-		if (typeof options[0] == "string") {
-			return (
-				<select name={name} defaultValue={val} onChange={(e) => setVal(e.target.value)} title="Select an option">
+			);
+		};
+		
+		///////////////////////////////////////////////////////////////////
+		
+		useEffect(() => {
+			setFilePerc(0);
+			setFileUploadError(false);
+			setInputs({status:"loading"})
+			if(formState.type)
+			(async () => {
+				try {
+					const inputs = await getInput(formState?.type);
+					if (formState?._id) {
+						// setFormData({ loading: true });
+						// let formData = await getDataAny(formState?.type, formState?._id);
+						// setFormData(formData);
+						if(formData?.uploadUrl) setUploadUrl(formData.uploadUrl);
+						
+						if (!(formData?.profileUrl)) {
+							setProfilePhotoUrl("user.png");
+						}
+						else setProfilePhotoUrl(formData?.profileUrl);
+					} 
+					// else setFormData({ loading: false });
+					setInputs({ status: "loaded", inputs });
+					let a = inputs?.filter?.((e) => e.type === "file");
+					if (a?.length > 0) setFileExists(true);
+				} catch (e) {
+					setInputs({ status: "error" });
+					console.error(e);
+				}
+			})();
+		}, [formState?.type, formState?._id]);
+		
+		/* Select component */
+		function SelectComponent({
+			options,
+			name,
+			defaultValue,
+			placeholder,
+		}: {
+			options: Array<{ label?: string; value: string }> | Array<string>;
+			name: string;
+			defaultValue: string;
+			placeholder: string;
+		}) {
+			let [val,setVal] = useState(defaultValue)
+			if (typeof options[0] == "string") {
+				return (
+					<select name={name} defaultValue={val} onChange={(e)=>setVal(e.target.value)}>
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}
@@ -190,7 +187,7 @@ export default function Form({
 				</select>
 			);
 		}
-
+		
 		return (
 			<select name={name} defaultValue={defaultValue || ""} title="Select an option">
 				{options.map((option) => (
@@ -201,14 +198,16 @@ export default function Form({
 			</select>
 		);
 	}
+	
 
 
-	if (inputs.status === "loading" || formData.loading === true)
+	if (!(formState?.type)) return <></>;
+	if (inputs?.status === "loading" || formData?.loading === true)
 		return (
 			<p style={{ color: wrapperStyle?.["color"] || "white" }}>Loading form...</p>
 		);
-
-	if (inputs.status === "error")
+		
+	if (inputs?.status === "error")
 		return (
 			<p style={{ color: wrapperStyle?.["color"] || "white" }}>
 				Error... Please try again later.
@@ -222,7 +221,7 @@ export default function Form({
 				onSubmit={(e) => {
 					e.preventDefault();
 					const formData = new FormData(e.currentTarget);
-					uploadUrl && formData.append("uploadUrl", uploadUrl)
+					formData.append("uploadUrl", uploadUrl)
 					profilePhotoUrl && formData.append("profileUrl", profilePhotoUrl);
 					// const data = Object.fromEntries(formData)
 					// console.log(data)
@@ -237,19 +236,19 @@ export default function Form({
 						handleUpsertAny(formData)
 							.then(() => {
 								setFormStatus({ status: "submitted", error: false });
-								formStatusUpdate({});
+								setFormState({});
 							})
 							.catch(() => {
 								setFormStatus({ status: "submitted", error: true });
-								formStatusUpdate({});
+								setFormState({});
 							});
 					});
 				}}
 			>
 				<h2 className={styles.title}>{title || "Submit Form"}</h2>
 				<span>
-					{_id && <input type="hidden" name="_id" value={_id || ""} />}
-					<input type="hidden" name="type" value={type} />
+					{formState?._id && <input type="hidden" name="_id" value={formState?._id || ""} />}
+					<input type="hidden" name="type" value={formState?.type} />
 				</span>
 				{inputs?.inputs?.map((e) => {	
 
@@ -448,7 +447,7 @@ export default function Form({
 						className={styles.cancel}
 						onClick={(e) => {
 							e.preventDefault();
-							formStatusUpdate({});
+							setFormState({});
 						}}
 						style={{ marginLeft: "10px" }}
 					>

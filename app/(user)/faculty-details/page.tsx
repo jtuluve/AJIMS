@@ -2,38 +2,26 @@
 
 import SideMenu from "@/components/SideMenu";
 import Form from "@/components/form";
-import { getProfile } from "@/lib/mongoose/functions";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "@css/main.css";
 import Nav from "@/components/Nav";
+import { useFormStateContext } from "@/components/formstateContext";
+import { useUserData } from "@/components/UserDataContext";
 
 export default function FacultyDetails() {
-	//states and session
-	let [profileData, updateProfileData]: [
-		profileData: any,
-		updateProfileData: any
-	] = useState(false);
-	let [formState, setFormState]: [formState: any, setFormState: any] =
-		useState(false);
+	let {formState,setFormState} = useFormStateContext();
+	let {userData} = useUserData()
 	const { data: session } = useSession();
-	//redirect to login page if not logged in
+	
 	if (!session) {
 		redirect("/");
 	}
 
-	//const [profileUrl, setProfileUrl] = useState("");
-
-	function formStatusUpdate(state) {
-		setFormState(state);
-	}
 	useEffect(() => {
-		(async () => {
-			let profile = await getProfile();
-			updateProfileData(profile);
-			//setProfileUrl(profile?.profileUrl);
-		})();
+			let profile = userData?.profile;
+			setFormState({type:"profile",data:profile})
 		// setProfileUrl(localStorage.getItem('profileUrl'))
 	}, [formState]);
 
@@ -56,9 +44,6 @@ export default function FacultyDetails() {
 						borderRadius: "15px",
 					}}
 					formStyle={{ width: "100%", boxShadow: "none", background: "none" }}
-					type="profile"
-					formStatusUpdate={formStatusUpdate}
-					_id={profileData?.["_id"] || ""}
 				/>
 			</div>
 		</>
