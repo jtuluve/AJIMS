@@ -621,6 +621,12 @@ export async function getInput(type: string) {
         required: false,
         default: 0,
       }, 
+      {
+        name: 'clinicalDutyFile',
+        type: 'file',
+        label: 'Clinical duty file',
+        required: false,
+      }
     ],
     professionalPostHeld: [
       {
@@ -641,6 +647,12 @@ export async function getInput(type: string) {
         ],
         default: 'Nil',
       },
+      {
+        name: 'postHeldFile',
+        type: 'file',
+        label: 'Post held file',
+        required: false,
+      }
     ],
 
     professionalExamDuties: [
@@ -665,6 +677,12 @@ export async function getInput(type: string) {
         options: ['Internal', 'External', 'Nil'],
         default: 'Nil',
       },
+      {
+        name: 'examDutyFile',
+        type: 'file',
+        required: false,
+        label: 'Exam duty file'
+      }
     ],
 
     professionalCoordinatorDuty: [
@@ -684,6 +702,12 @@ export async function getInput(type: string) {
         ],
         default: 'Nil',
       },
+      {
+        name: 'coordinatorDutyFile',
+        type: 'file',
+        required: false,
+        label: 'Coordinator duty file'
+      }
     ],
 
     professionalCommittee: [
@@ -701,6 +725,12 @@ export async function getInput(type: string) {
         options: ['Member', 'Coordinator', 'Head', 'Nil'],
         default: 'Nil',
       },
+      {
+        name: 'committeeFile',
+        type: 'file',
+        required: false,
+        label: 'Committee File'
+      }
     ],
     professionalConference: [
       {
@@ -720,28 +750,11 @@ export async function getInput(type: string) {
         default: 'Yes',
       },
       {
-        name: 'Select',
-        type: 'select',
-        placeholder: 'Select',
-        required: true,
-        options: ['Conference', 'Workshop', 'CME', 'Nil'],
-        default: 'Nil',
-      },
-      {
-        name: 'title',
-        type:'text',
-        placeholder: 'Title',
-        required: true,
-      },
-      {
-        name: 'category',
-        type: 'select',
-        placeholder: 'Category',
-        required: true,
-        options: ['Nil', 'Institutional', 'District', 'State', 'National', 'International'],
-        default: 'Nil',
-      },
-      
+        name: 'conferenceFile',
+        type: 'file',
+        required: false,
+        label: 'Conference file'
+      }
     ],
     professionalGuestLectures: [
       {
@@ -759,6 +772,12 @@ export async function getInput(type: string) {
         options: ['Internal', 'External', 'Nil'],
         default: 'Nil',
       },
+      {
+        name: 'guestLecturesFile',
+        type: 'file',
+        required: false,
+        label: 'Guest lectures file'
+      }
     ],
   };
 

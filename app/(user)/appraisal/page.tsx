@@ -7,13 +7,16 @@ import Professional from "@comp/professional";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Scorepage from "@/components/scorepage";
-import FormstateContextProvider from "@/components/formstateContext";
+import Form from "@/components/form";
+
 export default function Appraisal() {
   //if user not logged in, redirect to login page
   const { data: session } = useSession();
   if (!session) {
     redirect("/");
   }
+  
+
   return (
     <>
       <link rel="stylesheet" href="css/appraisal.css?v=1.2.3" />
@@ -27,12 +30,11 @@ export default function Appraisal() {
         <Menu />
         <div id="onPrintScale" className="menu2">
           {/* <Profile /> */}
-          <FormstateContextProvider> {/* Not used this context */}
+            <Form />
             <Research />
             <Academics />
             <Professional />
             <Scorepage />
-          </FormstateContextProvider>
         </div>
       </div>
       <script src="/js/dashboard.js" defer></script>

@@ -238,6 +238,7 @@ const ExamDutiesSchema = new mongoose.Schema({
     enum: ['Internal', 'External', 'Nil'],
     default: 'Nil',
   },
+  examDutyFile: { type: String, default: '' }
 })
 
 //Committee schema
@@ -248,6 +249,7 @@ const CommitteeSchema = new mongoose.Schema({
     enum: ['Member', 'Coordinator', 'Head', 'Nil'],
     default: 'Nil',
   },
+  committeeFile: { type: String, default: '' }
 })
 
 //Conference Schema
@@ -258,13 +260,7 @@ const ConferenceSchema = new mongoose.Schema({
     default: 'Nil',
   },
   creditPoints: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
-  Select: { type: String, enum: ['Conference','Workshop','CME','Nil'], default: 'Nil' },
-  title: {type: String, default: ''},
-  category: {
-    type: String,
-    enum: ['Nil', 'Institutional','District', 'State', 'National', 'International'],
-    default: 'Nil',
-  },
+  conferenceFile: { type: String, default: '' }
 })
 
 //Guest lectures schema
@@ -275,11 +271,13 @@ const guestLecturesSchema = new mongoose.Schema({
     enum: ['Internal', 'External', 'Nil'],
     default: 'Nil',
   },
+  guestLecturesFile: { type: String, default: '' }
 })
 const clinicalDuty = new mongoose.Schema({
   patients: { type: Number, default: 0 },
   minorProcedures: { type: Number, default: 0 },
   majorProcedures: { type: Number, default: 0 },
+  clinicalDutyFile : { type: String, default: '' }
 });
 
 //Define the professional schema
@@ -294,15 +292,16 @@ const professionalSchema = new mongoose.Schema({
           'Lecturer',
           'Assistant Professor',
           'Associate Professor',
-          'professor',
+          'Professor',
           'HOD (Head of Department)',
           'clinical supervisor grade 1',
           'clinical supervisor grade 2',
           'clinical supervisor grade 3',
-          'Nil',
+          'Nil'
         ],
         default: 'Nil',
-      }
+      },
+      postHeldFile: {type: String, default: ''}
     }),
     default: {},
   },
@@ -321,7 +320,8 @@ const professionalSchema = new mongoose.Schema({
           'Nil',
         ],
         default: 'Nil',
-      }
+      },
+      coordinatorDutyFile: {type: String, default: ''}
     }), default: {}
   },
   committee: { type: [CommitteeSchema], default: [] },
@@ -353,7 +353,8 @@ const profileSchema = new mongoose.Schema({
   category: { type: String },
   kmcRegistrationNo: { type: String },
   educationalQualification: { type: String },
-  experience: { type: String }
+  experience: { type: String },
+  profileUrl: { type: String }
 })
 
 // Define the User schema
