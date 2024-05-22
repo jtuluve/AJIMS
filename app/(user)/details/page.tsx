@@ -1,9 +1,8 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import "@css/comingsoon.css";
 export default function Appraisal() {
-    //if user not logged in, redirect to login page
     const { data: session } = useSession();
     if (!session) {
         redirect("/");
@@ -11,7 +10,7 @@ export default function Appraisal() {
     return (
         <>
             <div className="titlebar">
-                <img alt="logo" src="/logo.jpg" className="logo" />
+                <img src="/logo.jpg" className="logo" />
                 <div className="information">
                     <h2>AJ Institute of Medical Sciences and Research centre</h2>
                     <h3>Employee Management System</h3>
