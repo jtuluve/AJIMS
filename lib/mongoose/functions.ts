@@ -972,6 +972,21 @@ export async function deleteResearchConference(_id: string, uid?: string) {
   }
 }
 
+//delete appraisal->academics->fileUrl
+export async function deleteAcademicsFileUrl(uid?: string) {
+  try {
+    uid = uid || (await getUid())
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    user.appraisal.academics.fileUrl = ""
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
 /*
     NOTE: Didn't cover objects. (teaching etc.)
 */
@@ -1048,6 +1063,21 @@ export async function deleteProfessionalGuestLecture(
     )
     if (index === -1) throw 'Guest lecture not found'
     user.appraisal.professional.guestLectures.splice(index, 1)
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
+//delete appraisal->academics->fileUrl
+export async function deleteProfessionalFileUrl(uid?: string) {
+  try {
+    uid = uid || (await getUid())
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    user.appraisal.professional.fileUrl = ""
     await user.save()
     return true
   } catch (err) {

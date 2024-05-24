@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Table from "./table";
 import { getRetrieveFunction } from "@/lib/mongoose/serverActions";
-import { updateAcademicsFileUrl } from "@/lib/mongoose/functions";
+import { deleteAcademicsFileUrl, updateAcademicsFileUrl } from "@/lib/mongoose/functions";
 
 import {
 	getDownloadURL,
@@ -19,10 +19,10 @@ export default function Academics() {
 	
 	useEffect(() => {
 		async function getDataAny() {
+      setFileUrl(undefined)
 			const getFileUrl = await getRetrieveFunction("academicsFileUrl");
 			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
-			// console.log(fileUrl);
 			setFileUrl(fileUrl);
 		}
 		getDataAny();
@@ -112,14 +112,26 @@ export default function Academics() {
 							<span className="print-icon">print</span>
 						</button>
 
-						<button
-							onClick={() => {
-								fileRef && fileRef.current.click();
-							}}
-							className="upload-button"
-						>
-							{fileUrl ? "Reupload File" : "Upload File"}
-						</button>
+            <button
+              onClick={() => {
+                fileRef && fileRef.current.click();
+              }}
+              className="upload-button"
+              disabled={fileUrl === undefined}
+            >
+              {fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
+            </button>
+            {fileUrl &&
+              <button
+                className="delete-button"
+                onClick={async () => {
+                    await deleteAcademicsFileUrl()
+                    setFileUrl("")
+                }}
+              >
+                Delete file
+              </button>
+            }
 
 						<input
 							hidden
