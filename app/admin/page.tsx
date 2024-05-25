@@ -17,7 +17,7 @@ export default function Admin() {
 				<a
 					title="logout"
 					className="material-symbols-outlined logout"
-					onClick={() => signOut()} //Sign out function not done
+					onClick={() => signOut()}
 				>
 					logout
 				</a>
@@ -57,10 +57,6 @@ export default function Admin() {
 										<td>{user?.email}</td>
 										<td>{user?.department}</td>
 										<td>{user?.designation}</td>
-										{/* <td className="action-btn">
-											<button>delete</button>
-											<button>view more</button>
-										</td> */}
 										<td>
 											<Link href={`/admin/${uid}`}>
 												<button>view more</button>
