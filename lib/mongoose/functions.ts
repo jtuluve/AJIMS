@@ -606,7 +606,7 @@ export async function updateProfessionalFileUrl(fileUrl, uid?) {
 }
 
 /* FUNCTIONS TO RETRIEVE DATA */
-//retrieve appraisal->research->publications
+//retrieve profile
 export async function getProfile(uid?: string) {
   try {
     await initializeDb()
@@ -637,7 +637,7 @@ export async function getResearchPublications(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.publications.find((p) => p._id?.toString?.() == _id)
-      : user.appraisal.research.publications
+      : user.appraisal.research.publications.sort((a,b)=>b.year-a.year);
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
