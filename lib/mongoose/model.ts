@@ -38,18 +38,18 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 'Medline',
   },
-  CategoryP: {
+  category: {
     type: String,
     enum: [
       'National',
       'International',
-      'Institutional‌',
+      'Institutional',
       'Nil'
     ],
     required: true,
     default: 'Nil',
   },
-  postheld:{type: String, required: true},
+  postheld:{type: String, required: true, default: 'Nil'},
   doi: { type: String, required: false },
   authorship: {
     type: String,
@@ -57,11 +57,17 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 'First',
   },
-  uploadUrl: { type: String, default: ''},
+  uploadUrl: { type: String, default: 'Nil'},
   author: { type: String, required: false, default: "N/A" },
   volume: { type: Number, required: false, default: 0 },
   issue: { type: Number, required: false, default: 0 },
-  year: { type: Date, required: false },
+  year: {
+    type: Number,
+    min: [1800, 'Enter a valid year'],
+    max: [2150, 'Enter a valid year'],
+    required: true,
+    default: 2024
+  },
   pageNo: { type: Number, required: false, default: 0 },
   default: {}
 })
@@ -70,10 +76,21 @@ const PublicationsSchema = new mongoose.Schema({
 const grantsSchema = new mongoose.Schema({
   title: { type: String },
   agency: { type: String, default: 0 },
-  startyear: { type: Date, required: true },
-  endyear: { type: Date, required: true },
+  startYear: {
+    type: Number,
+    min: [1800, 'Enter a valid year'],
+    max: [2150, 'Enter a valid year'],
+    required: true,
+    default: 2024
+  },
+  endYear: {
+    type: Number,
+    min: [1800, 'Enter a valid year'],
+    max: [2150, 'Enter a valid year'],
+    required: false
+  },
   utCert: { type: String, required: false },
-  workpub: { type: String, 
+  workPub: { type: String, 
     enum: [
       'Yes',
       'No'
@@ -114,10 +131,16 @@ const booksSchema = new mongoose.Schema({
     enum: ['Nil', 'National', 'International'],
     default: 'Nil',
   },
-  title: {type: String, required: true},
-  year: {type: Date, required: true},
-  Certificate: { type: String, required: false },
-  bookdetails: { type: String, required: true },
+  title: {type: String, required: true, default: 'Nil'},
+  year: {
+    type: Number,
+    min: [1800, 'Enter a valid year'],
+    max: [2150, 'Enter a valid year'],
+    required: true,
+    default: 2024
+  },
+  certificate: { type: String, required: false },
+  bookdDetails: { type: String, required: true, default: 'Nil' },
   uploadUrl: { type: String, required: false },
   default: {}
 })
@@ -125,21 +148,27 @@ const booksSchema = new mongoose.Schema({
 //Define guidance schema
 const guidanceSchema = new mongoose.Schema({
   category: { type: String, enum: ['UG', 'PG', 'PHD', 'Nil'], default: 'Nil' },
-  studentdetails: { type: String, required: true },
-  studentupload: { type: String, required: true},
-  startdate: { type: Date, required: true },
-  enddate: { type: Date, required: true },
-  name: { type:String, required: true  },
-  title: { type:String, required: true },
-  publishstatus: { type:String,enum: ['Yes','No'], required: true},
-  year: { type:String, required: true },
-  Amount: {type:Number, default: 0},
-  GrantName: {type:String, required: true },
-  Fundedstatus: {type:String, enum: ['Yes','No'],default:'Yes'},
-  AgencyName: {type:String, required: true },
-  synopsis: {type:String, required: false},
-  thesis: { type: String, required: false },
-  report: { type: String, required: false },
+  studentDetails: { type: String, required: true, default: 'Nil' },
+  studentUpload: { type: String, required: true, default: 'Nil'},
+  startDate: { type: Date, required: true, default: new Date() },
+  endDate: { type: Date, required: true, default: new Date() },
+  name: { type:String, required: true, default: 'Nil'  },
+  title: { type:String, required: true, default: 'Nil' },
+  publishstatus: { type:String, enum: ['Yes','No'], required: true, default: 'yes'},
+  year: {
+    type: Number,
+    min: [1800, 'Enter a valid year'],
+    max: [2150, 'Enter a valid year'],
+    required: true,
+    default: 2024
+  },
+  amount: {type:Number, default: 0},
+  grantName: {type:String, required: true },
+  fundedStatus: {type:String, enum: ['Yes','No'], default:'Yes'},
+  agencyName: {type:String, required: false},
+  synopsisUrl: {type:String, required: false},
+  thesisUrl: { type: String, required: false },
+  reportUrl: { type: String, required: false },
 })
 
 const conferencesSchema = new mongoose.Schema({
@@ -148,21 +177,27 @@ const conferencesSchema = new mongoose.Schema({
     enum: ['Nil','Zonal','State', 'National', 'International'],
     default: 'Nil',
   },
-  Confname: { 
+  confName: { 
     type: String, 
     required: true,
+    default: 'Nil'
   },
   year: {
-    type: Date,
+    type: Number,
+    min: [1800, 'Enter a valid year'],
+    max: [2150, 'Enter a valid year'],
     required: true,
+    default: 2024
   },
   details: {
     type: String,
     required: true,
+    default: 'Nil'
   },
   attachment: {
     type: String,
-    required: true, 
+    required: true,
+    default: 'Nil' 
   },
   type: {
     type: String,
@@ -170,10 +205,12 @@ const conferencesSchema = new mongoose.Schema({
       'Poster','Oral','Attending'
     ],
     required: true,
+    default: 'Poster'
   },
   place:{
     type: String,
     required: true,
+    default: 'Nil'
   },
   awards: {
     type:String,
@@ -181,10 +218,12 @@ const conferencesSchema = new mongoose.Schema({
       'Yes','No'
     ],
     required: true,
+    default: 'Yes'
   },
   description: {
     type: String,
     required: true,
+    default: 'Nil'
   }
 })
 
@@ -201,24 +240,24 @@ const ResearchSchema = new mongoose.Schema({
 //Teaching schema
 const TeachingSchema = new mongoose.Schema({
   hours: { type: Number, default: 0 },
-  hourupload: { type: String, default: '' },
+  hourUpload: { type: String, default: 'Nil' },
   clinicalHours: { type: Number, default: 0 },
-  clinicalHoursupload: { type: String, default: '' },
+  clinicalHoursUpload: { type: String, default: 'Nil' },
   studentsFeedback: { type: Number, default: 0 },
-  studentsFeedbackupload: { type: String, default: '' },
+  studentsFeedbackUpload: { type: String, default: 'Nil' },
   resourceMaterial: { type: String, enum: ["Yes", "No"], default: "No" },
-  resourceMaterialupload: { type: String, default: '' },
+  resourceMaterialUpload: { type: String, default: 'Nil' },
   publicAwarenessWriteup: { type: String, enum: ["Yes", "No"], default: "No" },
-  publicAwarenessWriteupupload: { type: String, default: '' },
+  publicAwarenessWriteupUpload: { type: String, default: 'Nil' },
   cc: {type:Number, default: 0},
-  ccupload: { type: String, default: '' },
+  ccUpload: { type: String, default: 'Nil' },
 })
 
 //Define academics schema
 const academicsSchema = new mongoose.Schema({
   score: { type: ScoreSchema, default: {} },
-  teaching: { type: TeachingSchema, default: {} },
-  fileUrl: { type: String, default: '' },
+  teaching: { type: [TeachingSchema], default: [] },
+  fileUrl: { type: String, default: 'Nil' },
 })
 
 //Define Exam duties schema
@@ -238,7 +277,7 @@ const ExamDutiesSchema = new mongoose.Schema({
     enum: ['Internal', 'External', 'Nil'],
     default: 'Nil',
   },
-  examDutyFile: { type: String, default: '' }
+  examDutyFile: { type: String, default: 'Nil' }
 })
 
 //Committee schema
@@ -249,7 +288,7 @@ const CommitteeSchema = new mongoose.Schema({
     enum: ['Member', 'Coordinator', 'Head', 'Nil'],
     default: 'Nil',
   },
-  committeeFile: { type: String, default: '' }
+  committeeFile: { type: String, default: 'Nil' }
 })
 
 //Conference Schema
@@ -260,7 +299,7 @@ const ConferenceSchema = new mongoose.Schema({
     default: 'Nil',
   },
   creditPoints: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
-  conferenceFile: { type: String, default: '' }
+  conferenceFile: { type: String, default: 'Nil' }
 })
 
 //Guest lectures schema
@@ -271,13 +310,13 @@ const guestLecturesSchema = new mongoose.Schema({
     enum: ['Internal', 'External', 'Nil'],
     default: 'Nil',
   },
-  guestLecturesFile: { type: String, default: '' }
+  guestLecturesFile: { type: String, default: 'Nil' }
 })
 const clinicalDuty = new mongoose.Schema({
   patients: { type: Number, default: 0 },
   minorProcedures: { type: Number, default: 0 },
   majorProcedures: { type: Number, default: 0 },
-  clinicalDutyFile : { type: String, default: '' }
+  clinicalDutyFile : { type: String, default: 'Nil' }
 });
 
 //Define the professional schema
@@ -301,7 +340,7 @@ const professionalSchema = new mongoose.Schema({
         ],
         default: 'Nil',
       },
-      postHeldFile: {type: String, default: ''}
+      postHeldFile: {type: String, default: 'Nil'}
     }),
     default: {},
   },
@@ -321,13 +360,13 @@ const professionalSchema = new mongoose.Schema({
         ],
         default: 'Nil',
       },
-      coordinatorDutyFile: {type: String, default: ''}
+      coordinatorDutyFile: {type: String, default: 'Nil'}
     }), default: {}
   },
   committee: { type: [CommitteeSchema], default: [] },
   conferences: { type: [ConferenceSchema], default: [] },
   guestLectures: { type: [guestLecturesSchema], default: 0 },
-  fileUrl: { type: String, default: '' },
+  fileUrl: { type: String, default: 'Nil' },
 })
 
 //Define appraisal schema
@@ -340,13 +379,13 @@ const AppraisalSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   name: { type: String },
-  dateOfJoining: { type: String, default: new Date().toISOString().slice(0, 10) },
+  dateOfJoining: { type: Date, default: new Date() },
   aadharNo: { type: Number, },
   passportNo: { type: String, },
   phoneNo: { type: Number },
   residentialAddress: { type: String },
-  dob: { type: String },
-  Age: { type: Number },
+  dob: { type: Date },
+  age: { type: Number },
   designation: { type: String },
   attachment: { type:String },
   department: { type: String },
