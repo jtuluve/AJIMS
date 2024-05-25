@@ -9,7 +9,7 @@ import {
 	uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../app/firebase";
-import { updateProfessionalFileUrl } from "@/lib/mongoose/functions";
+import { deleteProfessionalFileUrl, updateProfessionalFileUrl } from "@/lib/mongoose/functions";
 import { useUserData } from "./UserDataContext";
 
 export default function Professional() {
@@ -19,6 +19,7 @@ export default function Professional() {
 	//effect to retrieve data
 	useEffect(() => {
 		async function getDataAny() {
+      setFileUrl(undefined)
 			const getFileUrl = await getRetrieveFunction("professionalFileUrl");
 			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
@@ -176,9 +177,22 @@ export default function Professional() {
 								fileRef && fileRef.current.click();
 							}}
 							className="upload-button"
+              disabled={fileUrl === undefined}
 						>
-							{fileUrl ? "Reupload File" : "Upload File"}
+							{fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
 						</button>
+
+            {fileUrl &&
+              <button
+                className="delete-button"
+                onClick={async () => {
+                    await deleteProfessionalFileUrl()
+                    setFileUrl("")
+                }}
+              >
+                Delete file
+              </button>
+            }
 
 						<input
 							hidden

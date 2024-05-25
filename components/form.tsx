@@ -2,7 +2,7 @@
 import { getInput } from "@/lib/formFunctions";
 import { handleUpsertAny } from "@/lib/mongoose/serverActions";
 import styles from "@css/form.module.css";
-import { CSSProperties, startTransition, useEffect, useRef, useState } from "react";
+import { CSSProperties, ChangeEvent, startTransition, useEffect, useRef, useState } from "react";
 
 import {
 	getDownloadURL,
@@ -170,16 +170,18 @@ export default function Form({
 			name,
 			defaultValue,
 			placeholder,
+      onChange,
 		}: {
 			options: Array<{ label?: string; value: string }> | Array<string>;
 			name: string;
 			defaultValue: string;
 			placeholder: string;
+      onChange: (event: any) => void
 		}) {
 			let [val,setVal] = useState(defaultValue)
 			if (typeof options[0] == "string") {
 				return (
-					<select name={name} defaultValue={val} onChange={(e)=>setVal(e.target.value)}>
+					<select name={name} defaultValue={val} onChange={onChange}>
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}
@@ -290,6 +292,11 @@ export default function Form({
 										formData?.[e.name] || formData?.[e.label] || e.default || ""
 									}
 									placeholder={(e as selectInput).placeholder}
+                  onChange={(event)=>{
+                   if(formData?.[e.name]) formData[e.name] = event.target.value;
+                   if(formData?.[e.label]) formData[e.label] = event.target.value;
+                   e.default = event.target.value;
+                  }}
 								/>
 							) : e.type === "file" && e.name === "profilePhoto" ? (
 								<section
