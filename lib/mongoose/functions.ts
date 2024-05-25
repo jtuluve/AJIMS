@@ -652,7 +652,7 @@ export async function getResearchGrants(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.grants.find((d) => d._id?.toString() == _id)
-      : user.appraisal.research.grants
+      : user.appraisal.research.grants.sort((a,b)=>b.startYear-a.startYear)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -667,7 +667,7 @@ export async function getResearchBooks(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.books.find((d) => d._id?.toString() == _id)
-      : user.appraisal.research.books
+      : user.appraisal.research.books.sort((a,b)=>b.year-a.year)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -682,7 +682,7 @@ export async function getResearchGuidance(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.guidance.find((d) => d._id.toString() == _id)
-      : user.appraisal.research.guidance
+      : user.appraisal.research.guidance.sort((a,b)=>b.year-a.year)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -697,7 +697,7 @@ export async function getResearchConferences(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.conferences.find((d) => d._id.toString() == _id)
-      : user.appraisal.research.conferences
+      : user.appraisal.research.conferences.sort((a,b)=>b.year-a.year)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
