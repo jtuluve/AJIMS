@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+.titlebar{
+    height: 10%;
+}
+.score-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    text-align: center;
+    margin: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.scores-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.user-detail {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.user-detail h1 {
+    text-align: center;
+}
+
+.user-detail h2, .user-detail h3, .user-detail h4 {
+    margin-top: 30px;
+}

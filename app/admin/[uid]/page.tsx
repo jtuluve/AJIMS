@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useAdminData } from "@/components/adminContext";
+import '@css/hehe.css'
+import "@css/admin.css";
 
 const UserDetail = ({ params }) => {
 	const { uid } = params;
@@ -19,19 +21,36 @@ const UserDetail = ({ params }) => {
 	}
 
 	return (
+		<div className="amdminpage">
+		<div className="titlebar">
+				<a className="web-name">AJIMS Employment Management</a>
+				<a
+					title="home"
+					className="material-symbols-outlined logout"
+					href="/admin"
+				>
+					logout
+				</a>
+		</div>
 		<div className="user-detail">
 		<div>
 			<h1>Faculty Details</h1>
-			<div>
-				<p>Research score</p>
-				<p><strong>Score:</strong> {user.appraisal?.research?.score?.score}</p>
-				<p><strong>Category:</strong> {user.appraisal?.research?.score?.category}</p>
-				<p>Academics score</p>
-				<p><strong>Score:</strong> {user.appraisal?.academics?.score?.score}</p>
-				<p><strong>Category:</strong> {user.appraisal?.academics?.score?.category}</p>
-				<p>Professional score</p>
-				<p><strong>Score:</strong> {user.appraisal?.professional?.score?.score}</p>
-				<p><strong>Category:</strong> {user.appraisal?.professional?.score?.category}</p>
+			<div className="scores-container">
+				<div className="score-card">
+					<p>Research score</p>
+					<p><strong>Score:</strong> {user.appraisal?.research?.score?.score}</p>
+					<p><strong>Category:</strong> {user.appraisal?.research?.score?.category}</p>
+				</div>
+				<div className="score-card">
+					<p>Academics score</p>
+					<p><strong>Score:</strong> {user.appraisal?.academics?.score?.score}</p>
+					<p><strong>Category:</strong> {user.appraisal?.academics?.score?.category}</p>
+				</div>
+				<div className="score-card">
+					<p>Professional score</p>
+					<p><strong>Score:</strong> {user.appraisal?.professional?.score?.score}</p>
+					<p><strong>Category:</strong> {user.appraisal?.professional?.score?.category}</p>
+				</div>
 			</div>
 			<p><strong>Name of the Faculty:</strong> {user?.profile?.name}</p>
 			<p><strong>Age & Date of birth:</strong>{user?.profile?.age} Years, {user?.profile?.dob}</p>
@@ -228,6 +247,7 @@ const UserDetail = ({ params }) => {
 					</div>
 				))}
 		</div>
+	</div>
 	</div>
 	);
 };
