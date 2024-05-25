@@ -2,6 +2,7 @@
 import mongoose from 'mongoose'
 import User from './model'
 import { getServerSession } from 'next-auth'
+import { UserDocument } from './interface'
 var isConnected = false
 var isInitialized = false
 /* BASIC FUNCTIONS */
@@ -77,12 +78,12 @@ async function verifyUid(uid) {
   return uid == (await getUid()) || (await getUser({uid}))?.isAdmin
 }
 
-async function getUser(uid?) {
+async function getUser(uid?):Promise<UserDocument|null> {
   try {
     await initializeDb();
     uid = uid || await getUid();
     if (!uid) return null;
-    let user = await User.findOne({ uid })
+    let user = await User.findOne({ uid }) as UserDocument;
     return user;
   } catch(err) {
     console.error('Error occured while getting user:',err)
@@ -93,14 +94,10 @@ async function getUser(uid?) {
 //default data just in case
 async function defaultUser() {
   try {
-    const uid = await getUid()
-    if (!uid) return false
-    const user = await getUser(uid)
+    const user = await getUser()
     if (!user) return false
     user.appraisal = user.appraisal || {}
     user.appraisal.research = user.appraisal.research || {}
-    user.appraisal.research.clinicalDuty =
-      user.appraisal.research.clinicalDuty || []
     user.appraisal.research.grants = user.appraisal.research.grants || []
     user.appraisal.research.books = user.appraisal.research.books || []
     user.appraisal.research.guidance = user.appraisal.research.guidance || []
@@ -108,7 +105,7 @@ async function defaultUser() {
       user.appraisal.research.conferences || []
     user.appraisal.academics = user.appraisal.academics || {}
     user.appraisal.academics.score = user.appraisal.academics.score || {}
-    user.appraisal.academics.teaching = user.appraisal.academics.teaching || {}
+    user.appraisal.academics.teaching = Array.isArray(user.appraisal.academics.teaching) ? user.appraisal.academics.teaching : []
     user.appraisal.academics.fileUrl = user.appraisal.academics.fileUrl || ''
     user.appraisal.professional = user.appraisal.professional || {}
     user.appraisal.professional.score = user.appraisal.professional.score || {}
@@ -125,9 +122,10 @@ async function defaultUser() {
     user.appraisal.professional.conferences =
       user.appraisal.professional.conferences || []
     user.appraisal.professional.guestLectures =
-      user.appraisal.professional.guestLectures || 0
+      user.appraisal.professional.guestLectures || []
     user.appraisal.professional.fileUrl = user.appraisal.professional.fileUrl || ''
     user.appraisal.overallScore = user.appraisal.overallScore || {}
+    user.save()
     return true
   } catch(err) {
     console.error('Error occured while initializing user',err)
@@ -607,10 +605,10 @@ export async function getProfile(uid?: string) {
     if (!user) throw 'User not found'
     const {_id, ...restUserProfile} = JSON.parse(JSON.stringify(user.profile))
     const newUser = {
-      name: user._doc.name,
-      designation: user._doc.designation,
-      _id: user._doc._id?.toString(),
-      profileUrl: user._doc.profileUrl,
+      name: user.name,
+      designation: user.designation,
+      _id: user._id?.toString(),
+      profileUrl: user.profileUrl,
       ...restUserProfile
     }
     return newUser
