@@ -352,7 +352,7 @@ export async function upsertResearchConference(conference, uid?) {
 }
 
 //update appraisal->academics->teaching
-export async function updateAcademicsTeaching(teaching, uid?) {
+export async function upsertAcademicsTeaching(teaching, uid?) {
   try {
     await initializeDb()
     uid = uid || (await getUid())
@@ -361,7 +361,18 @@ export async function updateAcademicsTeaching(teaching, uid?) {
     if (!user) throw 'User not found'
     let { _id, ...teachingWithoutId } = teaching //remove _id from teaching object
     //direct teaching = teachingWithoutId works
-    user.appraisal.academics.teaching = teachingWithoutId;
+    if(_id){
+      let index = user.appraisal.academics.teaching.findIndex(
+        (item) => item?._id.toString() == _id
+      )
+      if (index == -1) throw 'Research Conference not found'
+      user.appraisal.academics.teaching[index] = {
+        ...user.appraisal.academics.teaching[index],
+        ...teachingWithoutId
+      }
+    }else{
+    user.appraisal.academics.teaching.push(teachingWithoutId);
+    }
     await user.save()
     return true
   } catch (err) {
@@ -705,7 +716,7 @@ export async function getResearchScore(uid?) {
   }
 }
 
-//retrieve appraisal->academics->teaching (object)
+//retrieve appraisal->academics->teaching
 export async function getAcademicsTeaching(uid?: string) {
   uid = uid || (await getUid())
   try {
@@ -970,9 +981,6 @@ export async function deleteResearchConference(_id: string, uid?: string) {
   }
 }
 
-/*
-    NOTE: Didn't cover objects. (teaching etc.)
-*/
 
 //delete appraisal->professional->examDuties (array)
 export async function deleteProfessionalExamDuty(_id: string, uid?: string) {

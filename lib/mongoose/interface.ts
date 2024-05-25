@@ -117,7 +117,7 @@ interface Teaching {
 interface Academic {
   _id?: string;
   score?: Score;
-  teaching?: Teaching;
+  teaching?: Teaching[];
   fileUrl?: string;
 }
 
