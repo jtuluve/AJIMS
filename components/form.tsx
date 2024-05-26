@@ -14,6 +14,7 @@ import { app } from "../app/firebase";
 import { useFormStateContext } from "./formstateContext";
 import { useUserData } from "./UserDataContext";
 import { getUserObject } from "@/lib/mongoose/functions";
+import { FileState } from "@/lib/mongoose/interface";
 
 type otherInput = {
 	type: string;
@@ -74,18 +75,18 @@ export default function Form({
 	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 	
 	// form upload
-	const [file, setFile] = useState(undefined);
+	const [files, setFiles] = useState<Record<any, FileState>>({});
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
 	const [uploadUrl, setUploadUrl] = useState("");
 	const [fileExists, setFileExists] = useState(false);
 
-	useEffect(() => {
-		if (file) {
-			setUploadUrl("");
-			handleFileUpload(file, formState?.type);
-		}
-	}, [file]);
+	// useEffect(() => {
+	// 	if (files) {
+	// 		setUploadUrl("");
+	// 		handleFileUpload(files, formState?.type);
+	// 	}
+	// }, [files]);
 	
 	// upload profile picture
 	const [profilePhoto, setProfilePhoto] = useState(undefined);
@@ -101,37 +102,94 @@ export default function Form({
 		}
 	}, [profilePhoto]);
 
-	const handleFileUpload = (file, type) => {
-		const storage = getStorage(app);
-		const fileName = new Date().getTime() + file.name;
-		const storageRef = ref(storage, fileName);
-		const uploadTask = uploadBytesResumable(storageRef, file);
+	// const handleFileUpload = (file, type, name?) => {
+	// 	const storage = getStorage(app);
+	// 	const fileName = type === "profile" ? new Date().getTime() + file.name : new Date().getTime() + file[name].name
+    // const storageRef = ref(storage, fileName);
+	// 	const uploadTask = type === "profile" ? uploadBytesResumable(storageRef, file) : uploadBytesResumable(storageRef, file[name].file);
 		
-		uploadTask.on(
-			"state_changed",
-			(snapshot) => {
-				const progress =
-				(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				// console.log(progress);
-				setFilePerc(Math.round(progress));
-			},
-			(error) => {
-				console.log(error);
-				setFileUploadError(true);
-			},
-			() => {
-				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-					// console.log(downloadURL)
-					if (type === "profile") {
-						setProfilePhotoUrl(downloadURL);
-					} else {
-						setUploadUrl(downloadURL);
-					}
-				});
-			}
-			);
-		};
+	// 	uploadTask.on(
+	// 		"state_changed",
+	// 		(snapshot) => {
+	// 			const progress =
+	// 			(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+	// 			// console.log(progress);
+        // if(type === "profile") setFilePerc(Math.round(progress));
+	// 			else setFiles({...files,  [name]: { ...file[name], filePerc: Math.round(progress) }});
+	// 		},
+	// 		(error) => {
+	// 			console.log(error);
+          // setFiles({...files,  [name]: { ...file[name], error, message: "Error while uploading the file" }});
+	// 		},
+	// 		() => {
+	// 			getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+	// 				// console.log(downloadURL)
+	// 				if (type === "profile") {
+	// 					setProfilePhotoUrl(downloadURL);
+	// 				} else {
+	// 			    setFiles({...files,  [name]: { ...file[name], fileUrl: downloadURL, message: "Uploaded" }});
+	// 				}
+	// 			});
+	// 		}
+	// 		);
+	// 	};
 		
+    const handleFileUpload = (file, type, name?) => {
+      const storage = getStorage(app);
+      const fileName = type === "profile" ? new Date().getTime() + file.name : new Date().getTime() + file[name].file.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = type === "profile" ? uploadBytesResumable(storageRef, file) : uploadBytesResumable(storageRef, file[name].file);
+      
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          if (type === "profile") {
+            setFilePerc(Math.round(progress));
+          } else {
+            setFiles((prevFiles) => ({
+              ...prevFiles,
+              [name]: { ...file[name], filePerc: Math.round(progress) }
+            }));
+          }
+        },
+        (error) => {
+          console.log(error);
+          setFiles((prevFiles) => ({
+            ...prevFiles,
+            [name]: { ...file[name], error, message: "Error while uploading the file" }
+          }));
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            if (type === "profile") {
+              setProfilePhotoUrl(downloadURL);
+            } else {
+              setFiles((prevFiles) => ({
+                ...prevFiles,
+                [name]: { ...file[name], fileUrl: downloadURL, message: "Uploaded" }
+              }));
+              setUploadUrl(downloadURL)
+            }
+          });
+        }
+      );
+    };
+
+    const handleFileChange = (event, e) => {
+      const selectedFile = event.target.files[0];
+      setFiles((prevFiles) => ({
+        ...prevFiles,
+        [e.name]: { file: selectedFile, name: e.name },
+      }));
+      console.log(files);
+
+      if (selectedFile) {
+        setUploadUrl("");
+        handleFileUpload({ [e.name]: { file: selectedFile } }, formState?.type, e.name);
+      }
+    };
+
 		///////////////////////////////////////////////////////////////////
 		
 		useEffect(() => {
@@ -390,10 +448,7 @@ export default function Form({
 									<input
 										type="file"
 										accept="*/*"
-										onChange={(e) => {
-											setFile(e.target.files[0]);
-											// console.log(e.target.files[0])
-										}}
+                    onChange={(event) => {handleFileChange(event, e)}}
 										name={e.name}
 										placeholder={(e as otherInput).placeholder || " "}
 										required={e.required || false}
@@ -405,11 +460,11 @@ export default function Form({
 										} */
 									/>
 									<p>
-										{fileUploadError ? (
+										{files[e.name]?.error ? (
 											<span style={{ color: "white" }}>
-												Error in file uplaod
+                        {files[e.name]?.message}
 											</span>
-										) : filePerc > 0 && filePerc < 100 ? (
+										) : files[e.name]?.filePerc > 0 && files[e.name]?.filePerc < 100 ? (
 											<span
 												style={{ color: "white" }}
 											>{`Uploading ${filePerc}%...`}</span>
