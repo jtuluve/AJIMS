@@ -1,7 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-.titlebar{
-    height: 10%;
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
 }
+
+.user-detail {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+.user-detail h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-detail h2, .user-detail h3, .user-detail h4 {
+    margin-top: 30px;
+}
+
+.titlebar {
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .score-card {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -11,7 +39,6 @@
     background-color: #f9f9f9;
     text-align: center;
     margin: 10px;
-    font-family: 'Roboto', sans-serif;
 }
 
 .scores-container {
@@ -21,15 +48,30 @@
     margin-bottom: 20px;
 }
 
-.user-detail {
-    max-width: 1000px;
-    margin: auto;
+.profilephoto{
+    display: flex;
+    flex: 4;
+}
+.profile-container {
+    display: flex;
+    align-items: flex-start;
 }
 
-.user-detail h1 {
-    text-align: center;
+.basic-info {
+    flex: 1;
+    padding-right: 20px; 
 }
 
-.user-detail h2, .user-detail h3, .user-detail h4 {
-    margin-top: 30px;
+.margin-body {
+    margin-left: 20px; 
+}
+
+.profile-photo {
+    width: 120px;
+    text-align: center; 
+}
+
+.profile-photo img {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
