@@ -62,7 +62,7 @@ interface Guidance {
   endDate?: Date;
   name?: string;
   title?: string;
-  publishstatus?: "Yes" | "No";
+  publishStatus?: "Yes" | "No";
   year?: number;
   amount?: number;
   grantName?: string;

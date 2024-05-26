@@ -154,7 +154,7 @@ const guidanceSchema = new mongoose.Schema({
   endDate: { type: Date, required: true, default: new Date() },
   name: { type:String, required: true, default: 'Nil'  },
   title: { type:String, required: true, default: 'Nil' },
-  publishstatus: { type:String, enum: ['Yes','No'], required: true, default: 'yes'},
+  publishStatus: { type:String, enum: ['Yes','No'], required: true, default: 'yes'},
   year: {
     type: Number,
     min: [1800, 'Enter a valid year'],
@@ -163,7 +163,7 @@ const guidanceSchema = new mongoose.Schema({
     default: 2024
   },
   amount: {type:Number, default: 0},
-  grantName: {type:String, required: true },
+  grantName: {type:String, required: true, default: "Nil" },
   fundedStatus: {type:String, enum: ['Yes','No'], default:'Yes'},
   agencyName: {type:String, required: false},
   synopsisUrl: {type:String, required: false},
