@@ -150,11 +150,11 @@ const guidanceSchema = new mongoose.Schema({
   category: { type: String, enum: ['UG', 'PG', 'PHD', 'Nil'], default: 'Nil' },
   studentDetails: { type: String, required: true, default: 'Nil' },
   studentUpload: { type: String, required: true, default: 'Nil'},
-  startDate: { type: Date, required: true, default: new Date() },
-  endDate: { type: Date, required: true, default: new Date() },
+  startDate: { type: Date, required: true, default: Date.now },
+  endDate: { type: Date, required: true, default: Date.now },
   name: { type:String, required: true, default: 'Nil'  },
   title: { type:String, required: true, default: 'Nil' },
-  publishStatus: { type:String, enum: ['Yes','No'], required: true, default: 'yes'},
+  publishStatus: { type:String, enum: ['Yes','No'], required: true, default: 'Yes'},
   year: {
     type: Number,
     min: [1800, 'Enter a valid year'],
@@ -379,7 +379,7 @@ const AppraisalSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   name: { type: String },
-  dateOfJoining: { type: Date, default: new Date() },
+  dateOfJoining: { type: Date, default: Date.now },
   aadharNo: { type: Number, },
   passportNo: { type: String, },
   phoneNo: { type: Number },
