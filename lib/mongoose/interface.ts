@@ -164,3 +164,13 @@ export interface UserDocument {
 export interface AdminContextType {
 	users: UserDocument[];
 }
+
+export interface FileState {
+  file?: File
+  name?: string
+  fileUrl?: string
+  filePerc?: number
+  message?: string
+  error?: Error
+}
+
