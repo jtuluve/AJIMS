@@ -475,7 +475,7 @@ span.print-icon::after {
 	#onPrintHiddenButton * ,
 	#onPrintHiddenRow *,
 	#onPrintHideEdit * {
-		display: none;
+		display: none !important;
 	}
 
   #onPrintScale #professional {
@@ -485,6 +485,20 @@ span.print-icon::after {
 	@page {
 		size: A4 portrait;
 	}
+
+  html, body {
+    overflow: -webkit-paged-x;
+    overflow: -webkit-paged-y;
+  }
+
+  ::-webkit-scrollbar {
+      display: none;
+  }
+
+  #academics {
+    background: url('https://pngset.com/free/watermark');
+  }
+
 }
 
 
