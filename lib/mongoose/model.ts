@@ -285,7 +285,7 @@ const CommitteeSchema = new mongoose.Schema({
   committeeName: { type: String },
   designation: {
     type: String,
-    enum: ['Member', 'Coordinator', 'Head', 'Nil'],
+    enum: ['Member', 'Coordinator', 'Head', 'Resource person', 'Nil'],
     default: 'Nil',
   },
   committeeFile: { type: String, default: 'Nil' }

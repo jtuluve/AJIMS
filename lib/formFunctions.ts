@@ -729,7 +729,7 @@ export async function getInput(type: string) {
         type: 'select',
         placeholder: 'Designation',
         required: true,
-        options: ['Member', 'Coordinator', 'Head', 'Nil'],
+        options: ['Member', 'Coordinator', 'Head', 'Resource person', 'Nil'],
         default: 'Nil',
       },
       {

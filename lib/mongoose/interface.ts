@@ -133,7 +133,7 @@ interface ExamDuty {
 interface Committee {
   _id?: string;
   committeeName?: string;
-  designation?: "Member" | "Coordinator" | "Head" | "Nil";
+  designation?: "Member" | "Coordinator" | "Head" | "Nil" | "Resource person";
   committeeFile?: string;
 }
 
