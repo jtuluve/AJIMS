@@ -3,7 +3,6 @@ import { useUserData } from "./UserDataContext";
 export default function Research() {
     const {userData} = useUserData();
     if(!userData) return <p style={{color:"white"}}>Failed to load data. Please, signout and signin again.</p>
-
     
     return (
         <>
@@ -12,19 +11,19 @@ export default function Research() {
                 <hr />
                 <div className="tables">
                     <a className="name3">I. Publications</a>
-                    <Table type="researchPublications" column={7} header_row={["Title","Journal Name", "Quartile", "Index", "DOI","Authorship","Uploads"]} keys={["title","journalName","quartile","index","doi","authorship","uploadUrl"]} values={userData?.appraisal?.research?.publications}/>
+                    <Table type="researchPublications" column={6} header_row={["Title","Journal Name","Year", "Quartile","Authorship","Uploads"]} keys={["title","journalName","year","quartile","authorship","uploadUrl"]} values={userData?.appraisal?.research?.publications}/>
                     
                     <a className="name3">II. Grants</a>
-                    <Table type="researchGrants" column={5} header_row={["Title","Agency", "Recieved", "Amount Category", "Uploads"]} keys={["title","agency","recieved","amountCategory","uploadUrl"]} values={userData?.appraisal?.research?.grants}/>
+                    <Table type="researchGrants" column={6} header_row={["Title", "Agency", "Recieved", "Amount Category", "Start year", "Uploads"]} keys={["title", "agency", "recieved", "amountCategory","startyear","uploadUrl"]} values={userData?.appraisal?.research?.grants}/>
 
                     <a className="name3">III. Books</a>
-                    <Table  type="researchBooks"column={2} header_row={["Authorship", "Category"]} keys={["authorship","category"]}  values={userData?.appraisal?.research?.books}/>
+                    <Table  type="researchBooks"column={5} header_row={["Title","Authorship", "Category","Year","Uploads"]} keys={["title","authorship","category","year","uploadUrl"]}  values={userData?.appraisal?.research?.books}/>
                     
                     <a className="name3">IV. Guidance</a>
-                    <Table type="researchGuidance"column={2} header_row={["Category", "Number"]} keys={["category","number"]}  values={userData?.appraisal?.research?.guidance}/>
+                    <Table type="researchGuidance" column={5} header_row={["Category", "Student Name", "Title", "Start date", "Funded"]} keys={["category", "studentname", "title", "startdate","FundedStatus"]}  values={userData?.appraisal?.research?.guidance}/>
                     
                     <a className="name3">V. Conferences</a>
-                    <Table type="researchConferences"column={2} header_row={["Category", "Number"]} keys={["category","number"]}  values={userData?.appraisal?.research?.conferences}/>
+                    <Table type="researchConferences" column={4} header_row={["Year", "Conference Name", "Category", "Type"]} keys={["category", "Confname", "category","type"]}  values={userData?.appraisal?.research?.conferences}/>
                     
                 </div>
             </div>

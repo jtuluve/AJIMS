@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { connectToDB } from './functions'
+
 //Define score schema
 connectToDB()
 const ScoreSchema = new mongoose.Schema({
