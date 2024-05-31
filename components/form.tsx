@@ -24,6 +24,7 @@ type otherInput = {
 	default?: string;
 	placeholder?: string;
 	tooltip?: string;
+	properties?: Record<any,any>;
 };
 type selectInput = {
 	type: "select";
@@ -387,6 +388,7 @@ export default function Form({
 									defaultValue={
 										formData?.[e.name] || e.default || formData?.[e.label] || ""
 									}
+									{...((e as otherInput)?.properties)}
 								/>
 							)}
 						</span>
