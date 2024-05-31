@@ -231,11 +231,8 @@ export interface AdminContextType {
 }
 
 export interface FileState {
-  file?: File
-  name?: string
-  fileUrl?: string
-  filePerc?: number
-  message?: string
-  error?: Error
+  name: string;
+  required: boolean;
+  url?: string;
 }
 
