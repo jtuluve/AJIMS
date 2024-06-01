@@ -10,7 +10,7 @@ var isInitialized = false
 export async function createUserIfNotExists({ email, uid }: { email?, uid }) {
   try {
     await connectToDB();
-    if (!uid) throw new Error("uid required to create account");
+    if(!uid) throw new Error("uid required to create account");
     email = email || await getEmail();
     const user =
       (await User.findOne({ email, uid })) || (await User.findOne({ uid }))
@@ -75,18 +75,18 @@ export async function getUserObject(uid?) {
 
 async function verifyUid(uid) {
   await initializeDb()
-  return uid == (await getUid()) || (await getUser({ uid }))?.isAdmin
+  return uid == (await getUid()) || (await getUser({uid}))?.isAdmin
 }
 
-async function getUser(uid?): Promise<UserDocument | null> {
+async function getUser(uid?):Promise<UserDocument|null> {
   try {
     await initializeDb();
     uid = uid || await getUid();
     if (!uid) return null;
     let user = await User.findOne({ uid }) as UserDocument;
     return user;
-  } catch (err) {
-    console.error('Error occured while getting user:', err)
+  } catch(err) {
+    console.error('Error occured while getting user:',err)
     return null;
   }
 }
@@ -127,8 +127,8 @@ async function defaultUser() {
     user.appraisal.overallScore = user.appraisal.overallScore || {}
     user.save()
     return true
-  } catch (err) {
-    console.error('Error occured while initializing user', err)
+  } catch(err) {
+    console.error('Error occured while initializing user',err)
     return false
   }
 }
@@ -139,7 +139,7 @@ async function initializeDb() {
     if (isInitialized) return true
     isInitialized = true
     await connectToDB()
-    await createUserIfNotExists({ uid: await getUid() || '' })
+    await createUserIfNotExists({ uid: await getUid()||'' })
     await defaultUser()
     isInitialized = true
     return true
@@ -167,16 +167,16 @@ export async function connectToDB() {
 }
 
 //returns if the user is admin
-export async function isAdmin(uid?: string) {
+export async function isAdmin(uid?:string){
   return ((await getUser(uid))?.isAdmin)
 }
 
 //get all users
-export async function getUsers() {
+export async function getUsers(){
   try {
     await initializeDb();
     const user = await getUser(await getUid())
-    if (!user.isAdmin) return;
+    if(!user.isAdmin) return;
     const users = await User.find()
     // console.log(posts);
 
@@ -195,7 +195,7 @@ export async function updateProfile(profile, uid?) {
     await initializeDb()
     uid = uid || (await getUid())
     if (!verifyUid(uid)) throw new Error('Invalid UID')
-    await User.findOneAndUpdate({ uid }, { ...profile, profile }); //updating both universal and inner profile property
+    await User.findOneAndUpdate({ uid }, {...profile,profile}); //updating both universal and inner profile property
     return true
   } catch (err) {
     console.error(err)
@@ -361,7 +361,7 @@ export async function upsertAcademicsTeaching(teaching, uid?) {
     if (!user) throw 'User not found'
     let { _id, ...teachingWithoutId } = teaching //remove _id from teaching object
     //direct teaching = teachingWithoutId works
-    if (_id) {
+    if(_id){
       let index = user.appraisal.academics.teaching.findIndex(
         (item) => item?._id.toString() == _id
       )
@@ -370,8 +370,8 @@ export async function upsertAcademicsTeaching(teaching, uid?) {
         ...user.appraisal.academics.teaching[index],
         ...teachingWithoutId
       }
-    } else {
-      user.appraisal.academics.teaching.push(teachingWithoutId);
+    }else{
+    user.appraisal.academics.teaching.push(teachingWithoutId);
     }
     await user.save()
     return true
@@ -450,8 +450,8 @@ export async function upsertProfessionalExamDuties(examDuty, uid?) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     if (!examDuty._id) {
-      //   examDuty['examDutyFile'] = examDuty['uploadUrl']
-      //   delete examDuty['uploadUrl']
+    //   examDuty['examDutyFile'] = examDuty['uploadUrl']
+    //   delete examDuty['uploadUrl']
       user.appraisal.professional.examDuties.push(examDuty)
     }
     else {
@@ -588,7 +588,7 @@ export async function upsertProfessionalGuestLecture(lecture, uid?) {
 
 //update appraisal->academics->fileUrl
 export async function updateProfessionalFileUrl(fileUrl, uid?) {
-  try {
+  try{
     await initializeDb()
     uid = uid || (await getUid())
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
@@ -614,7 +614,7 @@ export async function getProfile(uid?: string) {
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
     const user = await getUser(uid)
     if (!user) throw 'User not found'
-    const { _id, ...restUserProfile } = JSON.parse(JSON.stringify(user.profile))
+    const {_id, ...restUserProfile} = JSON.parse(JSON.stringify(user.profile))
     const newUser = {
       name: user.name,
       designation: user.designation,
@@ -637,7 +637,7 @@ export async function getResearchPublications(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.publications.find((p) => p._id?.toString?.() == _id)
-      : user.appraisal.research.publications.sort((a, b) => b.year - a.year);
+      : user.appraisal.research.publications.sort((a,b)=>b.year-a.year);
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -652,7 +652,7 @@ export async function getResearchGrants(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.grants.find((d) => d._id?.toString() == _id)
-      : user.appraisal.research.grants.sort((a, b) => b.startYear - a.startYear)
+      : user.appraisal.research.grants.sort((a,b)=>b.startYear-a.startYear)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -667,7 +667,7 @@ export async function getResearchBooks(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.books.find((d) => d._id?.toString() == _id)
-      : user.appraisal.research.books.sort((a, b) => b.year - a.year)
+      : user.appraisal.research.books.sort((a,b)=>b.year-a.year)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -682,7 +682,7 @@ export async function getResearchGuidance(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.guidance.find((d) => d._id.toString() == _id)
-      : user.appraisal.research.guidance.sort((a, b) => b.year - a.year)
+      : user.appraisal.research.guidance.sort((a,b)=>b.year-a.year)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -697,7 +697,7 @@ export async function getResearchConferences(_id?: string, uid?: string) {
     if (!user) throw 'User not found'
     return _id
       ? user.appraisal.research.conferences.find((d) => d._id.toString() == _id)
-      : user.appraisal.research.conferences.sort((a, b) => b.year - a.year)
+      : user.appraisal.research.conferences.sort((a,b)=>b.year-a.year)
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }

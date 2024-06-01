@@ -24,7 +24,7 @@ type otherInput = {
 	default?: string;
 	placeholder?: string;
 	tooltip?: string;
-	properties?: Record<any, any>;
+	properties?: Record<any,any>;
 };
 type selectInput = {
 	type: "select";
@@ -49,15 +49,15 @@ export default function Form({
 	title?: string;
 }) {
 	const { formState, setFormState } = useFormStateContext();
-	const { setUserData } = useUserData();
+	const {setUserData} = useUserData();
 	let formData = formState?.data;
 
-	useEffect(() => {
-		(async () => {
-			setUserData(await getUserObject())
-		})()
-	}, [formState?.type])
-
+  useEffect(()=>{
+    (async()=>{
+      setUserData(await getUserObject())
+    })()
+  },[formState?.type])
+	
 	const [inputs, setInputs] = useState<{ status?: string; inputs?: input[] }>({
 		status: "loading",
 	});
@@ -68,10 +68,10 @@ export default function Form({
 		error: false,
 		status: "none",
 	});
-
+	
 	// tootip
 	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
+	
 	// form upload
 	const [files, setFiles] = useState<Record<any, FileState>>({});
 	const [filePerc, setFilePerc] = useState(0);
@@ -93,56 +93,56 @@ export default function Form({
 		}
 	}, [profilePhoto]);
 
-	useEffect(() => {
+	useEffect(()=>{
 		setCanSubmit(true)
-		Object.keys(files)?.forEach((name) => { if (files[name].required && !(files[name].url)) setCanSubmit(false) })
-	}, [files])
+		Object.keys(files)?.forEach( (name)=>{ if(files[name].required && !(files[name].url)) setCanSubmit(false) })
+	},[files])
 
 	useEffect(() => {
 		setFilePerc(0);
 		setFileUploadError(false);
-		setInputs({ status: "loading" })
+		setInputs({status:"loading"})
 		setCanSubmit(false)
-		if (formState.type)
-			(async () => {
-				try {
-					const inputs = await getInput(formState?.type);
-					if (formState?._id) {
-						let formData = formState.data;
-						if (!(formData?.profileUrl)) {
-							setProfilePhotoUrl("user.png");
-						}
-						else setProfilePhotoUrl(formData?.profileUrl);
+		if(formState.type)
+		(async () => {
+			try {
+				const inputs = await getInput(formState?.type);
+				if (formState?._id) {
+					let formData = formState.data;
+					if (!(formData?.profileUrl)) {
+						setProfilePhotoUrl("user.png");
 					}
-					setInputs({ status: "loaded", inputs });
-					let a = inputs?.filter?.((e) => e.type === "file");
-					a?.forEach(e => setFiles((prev) => ({ ...prev, [e.name]: { name: e.name, required: e.required, url: formData?.[e.name] } })));
-					if (a?.length == 0) setCanSubmit(true);
-				} catch (e) {
-					setInputs({ status: "error" });
-					console.error(e);
-				}
-			})();
+					else setProfilePhotoUrl(formData?.profileUrl);
+				} 
+				setInputs({ status: "loaded", inputs });
+				let a = inputs?.filter?.((e) => e.type === "file");
+				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
+				if (a?.length == 0) setCanSubmit(true);
+			} catch (e) {
+				setInputs({ status: "error" });
+				console.error(e);
+			}
+		})();
 	}, [formState?.type, formState?._id]);
-
+	
 	// const handleFileUpload = (file, type, name?) => {
 	// 	const storage = getStorage(app);
 	// 	const fileName = type === "profile" ? new Date().getTime() + file.name : new Date().getTime() + file[name].name
-	// const storageRef = ref(storage, fileName);
+    // const storageRef = ref(storage, fileName);
 	// 	const uploadTask = type === "profile" ? uploadBytesResumable(storageRef, file) : uploadBytesResumable(storageRef, file[name].file);
-
+		
 	// 	uploadTask.on(
 	// 		"state_changed",
 	// 		(snapshot) => {
 	// 			const progress =
 	// 			(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 	// 			// console.log(progress);
-	// if(type === "profile") setFilePerc(Math.round(progress));
+        // if(type === "profile") setFilePerc(Math.round(progress));
 	// 			else setFiles({...files,  [name]: { ...file[name], filePerc: Math.round(progress) }});
 	// 		},
 	// 		(error) => {
 	// 			console.log(error);
-	// setFiles({...files,  [name]: { ...file[name], error, message: "Error while uploading the file" }});
+          // setFiles({...files,  [name]: { ...file[name], error, message: "Error while uploading the file" }});
 	// 		},
 	// 		() => {
 	// 			getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -156,14 +156,14 @@ export default function Form({
 	// 		}
 	// 		);
 	// 	};
-
+		
 	const handleFileUpload = (file, name, percSet?) => {
 		setCanSubmit(false);
 		const storage = getStorage(app);
 		const fileName = Date.now() + file.name;
 		const storageRef = ref(storage, fileName);
 		const uploadTask = uploadBytesResumable(storageRef, file);
-
+		
 		uploadTask.on(
 			"state_changed",
 			(snapshot) => {
@@ -200,25 +200,25 @@ export default function Form({
 		return (
 			<p style={{ color: wrapperStyle?.["color"] || "white" }}>Loading form...</p>
 		);
-
+		
 	if (inputs?.status === "error" || formStatus?.error)
-		return (
-			<>
-				<p style={{ color: wrapperStyle?.["color"] || "white" }}>
-					Error... Please try again later.
-				</p>
-				<button
-					className={styles.cancel}
-					onClick={(e) => {
-						e.preventDefault();
-						setFormState({});
-						setInputs({});
-					}}
-				>
-					CLOSE
-				</button>
-			</>
-		);
+	return (
+		<>
+			<p style={{ color: wrapperStyle?.["color"] || "white" }}>
+				Error... Please try again later.
+			</p>
+			<button
+				className={styles.cancel}
+				onClick={(e) => {
+					e.preventDefault();
+					setFormState({});
+					setInputs({});
+				}}
+			>
+				CLOSE
+			</button>
+		</>
+	);
 
 	return (
 		<div className={styles.formWrapper} style={wrapperStyle}>
@@ -227,10 +227,10 @@ export default function Form({
 				onSubmit={(e) => {
 					e.preventDefault();
 					const formData = new FormData(e.currentTarget);
-					Object.keys(files).forEach(filename => {
+					Object.keys(files).forEach(filename=>{
 						formData.set(filename, files[filename].url);
 					})
-
+					
 					profilePhotoUrl && formData.append("profileUrl", profilePhotoUrl);
 					setFormStatus({ status: "submitting", error: false });
 					startTransition(() => {
@@ -251,7 +251,7 @@ export default function Form({
 					{formState?._id && <input type="hidden" name="_id" value={formState?._id || ""} />}
 					<input type="hidden" name="type" value={formState?.type} />
 				</span>
-				{inputs?.inputs?.map((e) => {
+				{inputs?.inputs?.map((e) => {	
 
 					return (
 						<span key={(e.name || e.label || Math.random()) + "Key"}>
@@ -261,7 +261,7 @@ export default function Form({
 										{e.label || e.placeholder || e.name}
 									</label>
 
-
+                 
 									{e.tooltip ? (
 										<button
 											type="button"
@@ -290,11 +290,11 @@ export default function Form({
 										formData?.[e.name] || formData?.[e.label] || e.default || ""
 									}
 									placeholder={(e as selectInput).placeholder}
-									onChange={(event) => {
-										if (formData?.[e.name]) formData[e.name] = event.target.value;
-										if (formData?.[e.label]) formData[e.label] = event.target.value;
-										e.default = event.target.value;
-									}}
+                  onChange={(event)=>{
+                   if(formData?.[e.name]) formData[e.name] = event.target.value;
+                   if(formData?.[e.label]) formData[e.label] = event.target.value;
+                   e.default = event.target.value;
+                  }}
 								/>
 							) : e.type === "file" && e.name === "profileUrl" ? (
 								<section
@@ -378,7 +378,7 @@ export default function Form({
 									</button>
 								</section>
 							) : e.type === "file" ? (
-								<FileInput input={e} handleFileUpload={handleFileUpload} />
+								<FileInput input={e} handleFileUpload={handleFileUpload}/>
 							) : (
 								<input
 									type={e.type || "text"}
@@ -445,58 +445,58 @@ function SelectComponent({
 	if (typeof options[0] == "string") {
 		return (
 			<select name={name} onChange={onChange} defaultValue={defaultValue}>
-				{options.map((option) => (
-					<option key={option} value={option}>
-						{option}
-					</option>
-				))}
-			</select>
-		);
-	}
-
-	return (
-		<select name={name} defaultValue={defaultValue || ""} title="Select an option">
 			{options.map((option) => (
-				<option key={option.value} value={option.value}>
-					{option.label || option.value}
+				<option key={option} value={option}>
+					{option}
 				</option>
 			))}
 		</select>
 	);
 }
 
+return (
+	<select name={name} defaultValue={defaultValue || ""} title="Select an option">
+		{options.map((option) => (
+			<option key={option.value} value={option.value}>
+				{option.label || option.value}
+			</option>
+		))}
+	</select>
+);
+}
 
-function FileInput({ input, handleFileUpload }) {
+
+function FileInput({ input, handleFileUpload }){
 	const [perc, setPerc] = useState(0);
 
-	return (
-		<div>
-			<input
-				type="file"
-				accept="*/*"
-				onChange={(event) => handleFileUpload(event.target.files[0], input.name, setPerc)}
-				name={input.name}
-				placeholder={input.placeholder || " "}
-				required={input.required || false}
-			/>
-			<p>
-				{perc === -1 ? (
-					<span style={{ color: "white" }}>
-						Upload failed. Please, check your internet and try uploading the file again.
-					</span>
-				) : perc > 0 && perc < 100 ? (
-					<span
-						style={{ color: "white" }}
-					>{`Uploading ${perc}%...`}</span>
-				) : perc === 100 ? (
-					<span style={{ color: "white" }}>
-						File Succesfully uploaded
-					</span>
-				) : (
-					""
-				)}
-			</p>
-			{ }
-		</div>
+	return(
+	<div>
+		<input
+			type="file"
+			accept="*/*"
+			onChange={(event) => handleFileUpload(event.target.files[0], input.name, setPerc)}
+			name={input.name}
+			placeholder={input.placeholder || " "}
+			required={input.required || false}
+		/>
+		<p>
+			{perc===-1 ? (
+				<span style={{ color: "white" }}>
+					Upload failed. Please, check your internet and try uploading the file again.
+				</span>
+			) : perc > 0 && perc < 100 ? (
+				<span
+					style={{ color: "white" }}
+				>{`Uploading ${perc}%...`}</span>
+			) : perc === 100 ? (
+				<span style={{ color: "white" }}>
+					File Succesfully uploaded
+				</span>
+			) : (
+				""
+			)}
+		</p>
+		{}
+	</div>
 	)
 }
