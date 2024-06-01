@@ -28,12 +28,12 @@ export default function Menu() {
           />
           <span id="getName" className="name">{user.name}</span>
           <div id="menuTabs" className="menuOptions">
-            <a href="#research" className="active">
+            <a href="#research" className="research">
               Research
             </a>
-            <a href="#academics">Academics</a>
-            <a href="#professional">Professional</a>
-            <a className="score" href="#scorepage">Score</a>
+            <a href="#academics" className='academics'>Academics</a>
+            <a href="#professional" className='professional'>Professional</a>
+            <a className="score scorepage" href="#scorepage">Score</a>
             <a className="logout" href="/main">
               Home
             </a>
