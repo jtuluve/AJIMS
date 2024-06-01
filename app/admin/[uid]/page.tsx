@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAdminData } from "@/components/adminContext";
-import '@css/hehe.css'
+import '@css/admin[uid].css'
 import "@css/admin.css";
 
 const UserDetail = ({ params }) => {
@@ -88,24 +88,35 @@ const UserDetail = ({ params }) => {
 		</div>
 		<div className="research-body">
 			<div className="teaching-hours-body">
-				<p><strong>12. Teaching data:</strong></p>
-				{user.appraisal?.academics?.teachingArray && user.appraisal.academics.teachingArray.length > 0 ? (
-					user.appraisal.academics.teachingArray.map((teaching, index) => (
-						<div key={index}>
-							<p><strong>Teaching Hours:</strong> {teaching.hours}</p>
-							<p><strong>Attachment:</strong> <a href={teaching.hourupload} download>View upload document</a></p>
-							<p><strong>Clinical Hours:</strong> {teaching.clinicalHours}</p>
-							<p><strong>Attachment:</strong> <a href={teaching.clinicalHoursupload} download>View upload document</a></p>
-							<p><strong>Students Feedback:</strong> {teaching.studentsFeedback}</p>
-							<p><strong>Attachment:</strong> <a href={teaching.studentsFeedbackupload} download>View upload document</a></p>
-							<p><strong>Resource material:</strong> {teaching.resourceMaterial}</p>
-							<p><strong>Attachment:</strong> <a href={teaching.resourceMaterialupload} download>View upload document</a></p>
-							<p><strong>Public Awareness Writeup:</strong> {teaching.publicAwarenessWriteup}</p>
-							<p><strong>Attachment:</strong> <a href={teaching.publicAwarenessWriteupupload} download>View upload document</a></p>
-							<p><strong>CC:</strong> {teaching.cc}</p>
-							<p><strong>Attachment:</strong> <a href={teaching.ccupload} download>View upload document</a></p>
-						</div>
-					))
+    			{user.appraisal?.academics?.teachingArray && user.appraisal.academics.teachingArray.length > 0 ? (
+        			<table>
+            			<thead>
+                			<tr>
+                    			<th>Teaching Hours</th><th>Attachment</th><th>Clinical Hours</th>
+								<th>Attachment</th><th>Students Feedback</th><th>Attachment</th>
+                    			<th>Resource material</th><th>Attachment</th><th>Public Awareness Writeup</th>
+								<th>Attachment</th><th>CC</th><th>Attachment</th>
+                			</tr>
+            			</thead>
+						<tbody>
+							{user.appraisal.academics.teachingArray.map((teaching, index) => (
+								<tr key={index}>
+									<td>{teaching.hours}</td>
+									<td><a href={teaching.hourupload} download>View upload document</a></td>
+									<td>{teaching.clinicalHours}</td>
+									<td><a href={teaching.clinicalHoursupload} download>View upload document</a></td>
+									<td>{teaching.studentsFeedback}</td>
+									<td><a href={teaching.studentsFeedbackupload} download>View upload document</a></td>
+									<td>{teaching.resourceMaterial}</td>
+									<td><a href={teaching.resourceMaterialupload} download>View upload document</a></td>
+									<td>{teaching.publicAwarenessWriteup}</td>
+									<td><a href={teaching.publicAwarenessWriteupupload} download>View upload document</a></td>
+									<td>{teaching.cc}</td>
+									<td><a href={teaching.ccupload} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+        		</table>
 				) : (
 					<p>No teaching data available</p>
 				)}
@@ -113,46 +124,68 @@ const UserDetail = ({ params }) => {
 			<p><strong>13. Publication details:</strong></p>
 			<div className="publication-body">
 				{user.appraisal?.research?.publications?.length > 0 ? (
-					user.appraisal.research.publications.map((publication, index) => (
-						<div key={index}>
-							<h4>Publication {index + 1}</h4>
-							<p><strong>Title:</strong> {publication?.title}</p>
-							<p><strong>Author:</strong> {publication?.author}</p>
-							<p><strong>Journal Name:</strong> {publication?.journalName}</p>
-							<p><strong>Volume:</strong> {publication?.volume}</p>
-							<p><strong>Issue:</strong> {publication?.issue}</p>
-							<p><strong>Page No:</strong> {publication?.pageNo}</p>
-							<p><strong>Year:</strong> {publication?.year}</p>
-							<p><strong>Quartile:</strong> {publication?.quartile}</p>
-							<p><strong>Index:</strong> {publication?.index}</p>
-							<p><strong>Category:</strong> {publication?.CategoryP}</p>
-							<p><strong>Post held:</strong> {publication?.postheld}</p>
-							<p><strong>DOI:</strong> {publication?.doi}</p>
-							<p><strong>Authorship:</strong> {publication?.authorship}</p>
-							<p><strong>Upload URL:</strong> <a href={publication?.uploadUrl} download>View upload document</a></p>
-						</div>
-					))
+					<table>
+						<thead>
+						<tr>
+							<th>Title</th><th>Author</th><th>Journal Name</th>
+							<th>Volume</th><th>Issue</th><th>Page No</th>
+							<th>Year</th><th>Quartile</th><th>Index</th>
+							<th>Category</th><th>Post held</th><th>DOI</th>
+							<th>Authorship</th><th>Upload URL</th>
+						</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.publications.map((publication, index) => (
+								<tr key={index}>
+									<td>{publication?.title}</td>
+									<td>{publication?.author}</td>
+									<td>{publication?.journalName}</td>
+									<td>{publication?.volume}</td>
+									<td>{publication?.issue}</td>
+									<td>{publication?.pageNo}</td>
+									<td>{publication?.year}</td>
+									<td>{publication?.quartile}</td>
+									<td>{publication?.index}</td>
+									<td>{publication?.CategoryP}</td>
+									<td>{publication?.postheld}</td>
+									<td>{publication?.doi}</td>
+									<td>{publication?.authorship}</td>
+									<td><a href={publication?.uploadUrl} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				) : (
 					<p>No publication data available</p>
 				)}
-			</div>			
+			</div>
 			<p><strong>14. Grant details:</strong></p>
 			<div className="grant-body">
 				{user.appraisal?.research?.grants?.length > 0 ? (
-					user.appraisal.research.grants.map((grant, index) => (
-						<div key={index}>
-							<h4>Grant {index + 1}</h4>
-							<p><strong>Title:</strong> {grant?.title}</p>
-							<p><strong>Agency:</strong> {grant?.agency}</p>
-							<p><strong>Start year:</strong> {grant?.startyear}</p>
-							<p><strong>End year:</strong> {grant?.endyear}</p>
-							<p><strong>Received:</strong> {grant?.recieved}</p>
-							<p><strong>Utilization Certificate:</strong> {grant?.utCert}</p>
-							<p><strong>Work Published:</strong> {grant?.workpub}</p>
-							<p><strong>Amount Category:</strong> {grant?.amountCategory}</p>
-							<p><strong>Upload URL:</strong> <a href={grant?.file} download>View upload document</a></p>
-						</div>
-					))
+					<table>
+						<thead>
+							<tr>
+								<th>Title</th><th>Agency</th><th>Start year</th><th>End year</th>
+								<th>Received</th><th>Utilization Certificate</th>
+								<th>Work Published</th><th>Amount Category</th><th>Upload URL</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.grants.map((grant, index) => (
+								<tr key={index}>
+									<td>{grant?.title}</td>
+									<td>{grant?.agency}</td>
+									<td>{grant?.startyear}</td>
+									<td>{grant?.endyear}</td>
+									<td>{grant?.recieved}</td>
+									<td>{grant?.utCert}</td>
+									<td>{grant?.workpub}</td>
+									<td>{grant?.amountCategory}</td>
+									<td><a href={grant?.file} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				) : (
 					<p>No grant data available</p>
 				)}
@@ -160,46 +193,67 @@ const UserDetail = ({ params }) => {
 			<p><strong>15. Books details:</strong></p>
 			<div className="books-details">
 				{user.appraisal?.research?.books?.length > 0 ? (
-					user.appraisal.research.books.map((books, index) => (
-					<div key={index}>
-						<h4>Book {index + 1}</h4>
-						<p><strong>Authorship:</strong> {books?.authorship}</p>
-						<p><strong>Category:</strong> {books?.category}</p>
-						<p><strong>Title:</strong> {books?.title}</p>
-						<p><strong>Year:</strong> {books?.year}</p>
-						<p><strong>Certificate:</strong> <a href={books?.Certificate} download>View upload document</a></p>
-						<p><strong>Book details:</strong> {books?.bookdetails}</p>
-						<p><strong>Upload URL:</strong> <a href={books?.uploadUrl} download>View upload document</a></p>
-					</div>
-					))
+					<table>
+						<thead>
+							<tr>
+								<th>Authorship</th><th>Category</th><th>Title</th><th>Year</th>
+								<th>Certificate</th><th>Book details</th><th>Upload URL</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.books.map((books, index) => (
+								<tr key={index}>
+									<td>{books?.authorship}</td>
+									<td>{books?.category}</td>
+									<td>{books?.title}</td>
+									<td>{books?.year}</td>
+									<td><a href={books?.Certificate} download>View upload document</a></td>
+									<td>{books?.bookdetails}</td>
+									<td><a href={books?.uploadUrl} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				) : (
-				<p>No books available.</p>
+					<p>No books available.</p>
 				)}
 			</div>
 			<p><strong>16. Guidance details:</strong></p>
 			<div className="guidance-body">
 				{user.appraisal?.research?.guidance?.length > 0 ? (
-					user.appraisal.research.guidance.map((guidance, index) => (
-						<div key={index}>
-							<h4>Guidance {index + 1}</h4>
-							<p><strong>Category:</strong> {guidance?.category}</p>
-							<p><strong>Student Details:</strong> {guidance?.studentdetails}</p>
-							<p><strong>Uploaded file:</strong> <a href={guidance?.studentupload} download>View upload document</a></p>
-							<p><strong>Start date:</strong> {guidance?.startdate}</p>
-							<p><strong>End date:</strong> {guidance?.enddate}</p>
-							<p><strong>Name:</strong> {guidance?.name}</p>
-							<p><strong>Title:</strong> {guidance?.title}</p>
-							<p><strong>Publish Status:</strong> {guidance?.publishstatus}</p>
-							<p><strong>Year:</strong> {guidance?.year}</p>
-							<p><strong>Amount:</strong> {guidance?.Amount}</p>
-							<p><strong>Grant Name:</strong> {guidance?.GrantName}</p>
-							<p><strong>Funded Status:</strong> {guidance?.FundedStatus}</p>
-							<p><strong>Agency Name:</strong> {guidance?.AgencyName}</p>
-							<p><strong>Synopsis:</strong> <a href={guidance?.synopsis} download>View upload document</a></p>
-							<p><strong>Thesis:</strong> <a href={guidance?.thesis} download>View upload document</a></p>
-							<p><strong>Report:</strong> <a href={guidance?.report} download>View upload document</a></p>
-						</div>
-					))
+					<table>
+						<thead>
+							<tr>
+								<th>Category</th><th>Student Details</th><th>Uploaded file</th>
+								<th>Start date</th><th>End date</th><th>Name</th>
+								<th>Title</th><th>Publish Status</th><th>Year</th>
+								<th>Amount</th><th>Grant Name</th><th>Funded Status</th><th>Agency Name</th>
+								<th>Synopsis</th><th>Thesis</th><th>Report</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.guidance.map((guidance, index) => (
+								<tr key={index}>
+									<td>{guidance?.category}</td>
+									<td>{guidance?.studentdetails}</td>
+									<td><a href={guidance?.studentupload} download>View upload document</a></td>
+									<td>{guidance?.startdate}</td>
+									<td>{guidance?.enddate}</td>
+									<td>{guidance?.name}</td>
+									<td>{guidance?.title}</td>
+									<td>{guidance?.publishstatus}</td>
+									<td>{guidance?.year}</td>
+									<td>{guidance?.Amount}</td>
+									<td>{guidance?.GrantName}</td>
+									<td>{guidance?.FundedStatus}</td>
+									<td>{guidance?.AgencyName}</td>
+									<td><a href={guidance?.synopsis} download>View upload document</a></td>
+									<td><a href={guidance?.thesis} download>View upload document</a></td>
+									<td><a href={guidance?.report} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				) : (
 					<p>No guidance data available</p>
 				)}
@@ -207,20 +261,30 @@ const UserDetail = ({ params }) => {
 			<p><strong>17. Conferences details:</strong></p>
 			<div className="conference-details">
 				{user.appraisal?.research?.conferences?.length > 0 ? (
-					user.appraisal.research.conferences.map((conference, index) => (
-						<div key={index}>
-							<h4>Conference {index + 1}</h4>
-							<p><strong>Category:</strong> {conference?.category}</p>
-							<p><strong>Conference Name:</strong> {conference?.confname}</p>
-							<p><strong>Year:</strong> {conference?.year}</p>
-							<p><strong>Details:</strong> {conference?.details}</p>
-							<p><strong>Conference type:</strong> {conference?.type}</p>
-							<p><strong>Place of the conference:</strong> {conference?.place}</p>
-							<p><strong>Awards:</strong> {conference?.awards}</p>
-							<p><strong>Awards Description:</strong> {conference?.description}</p>
-							<p><strong>Attachment:</strong> <a href={conference?.Attachment} download>View upload document</a></p>
-						</div>
-					))
+					<table>
+						<thead>
+							<tr>
+								<th>Category</th><th>Conference Name</th><th>Year</th>
+								<th>Details</th><th>Conference type</th><th>Place of the conference</th>
+								<th>Awards</th><th>Awards Description</th><th>Attachment</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.conferences.map((conference, index) => (
+								<tr key={index}>
+									<td>{conference?.category}</td>
+									<td>{conference?.confname}</td>
+									<td>{conference?.year}</td>
+									<td>{conference?.details}</td>
+									<td>{conference?.type}</td>
+									<td>{conference?.place}</td>
+									<td>{conference?.awards}</td>
+									<td>{conference?.description}</td>
+									<td><a href={conference?.Attachment} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				) : (
 					<p>No conference data available</p>
 				)}
@@ -230,44 +294,85 @@ const UserDetail = ({ params }) => {
 				<p><strong>18. Clinical Duty</strong></p>
 				<div className="clinical-duty-body">
 					{user.appraisal?.professional?.clinicalDuty ? (
-						<div>
-							<p><strong>Number of patients:</strong> {user.appraisal?.professional?.clinicalDuty?.Patients}</p>
-							<p><strong>Minor Procedures:</strong> {user.appraisal?.professional?.clinicalDuty?.minorProcedures}</p>
-							<p><strong>Major Procedures:</strong> {user.appraisal?.professional?.clinicalDuty?.majorProcedures}</p>
-							<p><strong>Clinical Duty File:</strong> <a href={user.appraisal?.professional?.clinicalDuty?.clinicalDutyFile} download>View upload document</a></p>
-						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Number of patients</th><th>Minor Procedures</th>
+									<th>Major Procedures</th><th>Clinical Duty File</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{user.appraisal?.professional?.clinicalDuty?.Patients}</td>
+									<td>{user.appraisal?.professional?.clinicalDuty?.minorProcedures}</td>
+									<td>{user.appraisal?.professional?.clinicalDuty?.majorProcedures}</td>
+									<td><a href={user.appraisal?.professional?.clinicalDuty?.clinicalDutyFile} download>View upload document</a></td>
+								</tr>
+							</tbody>
+						</table>
 					) : (
 						<p>No clinical duty data available</p>
-					)}	
+					)}
 				</div>
 				<p><strong>19. Post held</strong></p>
 				<div className="post-held-body">
 					{user.appraisal?.professional?.postHeld ? (
-						<div>
-							<p><strong>Category:</strong> {user.appraisal?.professional?.postHeld?.category}</p>
-							<p><strong>Post held File:</strong> <a href={user.appraisal?.professional?.postHeld?.postHeldFile} download>View upload document</a></p>
-						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Category</th><th>Post held File</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{user.appraisal?.professional?.postHeld?.category}</td>
+									<td><a href={user.appraisal?.professional?.postHeld?.postHeldFile} download>View upload document</a></td>
+								</tr>
+							</tbody>
+						</table>
 					) : (
-						<p>No teaching data available</p>
+						<p>No post held data available</p>
 					)}
 				</div>
 				<p><strong>20. Exam Duties</strong></p>
 				<div className="exam-duties-body">
-					{user.appraisal?.professional?.examDuties?.map((examDuties, index) => (
-						<div key={index+1}>
-							<p><strong>Category 1:</strong> {examDuties?.category1}</p>
-							<p><strong>Category 2:</strong> {examDuties?.category2}</p>
-							<p><strong>Exam duty File:</strong> <a href={examDuties?.examDutyFile} download>View upload document</a></p>
-						</div>
-					))}
+					{user.appraisal?.professional?.examDuties?.length > 0 ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Category 1</th><th>Category 2</th><th>Exam Duty File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.examDuties.map((examDuties, index) => (
+									<tr key={index + 1}>
+										<td>{examDuties?.category1}</td>
+										<td>{examDuties?.category2}</td>
+										<td><a href={examDuties?.examDutyFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					) : (
+						<p>No exam duties data available</p>
+					)}
 				</div>
 				<p><strong>21. Coordinator Duties</strong></p>
 				<div className="coordinator-duties-body">
 					{user.appraisal?.professional?.coordinatorDuty ? (
-						<div>
-							<p><strong>Category:</strong> {user?.appraisal?.professional?.coordinatorDuty?.category}</p>
-							<p><strong>Coordinator duty File:</strong> <a href={user?.appraisal?.professional?.coordinatorDuty?.coordinatorDutyFile} download>View upload document</a></p>
-						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Category</th><th>Coordinator duty File</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{user?.appraisal?.professional?.coordinatorDuty?.category}</td>
+									<td><a href={user?.appraisal?.professional?.coordinatorDuty?.coordinatorDutyFile} download>View upload document</a></td>
+								</tr>
+							</tbody>
+						</table>
 					) : (
 						<p>No coordinator duties available</p>
 					)}
@@ -275,13 +380,22 @@ const UserDetail = ({ params }) => {
 				<p><strong>22. Committee Duties</strong></p>
 				<div className="committe-duties-body">
 					{user.appraisal?.professional?.committee?.length > 0 ? (
-						user.appraisal.professional.committee.map((committee, index) => (
-							<div key={index}>
-								<p><strong>Committee Name:</strong> {committee?.committeeName}</p>
-								<p><strong>Destination:</strong> {committee?.destination}</p>
-								<p><strong>Committee File:</strong> <a href={committee?.committeeFile} download>View upload document</a></p>
-							</div>
-						))
+						<table>
+							<thead>
+								<tr>
+									<th>Committee Name</th><th>Destination</th><th>Committee File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.committee.map((committee, index) => (
+									<tr key={index}>
+										<td>{committee?.committeeName}</td>
+										<td>{committee?.destination}</td>
+										<td><a href={committee?.committeeFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					) : (
 						<p>No committee data available</p>
 					)}
@@ -289,13 +403,22 @@ const UserDetail = ({ params }) => {
 				<p><strong>23. Conferences</strong></p>
 				<div className="conferences-body">
 					{user.appraisal?.professional?.conference?.length > 0 ? (
-						user.appraisal.professional.conference.map((conference, index) => (
-							<div key={index}>
-								<p><strong>Designation:</strong> {conference?.designation}</p>
-								<p><strong>Credit Points:</strong> {conference?.creditPoints}</p>
-								<p><strong>Conference File:</strong> <a href={conference?.conferenceFile} download>View upload document</a></p>
-							</div>
-						))
+						<table>
+							<thead>
+								<tr>
+									<th>Designation</th><th>Credit Points</th><th>Conference File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.conference.map((conference, index) => (
+									<tr key={index}>
+										<td>{conference?.designation}</td>
+										<td>{conference?.creditPoints}</td>
+										<td><a href={conference?.conferenceFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					) : (
 						<p>No conference data available</p>
 					)}
@@ -303,20 +426,28 @@ const UserDetail = ({ params }) => {
 				<p><strong>24. Guest Lectures</strong></p>
 				<div className="guest-lectures-body">
 					{user.appraisal?.professional?.guestLectures?.length > 0 ? (
-						user.appraisal.professional.guestLectures.map((guestLectures, index) => (
-							<div key={index}>
-								<p><strong>Number:</strong> {guestLectures?.number}</p>
-								<p><strong>Category:</strong> {guestLectures?.category}</p>
-								<p><strong>Guest Lecture File:</strong> <a href={guestLectures?.guestLecturesFile} download>View upload document</a></p>
-							</div>
-						))
+						<table>
+							<thead>
+								<tr>
+									<th>Number</th><th>Category</th><th>Guest Lecture File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.guestLectures.map((guestLectures, index) => (
+									<tr key={index}>
+										<td>{guestLectures?.number}</td>
+										<td>{guestLectures?.category}</td>
+										<td><a href={guestLectures?.guestLecturesFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					) : (
 						<p>No guest lectures data available</p>
 					)}
 				</div>
-
+			</div>
 		</div>
-	</div>
 	</div>
 	);
 };
