@@ -444,7 +444,7 @@ function SelectComponent({
 }) {
 	if (typeof options[0] == "string") {
 		return (
-			<select name={name} onChange={onChange} defaultValue={defaultValue}>
+			<select name={name} onChange={onChange} defaultValue={defaultValue} title="Select an option">
 			{options.map((option) => (
 				<option key={option} value={option}>
 					{option}

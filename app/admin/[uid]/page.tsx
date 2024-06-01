@@ -60,8 +60,23 @@ const UserDetail = ({ params }) => {
 					<p><strong>3. Designation:</strong> {user?.profile?.designation}</p>
 					<div className="margin-body">
 						<p><strong>a. Appointment order:</strong> <a href={user?.profile?.attachment} download>View upload document</a></p>
-						<p><strong>b. Department:</strong> {user?.profile?.department}</p><p><strong>d. Aadhar No:</strong> {user?.profile?.aadharNo}</p>
-						<p><strong>c. Experience:</strong> {user?.profile?.experience}</p>
+						<p><strong>b. Department:</strong> {user?.profile?.department}</p>
+						<p><strong>c. Experience:</strong></p>
+						{user?.profile?.experience && user?.profile?.experience.length > 0 ? (
+							user?.profile?.experience.map((exp, index) => (
+							<div key={index}>
+								<p><strong>Designation:</strong> {exp.designation}</p>
+								<p><strong>Department:</strong> {exp.department}</p>
+								<p><strong>Institution:</strong> {exp.institution}</p>
+								<p><strong>From:</strong> {exp.from ? new Date(exp.from).toLocaleDateString() : 'N/A'}</p>
+								<p><strong>To:</strong> {exp.to ? new Date(exp.to).toLocaleDateString() : 'N/A'}</p>
+								<p><strong>Total Duration:</strong> {exp.total}</p>
+							</div>
+							))
+						) : (
+							<p>No experience information available.</p>
+						)}
+						<p><strong>d. Aadhar No:</strong> {user?.profile?.aadharNo}</p>
 					</div>
 					<p><strong>4. Residencial Adderss:</strong> {user?.profile?.residentialAddress}</p>
 					<p><strong>5. Aadhar No:</strong> {user?.profile?.aadharNo}</p>
@@ -72,7 +87,21 @@ const UserDetail = ({ params }) => {
 					</div>
 					<p><strong>7. Date of joining:</strong> {user?.profile?.dateOfJoining}</p>
 					<p><strong>8. Joining Letter:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
-					<p><strong>9. Educational Qualification:</strong> {user?.profile?.educationalQualification}</p>	
+					<p><strong>c. Experience:</strong></p>
+					{user?.profile?.experience && user.profile.experience.length > 0 ? (
+						user.profile.experience.map((exp, index) => (
+						<div key={index}>
+							<p><strong>Designation:</strong> {exp.designation}</p>
+							<p><strong>Department:</strong> {exp.department}</p>
+							<p><strong>Institution:</strong> {exp.institution}</p>
+							<p><strong>From:</strong> {exp.from ? new Date(exp.from).toLocaleDateString() : 'N/A'}</p>
+							<p><strong>To:</strong> {exp.to ? new Date(exp.to).toLocaleDateString() : 'N/A'}</p>
+							<p><strong>Total Duration:</strong> {exp.total}</p>
+						</div>
+						))
+					) : (
+						<p>No experience information available.</p>
+					)}
 					<p><strong>10. Passport No:</strong> {user?.profile?.passportNo}</p>
 					<p><strong>11. KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
 				</div>

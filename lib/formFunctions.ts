@@ -93,19 +93,92 @@ export async function getInput(type: string) {
       },
       {
         name: 'educationalQualification',
-        type: 'text',
+        type: 'object',
         label: 'Educational Qualification',
         required: false,
+        fields: [
+          {
+            name: 'degree',
+            type: 'select',
+            label: 'Degree',
+            options: ["MBBS","MD/MS","DM/MCh","PhD"],
+            required: true,
+          },
+          {
+            name: 'year',
+            type: 'number',
+            label: 'Year',
+            min: 1800,
+            max: 2150,
+            required: true,
+            default: 2024
+          },
+          {
+            name: 'collegeName',
+            type: 'text',
+            label: 'College Name',
+            required: false,
+          },
+          {
+            name: 'regNumWithDate',
+            type: 'text',
+            label: 'Registration Number with Date',
+            required: false,
+          },
+          {
+            name: 'medicalCouncilName',
+            type: 'text',
+            label: 'Medical Council Name',
+            required: false,
+          },
+        ],
       },
       {
         name: 'experience',
-        type: 'text',
+        type: 'object',
         label: 'Experience',
         required: false,
+        fields: [
+          {
+            name: 'designation',
+            type: 'select',
+            label: 'Designation',
+            options: ["Junior Resident","Senior Resident","Demonstrator","Tutor", "Asst. Professor", "Assoc. Professor", "Professor"],
+            required: true,
+          },
+          {
+            name: 'department',
+            type: 'text',
+            label: 'Department',
+            required: false,
+          },
+          {
+            name: 'institution',
+            type: 'text',
+            label: 'Institution',
+            required: false,
+          },
+          {
+            name: 'from',
+            type: 'date',
+            label: 'From',
+            required: false,
+          },
+          {
+            name: 'to',
+            type: 'date',
+            label: 'To',
+            required: false,
+          },
+          {
+            name: 'total',
+            type: 'text',
+            label: 'Total Duration',
+            required: false,
+          },
+        ],
       },
-    ]
-    ,
-
+    ],
     researchPublications: [
       {
         name: 'title',
