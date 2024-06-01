@@ -37,7 +37,7 @@ export default function Appraisal() {
             <Scorepage />
         </div>
       </div>
-      <script src="/js/dashboard.js" defer></script>
+      {/* <script src="/js/dashboard.js" defer></script> */}
     </>
   );
 }

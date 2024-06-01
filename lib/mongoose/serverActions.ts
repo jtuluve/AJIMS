@@ -88,7 +88,7 @@ export async function handleUpsertAny(formData: FormData) {
     researchGuidance: mongomethods.upsertResearchGuidance,
     researchConferences: mongomethods.upsertResearchConference,
 
-    academicsTeaching: mongomethods.updateAcademicsTeaching,
+    academicsTeaching: mongomethods.upsertAcademicsTeaching,
 
     professionalClinicalDuty: mongomethods.updateProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.updateProfessionalPostHeld,
