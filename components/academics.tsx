@@ -145,7 +145,7 @@ export default function Academics() {
 						/>
 						<p>
 							{fileUploadError ? (
-								<span style={{ color: "white" }}>Error in file uplaod</span>
+								<span style={{ color: "red" }}>Error in file uplaod</span>
 							) : filePerc > 0 && filePerc < 100 ? (
 								<span
 									style={{ color: "white" }}

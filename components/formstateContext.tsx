@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 
 export const formContext = createContext({})
 export default function FormstateContextProvider({children}){
-  const [formState, setFormState]: [formState: { type?, _id?, data? }, setFormState:any] = useState({type:"",_id:""});
+  const [formState, setFormState]= useState<{type?:string, _id?:string, data?}>({type:"",_id:""});
   return(
     <formContext.Provider value={{formState,setFormState}}>
       {children}
