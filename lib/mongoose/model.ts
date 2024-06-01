@@ -46,10 +46,10 @@ const PublicationsSchema = new mongoose.Schema({
       'Institutional‌',
       'Nil'
     ],
-    required: true,
+    required: false,
     default: 'Nil',
   },
-  postheld:{type: String, required: true},
+  postheld:{type: String, required: false},
   doi: { type: String, required: false },
   authorship: {
     type: String,
@@ -70,8 +70,8 @@ const PublicationsSchema = new mongoose.Schema({
 const grantsSchema = new mongoose.Schema({
   title: { type: String },
   agency: { type: String, default: 0 },
-  startyear: { type: Date, required: true },
-  endyear: { type: Date, required: true },
+  startyear: { type: Number, required: false, default: 2023 },
+  endyear: { type: Number, required: false , default: 2023 },
   utCert: { type: String, required: false },
   workpub: { type: String, 
     enum: [
@@ -114,10 +114,10 @@ const booksSchema = new mongoose.Schema({
     enum: ['Nil', 'National', 'International'],
     default: 'Nil',
   },
-  title: {type: String, required: true},
-  year: {type: Date, required: true},
+  title: {type: String, required: false},
+  year: {type: Number, required: false, default: 2023},
   Certificate: { type: String, required: false },
-  bookdetails: { type: String, required: true },
+  bookdetails: { type: String, required: false },
   uploadUrl: { type: String, required: false },
   default: {}
 })
@@ -125,18 +125,18 @@ const booksSchema = new mongoose.Schema({
 //Define guidance schema
 const guidanceSchema = new mongoose.Schema({
   category: { type: String, enum: ['UG', 'PG', 'PHD', 'Nil'], default: 'Nil' },
-  studentdetails: { type: String, required: true },
-  studentupload: { type: String, required: true},
-  startdate: { type: Date, required: true },
-  enddate: { type: Date, required: true },
-  name: { type:String, required: true  },
-  title: { type:String, required: true },
-  publishstatus: { type:String,enum: ['Yes','No'], required: true},
-  year: { type:String, required: true },
+  studentdetails: { type: String, required: false },
+  studentupload: { type: String, required: false},
+  startdate: { type: Date, required: false },
+  enddate: { type: Date, required: false },
+  name: { type:String, required: false  },
+  title: { type:String, required: false },
+  publishstatus: { type:String,enum: ['Yes','No'], required: false},
+  year: { type:Number, required: false, default: 2023 },
   Amount: {type:Number, default: 0},
-  GrantName: {type:String, required: true },
+  GrantName: {type:String, required: false },
   Fundedstatus: {type:String, enum: ['Yes','No'],default:'Yes'},
-  AgencyName: {type:String, required: true },
+  AgencyName: {type:String, required: false },
   synopsis: {type:String, required: false},
   thesis: { type: String, required: false },
   report: { type: String, required: false },
@@ -150,41 +150,41 @@ const conferencesSchema = new mongoose.Schema({
   },
   Confname: { 
     type: String, 
-    required: true,
+    required: false,
   },
   year: {
     type: Date,
-    required: true,
+    required: false,
   },
   details: {
     type: String,
-    required: true,
+    required: false,
   },
   attachment: {
     type: String,
-    required: true, 
+    required: false, 
   },
   type: {
     type: String,
     enum: [
       'Poster','Oral','Attending'
     ],
-    required: true,
+    required: false,
   },
   place:{
     type: String,
-    required: true,
+    required: false,
   },
   awards: {
     type:String,
     enum: [
       'Yes','No'
     ],
-    required: true,
+    required: false,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   }
 })
 
@@ -360,8 +360,8 @@ const profileSchema = new mongoose.Schema({
 // Define the User schema
 const userSchema = new mongoose.Schema({
   name: { type: String },
-  email: { type: String, required: true, unique: true },
-  uid: { type: String, required: true, unique: true },
+  email: { type: String, required: false, unique: true },
+  uid: { type: String, required: false, unique: true },
   isAdmin: { type: Boolean, default: false },
   profileUrl: { type: String },
   category: { type: String },

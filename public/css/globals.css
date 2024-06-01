@@ -1,7 +1,27 @@
 body {
     margin: 0;
     padding: 0;
+    position: relative;
+
+    #watermark {
+      display: none;
+    } 
 }
+
+@media print {
+  #watermark {
+    display: block !important;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    color: gray;
+    opacity: 0.3; 
+    font-size: 7rem;
+  }
+}
+
 *{
     transition: all 0.3s ease;
 }
@@ -17,3 +37,4 @@ a:visited {
 button{
     cursor: pointer;
 }
+
