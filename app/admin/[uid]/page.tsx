@@ -87,21 +87,28 @@ const UserDetail = ({ params }) => {
 					</div>
 					<p><strong>7. Date of joining:</strong> {user?.profile?.dateOfJoining}</p>
 					<p><strong>8. Joining Letter:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
-					<p><strong>c. Experience:</strong></p>
-					{user?.profile?.experience && user.profile.experience.length > 0 ? (
-						user.profile.experience.map((exp, index) => (
-						<div key={index}>
-							<p><strong>Designation:</strong> {exp.designation}</p>
-							<p><strong>Department:</strong> {exp.department}</p>
-							<p><strong>Institution:</strong> {exp.institution}</p>
-							<p><strong>From:</strong> {exp.from ? new Date(exp.from).toLocaleDateString() : 'N/A'}</p>
-							<p><strong>To:</strong> {exp.to ? new Date(exp.to).toLocaleDateString() : 'N/A'}</p>
-							<p><strong>Total Duration:</strong> {exp.total}</p>
-						</div>
-						))
-					) : (
-						<p>No experience information available.</p>
-					)}
+					<p><strong>9. Educational Qualifications</strong></p>
+					<div className="education-section">
+					<table>
+						<thead>
+						<tr>
+							<th>Degree</th><th>Year</th><th>College Name</th>
+							<th>Registration Number with Date</th><th>Medical Council Name</th>
+						</tr>
+						</thead>
+						<tbody>
+							{user?.profile?.educationalQualification?.map((educationalQualification, index) => (
+							<tr key={index}>
+							<td>{educationalQualification.degree}</td>
+							<td>{educationalQualification.year}</td>
+							<td>{educationalQualification.collegeName}</td>
+							<td>{educationalQualification.regNumWithDate}</td>
+							<td>{educationalQualification.medicalCouncilName}</td>
+							</tr>
+						))}
+						</tbody>
+					</table>
+					</div>
 					<p><strong>10. Passport No:</strong> {user?.profile?.passportNo}</p>
 					<p><strong>11. KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
 				</div>
@@ -117,7 +124,7 @@ const UserDetail = ({ params }) => {
 		</div>
 		<div className="research-body">
 			<div className="teaching-hours-body">
-    			{user.appraisal?.academics?.teachingArray && user.appraisal.academics.teachingArray.length > 0 ? (
+    			{user.appraisal?.academics?.teaching && user.appraisal.academics.teaching.length > 0 ? (
         			<table>
             			<thead>
                 			<tr>
@@ -128,7 +135,7 @@ const UserDetail = ({ params }) => {
                 			</tr>
             			</thead>
 						<tbody>
-							{user.appraisal.academics.teachingArray.map((teaching, index) => (
+							{user.appraisal.academics.teaching.map((teaching, index) => (
 								<tr key={index}>
 									<td>{teaching.hours}</td>
 									<td><a href={teaching.hourupload} download>View upload document</a></td>
