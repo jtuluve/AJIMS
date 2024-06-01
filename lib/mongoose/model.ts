@@ -46,10 +46,10 @@ const PublicationsSchema = new mongoose.Schema({
       'Institutional',
       'Nil'
     ],
-    required: true,
+    required: false,
     default: 'Nil',
   },
-  postheld:{type: String, required: true, default: 'Nil'},
+  postheld:{type: String, required: false, default: 'Nil'},
   doi: { type: String, required: false },
   authorship: {
     type: String,
@@ -57,7 +57,7 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 'First',
   },
-  uploadUrl: { type: String, default: 'Nil'},
+  uploadUrl: { type: String },
   author: { type: String, required: false, default: "N/A" },
   volume: { type: Number, required: false, default: 0 },
   issue: { type: Number, required: false, default: 0 },
@@ -65,7 +65,7 @@ const PublicationsSchema = new mongoose.Schema({
     type: Number,
     min: [1800, 'Enter a valid year'],
     max: [2150, 'Enter a valid year'],
-    required: true,
+    required: false,
     default: 2024
   },
   pageNo: { type: Number, required: false, default: 0 },
@@ -80,7 +80,7 @@ const grantsSchema = new mongoose.Schema({
     type: Number,
     min: [1800, 'Enter a valid year'],
     max: [2150, 'Enter a valid year'],
-    required: true,
+    required: false,
     default: 2024
   },
   endYear: {
@@ -131,16 +131,16 @@ const booksSchema = new mongoose.Schema({
     enum: ['Nil', 'National', 'International'],
     default: 'Nil',
   },
-  title: {type: String, required: true, default: 'Nil'},
+  title: {type: String, required: false, default: 'Nil'},
   year: {
     type: Number,
     min: [1800, 'Enter a valid year'],
     max: [2150, 'Enter a valid year'],
-    required: true,
+    required: false,
     default: 2024
   },
   certificate: { type: String, required: false },
-  bookdDetails: { type: String, required: true, default: 'Nil' },
+  bookDetails: { type: String, required: false, default: 'Nil' },
   uploadUrl: { type: String, required: false },
   default: {}
 })
@@ -148,22 +148,22 @@ const booksSchema = new mongoose.Schema({
 //Define guidance schema
 const guidanceSchema = new mongoose.Schema({
   category: { type: String, enum: ['UG', 'PG', 'PHD', 'Nil'], default: 'Nil' },
-  studentDetails: { type: String, required: true, default: 'Nil' },
-  studentUpload: { type: String, required: true, default: 'Nil'},
-  startDate: { type: Date, required: true, default: Date.now },
-  endDate: { type: Date, required: true, default: Date.now },
-  name: { type:String, required: true, default: 'Nil'  },
-  title: { type:String, required: true, default: 'Nil' },
-  publishStatus: { type:String, enum: ['Yes','No'], required: true, default: 'Yes'},
+  studentDetails: { type: String, required: false, default: 'Nil' },
+  studentUpload: { type: String, required: false },
+  startDate: { type: Date, required: false, default: Date.now },
+  endDate: { type: Date, required: false, default: Date.now },
+  name: { type:String, required: false, default: 'Nil'  },
+  title: { type:String, required: false, default: 'Nil' },
+  publishStatus: { type:String, enum: ['Yes','No'], required: false, default: 'Yes'},
   year: {
     type: Number,
     min: [1800, 'Enter a valid year'],
     max: [2150, 'Enter a valid year'],
-    required: true,
+    required: false,
     default: 2024
   },
   amount: {type:Number, default: 0},
-  grantName: {type:String, required: true, default: "Nil" },
+  grantName: {type:String, required: false, default: "Nil" },
   fundedStatus: {type:String, enum: ['Yes','No'], default:'Yes'},
   agencyName: {type:String, required: false},
   synopsisUrl: {type:String, required: false},
@@ -179,24 +179,24 @@ const conferencesSchema = new mongoose.Schema({
   },
   confName: { 
     type: String, 
-    required: true,
+    required: false,
     default: 'Nil'
   },
   year: {
     type: Number,
     min: [1800, 'Enter a valid year'],
     max: [2150, 'Enter a valid year'],
-    required: true,
+    required: false,
     default: 2024
   },
   details: {
     type: String,
-    required: true,
+    required: false,
     default: 'Nil'
   },
   attachment: {
     type: String,
-    required: true,
+    required: false,
     default: 'Nil' 
   },
   type: {
@@ -204,12 +204,12 @@ const conferencesSchema = new mongoose.Schema({
     enum: [
       'Poster','Oral','Attending'
     ],
-    required: true,
+    required: false,
     default: 'Poster'
   },
   place:{
     type: String,
-    required: true,
+    required: false,
     default: 'Nil'
   },
   awards: {
@@ -217,12 +217,12 @@ const conferencesSchema = new mongoose.Schema({
     enum: [
       'Yes','No'
     ],
-    required: true,
+    required: false,
     default: 'Yes'
   },
   description: {
     type: String,
-    required: true,
+    required: false,
     default: 'Nil'
   }
 })
@@ -391,8 +391,27 @@ const profileSchema = new mongoose.Schema({
   department: { type: String },
   category: { type: String },
   kmcRegistrationNo: { type: String },
-  educationalQualification: { type: String },
-  experience: { type: String },
+  educationalQualification: [new mongoose.Schema({
+    degree:{ type: String, enum: ["MBBS","MD/MS","DM/MCh","PhD"] },
+    year: {
+      type: Number,
+      min: [1800, 'Enter a valid year'],
+      max: [2150, 'Enter a valid year'],
+      required: true,
+      default: 2024
+    },
+    collegeName: { type: String },
+    regNumWithDate: { type: String },
+    medicalCouncilName: { type: String }
+  })],
+  experience: [new mongoose.Schema({
+    designation:{ type: String, enum: ["Junior Resident","Senior Resident","Demonstratot","Tutor", "Asst. Professor", "Assoc. Professor", "Professor"] },
+    department: { type: String },
+    institution: { type: String },
+    from: { type: Date },
+    to: { type: Date },
+    total: { type: String }
+  })],
   profileUrl: { type: String }
 })
 
