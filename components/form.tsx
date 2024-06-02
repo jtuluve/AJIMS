@@ -2,6 +2,7 @@
 import { getInput } from "@/lib/formFunctions";
 import { handleUpsertAny } from "@/lib/mongoose/serverActions";
 import styles from "@css/form.module.css";
+import tableStyles from "@css/table.module.css";
 import { CSSProperties, ChangeEvent, startTransition, useEffect, useRef, useState } from "react";
 
 import {
@@ -16,7 +17,7 @@ import { useUserData } from "./UserDataContext";
 import { getUserObject } from "@/lib/mongoose/functions";
 import { FileState } from "@/lib/mongoose/interface";
 
-type OtherInput = {
+interface OtherInput {
 	type: string;
 	name: string;
 	label?: string;
@@ -26,19 +27,29 @@ type OtherInput = {
 	tooltip?: string;
 	properties?: Record<any,any>;
 };
-type SelectInput = {
+interface SelectInput {
 	type: "select";
 	name: string;
 	label?: string;
 	required: boolean;
 	default?: string;
 	options: Array<{ label?: string; value: string }>;
-	placeholder: string;
+	placeholder?: string;
 	tooltip?: object;
 };
-type TableInput = {}
 
-type Input = SelectInput | OtherInput;
+type Input = SelectInput | TableInput | OtherInput;
+
+interface TableInput {
+	type: "table";
+	name: string;
+	label?: string;
+	required: boolean;
+	default?: string;
+	inputs: Input[];
+	placeholder?: string;
+	tooltip?: object;
+}
 
 export default function Form({
 	wrapperStyle,
@@ -59,7 +70,7 @@ export default function Form({
     })()
   },[formState?.type])
 	
-	const [inputs, setInputs] = useState<{ status?: string; inputs?: Input[] }>({
+	const [inputs, setInputs] = useState<{ status?: string; inputs?: Array<Input> }>({
 		status: "loading",
 	});
 	const [formStatus, setFormStatus] = useState<{
@@ -73,7 +84,7 @@ export default function Form({
 	// tootip
 	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 	
-	// form upload
+	// file upload
 	const [files, setFiles] = useState<Record<any, FileState>>({});
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
@@ -86,18 +97,30 @@ export default function Form({
 	const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
 	const photoRef = useRef(null);
 
+	//table input state
+	const [tableData, setTableData] = useState<Record<string, Array<any>>>({});
+
 	//All effects
 	useEffect(() => {
 		if (profilePhoto) {
 			setProfilePhotoUrl("");
-			handleFileUpload(profilePhoto, formState?.type);
+			handleFileUpload(profilePhoto, "profileUrl");
 		}
 	}, [profilePhoto]);
 
 	useEffect(()=>{
-		setCanSubmit(true)
-		Object.keys(files)?.forEach( (name)=>{ if(files[name].required && !(files[name].url)) setCanSubmit(false) })
-	},[files])
+		let canSubmit = true;
+		if(!profilePhotoUrl) canSubmit = false;
+		Object.keys(files)?.forEach(name=>{ if(files[name].required && !(files[name].url)) canSubmit = false });
+		Object.keys(tableData)?.forEach(name=>{
+			let tableInput = inputs?.inputs?.find(e=>e.name===name);
+			if(!tableInput) return;
+			tableData[name].forEach(data => {
+				(tableInput as TableInput).inputs?.forEach(input=>{ if(input.required && !(data[input.name])) canSubmit = false })
+			});
+		})
+		setCanSubmit(canSubmit);
+	},[files, tableData, profilePhotoUrl])
 
 	useEffect(() => {
 		setFilePerc(0);
@@ -108,17 +131,16 @@ export default function Form({
 		(async () => {
 			try {
 				const inputs = await getInput(formState?.type);
-				if (formState?._id) {
-					let formData = formState.data;
-					if (!(formData?.profileUrl)) {
-						setProfilePhotoUrl("user.png");
-					}
-					else setProfilePhotoUrl(formData?.profileUrl);
-				} 
+				if (!(formData?.profileUrl)) {
+					setProfilePhotoUrl("user.png");
+				}
+				else setProfilePhotoUrl(formData?.profileUrl);
 				setInputs({ status: "loaded", inputs });
 				let a = inputs?.filter?.((e) => e.type === "file");
 				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
-				if (a?.length == 0) setCanSubmit(true);
+				if (a?.length !== 0) setCanSubmit(false);
+				a = inputs.filter(e=>e.type==="table");
+				a.forEach(e=>setTableData((prev)=>({ ...prev, [e.name]:formData?.[e.name]||[] })));
 			} catch (e) {
 				setInputs({ status: "error" });
 				console.error(e);
@@ -230,6 +252,9 @@ export default function Form({
 					const formData = new FormData(e.currentTarget);
 					Object.keys(files).forEach(filename=>{
 						formData.set(filename, files[filename].url);
+					})
+					Object.keys(tableData).forEach(tableName=>{
+						formData.set(tableName, JSON.stringify(tableData[tableName]));
 					})
 					
 					profilePhotoUrl && formData.append("profileUrl", profilePhotoUrl);
@@ -356,7 +381,7 @@ export default function Form({
 													style={{ color: "white" }}
 												>{`Uploading ${filePerc}%...`}</span>
 											) : filePerc === 100 ? (
-												<span style={{ color: "white" }}>
+												<span style={{ color: wrapperStyle?.["color"] || "white" }}>
 													Profile Photo Succesfully uploaded
 												</span>
 											) : (
@@ -379,7 +404,9 @@ export default function Form({
 									</button>
 								</section>
 							) : e.type === "file" ? (
-								<FileInput input={e} handleFileUpload={handleFileUpload} url={formData?.[e.name]}/>
+								<FileInput color={wrapperStyle?.["color"] || "white"} input={e} handleFileUpload={handleFileUpload} url={formData?.[e.name]}/>
+							) : e.type === "table" ? ( 
+								<InputTable tableName={e.name} setTable={setTableData} inputs={(e as TableInput).inputs}  setCanSubmit={setCanSubmit} values={tableData?.[e.name]||[]}/>
 							) : (
 								<input
 									type={e.type || "text"}
@@ -387,7 +414,7 @@ export default function Form({
 									placeholder={(e as OtherInput).placeholder || " "}
 									required={e.required || false}
 									defaultValue={
-										formData?.[e.name] || e.default || formData?.[e.label] || ""
+										e.type==="date"? formData?.[e.name]?.slice(0, 10) || e.default || "" : formData?.[e.name] || e.default || ""
 									}
 									{...((e as OtherInput)?.properties)}
 								/>
@@ -467,7 +494,7 @@ return (
 }
 
 
-function FileInput({ input, handleFileUpload, url }){
+function FileInput({ input, handleFileUpload, url, color }){
 	const [perc, setPerc] = useState(0);
 
 	return(
@@ -478,9 +505,8 @@ function FileInput({ input, handleFileUpload, url }){
 			onChange={(event) => handleFileUpload(event.target.files[0], input.name, setPerc)}
 			name={input.name}
 			placeholder={input.placeholder || " "}
-			required={input.required || false}
 		/>
-		{url && <a href={url}>download current file</a>}
+		{url && <a href={url}>view current file</a>}
 		<p>
 			{perc===-1 ? (
 				<span style={{ color: "white" }}>
@@ -499,5 +525,114 @@ function FileInput({ input, handleFileUpload, url }){
 			)}
 		</p>
 	</div>
+	)
+}
+
+
+function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tableName:string, inputs: Input[], setTable: (v)=>void, values:Array<any>, setCanSubmit: (v)=>void }){
+	const handleFileUpload = (file, name, percSet?) => {
+		setCanSubmit(false);
+		const storage = getStorage(app);
+		const fileName = Date.now() + file.name;
+		const storageRef = ref(storage, fileName);
+		const uploadTask = uploadBytesResumable(storageRef, file);
+		
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				// if (name === "profileUrl") {
+				// 	setFilePerc(Math.round(progress));
+				// } else {
+					percSet(Math.round(progress));
+				// }
+			},
+			(error) => {
+				console.log(error);
+				percSet(-1);
+			},
+			() => {
+				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+					// if (name === "profileUrl") {
+					// 	// setProfilePhotoUrl(downloadURL);
+					// } else {
+					// 	setFiles((prevFiles) => ({
+					// 		...prevFiles,
+					// 		[name]: { ...file[name], url: downloadURL, message: "Uploaded" }
+					// 	}));
+					// }
+					setTable((prev)=>({
+						...prev, tableName:{...prev[tableName], [name]: downloadURL}
+					}))
+				});
+			}
+		);
+	};
+	
+	return(
+		<table>
+			<tr>
+				{inputs.map((input:any)=><td>{input.label}</td>)}
+				<th>actions</th>
+			</tr>
+			{
+				values.map?.((value:any, index)=>
+					<tr key={index}>
+						{inputs.map((input:any)=>
+							<td>
+								{
+									input.type === "file" ?
+										<FileInput color={"gray"} handleFileUpload={handleFileUpload} input={input} url={value[input.name]}/>
+									: input.type === "select" ?
+									<SelectComponent
+										name={input.name}
+										options={input.options}
+										defaultValue={
+											value?.[input.name] || value?.[input.label] || input.default || ""
+										}
+										placeholder={input.placeholder}
+										onChange={(event)=>{
+											values[index][input.name] = event.target.value;
+											setTable(prev=>({...prev}));
+										}}
+									/>
+									:
+									<input
+										type={input.type || "text"}
+										name={input.name}
+										placeholder={input.placeholder || " "}
+										required={input.required || false}
+										defaultValue={
+											value?.[input.name] || value?.[input.label] || input.default || ""
+										}
+										onChange={(event)=>{
+											values[index][input.name] = event.target.value;
+											setTable(prev=>({...prev}));
+										}}
+										{...(input.properties)}
+									/>
+								}
+							</td>
+							
+						)}
+						<td>
+							<button onClick={(e)=>{
+								e.preventDefault();
+								setTable(prev=>({...prev, [tableName]:[...prev[tableName].slice(0,index), ...prev[tableName].slice(index+1)]}));
+							}}>Delete</button>
+						</td>
+					</tr>
+				)
+			}
+			<tr>
+				<td>
+					<button onClick={(e)=>{
+							console.log("clicked");
+							e.preventDefault();
+							setTable(prev=>({...prev, [tableName]:[...prev[tableName],{}]}));
+						}}>Add</button>
+				</td>
+			</tr>
+		</table>
 	)
 }
