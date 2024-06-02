@@ -16,7 +16,7 @@ import { useUserData } from "./UserDataContext";
 import { getUserObject } from "@/lib/mongoose/functions";
 import { FileState } from "@/lib/mongoose/interface";
 
-type otherInput = {
+type OtherInput = {
 	type: string;
 	name: string;
 	label?: string;
@@ -26,7 +26,7 @@ type otherInput = {
 	tooltip?: string;
 	properties?: Record<any,any>;
 };
-type selectInput = {
+type SelectInput = {
 	type: "select";
 	name: string;
 	label?: string;
@@ -36,8 +36,9 @@ type selectInput = {
 	placeholder: string;
 	tooltip?: object;
 };
+type TableInput = {}
 
-type input = selectInput | otherInput;
+type Input = SelectInput | OtherInput;
 
 export default function Form({
 	wrapperStyle,
@@ -58,7 +59,7 @@ export default function Form({
     })()
   },[formState?.type])
 	
-	const [inputs, setInputs] = useState<{ status?: string; inputs?: input[] }>({
+	const [inputs, setInputs] = useState<{ status?: string; inputs?: Input[] }>({
 		status: "loading",
 	});
 	const [formStatus, setFormStatus] = useState<{
@@ -285,11 +286,11 @@ export default function Form({
 							{e.type === "select" ? (
 								<SelectComponent
 									name={e.name}
-									options={(e as selectInput).options}
+									options={(e as SelectInput).options}
 									defaultValue={
 										formData?.[e.name] || formData?.[e.label] || e.default || ""
 									}
-									placeholder={(e as selectInput).placeholder}
+									placeholder={(e as SelectInput).placeholder}
                   onChange={(event)=>{
                    if(formData?.[e.name]) formData[e.name] = event.target.value;
                    if(formData?.[e.label]) formData[e.label] = event.target.value;
@@ -342,7 +343,7 @@ export default function Form({
 												setProfilePhoto(e.target.files[0]);
 											}}
 											name={e.name}
-											placeholder={(e as otherInput).placeholder || " "}
+											placeholder={(e as OtherInput).placeholder || " "}
 											required={e.required || false}
 										/>
 										<p style={{ textAlign: "center" }}>
@@ -378,17 +379,17 @@ export default function Form({
 									</button>
 								</section>
 							) : e.type === "file" ? (
-								<FileInput input={e} handleFileUpload={handleFileUpload}/>
+								<FileInput input={e} handleFileUpload={handleFileUpload} url={formData?.[e.name]}/>
 							) : (
 								<input
 									type={e.type || "text"}
 									name={e.name}
-									placeholder={(e as otherInput).placeholder || " "}
+									placeholder={(e as OtherInput).placeholder || " "}
 									required={e.required || false}
 									defaultValue={
 										formData?.[e.name] || e.default || formData?.[e.label] || ""
 									}
-									{...((e as otherInput)?.properties)}
+									{...((e as OtherInput)?.properties)}
 								/>
 							)}
 						</span>
@@ -466,7 +467,7 @@ return (
 }
 
 
-function FileInput({ input, handleFileUpload }){
+function FileInput({ input, handleFileUpload, url }){
 	const [perc, setPerc] = useState(0);
 
 	return(
@@ -479,6 +480,7 @@ function FileInput({ input, handleFileUpload }){
 			placeholder={input.placeholder || " "}
 			required={input.required || false}
 		/>
+		{url && <a href={url}>download current file</a>}
 		<p>
 			{perc===-1 ? (
 				<span style={{ color: "white" }}>
@@ -496,7 +498,6 @@ function FileInput({ input, handleFileUpload }){
 				""
 			)}
 		</p>
-		{}
 	</div>
 	)
 }
