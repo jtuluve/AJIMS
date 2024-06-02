@@ -569,70 +569,105 @@ function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tabl
 		);
 	};
 	
-	return(
-		<table>
-			<tr>
-				{inputs.map((input:any)=><td>{input.label}</td>)}
-				<th>actions</th>
-			</tr>
-			{
-				values.map?.((value:any, index)=>
-					<tr key={index}>
-						{inputs.map((input:any)=>
-							<td>
-								{
-									input.type === "file" ?
-										<FileInput color={"gray"} handleFileUpload={handleFileUpload} input={input} url={value[input.name]}/>
-									: input.type === "select" ?
-									<SelectComponent
-										name={input.name}
-										options={input.options}
-										defaultValue={
-											value?.[input.name] || value?.[input.label] || input.default || ""
-										}
-										placeholder={input.placeholder}
-										onChange={(event)=>{
-											values[index][input.name] = event.target.value;
-											setTable(prev=>({...prev}));
-										}}
-									/>
-									:
-									<input
-										type={input.type || "text"}
-										name={input.name}
-										placeholder={input.placeholder || " "}
-										required={input.required || false}
-										defaultValue={
-											value?.[input.name] || value?.[input.label] || input.default || ""
-										}
-										onChange={(event)=>{
-											values[index][input.name] = event.target.value;
-											setTable(prev=>({...prev}));
-										}}
-										{...(input.properties)}
-									/>
-								}
-							</td>
-							
-						)}
-						<td>
-							<button onClick={(e)=>{
+	return (
+		<div className={tableStyles["table"]} style={{overflow:"auto"}}>
+			<div
+				className={tableStyles["table-header"]}
+				style={{
+					gridTemplateColumns: `repeat(${inputs.length}, calc(100%/${inputs.length} - 50px/${inputs.length})) 50px`,
+				}}
+			>
+				{inputs.map((input: any) => (
+					<h4 key={input.name} style={{fontSize:"small"}}>{input.label}</h4>
+				))}
+			</div>
+			{values.map?.((value: any, index) => (
+				<div
+					key={index} 
+					className={tableStyles["table-row"]}
+					style={{
+						gridTemplateColumns: `repeat(${inputs.length}, calc(100%/${inputs.length} - 50px/${inputs.length})) 50px`,
+					}}
+				>
+					{inputs.map((input: any) => (
+						<span style={{minWidth:"25px"}}>
+							{input.type === "file" ? (
+								<FileInput
+									color={"gray"}
+									handleFileUpload={handleFileUpload}
+									input={input}
+									url={value[input.name]}
+								/>
+							) : input.type === "select" ? (
+								<SelectComponent
+									name={input.name}
+									options={input.options}
+									defaultValue={
+										value?.[input.name] ||
+										value?.[input.label] ||
+										input.default ||
+										""
+									}
+									placeholder={input.placeholder}
+									onChange={(event) => {
+										values[index][input.name] = event.target.value;
+										setTable((prev) => ({ ...prev }));
+									}}
+								/>
+							) : (
+								<input
+									type={input.type || "text"}
+									name={input.name}
+									placeholder={input.placeholder || " "}
+									required={input.required || false}
+									defaultValue={
+										value?.[input.name] ||
+										value?.[input.label] ||
+										input.default ||
+										""
+									}
+									onChange={(event) => {
+										values[index][input.name] = event.target.value;
+										setTable((prev) => ({ ...prev }));
+									}}
+									{...input.properties}
+								/>
+							)}
+						</span>
+					))}
+					<span>
+						<button
+							className={tableStyles["remove"]}
+							onClick={(e) => {
 								e.preventDefault();
-								setTable(prev=>({...prev, [tableName]:[...prev[tableName].slice(0,index), ...prev[tableName].slice(index+1)]}));
-							}}>Delete</button>
-						</td>
-					</tr>
-				)
-			}
-			<tr>
-				<td>
-					<button onClick={(e)=>{
-							console.log("clicked");
+								setTable((prev) => ({
+									...prev,
+									[tableName]: [
+										...prev[tableName].slice(0, index),
+										...prev[tableName].slice(index + 1),
+									],
+								}));
+							}}
+						>
+							<i className="material-symbols-outlined">delete</i>
+						</button>
+					</span>
+				</div>
+			))}
+			<div className={tableStyles["addRowBtnDiv"]}>
+					<button
+						style={{ gridColumn: `${Math.round(inputs.length / 2)}` }}
+						onClick={(e) => {
 							e.preventDefault();
-							setTable(prev=>({...prev, [tableName]:[...prev[tableName],{}]}));
-						}}>Add</button>
-				</td>
-			</tr>
-		</table>
-	)
+							setTable((prev) => ({
+								...prev,
+								[tableName]: [...prev[tableName], {}],
+							}));
+						}}
+					>
+						Add
+					</button>
+			</div>
+		</div>
+	);
 }
