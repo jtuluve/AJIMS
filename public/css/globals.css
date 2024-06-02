@@ -30,9 +30,6 @@ a{
     text-decoration: none;
 }
 
-a:visited {
-    color: blue;
-}
 
 button{
     cursor: pointer;
