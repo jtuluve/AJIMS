@@ -412,142 +412,85 @@ const PrintDetails = ({ params }) => {
                         </tbody>
                     </table>
                 </div>
-                <div>
                 <p><strong>22. Oral presentations:</strong></p>
-                <div>
-                    <div className="conference-details">
-                        <p>Zonal Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in zonal conferences available</td>
+                <div className="conference-details">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Conference Name</th>
+                                <th>Year</th>
+                                <th>Details</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {user?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').length > 0 ? (
+                                user.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').map((conference, index) => (
+                                    <tr key={index}>
+                                        <td>{conference.category}</td>
+                                        <td>{conference.confName}</td>
+                                        <td>{conference.year}</td>
+                                        <td>{conference.details}</td>
+                                        <td>{conference.type}</td>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>State Conference</p>
-                        <table>
-                            <thead>
+                                ))
+                            ) : (
                                 <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
+                                    <td colSpan={5}>No oral presentations in zonal conferences available</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in state conferences available</td>
+                            )}
+                            {user?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Oral').length > 0 ? (
+                                user.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Oral').map((conference, index) => (
+                                    <tr key={index}>
+                                        <td>{conference.category}</td>
+                                        <td>{conference.confName}</td>
+                                        <td>{conference.year}</td>
+                                        <td>{conference.details}</td>
+                                        <td>{conference.type}</td>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>National Conference</p>
-                        <table>
-                            <thead>
+                                ))
+                            ) : (
                                 <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
+                                    <td colSpan={5}>No oral presentations in state conferences available</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in national conferences available</td>
+                            )}
+                            {user?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Oral').length > 0 ? (
+                                user.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Oral').map((conference, index) => (
+                                    <tr key={index}>
+                                        <td>{conference.category}</td>
+                                        <td>{conference.confName}</td>
+                                        <td>{conference.year}</td>
+                                        <td>{conference.details}</td>
+                                        <td>{conference.type}</td>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>International Conference</p>
-                        <table>
-                            <thead>
+                                ))
+                            ) : (
+                               <tr>
+                                    <td colSpan={5}>No oral presentations in national conferences available</td>
+                                </tr>
+                            )}
+                            {user?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Oral').length > 0 ? (
+                                user.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Oral').map((conference, index) => (
+                                    <tr key={index}>
+                                        <td>{conference.category}</td>
+                                        <td>{conference.confName}</td>
+                                        <td>{conference.year}</td>
+                                        <td>{conference.details}</td>
+                                        <td>{conference.type}</td>
+                                    </tr>
+                                ))
+                            ) : (
                                 <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
+                                    <td colSpan={5}>No oral presentations in international conferences available</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in international conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
                 <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>{/**object varification needed*/}
                 <div>
                     <div className="conference-details">
-                        <p>Zonal Conference</p>
                         <table>
                             <thead>
                                 <tr>
@@ -574,23 +517,6 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in zonal conferences available</td>
                                     </tr>
                                 )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>State Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                                 {user?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Poster').length > 0 ? (
                                     user.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Poster').map((conference, index) => (
                                         <tr key={index}>
@@ -606,23 +532,6 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in state conferences available</td>
                                     </tr>
                                 )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>National Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                                 {user?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Poster').length > 0 ? (
                                     user.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Poster').map((conference, index) => (
                                         <tr key={index}>
@@ -638,23 +547,6 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in national conferences available</td>
                                     </tr>
                                 )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>International Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                                 {user?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Poster').length > 0 ? (
                                     user.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Poster').map((conference, index) => (
                                         <tr key={index}>
