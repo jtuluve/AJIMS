@@ -125,6 +125,9 @@ async function defaultUser() {
       user.appraisal.professional.guestLectures || []
     user.appraisal.professional.fileUrl = user.appraisal.professional.fileUrl || ''
     user.appraisal.overallScore = user.appraisal.overallScore || {}
+    user.profile = user.profile || {}
+    user.profile.educationalQualification = Array.isArray(user.profile.educationalQualification) ? user.profile.educationalQualification : [];
+    user.profile.experience = Array.isArray(user.profile.experience) ? user.profile.experience : [];
     user.save()
     return true
   } catch(err) {
@@ -194,7 +197,9 @@ export async function updateProfile(profile, uid?) {
   try {
     await initializeDb()
     uid = uid || (await getUid())
-    if (!verifyUid(uid)) throw new Error('Invalid UID')
+    if (!verifyUid(uid)) throw new Error('Invalid UID');
+    profile.experience = JSON.parse(profile.experience);
+    profile.educationalQualification = JSON.parse(profile.educationalQualification);
     await User.findOneAndUpdate({ uid }, {...profile,profile}); //updating both universal and inner profile property
     return true
   } catch (err) {
