@@ -138,6 +138,7 @@ export default function Professional() {
 						column={3}
 						values={userData?.appraisal?.professional?.conferences}
 					/>
+					
 					<a className="name3">Guest Lectures</a>
 					<Table
 						type="professionalGuestLectures"
@@ -147,6 +148,14 @@ export default function Professional() {
 						values={userData?.appraisal?.professional?.guestLectures}
 					/>
 
+					<a className="name3">Achievements</a>
+					<Table
+						type="professionalAchievements"
+						header_row={["Serial No", "year", "information"]}
+						keys={["serialNo", "year", "information"]}
+						column={3}
+						values={userData?.appraisal?.professional?.achievements}
+					/>
 					<div className="btn-container" id="hiddenButton">
 						<button
 							type="button"

@@ -86,7 +86,7 @@ const UserDetail = ({ params }) => {
 						<p><strong>b. Email address:</strong> {user.email}</p>	
 					</div>
 					<p><strong>7. Date of joining:</strong> {user?.profile?.dateOfJoining}</p>
-					<p><strong>8. Joining Letter:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+					<p><strong>8. Joining Letter:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
 					<p><strong>9. Educational Qualifications</strong></p>
 					<div className="education-section">
 					<table>
