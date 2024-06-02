@@ -95,8 +95,8 @@ const PrintDetails = ({ params }) => {
                     </div>
                 </div>
                 <div id="signatures">
-                    <div style={{ color: "#131D38" }}>Signature of the Faculty</div>
-                    <div style={{ color: "#131D38" }}>Signature & Seal of the Dean</div>
+                    <div>Signature of the Faculty</div>
+                    <div>Signature & Seal of the Dean</div>
                 </div>
             </div>
             <div className="page2">
@@ -126,7 +126,7 @@ const PrintDetails = ({ params }) => {
                         Programme (CISP - i/ii/iii), Advanced Course in Medical Education (ACME) for training in MET:
                     </strong>
                     {user?.profile?.appearance?.status}
-                </p>{/**varaible needed */}
+                </p>
                 <div className="smalltext">
                     <p>
                         (If Yes, provide certificate/s)
