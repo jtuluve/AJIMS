@@ -2,705 +2,490 @@
 
 import { useState, useEffect } from "react";
 import { useAdminData } from "@/components/adminContext";
-import '@css/print[uid].css'
+import '@css/admin[uid].css'
 import "@css/admin.css";
 
-const PrintDetails = ({ params }) => {
+const UserDetail = ({ params }) => {
+	const { uid } = params;
+	const { allUsers } = useAdminData();
+	const [user, setUser] = useState(null);
 
-    const { uid } = params;
-    const { allUsers } = useAdminData();
-    const [user, setUser] = useState(null);
+	useEffect(() => {
+		if (allUsers.length > 0) {
+			const fetchedUser = allUsers.find((unitUser) => unitUser.uid === uid);
+			setUser(fetchedUser);
+		}
+	}, [allUsers, uid]);
 
-    const internationalCount = user?.appraisal?.research?.publications?.filter(
-        (publication: any) => publication.category === 'International'
-    ).length;
+	if (!user) {
+		return <div>Loading...</div>;
+	}
 
-    const nationalCount = user?.appraisal?.research?.publications?.filter(
-        (publication: any) => publication.category === 'National'
-    ).length;
-
-    const stateInstitutionalCount = user?.appraisal?.research?.publications?.filter(
-        (publication: any) => publication.category === 'State/Institutional'
-    ).length;
-    const booksPublished = user?.appraisal?.books?.length || 0;
-    let totalChapters = 0;
-    user?.appraisal?.books?.forEach((book: any) => {
-        totalChapters += book.chapters.length;
-    });
-
-
-    useEffect(() => {
-        if (allUsers.length > 0) {
-            const fetchedUser = allUsers.find((unitUser) => unitUser.uid === uid);
-            setUser(fetchedUser);
-        }
-    }, [allUsers, uid]);
-
-    if (!user) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div className="page-container">
-            <div className="page1">
-                <center><h1>Factulty/ SR/ Tutor/ Demonstrator Declaration Form</h1></center>
-                <p><strong>Name of the college: </strong>{user?.profile?.collegeName}</p>{/**Variable needed*/}
-                <table>
-                    <thead>
-                        <th>Submission date:</th>
-                        <th>_ _/_ _/_ _</th>
-                    </thead>
-                </table>
-                <div className="smalltext">
-                    <p>
-                        <strong>Note:</strong>
-                        It is the responsibility of the Dean to ensure that the submitted Declaration form 
-                        is ONLY of a Faculty member who is working as a full-time employee of the college
-                    </p>
-                </div>
-                <div>
-                    <p><strong>1. Name of Faculty:</strong>{user?.profile?.name}</p>
-                    <p><strong>2. Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob}</p>
-                    <p><strong>3. Present Designation:</strong>{user?.profile?.designation}</p>
-                    <div className="designation-section">
-                        <p><strong>a. Appointment order:</strong>Certified copy of order at this institue attached: {user?.profile?.appointmentorderstatus}</p>{/**Variable needed*/}
-                        <p><strong>b. Department:</strong> {user?.profile?.department}</p>
-                        <p><strong>c. College/ Institute:</strong>{user?.profile?.institutename}</p>{/**Variable needed*/}
-                        <p><strong>d. City/ District:</strong>{user?.profile?.cityname}</p>{/**Variable needed*/}
-                        <p><strong>e. Appointment: </strong></p>{/**Variable needed*/}
-                        <div className="appontment-section">
-                            <p><strong>(i). Regular/ Contractual/ Ad-hoc basis: </strong>{user?.profile?.appointmenttype1}</p>{/**Variable needed*/}
-                            <p><strong>(ii). Full time/ Part time : </strong>{user?.profile?.appointmenttype2}</p>{/**Variable needed*/}
-                            <p><strong>(iii). With Private practice/ Without Private practice: </strong>{user?.profile?.appointmenttype3}</p>{/**Variable needed*/}        
-                        </div>
-                        <p><strong>f. Date of appearance in last MCI/ NMC assessment: </strong></p>{/**Object declaration needed*/}
-                        <div className="date-section">
-                            <p><strong>i. UG/ PG/ Any other: </strong>{user?.profile?.ugpgname}</p>
-                            <p><strong>ii. Name of College:</strong>{user?.profile?.college}</p>
-                            <p><strong>iii. Whether appeared and accepted at the same College:</strong>{user?.profile?.sameclgacpt}</p>
-                            <p><strong>iv. Whether appeared and accepted at the same designation:</strong>{user?.profile?.samedestacpt}</p>
-                            <p><strong>v. Whether retired from Government Medical College:</strong>{user?.profile?.retiredstatus}</p>
-                            <p><strong>vi. If yes, designation at the time of retirement:</strong>{user?.profile?.retiredestination}</p>
-                        </div>
-                        <section id="signatures">
-                            <div style={{ color: "#131D38" }}>Signature of the Faculty</div>
-                            <div style={{ color: "#131D38" }}>Signature & Seal of the Dean</div>
-                        </section>
-                    </div>
-                </div>
-            </div>  
-
-            <div className="page2">
-                <p><strong>4. Complete Residential Address of the employee:</strong></p>
-                <div className="address-section">
-                    <p><strong>a. Present:</strong>{user?.profile?.residentialAddress}</p>{/**varaible needed */}
-                    <p><strong>b. Permanent:</strong>{user?.profile?.perAddress}</p>{/**varaible needed */}
-                </div>
-                <p><strong>5. Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceproofstatus}</p>{/**variable needed */}
-                <div className="smalltext">
-                    <p>
-                        (Only copies of Passport/ Aadhar card/ Voter ID/ Electricty bill/ Landline Phone bill will be considered)
-                    </p>
-                </div>
-                <p><strong>6. Contact details:</strong></p>
-                <div className="contact-section">
-                    <p><strong>a. Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>{/**varaible needed */}
-                    <p><strong>b. Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>{/**varaible needed */}
-                    <p><strong>c. Mobile Phone Number: </strong>{user?.profile?.phoneNo}</p>
-                    <p><strong>d. Email address:</strong> {user.email}</p>
-                </div>
-                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining}</p>
-                <p><strong>8. Joining report verified the present/ attached</strong>{user?.profile?.joiningstatus}</p>{/**varaible needed */}
-                <p>
-                    <strong>
-                        9. Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
-                        Programme (CISP - i/ii/iii), Advanced Course in Medical Education (ACME) for training in MET:
-                    </strong>
-                    {user?.profile?.appearance?.status}
-                </p>{/**varaible needed */}
-                <div className="smalltext">
-                    <p>
-                        (If Yes, provide certificate/s)
-                    </p>
-                </div>
-                <div className="workshopattened-section">
-                    <p><strong>a. at MCI/NMC Regional MET Centre:</strong>{user?.profile?.appearance?.center}</p>{/**varaible needed */}
-                    <p><strong>b. at your college under Regional/ Nodal observership :</strong>{user?.profile?.appearance?.observership}</p>{/**varaible needed */}
-                    <p><strong>c. Any other MET certificates may be attached :</strong>{user?.profile?.appearance?.certs}</p>{/**varaible needed */}
-                </div>
-                <p><strong>10. Educational Qualifications</strong></p>
-                <div className="education-section">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Degree</th><th>Year</th><th>College Name</th>
-                                <th>Registration Number with Date</th><th>Medical Council Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {user?.profile?.educationalQualification?.map((educationalQualification, index) => (
-                                <tr key={index}>
-                                    <td>{educationalQualification.degree}</td>
-                                    <td>{educationalQualification.year}</td>
-                                    <td>{educationalQualification.collegeName}</td>
-                                    <td>{educationalQualification.regNumWithDate}</td>
-                                    <td>{educationalQualification.medicalCouncilName}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmssubject}</p>{/**varaible needed */}
-                    <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchsubject}</p>{/**varaible needed */}
-                    <p><strong>c. PhD subject:</strong>{user?.profile?.phdsubject}</p>{/**varaible needed */}
-                </div>
-                <div className="smalltext">
-                    <p>
-                        <strong>Note:</strong>
-                        For PG & Post PG qualifications, Particulars of Registation of Additional Qualification certificates
-                        are to be furnished for them to be accepted. Strike out whichever section is not applicable 
-                    </p>
-                </div>                
-            </div>
-
-            <div className="page3">
-                <p><strong>11. Copies of educational qualifications:</strong></p>  
-                <div className="qualifications-section">
-                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certupload}</p>{/**Variable needed!*/}
-                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regupload}</p>{/**Variable needed!*/}
-                </div> 
-                <p><strong>12. Details of Teaching experience till date:</strong></p>
-                <div className="teaching-section">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Designation</th><th>Department</th><th>Institution</th>
-                                <th>From</th><th>To</th><th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {user?.appraisal?.academics?.teaching?.length > 0 ? (
-                                    user?.appraisal?.academics?.teaching?.map((experience, index) => (
-                                            <tr key={index}>
-                                                <td>{experience.designation}</td>
-                                                <td>{experience.department}</td>
-                                                <td>{experience.institution}</td>
-                                                <td>{experience.from}</td>
-                                                <td>{experience.to}</td>
-                                                <td>{experience.total}</td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan={6}>No data available</td>
-                                        </tr>
-                                    )
-                                }
-                        </tbody>
-                    </table>
-                </div>
-                <div className="just-text-section">
-                    <p>To be filled in by personnel from Indian Defence Service ONLY:</p>
-                    <table>
-                        <thead>
-                            <th>Designation</th>
-                            <th>Institution</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Total</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Graded Specialist</td>
-                                <td></td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>__(y)__(m)</td>
-                            </tr>
-                            <tr>
-                                <td>Classified Specialist</td>
-                                <td></td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>__(y)__(m)</td>
-                            </tr>
-                            <tr>
-                                <td>Advisor</td>
-                                <td></td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>__(y)__(m)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p><strong>* Note: Documents in support of each posting to be furnished for verification</strong></p>
-                </div>
-                <p>
-                    <strong>
-                        13. Have you been considered in UG/ PG, MCI/ NMC inspection at any other 
-                        medical college ina teaching or administrative capacity during last 3 years. 
-                        If yes, please give details:
-                    </strong>
-                </p>{/**object creation needed */}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Designtion</th><th>Subject</th><th>College</th><th>Dates</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {user?.profile?.inspectionDetails?.length > 0 ? (
-                            user?.profile?.inspectionDetails?.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{item.designation}</td>
-                                    <td>{item.subject}</td>
-                                    <td>{item.college}</td>
-                                    <td>{item.dates}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={4}>No data available</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-                <p>
-                    <strong>14. Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc
-                        taken and topics covered in last academic year (attach additional sheet, if required)
-                    </strong>
-                </p>{/**object creation needed! */}
-                <div className="number section">
-                    <table>
-                        <thead>
-                            <th>Designation</th><th>Date</th><th>Lecture/ SGT/ Clinic/ others</th><th>Topic</th>
-                        </thead>
-                        <tbody>
-                            {user?.profile?.numberoflectures?.length > 0 ? (
-                            user?.profile?.numberoflectures?.map((numberoflectures, index) => (
-                                <tr key={index}>
-                                    <td>{numberoflectures.sno}</td>
-                                    <td>{numberoflectures.date}</td>
-                                    <td>{numberoflectures.type}</td>
-                                    <td>{numberoflectures.topic}</td>
-                                </tr>
-                            ))
-                            ) : (
-                            <tr>
-                                <td colSpan={4}>No data available</td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                </div>
-            </div> 
-
-            <div className="page4">
-                <p><strong>15. Details of employment before joining the present institution:</strong></p>{/**object declaration needed*/}
-                <div className="details-section">
-                    <p><strong>a. Name of College/ Institution:</strong>{user?.profile?.details?.name}</p>
-                    <p><strong>b. Designation:</strong>{user?.profile?.details?.designation}<strong>Date on which relieved:</strong>{user?.profile?.details?.date}</p>
-                    <p><strong>c. Reason for being relieved: </strong>{user?.profile?.details?.relievereason}</p>
-                    <p><strong>d. Relieving order issued by previous institution verified and attached:</strong>{user?.profile?.details?.verification}</p>
-                </div>
-                <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>{/**variable needed*/}
-                <p><strong>17. Aadhar Card Number:</strong>{user?.profile?.aadharNo}</p>
-                <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/**object creation needed*/}
-                <div className="enoluments-section">
-                <table>
-                    <thead>
-                        <tr><th>Month/Year</th><th>Amount Received</th><th>TDS</th></tr>
-                    </thead>
-                    <tbody>
-                        {user?.profile?.emoluments?.length > 0 ? (
-                            user?.profile?.emoluments?.map((emoluments, index) => (
-                                <tr key={index}>
-                                    <td>{user?.profile?.emoluments.month}/{user?.profile?.emoluments.year}</td>
-                                    <td>{user?.profile?.emoluments.amount}</td>
-                                    <td>{user?.profile?.emoluments.tds}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={3}>No emoluments data available</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-                </div>
-                <p><strong>19. Number of Research articles in Indexed Journals:</strong></p>
-                <div className="research-section">
-                    <p><strong>a. International Journals: </strong>{internationalCount || 0}</p>
-                    <p><strong>b. National Journals: </strong>{nationalCount || 0}</p>
-                    <p><strong>c. State/Institutional Journals: </strong>{stateInstitutionalCount || 0}</p>
-                </div>
-                <p><strong>20. Details of other publications:</strong></p>
-                <div className='publication-section'>
-                    <p><strong>a. Number of Books published: </strong>{booksPublished || 0}</p>
-                    <p><strong>b. Number of Chapters in books: </strong>{totalChapters || 0}</p>
-                </div>
-                </div>
-
-                <div className="page5">
-                <p><strong>21. Any other information/ achievements/ patents:</strong></p>
-                <div className="patent-section">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Patent Country</th><th>Patent Number</th><th>Type</th><th>Date</th><th>Details of the inventor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {user?.research?.patent?.length > 0 ? (
-                        user?.research?.patent?.map((patent, index) => (
-                            <tr key={index}>
-                                <td>{patent.patentcountry}</td>
-                                <td>{patent.patentnumber}</td>
-                                <td>{patent.patenttype}</td>
-                                <td>{patent.Date}</td>
-                                <td>
-                                    {patent.detailsofinventor && patent.detailsofinventor.length > 0 ? (
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Number</th><th>Name</th><th>Institute</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {patent.detailsofinventor.map((detailsofinventor, i) => (
-                                                    <tr key={i}>
-                                                        <td>{detailsofinventor.number}</td>
-                                                        <td>{detailsofinventor.name}</td>
-                                                        <td>{detailsofinventor.institute}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    ) : (
-                                        <td colSpan={5}>No inventor information available</td>
-                                    )}
-                                </td>
-                            </tr>
-                        ))):(
-                            <tr>
-                                <td colSpan={5}>No Patent information available</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-                </div>
-                <div className="achievements-section">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Serial No</th><th>Year</th><th>Information</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {user?.professional?.achievements?.length > 0 ? (
-                                user.professional?.achievements.map((achievements, index) => (
-                                    <tr key={index}>
-                                        <td>{achievements.serialNo}</td>
-                                        <td>{achievements.year}</td>
-                                        <td>{achievements.information}</td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan={3}>No achievements data available</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-                <p><strong>22. Oral presentations:</strong></p>
-                <div>
-                    <div className="conference-details">
-                        <p>Zonal Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in zonal conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>State Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in state conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>National Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in national conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>International Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Oral').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Oral').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No oral presentations in international conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                </div>
-                <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>{/**object varification needed*/}
-                <div>
-                    <div className="conference-details">
-                        <p>Zonal Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No Poster presentations in zonal conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>State Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Poster').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No Poster presentations in state conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>National Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Poster').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No Poster presentations in national conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="conference-details">
-                        <p>International Conference</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Poster').map((conference, index) => (
-                                        <tr key={index}>
-                                            <td>{conference.category}</td>
-                                            <td>{conference.confName}</td>
-                                            <td>{conference.year}</td>
-                                            <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={5}>No Poster presentations in international conferences available</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>                
-                <p><strong>24. Awards/ prizes:</strong></p>{/**awards object/variable needed*/}
-                <div className="awards-section">
-                    <table>
-                    <thead>
-                        <tr>
-                        <th>Awards</th><th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {user?.research?.conference?.awards?.length > 0 ? (
-                        user.research.conference?.awards.map((awards, index) => (
-                            <tr key={index}>
-                                <td>{user.research.conference?.awards}</td>
-                                <td>{user.research.conference?.description}</td>
-                            </tr>
-                        ))
-                        ) : (
-                        <tr>
-                            <td colSpan={2}>No awards/prizes available</td>
-                        </tr>
-                        )}
-                    </tbody>
-                    </table>
-                </div>
-            </div>        
-        </div>
-    );
+	return (
+	<div className="amdminpage">
+		<div className="titlebar">
+				<a className="web-name">AJIMS Employment Management</a>
+				<a
+					title="home"
+					className="material-symbols-outlined logout"
+					href="/admin"
+				>
+					logout
+				</a>
+		</div>
+		<div className="user-detail">
+		<div>
+			<h1>Faculty Details</h1>
+			<div className="scores-container">
+				<div className="score-card">
+					<p>Research score</p>
+					<p><strong>Score:</strong> {user.appraisal?.research?.score?.score}</p>
+					<p><strong>Category:</strong> {user.appraisal?.research?.score?.category}</p>
+				</div>
+				<div className="score-card">
+					<p>Academics score</p>
+					<p><strong>Score:</strong> {user.appraisal?.academics?.score?.score}</p>
+					<p><strong>Category:</strong> {user.appraisal?.academics?.score?.category}</p>
+				</div>
+				<div className="score-card">
+					<p>Professional score</p>
+					<p><strong>Score:</strong> {user.appraisal?.professional?.score?.score}</p>
+					<p><strong>Category:</strong> {user.appraisal?.professional?.score?.category}</p>
+				</div>
+			</div>
+			<div className="profile-container">
+				<div className="basic-info">
+					<p><strong>1. Name of the Faculty:</strong> {user?.profile?.name}</p>
+					<p><strong>2. Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob}</p>
+					<p><strong>3. Designation:</strong> {user?.profile?.designation}</p>
+					<div className="margin-body">
+						<p><strong>a. Appointment order:</strong> <a href={user?.profile?.attachment} download>View upload document</a></p>
+						<p><strong>b. Department:</strong> {user?.profile?.department}</p>
+						<p><strong>c. Experience:</strong></p>
+						{user?.profile?.experience && user?.profile?.experience.length > 0 ? (
+							user?.profile?.experience.map((exp, index) => (
+							<div key={index}>
+								<p><strong>Designation:</strong> {exp.designation}</p>
+								<p><strong>Department:</strong> {exp.department}</p>
+								<p><strong>Institution:</strong> {exp.institution}</p>
+								<p><strong>From:</strong> {exp.from ? new Date(exp.from).toLocaleDateString() : 'N/A'}</p>
+								<p><strong>To:</strong> {exp.to ? new Date(exp.to).toLocaleDateString() : 'N/A'}</p>
+								<p><strong>Total Duration:</strong> {exp.total}</p>
+							</div>
+							))
+						) : (
+							<p>No experience information available.</p>
+						)}
+						<p><strong>d. Aadhar No:</strong> {user?.profile?.aadharNo}</p>
+					</div>
+					<p><strong>4. Residencial Adderss:</strong> {user?.profile?.residentialAddress}</p>
+					<p><strong>5. Aadhar No:</strong> {user?.profile?.aadharNo}</p>
+					<p><strong>6. Contact Details:</strong></p>
+					<div className="margin-body">
+						<p><strong>a. Phone no:</strong> {user?.profile?.phoneNo}</p>
+						<p><strong>b. Email address:</strong> {user.email}</p>	
+					</div>
+					<p><strong>7. Date of joining:</strong> {user?.profile?.dateOfJoining}</p>
+					<p><strong>8. Joining Letter:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+					<p><strong>9. Educational Qualifications</strong></p>
+					<div className="education-section">
+					<table>
+						<thead>
+						<tr>
+							<th>Degree</th><th>Year</th><th>College Name</th>
+							<th>Registration Number with Date</th><th>Medical Council Name</th>
+						</tr>
+						</thead>
+						<tbody>
+							{user?.profile?.educationalQualification?.map((educationalQualification, index) => (
+							<tr key={index}>
+							<td>{educationalQualification.degree}</td>
+							<td>{educationalQualification.year}</td>
+							<td>{educationalQualification.collegeName}</td>
+							<td>{educationalQualification.regNumWithDate}</td>
+							<td>{educationalQualification.medicalCouncilName}</td>
+							</tr>
+						))}
+						</tbody>
+					</table>
+					</div>
+					<p><strong>10. Passport No:</strong> {user?.profile?.passportNo}</p>
+					<p><strong>11. KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
+				</div>
+				<div className="profile-photo">
+					<img
+						src={user?.profileUrl}
+						alt="upload profile url"
+						height={120}
+						width={100}
+					/>
+				</div>
+			</div>			
+		</div>
+		<div className="research-body">
+			<div className="teaching-hours-body">
+    			{user.appraisal?.academics?.teaching && user.appraisal.academics.teaching.length > 0 ? (
+        			<table>
+            			<thead>
+                			<tr>
+                    			<th>Teaching Hours</th><th>Attachment</th><th>Clinical Hours</th>
+								<th>Attachment</th><th>Students Feedback</th><th>Attachment</th>
+                    			<th>Resource material</th><th>Attachment</th><th>Public Awareness Writeup</th>
+								<th>Attachment</th><th>CC</th><th>Attachment</th>
+                			</tr>
+            			</thead>
+						<tbody>
+							{user.appraisal.academics.teaching.map((teaching, index) => (
+								<tr key={index}>
+									<td>{teaching.hours}</td>
+									<td><a href={teaching.hourupload} download>View upload document</a></td>
+									<td>{teaching.clinicalHours}</td>
+									<td><a href={teaching.clinicalHoursupload} download>View upload document</a></td>
+									<td>{teaching.studentsFeedback}</td>
+									<td><a href={teaching.studentsFeedbackupload} download>View upload document</a></td>
+									<td>{teaching.resourceMaterial}</td>
+									<td><a href={teaching.resourceMaterialupload} download>View upload document</a></td>
+									<td>{teaching.publicAwarenessWriteup}</td>
+									<td><a href={teaching.publicAwarenessWriteupupload} download>View upload document</a></td>
+									<td>{teaching.cc}</td>
+									<td><a href={teaching.ccupload} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+        		</table>
+				) : (
+					<p>No teaching data available</p>
+				)}
+			</div>
+			<p><strong>13. Publication details:</strong></p>
+			<div className="publication-body">
+				{user.appraisal?.research?.publications?.length > 0 ? (
+					<table>
+						<thead>
+						<tr>
+							<th>Title</th><th>Author</th><th>Journal Name</th>
+							<th>Volume</th><th>Issue</th><th>Page No</th>
+							<th>Year</th><th>Quartile</th><th>Index</th>
+							<th>Category</th><th>Post held</th><th>DOI</th>
+							<th>Authorship</th><th>Upload URL</th>
+						</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.publications.map((publication, index) => (
+								<tr key={index}>
+									<td>{publication?.title}</td>
+									<td>{publication?.author}</td>
+									<td>{publication?.journalName}</td>
+									<td>{publication?.volume}</td>
+									<td>{publication?.issue}</td>
+									<td>{publication?.pageNo}</td>
+									<td>{publication?.year}</td>
+									<td>{publication?.quartile}</td>
+									<td>{publication?.index}</td>
+									<td>{publication?.CategoryP}</td>
+									<td>{publication?.postheld}</td>
+									<td>{publication?.doi}</td>
+									<td>{publication?.authorship}</td>
+									<td><a href={publication?.uploadUrl} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				) : (
+					<p>No publication data available</p>
+				)}
+			</div>
+			<p><strong>14. Grant details:</strong></p>
+			<div className="grant-body">
+				{user.appraisal?.research?.grants?.length > 0 ? (
+					<table>
+						<thead>
+							<tr>
+								<th>Title</th><th>Agency</th><th>Start year</th><th>End year</th>
+								<th>Received</th><th>Utilization Certificate</th>
+								<th>Work Published</th><th>Amount Category</th><th>Upload URL</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.grants.map((grant, index) => (
+								<tr key={index}>
+									<td>{grant?.title}</td>
+									<td>{grant?.agency}</td>
+									<td>{grant?.startyear}</td>
+									<td>{grant?.endyear}</td>
+									<td>{grant?.recieved}</td>
+									<td>{grant?.utCert}</td>
+									<td>{grant?.workpub}</td>
+									<td>{grant?.amountCategory}</td>
+									<td><a href={grant?.file} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				) : (
+					<p>No grant data available</p>
+				)}
+			</div>
+			<p><strong>15. Books details:</strong></p>
+			<div className="books-details">
+				{user.appraisal?.research?.books?.length > 0 ? (
+					<table>
+						<thead>
+							<tr>
+								<th>Authorship</th><th>Category</th><th>Title</th><th>Year</th>
+								<th>Certificate</th><th>Book details</th><th>Upload URL</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.books.map((books, index) => (
+								<tr key={index}>
+									<td>{books?.authorship}</td>
+									<td>{books?.category}</td>
+									<td>{books?.title}</td>
+									<td>{books?.year}</td>
+									<td><a href={books?.Certificate} download>View upload document</a></td>
+									<td>{books?.bookdetails}</td>
+									<td><a href={books?.uploadUrl} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				) : (
+					<p>No books available.</p>
+				)}
+			</div>
+			<p><strong>16. Guidance details:</strong></p>
+			<div className="guidance-body">
+				{user.appraisal?.research?.guidance?.length > 0 ? (
+					<table>
+						<thead>
+							<tr>
+								<th>Category</th><th>Student Details</th><th>Uploaded file</th>
+								<th>Start date</th><th>End date</th><th>Name</th>
+								<th>Title</th><th>Publish Status</th><th>Year</th>
+								<th>Amount</th><th>Grant Name</th><th>Funded Status</th><th>Agency Name</th>
+								<th>Synopsis</th><th>Thesis</th><th>Report</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.guidance.map((guidance, index) => (
+								<tr key={index}>
+									<td>{guidance?.category}</td>
+									<td>{guidance?.studentdetails}</td>
+									<td><a href={guidance?.studentupload} download>View upload document</a></td>
+									<td>{guidance?.startdate}</td>
+									<td>{guidance?.enddate}</td>
+									<td>{guidance?.name}</td>
+									<td>{guidance?.title}</td>
+									<td>{guidance?.publishstatus}</td>
+									<td>{guidance?.year}</td>
+									<td>{guidance?.Amount}</td>
+									<td>{guidance?.GrantName}</td>
+									<td>{guidance?.FundedStatus}</td>
+									<td>{guidance?.AgencyName}</td>
+									<td><a href={guidance?.synopsis} download>View upload document</a></td>
+									<td><a href={guidance?.thesis} download>View upload document</a></td>
+									<td><a href={guidance?.report} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				) : (
+					<p>No guidance data available</p>
+				)}
+			</div>
+			<p><strong>17. Conferences details:</strong></p>
+			<div className="conference-details">
+				{user.appraisal?.research?.conferences?.length > 0 ? (
+					<table>
+						<thead>
+							<tr>
+								<th>Category</th><th>Conference Name</th><th>Year</th>
+								<th>Details</th><th>Conference type</th><th>Place of the conference</th>
+								<th>Awards</th><th>Awards Description</th><th>Attachment</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user.appraisal.research.conferences.map((conference, index) => (
+								<tr key={index}>
+									<td>{conference?.category}</td>
+									<td>{conference?.confname}</td>
+									<td>{conference?.year}</td>
+									<td>{conference?.details}</td>
+									<td>{conference?.type}</td>
+									<td>{conference?.place}</td>
+									<td>{conference?.awards}</td>
+									<td>{conference?.description}</td>
+									<td><a href={conference?.Attachment} download>View upload document</a></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				) : (
+					<p>No conference data available</p>
+				)}
+			</div>
+		</div>		
+		<div className="professional-body">
+				<p><strong>18. Clinical Duty</strong></p>
+				<div className="clinical-duty-body">
+					{user.appraisal?.professional?.clinicalDuty ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Number of patients</th><th>Minor Procedures</th>
+									<th>Major Procedures</th><th>Clinical Duty File</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{user.appraisal?.professional?.clinicalDuty?.Patients}</td>
+									<td>{user.appraisal?.professional?.clinicalDuty?.minorProcedures}</td>
+									<td>{user.appraisal?.professional?.clinicalDuty?.majorProcedures}</td>
+									<td><a href={user.appraisal?.professional?.clinicalDuty?.clinicalDutyFile} download>View upload document</a></td>
+								</tr>
+							</tbody>
+						</table>
+					) : (
+						<p>No clinical duty data available</p>
+					)}
+				</div>
+				<p><strong>19. Post held</strong></p>
+				<div className="post-held-body">
+					{user.appraisal?.professional?.postHeld ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Category</th><th>Post held File</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{user.appraisal?.professional?.postHeld?.category}</td>
+									<td><a href={user.appraisal?.professional?.postHeld?.postHeldFile} download>View upload document</a></td>
+								</tr>
+							</tbody>
+						</table>
+					) : (
+						<p>No post held data available</p>
+					)}
+				</div>
+				<p><strong>20. Exam Duties</strong></p>
+				<div className="exam-duties-body">
+					{user.appraisal?.professional?.examDuties?.length > 0 ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Category 1</th><th>Category 2</th><th>Exam Duty File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.examDuties.map((examDuties, index) => (
+									<tr key={index + 1}>
+										<td>{examDuties?.category1}</td>
+										<td>{examDuties?.category2}</td>
+										<td><a href={examDuties?.examDutyFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					) : (
+						<p>No exam duties data available</p>
+					)}
+				</div>
+				<p><strong>21. Coordinator Duties</strong></p>
+				<div className="coordinator-duties-body">
+					{user.appraisal?.professional?.coordinatorDuty ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Category</th><th>Coordinator duty File</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{user?.appraisal?.professional?.coordinatorDuty?.category}</td>
+									<td><a href={user?.appraisal?.professional?.coordinatorDuty?.coordinatorDutyFile} download>View upload document</a></td>
+								</tr>
+							</tbody>
+						</table>
+					) : (
+						<p>No coordinator duties available</p>
+					)}
+				</div>
+				<p><strong>22. Committee Duties</strong></p>
+				<div className="committe-duties-body">
+					{user.appraisal?.professional?.committee?.length > 0 ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Committee Name</th><th>Destination</th><th>Committee File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.committee.map((committee, index) => (
+									<tr key={index}>
+										<td>{committee?.committeeName}</td>
+										<td>{committee?.destination}</td>
+										<td><a href={committee?.committeeFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					) : (
+						<p>No committee data available</p>
+					)}
+				</div>
+				<p><strong>23. Conferences</strong></p>
+				<div className="conferences-body">
+					{user.appraisal?.professional?.conference?.length > 0 ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Designation</th><th>Credit Points</th><th>Conference File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.conference.map((conference, index) => (
+									<tr key={index}>
+										<td>{conference?.designation}</td>
+										<td>{conference?.creditPoints}</td>
+										<td><a href={conference?.conferenceFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					) : (
+						<p>No conference data available</p>
+					)}
+				</div>
+				<p><strong>24. Guest Lectures</strong></p>
+				<div className="guest-lectures-body">
+					{user.appraisal?.professional?.guestLectures?.length > 0 ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Number</th><th>Category</th><th>Guest Lecture File</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user.appraisal.professional.guestLectures.map((guestLectures, index) => (
+									<tr key={index}>
+										<td>{guestLectures?.number}</td>
+										<td>{guestLectures?.category}</td>
+										<td><a href={guestLectures?.guestLecturesFile} download>View upload document</a></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					) : (
+						<p>No guest lectures data available</p>
+					)}
+				</div>
+			</div>
+		</div>
+	</div>
+	);
 };
 
-export default PrintDetails;
+export default UserDetail;
