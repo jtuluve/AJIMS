@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Table from "./table";
-import Form from "./form";
 import { getRetrieveFunction } from "@/lib/mongoose/serverActions";
 
 import {
@@ -10,23 +9,17 @@ import {
 	uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../app/firebase";
-import { updateProfessionalFileUrl } from "@/lib/mongoose/functions";
+import { deleteProfessionalFileUrl, updateProfessionalFileUrl } from "@/lib/mongoose/functions";
+import { useUserData } from "./UserDataContext";
 
 export default function Professional() {
-	const [formState, setFormState]: [
-		formState: { type?; _id? },
-		setFormState: any
-	] = useState({ type: "", _id: "" });
-
-	function changeFormState(state) {
-		setFormState(state);
-	}
-
+	const { userData } = useUserData();
 	const [fileUrl, setFileUrl] = useState("");
 	const fileRef = useRef(null);
 	//effect to retrieve data
 	useEffect(() => {
 		async function getDataAny() {
+      setFileUrl(undefined)
 			const getFileUrl = await getRetrieveFunction("professionalFileUrl");
 			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
@@ -79,83 +72,79 @@ export default function Professional() {
 	return (
 		<>
 			<div id="professional" className="hidden-section">
-				{formState.type && (
-					<Form
-						formStatusUpdate={changeFormState}
-						type={formState.type}
-						_id={formState._id}
-					/>
-				)}
 				<a className="name2">Professional</a>
 				<hr />
 				<div id="print-section" className="tables">
 					<a className="name3">Clinical Duty</a>
 					<Table
-						header_row={["No. of Patients","Minor Procedures","Major Procedures"]}
-						keys={["patients","minorProcedures","majorProcedures"]}
-						column={3}
+						header_row={[
+							"No. of Patients",
+							"Minor Procedures",
+							"Major Procedures",
+							"Uploads",
+						]}
+						keys={[
+							"patients",
+							"minorProcedures",
+							"majorProcedures",
+							"clinicalDutyFile",
+						]}
+						column={4}
 						type="professionalClinicalDuty"
-						formState={formState}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.professional?.clinicalDuty}
 					/>
 
 					<a className="name3">Post Held</a>
 					<Table
 						type="professionalPostHeld"
-						header_row={["Category"]}
-						keys={["category"]}
-						column={1}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						header_row={["Category", "Uplolads"]}
+						keys={["category", "postHeldFile"]}
+						column={2}
+						values={userData?.appraisal?.professional?.postHeld}
 					/>
 
 					<a className="name3">Exam Duties</a>
 					<Table
 						type="professionalExamDuties"
-						header_row={["Category 1", "Category 2"]}
-						keys={["category1", "category2"]}
-						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						header_row={["Category 1", "Category 2", "Uploads"]}
+						keys={["category1", "category2", "examDutyFile"]}
+						column={3}
+						values={userData?.appraisal?.professional?.examDuties}
 					/>
 
 					<a className="name3">Coordinator Duty</a>
 					<Table
 						type="professionalCoordinatorDuty"
-						header_row={["Category"]}
-						keys={["category"]}
-						column={1}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						header_row={["Category", "Uploads"]}
+						keys={["category", "coordinatorDutyFile"]}
+						column={2}
+						values={userData?.appraisal?.professional?.coordinatorDuty}
 					/>
 
 					<a className="name3">Committee</a>
 					<Table
 						type="professionalCommittee"
-						header_row={["Designation", "Committee Name"]}
-						keys={["designation", "committeeName"]}
-						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						header_row={["Designation", "Committee Name", "Uploads"]}
+						keys={["designation", "committeeName", "committeeFile"]}
+						column={3}
+						values={userData?.appraisal?.professional?.committee}
 					/>
 
 					<a className="name3">Conferences/workshop/CME conducted</a>
 					<Table
 						type="professionalConference"
-						header_row={["Designation", "Credit Points"]}
-						keys={["designation", "creditPoints"]}
-						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						header_row={["Designation", "Credit Points", "Uploads"]}
+						keys={["designation", "creditPoints", "conferenceFile"]}
+						column={3}
+						values={userData?.appraisal?.professional?.conferences}
 					/>
 					<a className="name3">Guest Lectures</a>
 					<Table
 						type="professionalGuestLectures"
-						header_row={["Number", "Category"]}
-						keys={["number", "category"]}
-						column={2}
-						formState={formState}
-						formStatusMethod={changeFormState}
+						header_row={["Number", "Category", "Uploads"]}
+						keys={["number", "category", "guestLecturesFile"]}
+						column={3}
+						values={userData?.appraisal?.professional?.guestLectures}
 					/>
 
 					<div className="btn-container" id="hiddenButton">
@@ -168,11 +157,15 @@ export default function Professional() {
 								const h2 = document.createElement("h2");
 								h2.innerText = userName;
 								parentElement.insertBefore(h2, parentElement.firstChild);
-								document.getElementById("professionalSignatures").style.display = "flex";
+								document.getElementById(
+									"professionalSignatures"
+								).style.display = "flex";
 								document.getElementById("onPrintHidden").hidden = true;
 								window.print();
 								document.getElementById("onPrintHidden").hidden = false;
-								document.getElementById("professionalSignatures").style.display = "none";
+								document.getElementById(
+									"professionalSignatures"
+								).style.display = "none";
 								parentElement.removeChild(h2);
 							}}
 						>
@@ -184,9 +177,22 @@ export default function Professional() {
 								fileRef && fileRef.current.click();
 							}}
 							className="upload-button"
+              disabled={fileUrl === undefined}
 						>
-							{fileUrl ? "Reupload File" : "Upload File"}
+							{fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
 						</button>
+
+            {fileUrl &&
+              <button
+                className="delete-button"
+                onClick={async () => {
+                    await deleteProfessionalFileUrl()
+                    setFileUrl("")
+                }}
+              >
+                Delete file
+              </button>
+            }
 
 						<input
 							hidden
@@ -223,5 +229,4 @@ export default function Professional() {
 			</div>
 		</>
 	);
-
 }

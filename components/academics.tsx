@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import Form from "./form";
 import Table from "./table";
 import { getRetrieveFunction } from "@/lib/mongoose/serverActions";
-import { updateAcademicsFileUrl } from "@/lib/mongoose/functions";
+import { deleteAcademicsFileUrl, updateAcademicsFileUrl } from "@/lib/mongoose/functions";
 
 import {
 	getDownloadURL,
@@ -11,55 +10,47 @@ import {
 	uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../app/firebase";
+import { useUserData} from "./UserDataContext";
 
 export default function Academics() {
-	//states
-	const [formState, setFormState]: [
-		formState: { type?; _id? },
-		setFormState: any
-	] = useState({ type: "", _id: "" });
-
-	function changeFormState(state) {
-		setFormState(state);
-	}
-
+	const {userData} = useUserData();
 	const [fileUrl, setFileUrl] = useState("");
 	const fileRef = useRef(null);
-	//effect to retrieve data
+	
 	useEffect(() => {
 		async function getDataAny() {
+      setFileUrl(undefined)
 			const getFileUrl = await getRetrieveFunction("academicsFileUrl");
 			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
-			// console.log(fileUrl);
 			setFileUrl(fileUrl);
 		}
 		getDataAny();
 	}, []);
-
+	
 	// file upload
 	const [file, setFile] = useState(undefined);
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
-	//effect to handle file state
+
 	useEffect(() => {
 		if (file) {
 			setFileUrl("");
 			handleFileUpload(file);
 		}
 	}, [file]);
-	//method to handle file upload
+
 	const handleFileUpload = (file) => {
 		const storage = getStorage(app);
 		const fileName = new Date().getTime() + file.name;
 		const storageRef = ref(storage, fileName);
 		const uploadTask = uploadBytesResumable(storageRef, file);
-
+		
 		uploadTask.on(
 			"state_changed",
 			(snapshot) => {
 				const progress =
-					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				// console.log(progress);
 				setFilePerc(Math.round(progress));
 			},
@@ -74,19 +65,14 @@ export default function Academics() {
 					await updateAcademicsFileUrl(downloadURL);
 				});
 			}
-		);
-	};
-
-	return (
+			);
+		};
+		
+		if(!userData) return <p style={{color:"white"}}>Failed to load data. Please, signout and signin again.</p>
+		
+		return (
 		<>
 			<div id="academics" className="hidden-section">
-				{formState.type && (
-					<Form
-						formStatusUpdate={changeFormState}
-						type={formState.type || ""}
-						_id={formState._id?.toString?.()}
-					/>
-				)}
 				<a className="name2">Academics</a>
 				<hr />
 				<div id="print-section" className="tables">
@@ -103,7 +89,7 @@ export default function Academics() {
 							"CC"
 						]}
 						keys={["hours", "clinicalHours", "studentsFeedback", "resourceMaterial","publicAwarenessWriteup","cc"]}
-						formStatusMethod={changeFormState}
+						values={userData?.appraisal?.academics?.teaching}
 					/>
 					<div className="btn-container" id="hiddenButton">
 						<button
@@ -126,14 +112,26 @@ export default function Academics() {
 							<span className="print-icon">print</span>
 						</button>
 
-						<button
-							onClick={() => {
-								fileRef && fileRef.current.click();
-							}}
-							className="upload-button"
-						>
-							{fileUrl ? "Reupload File" : "Upload File"}
-						</button>
+            <button
+              onClick={() => {
+                fileRef && fileRef.current.click();
+              }}
+              className="upload-button"
+              disabled={fileUrl === undefined}
+            >
+              {fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
+            </button>
+            {fileUrl &&
+              <button
+                className="delete-button"
+                onClick={async () => {
+                    await deleteAcademicsFileUrl()
+                    setFileUrl("")
+                }}
+              >
+                Delete file
+              </button>
+            }
 
 						<input
 							hidden
@@ -147,7 +145,7 @@ export default function Academics() {
 						/>
 						<p>
 							{fileUploadError ? (
-								<span style={{ color: "white" }}>Error in file uplaod</span>
+								<span style={{ color: "red" }}>Error in file uplaod</span>
 							) : filePerc > 0 && filePerc < 100 ? (
 								<span
 									style={{ color: "white" }}

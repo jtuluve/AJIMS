@@ -76,6 +76,33 @@ body {
   overflow-x: hidden;
 }
 
+
+.menu-container:not(:has(*:target)) .menu  .research {
+  color: black;
+  background: #869fff;
+}
+
+.menu-container:has(#research:target) .menu .research {
+  color: black;
+  background: #869fff;
+}
+
+
+.menu-container:has(#academics:target) .menu .academics {
+  color: black;
+  background: #869fff;
+}
+
+.menu-container:has(#professional:target) .menu .professional {
+  color: black;
+  background: #869fff;
+}
+
+.menu-container:has(#scorepage:target) .menu .scorepage {
+  color: black;
+  background: #869fff;
+}
+
 .profileImg {
   width: 70%;
   aspect-ratio: 1;
@@ -475,16 +502,30 @@ span.print-icon::after {
 	#onPrintHiddenButton * ,
 	#onPrintHiddenRow *,
 	#onPrintHideEdit * {
-		display: none;
+		display: none !important;
 	}
 
   #onPrintScale #professional {
-    zoom: 55%;
+    zoom: 50%;
   }
 
 	@page {
 		size: A4 portrait;
 	}
+
+  html, body {
+    overflow: -webkit-paged-x;
+    overflow: -webkit-paged-y;
+  }
+
+  ::-webkit-scrollbar {
+      display: none;
+  }
+
+  #academics {
+    background: url('https://pngset.com/free/watermark');
+  }
+
 }
 
 
@@ -502,6 +543,33 @@ span.print-icon::after {
 		0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
 	color: #1a202c;
+	display: inline-flex;
+	font-family: Inter, sans-serif;
+	font-size: 1rem;
+	font-weight: 700;
+	height: 56px;
+	justify-content: center;
+	line-height: 24px;
+	overflow-wrap: break-word;
+	padding: 24px;
+	text-decoration: none;
+	width: auto;
+	border-radius: 8px;
+	cursor: pointer;
+  -webkit-user-select:none;
+	user-select: none;
+	touch-action: manipulation;
+  margin-inline: .5rem;
+}
+
+.delete-button {
+	align-items: center;
+  color: white;
+	background: red;
+	border: 0 solid #e2e8f0;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-sizing: border-box;
 	display: inline-flex;
 	font-family: Inter, sans-serif;
 	font-size: 1rem;
