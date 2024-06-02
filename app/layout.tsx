@@ -27,6 +27,7 @@ export default async function RootLayout({
       <body /* className={inter.className} */>
         {/* User session context */}
         <SessionProvider session={session}>{children}</SessionProvider>
+        <div id="watermark">AJIMS</div>
       </body>
     </html>
   );

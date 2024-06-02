@@ -62,7 +62,7 @@ interface Guidance {
   endDate?: Date;
   name?: string;
   title?: string;
-  publishstatus?: "Yes" | "No";
+  publishStatus?: "Yes" | "No";
   year?: number;
   amount?: number;
   grantName?: string;
@@ -86,6 +86,20 @@ interface Conference {
   description?: string;
 }
 
+interface Patent {
+  _id?: string;
+  patentCountry?: string;
+  patentNumber?: number;
+  patentType?: string;
+  title?: string;
+  date?: Date;
+  detailsOfInventors?: {
+    number?: number;
+    name?: string;
+    institute?: string;
+  }[];
+}
+
 // Define the Research schema interface
 interface Research {
   _id?: string;
@@ -95,6 +109,7 @@ interface Research {
   books?: Book[];
   guidance?: Guidance[];
   conferences?: Conference[];
+  patents?: Patent[];
 }
 
 // Define Teaching schema interface
@@ -161,6 +176,12 @@ interface ClinicalDuty {
   majorProcedures?: number;
   clinicalDutyFile?: string;
 }
+interface Achievement {
+  _id?: string;
+  serialNo?: string;
+  year?: number;
+  information?: string;
+}
 
 // Define the professional schema interface
 interface Professional {
@@ -178,6 +199,7 @@ interface Professional {
   committee?: Committee[];
   conferences?: ConferenceSchema[];
   guestLectures?: GuestLecture[];
+  achievements?: Achievement[];
   fileUrl?: string;
 }
 
@@ -190,26 +212,114 @@ interface Appraisal {
   overallScore?: Score;
 }
 
+interface EducationalQualification {
+  degree?: "MBBS" | "MD/MS" | "DM/MCh" | "PhD";
+  year?: number;
+  collegeName?: string;
+  regNumWithDate?: string;
+  medicalCouncilName?: string;
+}
+
+interface Experience {
+  designation?: "Junior Resident" | "Senior Resident" | "Demonstrator" | "Tutor" | "Asst. Professor" | "Assoc. Professor" | "Professor";
+  department?: string;
+  institution?: string;
+  from?: Date;
+  to?: Date;
+  total?: string;
+}
+
+interface Appearance {
+  status?: "Yes" | "No";
+  center?: "Yes" | "No";
+  observership?: "Yes" | "No";
+  certs?: "Yes" | "No";
+  upload?: string; // file 4
+}
+
+interface InspectionDetail {
+  designation?: string;
+  subject?: string;
+  college?: string;
+  dates?: string;
+}
+
+interface Lecture {
+  date?: Date;
+  type?: string;
+  topic?: string;
+}
+
+interface Detail {
+  name?: number;
+  designation?: string;
+  date?: Date;
+  relieveReason?: string;
+  verification?: "Yes" | "No";
+  verificationFile?: string; // file 7
+}
+
+interface Emolument {
+  month?: "Jan" | "Feb" | "Mar" | "Apr" | "May" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Nov" | "Dec";
+  year?: number;
+  amount?: number;
+  tds?: string;
+}
+
 // Define profile schema interface
 interface Profile {
-  _id?: string;
   name?: string;
-  dateOfJoining?: string;
+  dateOfJoining?: Date;
   aadharNo?: number;
   passportNo?: string;
   phoneNo?: number;
   residentialAddress?: string;
-  dob?: string;
-  age?: number; 
+  dob?: Date;
+  age?: number;
   designation?: string;
   attachment?: string;
   department?: string;
   category?: string;
-  kmcRegistrationNo?: number;
-  educationalQualification?: string;
-  experience?: string;
+  kmcRegistrationNo?: string;
+  educationalQualification?: EducationalQualification[];
+  experience?: Experience[];
+  orcIdNo?: string;
   profileUrl?: string;
+  appointmentOrderStatus?: "Yes" | "No";
+  instituteName?: string;
+  cityName?: string;
+  appointmentType1?: "Regular" | "Contractual" | "Ad-hoc basis";
+  appointmentType2?: "Full time" | "Part time";
+  appointmentType3?: "With Private practice" | "Without Private practice";
+  ugpgName?: string;
+  college?: string;
+  sameClgAcpt?: "Yes" | "No";
+  sameDestAcpt?: "Yes" | "No";
+  retiredStatus?: "Yes" | "No";
+  retireDestination?: string;
+  perAddress?: string;
+  residenceProofStatus?: "Yes" | "No";
+  residenceProof?: string; // file 1
+  officeTel?: number;
+  residenceTel?: number;
+  joiningStatus?: "Yes" | "No";
+  joiningReport?: string;
+  joiningLetter?: string;
+  appearance?: Appearance[];
+  mdmsSubject?: string;
+  dmmchSubject?: string;
+  phdSubject?: string;
+  certStatus?: "Yes" | "No";
+  regStatus?: "Yes" | "No";
+  certUpload?: string; // file 5
+  regUpload?: string; // file 6
+  inspectionDetails?: InspectionDetail[];
+  numberOfLectures?: Lecture[];
+  details?: Detail[];
+  panNo?: string;
+  emoluments?: Emolument[];
 }
+
 
 // Define the User schema interface
 export interface UserDocument extends Document {
@@ -231,11 +341,8 @@ export interface AdminContextType {
 }
 
 export interface FileState {
-  file?: File
-  name?: string
-  fileUrl?: string
-  filePerc?: number
-  message?: string
-  error?: Error
+  name: string;
+  required: boolean;
+  url?: string;
 }
 
