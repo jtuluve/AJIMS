@@ -429,7 +429,7 @@ const profileSchema = new mongoose.Schema({
     medicalCouncilName: { type: String }
   })],
   experience: [new mongoose.Schema({
-    designation:{ type: String, enum: ["Junior Resident","Senior Resident","Demonstratot","Tutor", "Asst. Professor", "Assoc. Professor", "Professor"] },
+    designation:{ type: String, enum: ["Junior Resident","Senior Resident","Demonstrator","Tutor", "Asst. Professor", "Assoc. Professor", "Professor"] },
     department: { type: String },
     institution: { type: String },
     from: { type: Date },
@@ -514,8 +514,8 @@ const profileSchema = new mongoose.Schema({
 // Define the User schema
 const userSchema = new mongoose.Schema({
   name: { type: String },
-  email: { type: String, required: true, unique: true },
-  uid: { type: String, required: true, unique: true },
+  email: { type: String, required: false, unique: true },
+  uid: { type: String, required: false, unique: true },
   isAdmin: { type: Boolean, default: false },
   profileUrl: { type: String },
   category: { type: String },

@@ -2,6 +2,7 @@
 import { getInput } from "@/lib/formFunctions";
 import { handleUpsertAny } from "@/lib/mongoose/serverActions";
 import styles from "@css/form.module.css";
+import tableStyles from "@css/table.module.css";
 import { CSSProperties, ChangeEvent, startTransition, useEffect, useRef, useState } from "react";
 
 import {
@@ -16,7 +17,7 @@ import { useUserData } from "./UserDataContext";
 import { getUserObject } from "@/lib/mongoose/functions";
 import { FileState } from "@/lib/mongoose/interface";
 
-type otherInput = {
+interface OtherInput {
 	type: string;
 	name: string;
 	label?: string;
@@ -26,18 +27,29 @@ type otherInput = {
 	tooltip?: string;
 	properties?: Record<any,any>;
 };
-type selectInput = {
+interface SelectInput {
 	type: "select";
 	name: string;
 	label?: string;
 	required: boolean;
 	default?: string;
 	options: Array<{ label?: string; value: string }>;
-	placeholder: string;
+	placeholder?: string;
 	tooltip?: object;
 };
 
-type input = selectInput | otherInput;
+type Input = SelectInput | TableInput | OtherInput;
+
+interface TableInput {
+	type: "table";
+	name: string;
+	label?: string;
+	required: boolean;
+	default?: string;
+	inputs: Input[];
+	placeholder?: string;
+	tooltip?: object;
+}
 
 export default function Form({
 	wrapperStyle,
@@ -58,7 +70,7 @@ export default function Form({
     })()
   },[formState?.type])
 	
-	const [inputs, setInputs] = useState<{ status?: string; inputs?: input[] }>({
+	const [inputs, setInputs] = useState<{ status?: string; inputs?: Array<Input> }>({
 		status: "loading",
 	});
 	const [formStatus, setFormStatus] = useState<{
@@ -72,7 +84,7 @@ export default function Form({
 	// tootip
 	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 	
-	// form upload
+	// file upload
 	const [files, setFiles] = useState<Record<any, FileState>>({});
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
@@ -85,18 +97,30 @@ export default function Form({
 	const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
 	const photoRef = useRef(null);
 
+	//table input state
+	const [tableData, setTableData] = useState<Record<string, Array<any>>>({});
+
 	//All effects
 	useEffect(() => {
 		if (profilePhoto) {
 			setProfilePhotoUrl("");
-			handleFileUpload(profilePhoto, formState?.type);
+			handleFileUpload(profilePhoto, "profileUrl");
 		}
 	}, [profilePhoto]);
 
 	useEffect(()=>{
-		setCanSubmit(true)
-		Object.keys(files)?.forEach( (name)=>{ if(files[name].required && !(files[name].url)) setCanSubmit(false) })
-	},[files])
+		let canSubmit = true;
+		if(!profilePhotoUrl) canSubmit = false;
+		Object.keys(files)?.forEach(name=>{ if(files[name].required && !(files[name].url)) canSubmit = false });
+		Object.keys(tableData)?.forEach(name=>{
+			let tableInput = inputs?.inputs?.find(e=>e.name===name);
+			if(!tableInput) return;
+			tableData[name].forEach(data => {
+				(tableInput as TableInput).inputs?.forEach(input=>{ if(input.required && !(data[input.name])) canSubmit = false })
+			});
+		})
+		setCanSubmit(canSubmit);
+	},[files, tableData, profilePhotoUrl])
 
 	useEffect(() => {
 		setFilePerc(0);
@@ -107,17 +131,16 @@ export default function Form({
 		(async () => {
 			try {
 				const inputs = await getInput(formState?.type);
-				if (formState?._id) {
-					let formData = formState.data;
-					if (!(formData?.profileUrl)) {
-						setProfilePhotoUrl("user.png");
-					}
-					else setProfilePhotoUrl(formData?.profileUrl);
-				} 
+				if (!(formData?.profileUrl)) {
+					setProfilePhotoUrl("user.png");
+				}
+				else setProfilePhotoUrl(formData?.profileUrl);
 				setInputs({ status: "loaded", inputs });
 				let a = inputs?.filter?.((e) => e.type === "file");
 				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
-				if (a?.length == 0) setCanSubmit(true);
+				if (a?.length !== 0) setCanSubmit(false);
+				a = inputs.filter(e=>e.type==="table");
+				a.forEach(e=>setTableData((prev)=>({ ...prev, [e.name]:formData?.[e.name]||[] })));
 			} catch (e) {
 				setInputs({ status: "error" });
 				console.error(e);
@@ -230,6 +253,9 @@ export default function Form({
 					Object.keys(files).forEach(filename=>{
 						formData.set(filename, files[filename].url);
 					})
+					Object.keys(tableData).forEach(tableName=>{
+						formData.set(tableName, JSON.stringify(tableData[tableName]));
+					})
 					
 					profilePhotoUrl && formData.append("profileUrl", profilePhotoUrl);
 					setFormStatus({ status: "submitting", error: false });
@@ -285,11 +311,11 @@ export default function Form({
 							{e.type === "select" ? (
 								<SelectComponent
 									name={e.name}
-									options={(e as selectInput).options}
+									options={(e as SelectInput).options}
 									defaultValue={
 										formData?.[e.name] || formData?.[e.label] || e.default || ""
 									}
-									placeholder={(e as selectInput).placeholder}
+									placeholder={(e as SelectInput).placeholder}
                   onChange={(event)=>{
                    if(formData?.[e.name]) formData[e.name] = event.target.value;
                    if(formData?.[e.label]) formData[e.label] = event.target.value;
@@ -342,7 +368,7 @@ export default function Form({
 												setProfilePhoto(e.target.files[0]);
 											}}
 											name={e.name}
-											placeholder={(e as otherInput).placeholder || " "}
+											placeholder={(e as OtherInput).placeholder || " "}
 											required={e.required || false}
 										/>
 										<p style={{ textAlign: "center" }}>
@@ -355,7 +381,7 @@ export default function Form({
 													style={{ color: "white" }}
 												>{`Uploading ${filePerc}%...`}</span>
 											) : filePerc === 100 ? (
-												<span style={{ color: "white" }}>
+												<span style={{ color: wrapperStyle?.["color"] || "white" }}>
 													Profile Photo Succesfully uploaded
 												</span>
 											) : (
@@ -378,17 +404,19 @@ export default function Form({
 									</button>
 								</section>
 							) : e.type === "file" ? (
-								<FileInput input={e} handleFileUpload={handleFileUpload}/>
+								<FileInput color={wrapperStyle?.["color"] || "white"} input={e} handleFileUpload={handleFileUpload} url={formData?.[e.name]}/>
+							) : e.type === "table" ? ( 
+								<InputTable tableName={e.name} setTable={setTableData} inputs={(e as TableInput).inputs}  setCanSubmit={setCanSubmit} values={tableData?.[e.name]||[]}/>
 							) : (
 								<input
 									type={e.type || "text"}
 									name={e.name}
-									placeholder={(e as otherInput).placeholder || " "}
+									placeholder={(e as OtherInput).placeholder || " "}
 									required={e.required || false}
 									defaultValue={
-										formData?.[e.name] || e.default || formData?.[e.label] || ""
+										e.type==="date"? formData?.[e.name]?.slice(0, 10) || e.default || "" : formData?.[e.name] || e.default || ""
 									}
-									{...((e as otherInput)?.properties)}
+									{...((e as OtherInput)?.properties)}
 								/>
 							)}
 						</span>
@@ -466,7 +494,7 @@ return (
 }
 
 
-function FileInput({ input, handleFileUpload }){
+function FileInput({ input, handleFileUpload, url, color }){
 	const [perc, setPerc] = useState(0);
 
 	return(
@@ -477,8 +505,8 @@ function FileInput({ input, handleFileUpload }){
 			onChange={(event) => handleFileUpload(event.target.files[0], input.name, setPerc)}
 			name={input.name}
 			placeholder={input.placeholder || " "}
-			required={input.required || false}
 		/>
+		{url && <a href={url}>view current file</a>}
 		<p>
 			{perc===-1 ? (
 				<span style={{ color: "white" }}>
@@ -496,7 +524,150 @@ function FileInput({ input, handleFileUpload }){
 				""
 			)}
 		</p>
-		{}
 	</div>
 	)
+}
+
+
+function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tableName:string, inputs: Input[], setTable: (v)=>void, values:Array<any>, setCanSubmit: (v)=>void }){
+	const handleFileUpload = (file, name, percSet?) => {
+		setCanSubmit(false);
+		const storage = getStorage(app);
+		const fileName = Date.now() + file.name;
+		const storageRef = ref(storage, fileName);
+		const uploadTask = uploadBytesResumable(storageRef, file);
+		
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				// if (name === "profileUrl") {
+				// 	setFilePerc(Math.round(progress));
+				// } else {
+					percSet(Math.round(progress));
+				// }
+			},
+			(error) => {
+				console.log(error);
+				percSet(-1);
+			},
+			() => {
+				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+					// if (name === "profileUrl") {
+					// 	// setProfilePhotoUrl(downloadURL);
+					// } else {
+					// 	setFiles((prevFiles) => ({
+					// 		...prevFiles,
+					// 		[name]: { ...file[name], url: downloadURL, message: "Uploaded" }
+					// 	}));
+					// }
+					setTable((prev)=>({
+						...prev, tableName:{...prev[tableName], [name]: downloadURL}
+					}))
+				});
+			}
+		);
+	};
+	
+	return (
+		<div className={tableStyles["table"]} style={{overflow:"auto"}}>
+			<div
+				className={tableStyles["table-header"]}
+				style={{
+					gridTemplateColumns: `repeat(${inputs.length}, calc(100%/${inputs.length} - 50px/${inputs.length})) 50px`,
+				}}
+			>
+				{inputs.map((input: any) => (
+					<h4 key={input.name} style={{fontSize:"small"}}>{input.label}</h4>
+				))}
+			</div>
+			{values.map?.((value: any, index) => (
+				<div
+					key={index} 
+					className={tableStyles["table-row"]}
+					style={{
+						gridTemplateColumns: `repeat(${inputs.length}, calc(100%/${inputs.length} - 50px/${inputs.length})) 50px`,
+					}}
+				>
+					{inputs.map((input: any) => (
+						<span style={{minWidth:"25px"}}>
+							{input.type === "file" ? (
+								<FileInput
+									color={"gray"}
+									handleFileUpload={handleFileUpload}
+									input={input}
+									url={value[input.name]}
+								/>
+							) : input.type === "select" ? (
+								<SelectComponent
+									name={input.name}
+									options={input.options}
+									defaultValue={
+										value?.[input.name] ||
+										value?.[input.label] ||
+										input.default ||
+										""
+									}
+									placeholder={input.placeholder}
+									onChange={(event) => {
+										values[index][input.name] = event.target.value;
+										setTable((prev) => ({ ...prev }));
+									}}
+								/>
+							) : (
+								<input
+									type={input.type || "text"}
+									name={input.name}
+									placeholder={input.placeholder || " "}
+									required={input.required || false}
+									defaultValue={
+										value?.[input.name] ||
+										value?.[input.label] ||
+										input.default ||
+										""
+									}
+									onChange={(event) => {
+										values[index][input.name] = event.target.value;
+										setTable((prev) => ({ ...prev }));
+									}}
+									{...input.properties}
+								/>
+							)}
+						</span>
+					))}
+					<span>
+						<button
+							className={tableStyles["remove"]}
+							onClick={(e) => {
+								e.preventDefault();
+								setTable((prev) => ({
+									...prev,
+									[tableName]: [
+										...prev[tableName].slice(0, index),
+										...prev[tableName].slice(index + 1),
+									],
+								}));
+							}}
+						>
+							<i className="material-symbols-outlined">delete</i>
+						</button>
+					</span>
+				</div>
+			))}
+			<div className={tableStyles["addRowBtnDiv"]}>
+					<button
+						style={{ gridColumn: `${Math.round(inputs.length / 2)}` }}
+						onClick={(e) => {
+							e.preventDefault();
+							setTable((prev) => ({
+								...prev,
+								[tableName]: [...prev[tableName], {}],
+							}));
+						}}
+					>
+						Add
+					</button>
+			</div>
+		</div>
+	);
 }

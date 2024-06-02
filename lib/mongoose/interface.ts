@@ -181,6 +181,23 @@ interface Professional {
   fileUrl?: string;
 }
 
+interface Experience {
+  designation: string;
+  department: string;
+  institution: string;
+  from: Date;
+  to: Date;
+  total: string;
+}
+
+interface EducationalQualification {
+  degree: 'MBBS' | 'MD/MS' | 'DM/MCh' | 'PhD'; // Use the enum type directly
+  year: number; // Must be between 1800 and 2150 (inclusive)
+  collegeName: string;
+  regNumWithDate: string;
+  medicalCouncilName: string;
+}
+
 // Define appraisal schema interface
 interface Appraisal {
   _id?: string;
@@ -206,8 +223,8 @@ interface Profile {
   department?: string;
   category?: string;
   kmcRegistrationNo?: number;
-  educationalQualification?: string;
-  experience?: string;
+  educationalQualification?: EducationalQualification[];
+  experience?: Experience[];
   profileUrl?: string;
 }
 

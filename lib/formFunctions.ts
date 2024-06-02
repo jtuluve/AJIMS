@@ -93,8 +93,42 @@ export async function getInput(type: string) {
       },
       {
         name: 'educationalQualification',
-        type: 'object',
+        type: 'table',
         label: 'Educational Qualification',
+        inputs:[
+          {
+            name: "degree",
+            type: "select",
+            label: "Degree",
+            options: ["MBBS","MD/MS","DM/MCh","PhD"]
+          },  
+          {
+            name: 'year',
+            type: 'number',
+            properties:{ min: 1800, max: 2150, step:1 },
+            label: 'Year',
+            placeholder: 'Enter Year of Publication',
+            required: true
+          },
+          {
+            name: "collegeName",
+            label: "College Name",
+            type: "text",
+            required: true
+          },
+          {
+            name: "regNumWithDate",
+            label: "Register number with date",
+            type: "text",
+            required: true
+          },
+          {
+            name: "medicalCouncilName",
+            label: "Medical Council Name",
+            type: "text",
+            required: true
+          },
+        ],
         required: false,
         fields: [
           {
@@ -135,8 +169,47 @@ export async function getInput(type: string) {
       },
       {
         name: 'experience',
-        type: 'object',
+        type: 'table',
         label: 'Experience',
+        inputs: [
+          {
+            name: "designation",
+            type: "select",
+            label: "Designation",
+            options: ["Junior Resident","Senior Resident","Demonstrator","Tutor", "Asst. Professor", "Assoc. Professor", "Professor"],
+            required: true
+          },
+          {
+            name: "department",
+            label:"Department",
+            type: "text",
+            required: true
+          },
+          {
+            name: "institution",
+            label: "Institution",
+            type: "text",
+            required: true
+          },
+          {
+            name: "from",
+            label: "From",
+            type: "date",
+            required: true
+          },
+          {
+            name: "to",
+            label: "To",
+            type: "date",
+            required: true
+          },
+          {
+            name: "total",
+            label: "Total",
+            type: "text",
+            required: true
+          }
+        ],
         required: false,
         fields: [
           {
@@ -237,13 +310,7 @@ export async function getInput(type: string) {
         type: 'select',
         label: 'Quartile',
         required: true,
-        options: [
-          { value: 'Q1' },
-          { value: 'Q2' },
-          { value: 'Q3' },
-          { value: 'Q4' },
-          { value: 'No quartile' },
-        ],
+        options: ['Q1', 'Q2', 'Q3', 'Q4', 'No quartile'],
         tooltip: {
           one: '1. Acces Scimago Journal & Country Rank from https://www.scimagojr.com/',
           two: "2. To find a journal's quartile ranking within a category, search for the journal by title or ISSN",
@@ -256,29 +323,14 @@ export async function getInput(type: string) {
         type: 'select',
         label: 'Index',
         required: true,
-        options: [
-          { value: 'Medline' },
-          { value: 'Pubmed' },
-          { value: 'CSCI' },
-          { value: 'SCI' },
-          { value: 'DC' },
-          { value: 'Expanded Embase' },
-          { value: 'Scopus' },
-          { value: 'DoAJ' },
-          { value: 'Nil' },
-        ],
+        options: ['Medline', 'Pubmed', 'CSCI', 'SCI', 'DC', 'Expanded Embase', 'Scopus', 'DoAJ', 'Nil'],
       },
       {
         name: 'category',
         type: 'select',
         label: 'Category',
         required: true,
-        options: [
-          { value: 'National' },
-          { value: 'International' },
-          { value: 'Institutional' },
-          { value: 'Nil' },
-        ],
+        options: ['National', 'International', 'Institutional', 'Nil'],
       },
       {
         name: 'postheld',
@@ -299,12 +351,7 @@ export async function getInput(type: string) {
         type: 'select',
         label: 'Authorship',
         required: true,
-        options: [
-          { value: 'First' },
-          { value: 'Correspondant' },
-          { value: 'Second' },
-          { value: 'Other' },
-        ],
+        options: ['First', 'Correspondant', 'Second', 'Other'],
       },
       { name: 'uploadUrl', type: 'file', required: true, label: 'File' },
     ],
