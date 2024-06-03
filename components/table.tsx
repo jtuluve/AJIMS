@@ -16,7 +16,7 @@ export default function Table({
   type: string;
   values: any;
 }) {
-  const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile","certUpload","regUpload","residenceProof",]
+  const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile","certUpload","regUpload","residenceProof","postHeldFile"]
   const {setFormState} = useFormStateContext()
   if (values === false) return <p style={{ color: "white" }}>Loading..</p>;
   if (values?.error) {
