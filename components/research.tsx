@@ -25,6 +25,9 @@ export default function Research() {
                     <a className="name3">V. Conferences</a>
                     <Table type="researchConferences" column={4} header_row={["Year", "Conference Name", "Category", "Type"]} keys={["category", "Confname", "category","type"]}  values={userData?.appraisal?.research?.conferences}/>
                     
+                    <a className="name3">V. Patents</a>
+                    <Table type="researchPatents" column={5} header_row={["Patent Country", "Patent Number", "Patent Type", "Title", "Date"]} keys={["patentCountry", "patentNumber", "patentType","title","date"]}  values={userData?.appraisal?.research?.patents}/>
+                    
                 </div>
             </div>
       </>

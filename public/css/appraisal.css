@@ -521,13 +521,7 @@ span.print-icon::after {
   ::-webkit-scrollbar {
       display: none;
   }
-
-  #academics {
-    background: url('https://pngset.com/free/watermark');
-  }
-
 }
-
 
 .btn-container {
 	display: flex;
