@@ -11,6 +11,10 @@ const UserDetail = ({ params }) => {
 	const { allUsers } = useAdminData();
 	const [user, setUser] = useState<UserDocument|null>(null);
 
+	const dob = user?.profile?.dob ? new Date(user.profile.dob) : null;
+	const dateOfJoining = user?.profile?.dateOfJoining ? new Date(user.profile.dateOfJoining) : null;
+	
+
 	useEffect(() => {
 		if (allUsers.length > 0) {
 			const fetchedUser = allUsers.find((unitUser) => unitUser.uid === uid);
@@ -57,7 +61,11 @@ const UserDetail = ({ params }) => {
 			<div className="profile-container">
 				<div className="basic-info">
 					<p><strong>Name of the Faculty:</strong> {user?.profile?.name}</p>
-					<p><strong>Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob.toLocaleDateString()}</p>
+							<p>
+								<strong>Age & Date of birth:</strong>
+								{user?.profile?.age} years,
+								{dob ? dob.toLocaleDateString() : 'Invalid Date'}
+							</p>
 					<p><strong>Name of the college:</strong> {user?.profile?.college}</p>
 					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
 					<div className="designation-section">
@@ -86,7 +94,10 @@ const UserDetail = ({ params }) => {
 						<p><strong>ORC Id number:</strong>{user?.profile?.orcIdNo}</p>
 						<p><strong>Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>
 						<p><strong>Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>
-						<p><strong>Date of joining the present institution:</strong>{user?.profile?.dateOfJoining.toLocaleDateString()}</p>
+						<p>
+							<strong>Date of joining the present institution:</strong>
+							{dateOfJoining ? dateOfJoining.toLocaleDateString() : 'Invalid Date'}
+						</p>
 						<p><strong>Joining report file:</strong><a href={user?.profile?.joiningReport} download>View upload document</a></p>
                 		<p><strong>Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>
 						<p><strong>Joining letter file:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
@@ -98,12 +109,18 @@ const UserDetail = ({ params }) => {
 							
 						</p>
 						<div className="workshopattened-section">
-							{/* TODO: Error: appearance is an array, map it */}
-							{user?.profile?.appearance?.status}
-							<p><strong>a. at MCI/NMC Regional MET Centre:</strong>{user?.profile?.appearance?.center}</p>
-							<p><strong>b. at your college under Regional/ Nodal observership :</strong>{user?.profile?.appearance?.observership}</p>
-							<p><strong>c. Any other MET certificates may be attached :</strong>{user?.profile?.appearance?.certs}</p>
-								<p><strong>Uploaded file:</strong><a href={user?.profile?.upload} download>View upload document</a></p>
+							{user?.profile?.appearance?.length > 0 ? (
+							user.profile.appearance.map((appearance, index) => (
+								<div key={index}>
+								<p><strong>Status:</strong> {appearance.status}</p>
+								<p><strong>a. at MCI/NMC Regional MET Centre:</strong> {appearance.center}</p>
+								<p><strong>b. at your college under Regional/ Nodal observership:</strong> {appearance.observership}</p>
+								<p><strong>c. Any other MET certificates may be attached:</strong> {appearance.certs}</p>
+								</div>
+							))
+							) : (
+							<p>No appearances to show.</p>
+							)}
 						</div>
 						<div className="margin-body">
 						<p><strong>Experience:</strong></p>
@@ -131,7 +148,7 @@ const UserDetail = ({ params }) => {
 						<p><strong>Phone no:</strong> {user?.profile?.phoneNo}</p>
 						<p><strong>Email address:</strong> {user.email}</p>	
 					</div>
-					<p><strong>Date of joining:</strong> {user?.profile?.dateOfJoining?.toLocaleDateString()}</p>
+					<p><strong>Date of joining:</strong> {dateOfJoining ? dateOfJoining.toLocaleDateString() : 'N/A'}</p>
 					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
 					<p><strong>Educational Qualifications</strong></p>
 					<div className="education-section">
