@@ -233,15 +233,13 @@ const ResearchSchema = new mongoose.Schema({
   books: { type: [booksSchema], default: [] },
   guidance: { type: [guidanceSchema], default: [] },
   conferences: { type: [conferencesSchema], default: [] },
-  
-  //New schema
-  patent: [new mongoose.Schema({
-    patentcountry: { type: String },
-    patentnumber: { type: Number },
-    patenttype: { type: String },
+  patents: [new mongoose.Schema({
+    patentCountry: { type: String },
+    patentNumber: { type: Number },
+    patentType: { type: String },
     title: { type: String },
-    Date: { type: Date },
-    detailsofinventor: [new mongoose.Schema({
+    date: { type: Date },
+    detailsOfInventors: [new mongoose.Schema({
       number: { type: Number },
       name: { type: String },
       institute: { type: String }
@@ -380,8 +378,6 @@ const professionalSchema = new mongoose.Schema({
   conferences: { type: [ConferenceSchema], default: [] },
   guestLectures: { type: [guestLecturesSchema], default: 0 },
   fileUrl: { type: String, default: 'Nil' }, 
-  
-  //New Schema 
   achievements: [new mongoose.Schema({
     serialNo: { type: String },
     year: {
@@ -440,77 +436,75 @@ const profileSchema = new mongoose.Schema({
   })],
   orcIdNo: { type: String },
   profileUrl: { type: String },
-
-  //new variables
-  appointmentorderstatus: { type: String, enum: ['Yes','No'], default:'Yes' },
-  institutename: { type:String, default:'' },
-  cityname: { type: String, default:''},
-  appointmenttype1: { type: String, enum: [ 'Regular','Contractual','Ad-hoc basis' ], default:'Regular' },
-  appointmenttype2: { type: String, enum: [ 'Full time', 'Part time' ], default:'Full time' },
-  appointmenttype3: { type: String, enum: [ 'With Private practice', 'Without Private practice' ], default:'Without Private practice' },
-  ugpgname: { type: String, default:'' },
+  appointmentOrderStatus: { type: String, enum: ['Yes','No'], default:'Yes' },
+  instituteName: { type:String, default:'' },
+  cityName: { type: String, default:''},
+  appointmentType1: { type: String, enum: [ 'Regular','Contractual','Ad-hoc basis' ], default:'Regular' },
+  appointmentType2: { type: String, enum: [ 'Full time', 'Part time' ], default:'Full time' },
+  appointmentType3: { type: String, enum: [ 'With Private practice', 'Without Private practice' ], default:'Without Private practice' },
+  ugpgName: { type: String, default:'' },
   college: { type: String, default:'' },
-  sameclgacpt: { type: String, enum:[ 'Yes','No' ], default: 'No' },
-  samedestacpt: { type: Date, enum: ['Yes', 'No'], default: 'No' },
-  retiredstatus: { type: String, enum: ['Yes', 'No'], default: 'No' },
-  retiredestination: { type: String, default:''},
-  //Page 1 done
+  sameClgAcpt: { type: String, enum:[ 'Yes','No' ], default: 'No' },
+  sameDestAcpt: { type: String, enum: ['Yes', 'No'], default: 'No' },
+  retiredStatus: { type: String, enum: ['Yes', 'No'], default: 'No' },
+  retireDestination: { type: String, default:''},
   perAddress: { type: String, default:'' },
-  residenceproofstatus: { type: String, enum: ['Yes','No'], default: 'Yes' },
-  residenceproof: { type: String },//file 1
+  residenceProofStatus: { type: String, enum: ['Yes','No'], default: 'Yes' },
+  residenceProof: { type: String },
   officeTel: { type: Number, default: +91 },
   residenceTel: { type: Number, default: +91 },
-  joiningstatus: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
-  joiningreport: { type: String },//file 2
-  joiningletter: { type: String },//file 3
+  joiningStatus: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
+  joiningReport: { type: String },
+  joiningLetter: { type: String },
   appearance: [new mongoose.Schema({
     status:{ type: String, enum: ["Yes","No"], default: 'No' },
     center: { type: String, enum: ["Yes", "No"], default: 'No' },
     observership: { type: String, enum: ["Yes", "No"], default: 'No' },
     certs: { type: String, enum: ["Yes", "No"], default: 'No' },
-    upload: { type: String },//file 4 [array]
+    upload: { type: String },
   })],
-  mdmssubject: { type:String, default:'' },
-  dmmchsubject: { type: String, default: '' },
-  phdsubject:  { type:String, default:'' },
-  //Page 2 done
-  certstatus: { type: String, enum: ["Yes", "No"], default: 'No' },
-  regstatus: { type: String, enum: ["Yes", "No"], default: 'No' },
-  certupload: { type: String },//file 5
-  regupload: { type: String },//file 6
-  inspectiondetails: [new mongoose.Schema({
+  mdmsSubject: { type:String, default:'' },
+  dmmchSubject: { type: String, default: '' },
+  phdSubject:  { type:String, default:'' },
+  certStatus: { type: String, enum: ["Yes", "No"], default: 'No' },
+  regStatus: { type: String, enum: ["Yes", "No"], default: 'No' },
+  certUpload: { type: String },
+  regUpload: { type: String },
+  inspectionDetails: [new mongoose.Schema({
     designation: { type: String, default:'' },
     subject: { type: String, default:'' },
     college: { type: String, default: '' },
     dates: { type: String, default: '' },
   })],  
-  numberoflectures: [new mongoose.Schema({
-    sno: { type: Number, default:0 },
+  numberOfLectures: [new mongoose.Schema({
     date: {type: Date },
     type: { type: String, default: '' },
     topic: { type: String, default: '' }
   })
   ],
-  //Page 3 done
   details: [new mongoose.Schema({
     name: { type: Number, default: 0 },
     designation: { type: String, default:'' },
     date: { type: Date },
-    relievereason: { type: String, default: '' },
+    relieveReason: { type: String, default: '' },
     verification: { type: String, emun:[ 'Yes', 'No' ],default: 'No' },
-    verificationfile: { type: String}//file 7
+    verificationFile: { type: String }
   })
   ],
   panNo: { type: String, default:''},
   emoluments: [new mongoose.Schema({
     month: { type: String, enum: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] , default: 'Jan' },
-    year: { type: Number, default: 2024 },
+    year: {
+      type: Number,
+      min: [1800, 'Enter a valid year'],
+      max: [2150, 'Enter a valid year'],
+      required: true,
+      default: 2024
+    },
     amount: { type: Number, default: 0 },
     tds: { type: String, default: '' }
   })
   ],
-  //Page 4 done
-  //Page 5 one schema with a nested schema in reserch i mean new schema and another one under professional
 })
 
 // Define the User schema

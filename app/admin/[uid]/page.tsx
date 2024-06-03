@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import { useAdminData } from "@/components/adminContext";
 import '@css/admin[uid].css'
 import "@css/admin.css";
+import { UserDocument } from "@/lib/mongoose/interface";
 
 const UserDetail = ({ params }) => {
 	const { uid } = params;
 	const { allUsers } = useAdminData();
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState<UserDocument|null>(null);
 
 	useEffect(() => {
 		if (allUsers.length > 0) {
@@ -56,7 +57,7 @@ const UserDetail = ({ params }) => {
 			<div className="profile-container">
 				<div className="basic-info">
 					<p><strong>Name of the Faculty:</strong> {user?.profile?.name}</p>
-					<p><strong>Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob}</p>
+					<p><strong>Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob.toLocaleDateString()}</p>
 					<p><strong>Name of the college:</strong> {user?.profile?.collegeName}</p>
 					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
 					<div className="designation-section">
@@ -129,8 +130,8 @@ const UserDetail = ({ params }) => {
 						<p><strong>Phone no:</strong> {user?.profile?.phoneNo}</p>
 						<p><strong>Email address:</strong> {user.email}</p>	
 					</div>
-					<p><strong>Date of joining:</strong> {user?.profile?.dateOfJoining}</p>
-					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+					<p><strong>Date of joining:</strong> {user?.profile?.dateOfJoining?.toLocaleDateString()}</p>
+					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
 					<p><strong>Educational Qualifications</strong></p>
 					<div className="education-section">
 					<table>
@@ -187,17 +188,17 @@ const UserDetail = ({ params }) => {
 							{user.appraisal.academics.teaching.map((teaching, index) => (
 								<tr key={index}>
 									<td>{teaching.hours}</td>
-									<td><a href={teaching.hourupload} download>View upload document</a></td>
+									<td><a href={teaching.hourUpload} download>View upload document</a></td>
 									<td>{teaching.clinicalHours}</td>
-									<td><a href={teaching.clinicalHoursupload} download>View upload document</a></td>
+									<td><a href={teaching.clinicalHoursUpload} download>View upload document</a></td>
 									<td>{teaching.studentsFeedback}</td>
-									<td><a href={teaching.studentsFeedbackupload} download>View upload document</a></td>
+									<td><a href={teaching.studentsFeedbackUpload} download>View upload document</a></td>
 									<td>{teaching.resourceMaterial}</td>
-									<td><a href={teaching.resourceMaterialupload} download>View upload document</a></td>
+									<td><a href={teaching.resourceMaterialUpload} download>View upload document</a></td>
 									<td>{teaching.publicAwarenessWriteup}</td>
-									<td><a href={teaching.publicAwarenessWriteupupload} download>View upload document</a></td>
+									<td><a href={teaching.publicAwarenessWriteupUpload} download>View upload document</a></td>
 									<td>{teaching.cc}</td>
-									<td><a href={teaching.ccupload} download>View upload document</a></td>
+									<td><a href={teaching.ccUpload} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -231,7 +232,7 @@ const UserDetail = ({ params }) => {
 									<td>{publication?.year}</td>
 									<td>{publication?.quartile}</td>
 									<td>{publication?.index}</td>
-									<td>{publication?.CategoryP}</td>
+									<td>{publication?.category}</td>
 									<td>{publication?.postheld}</td>
 									<td>{publication?.doi}</td>
 									<td>{publication?.authorship}</td>
@@ -260,13 +261,13 @@ const UserDetail = ({ params }) => {
 								<tr key={index}>
 									<td>{grant?.title}</td>
 									<td>{grant?.agency}</td>
-									<td>{grant?.startyear}</td>
-									<td>{grant?.endyear}</td>
+									<td>{grant?.startYear}</td>
+									<td>{grant?.endYear}</td>
 									<td>{grant?.recieved}</td>
 									<td>{grant?.utCert}</td>
-									<td>{grant?.workpub}</td>
+									<td>{grant?.workPub}</td>
 									<td>{grant?.amountCategory}</td>
-									<td><a href={grant?.file} download>View upload document</a></td>
+									<td><a href={grant?.uploadUrl} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -292,8 +293,8 @@ const UserDetail = ({ params }) => {
 									<td>{books?.category}</td>
 									<td>{books?.title}</td>
 									<td>{books?.year}</td>
-									<td><a href={books?.Certificate} download>View upload document</a></td>
-									<td>{books?.bookdetails}</td>
+									<td><a href={books?.certificate} download>View upload document</a></td>
+									<td>{books?.bookDetails}</td>
 									<td><a href={books?.uploadUrl} download>View upload document</a></td>
 								</tr>
 							))}
@@ -320,21 +321,21 @@ const UserDetail = ({ params }) => {
 							{user.appraisal.research.guidance.map((guidance, index) => (
 								<tr key={index}>
 									<td>{guidance?.category}</td>
-									<td>{guidance?.studentdetails}</td>
-									<td><a href={guidance?.studentupload} download>View upload document</a></td>
-									<td>{guidance?.startdate}</td>
-									<td>{guidance?.enddate}</td>
+									<td>{guidance?.studentDetails}</td>
+									<td><a href={guidance?.studentUpload} download>View upload document</a></td>
+									<td>{guidance?.startDate.toLocaleDateString()}</td>
+									<td>{guidance?.endDate.toLocaleDateString()}</td>
 									<td>{guidance?.name}</td>
 									<td>{guidance?.title}</td>
-									<td>{guidance?.publishstatus}</td>
+									<td>{guidance?.publishStatus}</td>
 									<td>{guidance?.year}</td>
-									<td>{guidance?.Amount}</td>
-									<td>{guidance?.GrantName}</td>
-									<td>{guidance?.FundedStatus}</td>
-									<td>{guidance?.AgencyName}</td>
-									<td><a href={guidance?.synopsis} download>View upload document</a></td>
-									<td><a href={guidance?.thesis} download>View upload document</a></td>
-									<td><a href={guidance?.report} download>View upload document</a></td>
+									<td>{guidance?.amount}</td>
+									<td>{guidance?.grantName}</td>
+									<td>{guidance?.fundedStatus}</td>
+									<td>{guidance?.agencyName}</td>
+									<td><a href={guidance?.synopsisUrl} download>View upload document</a></td>
+									<td><a href={guidance?.thesisUrl} download>View upload document</a></td>
+									<td><a href={guidance?.reportUrl} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -358,14 +359,14 @@ const UserDetail = ({ params }) => {
 							{user.appraisal.research.conferences.map((conference, index) => (
 								<tr key={index}>
 									<td>{conference?.category}</td>
-									<td>{conference?.confname}</td>
+									<td>{conference?.confName}</td>
 									<td>{conference?.year}</td>
 									<td>{conference?.details}</td>
 									<td>{conference?.type}</td>
 									<td>{conference?.place}</td>
 									<td>{conference?.awards}</td>
 									<td>{conference?.description}</td>
-									<td><a href={conference?.Attachment} download>View upload document</a></td>
+									<td><a href={conference?.attachment} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -388,7 +389,7 @@ const UserDetail = ({ params }) => {
 							</thead>
 							<tbody>
 								<tr>
-									<td>{user.appraisal?.professional?.clinicalDuty?.Patients}</td>
+									<td>{user.appraisal?.professional?.clinicalDuty?.patients}</td>
 									<td>{user.appraisal?.professional?.clinicalDuty?.minorProcedures}</td>
 									<td>{user.appraisal?.professional?.clinicalDuty?.majorProcedures}</td>
 									<td><a href={user.appraisal?.professional?.clinicalDuty?.clinicalDutyFile} download>View upload document</a></td>
@@ -454,7 +455,7 @@ const UserDetail = ({ params }) => {
 							<tbody>
 								<tr>
 									<td>{user?.appraisal?.professional?.coordinatorDuty?.category}</td>
-									<td><a href={user?.appraisal?.professional?.coordinatorDuty?.coordinatorDutyFile} download>View upload document</a></td>
+									<td><a href={user?.appraisal?.professional?.coordinatorDutyFile} download>View upload document</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -475,7 +476,7 @@ const UserDetail = ({ params }) => {
 								{user.appraisal.professional.committee.map((committee, index) => (
 									<tr key={index}>
 										<td>{committee?.committeeName}</td>
-										<td>{committee?.destination}</td>
+										<td>{committee?.designation}</td>
 										<td><a href={committee?.committeeFile} download>View upload document</a></td>
 									</tr>
 								))}
@@ -487,7 +488,7 @@ const UserDetail = ({ params }) => {
 				</div>
 				<p><strong>Conferences</strong></p>
 				<div className="conferences-body">
-					{user.appraisal?.professional?.conference?.length > 0 ? (
+					{user.appraisal?.professional?.conferences?.length > 0 ? (
 						<table>
 							<thead>
 								<tr>
@@ -495,7 +496,7 @@ const UserDetail = ({ params }) => {
 								</tr>
 							</thead>
 							<tbody>
-								{user.appraisal.professional.conference.map((conference, index) => (
+								{user.appraisal.professional.conferences.map((conference, index) => (
 									<tr key={index}>
 										<td>{conference?.designation}</td>
 										<td>{conference?.creditPoints}</td>

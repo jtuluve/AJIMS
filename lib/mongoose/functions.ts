@@ -103,6 +103,7 @@ async function defaultUser() {
     user.appraisal.research.guidance = user.appraisal.research.guidance || []
     user.appraisal.research.conferences =
       user.appraisal.research.conferences || []
+    user.appraisal.research.patents = user.appraisal.research.patents || []
     user.appraisal.academics = user.appraisal.academics || {}
     user.appraisal.academics.score = user.appraisal.academics.score || {}
     user.appraisal.academics.teaching = Array.isArray(user.appraisal.academics.teaching) ? user.appraisal.academics.teaching : []
@@ -124,6 +125,7 @@ async function defaultUser() {
     user.appraisal.professional.guestLectures =
       user.appraisal.professional.guestLectures || []
     user.appraisal.professional.fileUrl = user.appraisal.professional.fileUrl || ''
+    user.appraisal.professional.achievements = user.appraisal.professional.achievements || []
     user.appraisal.overallScore = user.appraisal.overallScore || {}
     user.profile = user.profile || {}
     user.profile.educationalQualification = Array.isArray(user.profile.educationalQualification) ? user.profile.educationalQualification : [];
@@ -347,6 +349,35 @@ export async function upsertResearchConference(conference, uid?) {
       }
     } else {
       user.appraisal.research.conferences.push(conferenceWithoutId)
+    }
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+    return false
+  }
+}
+
+//update/insert appraisal->research->patents
+export async function upsertResearchPatents(patent, uid?) {
+  try {
+    await initializeDb()
+    uid = uid || (await getUid())
+    if (!verifyUid(uid)) throw "uid doesn't match the server uid."
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    const { _id, ...patentWithoutId } = patent
+    if (_id) {
+      let index = user.appraisal.research.patents.findIndex(
+        (item) => item?._id.toString() == _id
+      )
+      if (index == -1) throw 'Research Patent not found'
+      user.appraisal.research.patents[index] = {
+        ...user.appraisal.research.patents[index],
+        ...patentWithoutId,
+      }
+    } else {
+      user.appraisal.research.patents.push(patentWithoutId)
     }
     await user.save()
     return true
@@ -591,6 +622,33 @@ export async function upsertProfessionalGuestLecture(lecture, uid?) {
   }
 }
 
+//update/insert appraisal->professional->achievements (array)
+export async function upsertProfessionalAchievement(achievement, uid?) {
+  try {
+    await initializeDb()
+    uid = uid || (await getUid())
+    if (!verifyUid(uid)) throw "uid doesn't match the server uid."
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    user.appraisal.professional.achievements =
+      user.appraisal.professional.achievements || []
+    if (achievement._id) {
+      const index = user.appraisal.professional.achievements.findIndex(
+        (item) => item?._id.toString() == achievement._id
+      )
+      if (index === -1) throw 'Professional Achievement not found'
+      user.appraisal.professional.achievements[index] = achievement
+    } else {
+      user.appraisal.professional.achievements.push(achievement)
+    }
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+    return false
+  }
+}
+
 //update appraisal->academics->fileUrl
 export async function updateProfessionalFileUrl(fileUrl, uid?) {
   try{
@@ -716,6 +774,19 @@ export async function getResearchScore(uid?) {
     const user = await getUser(uid)
     if (!user) throw 'User not found'
     return user.appraisal.research?.score;
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
+//retrieve appraisal->research->patents
+export async function getResearchPatents(uid?: string) {
+  uid = uid || await getUid();
+  try {
+    await initializeDb()
+    const user = await getUser(uid)
+    if(!user) throw 'User not found'
+    return user.appraisal.research.patents;
   } catch (err) {
     console.error(err?.msg || err?.message || err)
   }
@@ -862,6 +933,21 @@ export async function getProfessionalGuestLectures(_id?: string, uid?: string) {
   }
 }
 
+//retrieve appraisal->professional->achievements
+export async function getProfessionalAchievements(_id?: string, uid?: string) {
+  uid = uid || (await getUid())
+  try {
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    return _id
+      ? user.appraisal.professional.achievements.find((ach) => ach?._id.toString?.() === _id)
+      : user.appraisal.professional.achievements
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
 //retrieve appraisal->research->score (object)
 export async function getProfessionalScore(uid?) {
   uid = uid || (await getUid())
@@ -986,6 +1072,25 @@ export async function deleteResearchConference(_id: string, uid?: string) {
   }
 }
 
+//delete appraisal->research->patents
+export async function deleteResearchPatent(_id: string, uid?: string) {
+  try {
+    uid = uid || (await getUid())
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    const index = user.appraisal.research.patents.findIndex(
+      (patent) => patent?._id.toString?.() === _id
+    )
+    if (index === -1) throw 'Patent not found'
+    user.appraisal.research.patents.splice(index, 1)
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
 //delete appraisal->academics->fileUrl
 export async function deleteAcademicsFileUrl(uid?: string) {
   try {
@@ -1073,6 +1178,28 @@ export async function deleteProfessionalGuestLecture(
     )
     if (index === -1) throw 'Guest lecture not found'
     user.appraisal.professional.guestLectures.splice(index, 1)
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
+//delete appraisal->professional->achievements (array)
+export async function deleteProfessionalAchievement(
+  _id: string,
+  uid?: string
+) {
+  try {
+    uid = uid || (await getUid())
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    const index = user.appraisal.professional.achievements.findIndex(
+      (achievement) => achievement?._id.toString?.() === _id
+    )
+    if (index === -1) throw 'Achievement not found'
+    user.appraisal.professional.achievements.splice(index, 1)
     await user.save()
     return true
   } catch (err) {
