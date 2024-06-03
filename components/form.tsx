@@ -137,8 +137,8 @@ export default function Form({
 				else setProfilePhotoUrl(formData?.profileUrl);
 				setInputs({ status: "loaded", inputs });
 				let a = inputs?.filter?.((e) => e.type === "file");
-				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
 				if (a?.length !== 0) setCanSubmit(false);
+				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
 				a = inputs.filter(e=>e.type==="table");
 				a.forEach(e=>setTableData((prev)=>({ ...prev, [e.name]:formData?.[e.name]||[] })));
 			} catch (e) {

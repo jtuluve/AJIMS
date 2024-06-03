@@ -48,7 +48,7 @@ interface Book {
   title?: string;
   year?: number;
   certificate?: string;
-  bookdDetails?: string;
+  bookDetails?: string;
   uploadUrl?: string;
 }
 
@@ -116,6 +116,7 @@ interface Research {
 interface Teaching {
   _id?: string;
   hours?: number;
+  hourUpload?: string;
   clinicalHours?: number;
   clinicalHoursUpload?: string;
   studentsFeedback?: number;
@@ -196,6 +197,7 @@ interface Professional {
   coordinatorDuty?: {
     category?: "1st year" | "2nd year" | "3rd year" | "internship" | "clinical conference" | "camp" | "Nil";
   };
+  coordinatorDutyFile?: string;
   committee?: Committee[];
   conferences?: ConferenceSchema[];
   guestLectures?: GuestLecture[];

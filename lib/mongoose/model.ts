@@ -445,7 +445,7 @@ const profileSchema = new mongoose.Schema({
   ugpgName: { type: String, default:'' },
   college: { type: String, default:'' },
   sameClgAcpt: { type: String, enum:[ 'Yes','No' ], default: 'No' },
-  sameDestAcpt: { type: Date, enum: ['Yes', 'No'], default: 'No' },
+  sameDestAcpt: { type: String, enum: ['Yes', 'No'], default: 'No' },
   retiredStatus: { type: String, enum: ['Yes', 'No'], default: 'No' },
   retireDestination: { type: String, default:''},
   perAddress: { type: String, default:'' },
