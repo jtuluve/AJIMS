@@ -58,38 +58,38 @@ const UserDetail = ({ params }) => {
 				<div className="basic-info">
 					<p><strong>Name of the Faculty:</strong> {user?.profile?.name}</p>
 					<p><strong>Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob.toLocaleDateString()}</p>
-					<p><strong>Name of the college:</strong> {user?.profile?.collegeName}</p>
+					<p><strong>Name of the college:</strong> {user?.profile?.college}</p>
 					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
 					<div className="designation-section">
-                            <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentorderstatus}</p>
+                            <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
                             <p><strong>Department:</strong> {user?.profile?.department}</p>
-                            <p><strong>College/ Institute:</strong> {user?.profile?.institutename}</p>
-                            <p><strong>City/ District:</strong> {user?.profile?.cityname}</p>
+                            <p><strong>College/ Institute:</strong> {user?.profile?.instituteName}</p>
+                            <p><strong>City/ District:</strong> {user?.profile?.cityName}</p>
                             <p><strong>Appointment:</strong></p>
                             <div className="appointment-section">
-                                <p><strong>Regular/ Contractual/ Ad-hoc basis:</strong> {user?.profile?.appointmenttype1}</p>
-                                <p><strong>Full time/ Part time:</strong> {user?.profile?.appointmenttype2}</p>
-                                <p><strong>With Private practice/ Without Private practice:</strong> {user?.profile?.appointmenttype3}</p>
+                                <p><strong>Regular/ Contractual/ Ad-hoc basis:</strong> {user?.profile?.appointmentType1}</p>
+                                <p><strong>Full time/ Part time:</strong> {user?.profile?.appointmentType2}</p>
+                                <p><strong>With Private practice/ Without Private practice:</strong> {user?.profile?.appointmentType3}</p>
                             </div>
                             <p><strong>Date of appearance in last MCI/ NMC assessment:</strong></p>
                             <div className="date-section">
-                                <p><strong>UG/ PG/ Any other:</strong> {user?.profile?.ugpgname}</p>
+                                <p><strong>UG/ PG/ Any other:</strong> {user?.profile?.ugpgName}</p>
                                 <p><strong>Name of College:</strong> {user?.profile?.college}</p>
-                                <p><strong>Whether appeared and accepted at the same College:</strong> {user?.profile?.sameclgacpt}</p>
-                                <p><strong>Whether appeared and accepted at the same designation:</strong> {user?.profile?.samedestacpt}</p>
-                                <p><strong>Whether retired from Government Medical College:</strong> {user?.profile?.retiredstatus}</p>
-                                <p><strong>If yes, designation at the time of retirement:</strong> {user?.profile?.retiredestination}</p>
+                                <p><strong>Whether appeared and accepted at the same College:</strong> {user?.profile?.sameClgAcpt}</p>
+                                <p><strong>Whether appeared and accepted at the same designation:</strong> {user?.profile?.sameDestAcpt}</p>
+                                <p><strong>Whether retired from Government Medical College:</strong> {user?.profile?.retiredStatus}</p>
+                                <p><strong>If yes, designation at the time of retirement:</strong> {user?.profile?.retireDestination}</p>
                             </div>
                         </div>
-						<p><strong>Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceproofstatus}</p>
-						<p><strong>Residence proof file:</strong><a href={user?.profile?.residenceproof} download>View upload document</a></p>
+						<p><strong>Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceProofStatus}</p>
+						<p><strong>Residence proof file:</strong><a href={user?.profile?.residenceProof} download>View upload document</a></p>
 						<p><strong>ORC Id number:</strong>{user?.profile?.orcIdNo}</p>
 						<p><strong>Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>
 						<p><strong>Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>
-						<p><strong>Date of joining the present institution:</strong>{user?.profile?.dateOfJoining}</p>
-						<p><strong>Joining report file:</strong><a href={user?.profile?.joiningreport} download>View upload document</a></p>
-                		<p><strong>Joining report verified the present/ attached</strong>{user?.profile?.joiningstatus}</p>
-						<p><strong>Joining letter file:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+						<p><strong>Date of joining the present institution:</strong>{user?.profile?.dateOfJoining.toLocaleDateString()}</p>
+						<p><strong>Joining report file:</strong><a href={user?.profile?.joiningReport} download>View upload document</a></p>
+                		<p><strong>Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>
+						<p><strong>Joining letter file:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
 						<p>
 							<strong>
 								Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
@@ -98,6 +98,7 @@ const UserDetail = ({ params }) => {
 							
 						</p>
 						<div className="workshopattened-section">
+							{/* TODO: Error: appearance is an array, map it */}
 							{user?.profile?.appearance?.status}
 							<p><strong>a. at MCI/NMC Regional MET Centre:</strong>{user?.profile?.appearance?.center}</p>
 							<p><strong>b. at your college under Regional/ Nodal observership :</strong>{user?.profile?.appearance?.observership}</p>
@@ -155,9 +156,9 @@ const UserDetail = ({ params }) => {
 					</table>
 					</div>
 					<div className="edu-section">
-                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmssubject}</p>{/**varaible needed */}
-                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchsubject}</p>{/**varaible needed */}
-                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdsubject}</p>{/**varaible needed */}
+                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
+                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
+                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
                     </div>
 					<p><strong>Passport No:</strong> {user?.profile?.passportNo}</p>
 					<p><strong>KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
