@@ -56,39 +56,83 @@ const UserDetail = ({ params }) => {
 			</div>
 			<div className="profile-container">
 				<div className="basic-info">
-					<p><strong>1. Name of the Faculty:</strong> {user?.profile?.name}</p>
-					<p><strong>2. Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob.toLocaleDateString()}</p>
-					<p><strong>3. Designation:</strong> {user?.profile?.designation}</p>
-					<div className="margin-body">
-						<p><strong>a. Appointment order:</strong> <a href={user?.profile?.attachment} download>View upload document</a></p>
-						<p><strong>b. Department:</strong> {user?.profile?.department}</p>
-						<p><strong>c. Experience:</strong></p>
+					<p><strong>Name of the Faculty:</strong> {user?.profile?.name}</p>
+					<p><strong>Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob}</p>
+					<p><strong>Name of the college:</strong> {user?.profile?.collegeName}</p>
+					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
+					<div className="designation-section">
+                            <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentorderstatus}</p>
+                            <p><strong>Department:</strong> {user?.profile?.department}</p>
+                            <p><strong>College/ Institute:</strong> {user?.profile?.institutename}</p>
+                            <p><strong>City/ District:</strong> {user?.profile?.cityname}</p>
+                            <p><strong>Appointment:</strong></p>
+                            <div className="appointment-section">
+                                <p><strong>Regular/ Contractual/ Ad-hoc basis:</strong> {user?.profile?.appointmenttype1}</p>
+                                <p><strong>Full time/ Part time:</strong> {user?.profile?.appointmenttype2}</p>
+                                <p><strong>With Private practice/ Without Private practice:</strong> {user?.profile?.appointmenttype3}</p>
+                            </div>
+                            <p><strong>Date of appearance in last MCI/ NMC assessment:</strong></p>
+                            <div className="date-section">
+                                <p><strong>UG/ PG/ Any other:</strong> {user?.profile?.ugpgname}</p>
+                                <p><strong>Name of College:</strong> {user?.profile?.college}</p>
+                                <p><strong>Whether appeared and accepted at the same College:</strong> {user?.profile?.sameclgacpt}</p>
+                                <p><strong>Whether appeared and accepted at the same designation:</strong> {user?.profile?.samedestacpt}</p>
+                                <p><strong>Whether retired from Government Medical College:</strong> {user?.profile?.retiredstatus}</p>
+                                <p><strong>If yes, designation at the time of retirement:</strong> {user?.profile?.retiredestination}</p>
+                            </div>
+                        </div>
+						<p><strong>Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceproofstatus}</p>
+						<p><strong>Residence proof file:</strong><a href={user?.profile?.residenceproof} download>View upload document</a></p>
+						<p><strong>ORC Id number:</strong>{user?.profile?.orcIdNo}</p>
+						<p><strong>Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>
+						<p><strong>Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>
+						<p><strong>Date of joining the present institution:</strong>{user?.profile?.dateOfJoining}</p>
+						<p><strong>Joining report file:</strong><a href={user?.profile?.joiningreport} download>View upload document</a></p>
+                		<p><strong>Joining report verified the present/ attached</strong>{user?.profile?.joiningstatus}</p>
+						<p><strong>Joining letter file:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+						<p>
+							<strong>
+								Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
+								Programme (CISP - i/ii/iii), Advanced Course in Medical Education (ACME) for training in MET:
+							</strong>
+							
+						</p>
+						<div className="workshopattened-section">
+							{user?.profile?.appearance?.status}
+							<p><strong>a. at MCI/NMC Regional MET Centre:</strong>{user?.profile?.appearance?.center}</p>
+							<p><strong>b. at your college under Regional/ Nodal observership :</strong>{user?.profile?.appearance?.observership}</p>
+							<p><strong>c. Any other MET certificates may be attached :</strong>{user?.profile?.appearance?.certs}</p>
+								<p><strong>Uploaded file:</strong><a href={user?.profile?.upload} download>View upload document</a></p>
+						</div>
+						<div className="margin-body">
+						<p><strong>Experience:</strong></p>
 						{user?.profile?.experience && user?.profile?.experience.length > 0 ? (
-							user?.profile?.experience.map((exp, index) => (
+							user?.profile?.experience.map((experience, index) => (
 							<div key={index}>
-								<p><strong>Designation:</strong> {exp.designation}</p>
-								<p><strong>Department:</strong> {exp.department}</p>
-								<p><strong>Institution:</strong> {exp.institution}</p>
-								<p><strong>From:</strong> {exp.from ? new Date(exp.from).toLocaleDateString() : 'N/A'}</p>
-								<p><strong>To:</strong> {exp.to ? new Date(exp.to).toLocaleDateString() : 'N/A'}</p>
-								<p><strong>Total Duration:</strong> {exp.total}</p>
+								<p><strong>Designation:</strong> {experience.designation}</p>
+								<p><strong>Department:</strong> {experience.department}</p>
+								<p><strong>Institution:</strong> {experience.institution}</p>
+								<p><strong>From:</strong> {experience.from ? new Date(experience.from).toLocaleDateString() : 'N/A'}</p>
+								<p><strong>To:</strong> {experience.to ? new Date(experience.to).toLocaleDateString() : 'N/A'}</p>
+								<p><strong>Total Duration:</strong> {experience.total}</p>
 							</div>
 							))
 						) : (
 							<p>No experience information available.</p>
 						)}
-						<p><strong>d. Aadhar No:</strong> {user?.profile?.aadharNo}</p>
+						<p><strong>Aadhar No:</strong> {user?.profile?.aadharNo}</p>
 					</div>
-					<p><strong>4. Residencial Adderss:</strong> {user?.profile?.residentialAddress}</p>
-					<p><strong>5. Aadhar No:</strong> {user?.profile?.aadharNo}</p>
-					<p><strong>6. Contact Details:</strong></p>
+					<p><strong>Residencial Adderss:</strong> {user?.profile?.residentialAddress}</p>
+					<p><strong>Permanent:</strong>{user?.profile?.perAddress}</p>
+					<p><strong>Aadhar No:</strong> {user?.profile?.aadharNo}</p>
+					<p><strong>Contact Details:</strong></p>
 					<div className="margin-body">
-						<p><strong>a. Phone no:</strong> {user?.profile?.phoneNo}</p>
-						<p><strong>b. Email address:</strong> {user.email}</p>	
+						<p><strong>Phone no:</strong> {user?.profile?.phoneNo}</p>
+						<p><strong>Email address:</strong> {user.email}</p>	
 					</div>
-					<p><strong>7. Date of joining:</strong> {user?.profile?.dateOfJoining?.toLocaleDateString()}</p>
-					<p><strong>8. Joining Letter:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
-					<p><strong>9. Educational Qualifications</strong></p>
+					<p><strong>Date of joining:</strong> {user?.profile?.dateOfJoining}</p>
+					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+					<p><strong>Educational Qualifications</strong></p>
 					<div className="education-section">
 					<table>
 						<thead>
@@ -110,8 +154,13 @@ const UserDetail = ({ params }) => {
 						</tbody>
 					</table>
 					</div>
-					<p><strong>10. Passport No:</strong> {user?.profile?.passportNo}</p>
-					<p><strong>11. KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
+					<div className="edu-section">
+                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmssubject}</p>{/**varaible needed */}
+                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchsubject}</p>{/**varaible needed */}
+                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdsubject}</p>{/**varaible needed */}
+                    </div>
+					<p><strong>Passport No:</strong> {user?.profile?.passportNo}</p>
+					<p><strong>KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
 				</div>
 				<div className="profile-photo">
 					<img
@@ -158,7 +207,7 @@ const UserDetail = ({ params }) => {
 					<p>No teaching data available</p>
 				)}
 			</div>
-			<p><strong>13. Publication details:</strong></p>
+			<p><strong>Publication details:</strong></p>
 			<div className="publication-body">
 				{user.appraisal?.research?.publications?.length > 0 ? (
 					<table>
@@ -196,7 +245,7 @@ const UserDetail = ({ params }) => {
 					<p>No publication data available</p>
 				)}
 			</div>
-			<p><strong>14. Grant details:</strong></p>
+			<p><strong>Grant details:</strong></p>
 			<div className="grant-body">
 				{user.appraisal?.research?.grants?.length > 0 ? (
 					<table>
@@ -227,7 +276,7 @@ const UserDetail = ({ params }) => {
 					<p>No grant data available</p>
 				)}
 			</div>
-			<p><strong>15. Books details:</strong></p>
+			<p><strong>Books details:</strong></p>
 			<div className="books-details">
 				{user.appraisal?.research?.books?.length > 0 ? (
 					<table>
@@ -255,7 +304,7 @@ const UserDetail = ({ params }) => {
 					<p>No books available.</p>
 				)}
 			</div>
-			<p><strong>16. Guidance details:</strong></p>
+			<p><strong>Guidance details:</strong></p>
 			<div className="guidance-body">
 				{user.appraisal?.research?.guidance?.length > 0 ? (
 					<table>
@@ -295,7 +344,7 @@ const UserDetail = ({ params }) => {
 					<p>No guidance data available</p>
 				)}
 			</div>
-			<p><strong>17. Conferences details:</strong></p>
+			<p><strong>Conferences details:</strong></p>
 			<div className="conference-details">
 				{user.appraisal?.research?.conferences?.length > 0 ? (
 					<table>
@@ -328,7 +377,7 @@ const UserDetail = ({ params }) => {
 			</div>
 		</div>		
 		<div className="professional-body">
-				<p><strong>18. Clinical Duty</strong></p>
+				<p><strong>Clinical Duty</strong></p>
 				<div className="clinical-duty-body">
 					{user.appraisal?.professional?.clinicalDuty ? (
 						<table>
@@ -351,7 +400,7 @@ const UserDetail = ({ params }) => {
 						<p>No clinical duty data available</p>
 					)}
 				</div>
-				<p><strong>19. Post held</strong></p>
+				<p><strong>Post held</strong></p>
 				<div className="post-held-body">
 					{user.appraisal?.professional?.postHeld ? (
 						<table>
@@ -371,7 +420,7 @@ const UserDetail = ({ params }) => {
 						<p>No post held data available</p>
 					)}
 				</div>
-				<p><strong>20. Exam Duties</strong></p>
+				<p><strong>Exam Duties</strong></p>
 				<div className="exam-duties-body">
 					{user.appraisal?.professional?.examDuties?.length > 0 ? (
 						<table>
@@ -394,7 +443,7 @@ const UserDetail = ({ params }) => {
 						<p>No exam duties data available</p>
 					)}
 				</div>
-				<p><strong>21. Coordinator Duties</strong></p>
+				<p><strong>Coordinator Duties</strong></p>
 				<div className="coordinator-duties-body">
 					{user.appraisal?.professional?.coordinatorDuty ? (
 						<table>
@@ -414,7 +463,7 @@ const UserDetail = ({ params }) => {
 						<p>No coordinator duties available</p>
 					)}
 				</div>
-				<p><strong>22. Committee Duties</strong></p>
+				<p><strong>Committee Duties</strong></p>
 				<div className="committe-duties-body">
 					{user.appraisal?.professional?.committee?.length > 0 ? (
 						<table>
@@ -437,7 +486,7 @@ const UserDetail = ({ params }) => {
 						<p>No committee data available</p>
 					)}
 				</div>
-				<p><strong>23. Conferences</strong></p>
+				<p><strong>Conferences</strong></p>
 				<div className="conferences-body">
 					{user.appraisal?.professional?.conferences?.length > 0 ? (
 						<table>
@@ -460,7 +509,7 @@ const UserDetail = ({ params }) => {
 						<p>No conference data available</p>
 					)}
 				</div>
-				<p><strong>24. Guest Lectures</strong></p>
+				<p><strong>Guest Lectures</strong></p>
 				<div className="guest-lectures-body">
 					{user.appraisal?.professional?.guestLectures?.length > 0 ? (
 						<table>
