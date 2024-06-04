@@ -286,6 +286,7 @@ interface Profile {
   educationalQualification?: EducationalQualification[];
   experience?: Experience[];
   orcIdNo?: string;
+  emailaddress? :string;
   profileUrl?: string;
   appointmentOrderStatus?: "Yes" | "No";
   instituteName?: string;

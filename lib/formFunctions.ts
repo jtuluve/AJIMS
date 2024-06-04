@@ -4,7 +4,7 @@ export async function getInput(type: string) {
   let inputs = {
     profile: [
       {
-        "name": "collegeName",
+        "name": "college",
         "type": "text",
         "label": "Name of the College",
         "placeholder": "Enter the name of the college",
@@ -264,7 +264,8 @@ export async function getInput(type: string) {
             "name": "degree",
             "type": "select",
             "label": "Degree",
-            "options": ["MBBS", "MD/MS", "DM/MCh", "PhD"]
+            "options": ["MBBS", "MD/MS", "DM/MCh", "PhD"],
+            "default":"MBBS"
           },
           {
             "name": "year",
@@ -354,6 +355,7 @@ export async function getInput(type: string) {
             "type": "select",
             "label": "Designation",
             "options": ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"],
+            "default":"Professor",
             "required": true
           },
           {
@@ -642,6 +644,7 @@ export async function getInput(type: string) {
         label: 'Index',
         required: true,
         options: ['Medline', 'Pubmed', 'CSCI', 'SCI', 'DC', 'Expanded Embase', 'Scopus', 'DoAJ', 'Nil'],
+        default:'Medline'
       },
       {
         name: 'category',
@@ -649,6 +652,7 @@ export async function getInput(type: string) {
         label: 'Category',
         required: true,
         options: ['National', 'International', 'Institutional', 'Nil'],
+        default:'National'
       },
       {
         name: 'postheld',
@@ -670,6 +674,7 @@ export async function getInput(type: string) {
         label: 'Authorship',
         required: true,
         options: ['First', 'Correspondant', 'Second', 'Other'],
+        default:'First'
       },
       { name: 'uploadUrl', type: 'file', required: true, label: 'File' },
     ],
@@ -923,7 +928,8 @@ export async function getInput(type: string) {
         type: 'select',
         placeholder: 'type',
         options: ['Poster', 'Oral', 'Attending'],
-        required: true,
+        default:"Poster",
+        required: true
       },
       {
         name: 'attachment',
@@ -936,7 +942,8 @@ export async function getInput(type: string) {
         type: 'select',
         placeholder: 'Awards Recieved',
         options: ['Yes', 'No'],
-        required: true,
+        default:'Yes',
+        required: true
       },
       {
         name: 'description',

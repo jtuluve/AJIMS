@@ -54,7 +54,7 @@ export default function Admin() {
 											/>
 										</td>
 										<td>{user?.name}</td>
-										<td>{user?.email}</td>{/**Neeeds attention as i need to display emailaddress variable n not this */}
+										<td>{user?.profile?.emailaddress}</td>
 										<td>{user?.department}</td>
 										<td>{user?.designation}</td>
 										<td>

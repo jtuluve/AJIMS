@@ -429,7 +429,7 @@ const profileSchema = new mongoose.Schema({
     medicalCouncilName: { type: String }
   })],
   experience: [new mongoose.Schema({
-    designation: { type: String, enum: ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"] },
+    designation: { type: String, enum: ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"], default:'Professor' },
     department: { type: String },
     institution: { type: String },
     from: { type: Date },
