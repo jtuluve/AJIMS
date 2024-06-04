@@ -23,7 +23,7 @@ export default function Admin() {
 				</a>
 			</div>
 			<div className="usersTable">
-				<h2>Admin Dashboard</h2>
+				<h2>Admin Dashboard</h2>{/**search to be implemented here**/}
 				{allUsers.length ? (
 					<table>
 						<caption>Users</caption>
@@ -54,7 +54,7 @@ export default function Admin() {
 											/>
 										</td>
 										<td>{user?.name}</td>
-										<td>{user?.email}</td>
+										<td>{user?.profile?.emailaddress}</td>
 										<td>{user?.department}</td>
 										<td>{user?.designation}</td>
 										<td>

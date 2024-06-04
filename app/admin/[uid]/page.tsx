@@ -4,11 +4,16 @@ import { useState, useEffect } from "react";
 import { useAdminData } from "@/components/adminContext";
 import '@css/admin[uid].css'
 import "@css/admin.css";
+import { UserDocument } from "@/lib/mongoose/interface";
 
 const UserDetail = ({ params }) => {
 	const { uid } = params;
 	const { allUsers } = useAdminData();
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState<UserDocument|null>(null);
+
+	const dob = user?.profile?.dob ? new Date(user.profile.dob) : null;
+	const dateOfJoining = user?.profile?.dateOfJoining ? new Date(user.profile.dateOfJoining) : null;
+	
 
 	useEffect(() => {
 		if (allUsers.length > 0) {
@@ -56,39 +61,46 @@ const UserDetail = ({ params }) => {
 			<div className="profile-container">
 				<div className="basic-info">
 					<p><strong>Name of the Faculty:</strong> {user?.profile?.name}</p>
-					<p><strong>Age & Date of birth:</strong>{user?.profile?.age} years, {user?.profile?.dob}</p>
-					<p><strong>Name of the college:</strong> {user?.profile?.collegeName}</p>
+							<p>
+								<strong>Age & Date of birth:</strong>
+								{user?.profile?.age} years,
+								{dob ? dob.toLocaleDateString() : 'Invalid Date'}
+							</p>
+					<p><strong>Name of the college:</strong> {user?.profile?.college}</p>
 					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
 					<div className="designation-section">
-                            <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentorderstatus}</p>
+                            <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
                             <p><strong>Department:</strong> {user?.profile?.department}</p>
-                            <p><strong>College/ Institute:</strong> {user?.profile?.institutename}</p>
-                            <p><strong>City/ District:</strong> {user?.profile?.cityname}</p>
+                            <p><strong>College/ Institute:</strong> {user?.profile?.instituteName}</p>
+                            <p><strong>City/ District:</strong> {user?.profile?.cityName}</p>
                             <p><strong>Appointment:</strong></p>
                             <div className="appointment-section">
-                                <p><strong>Regular/ Contractual/ Ad-hoc basis:</strong> {user?.profile?.appointmenttype1}</p>
-                                <p><strong>Full time/ Part time:</strong> {user?.profile?.appointmenttype2}</p>
-                                <p><strong>With Private practice/ Without Private practice:</strong> {user?.profile?.appointmenttype3}</p>
+                                <p><strong>Regular/ Contractual/ Ad-hoc basis:</strong> {user?.profile?.appointmentType1}</p>
+                                <p><strong>Full time/ Part time:</strong> {user?.profile?.appointmentType2}</p>
+                                <p><strong>With Private practice/ Without Private practice:</strong> {user?.profile?.appointmentType3}</p>
                             </div>
                             <p><strong>Date of appearance in last MCI/ NMC assessment:</strong></p>
                             <div className="date-section">
-                                <p><strong>UG/ PG/ Any other:</strong> {user?.profile?.ugpgname}</p>
+                                <p><strong>UG/ PG/ Any other:</strong> {user?.profile?.ugpgName}</p>
                                 <p><strong>Name of College:</strong> {user?.profile?.college}</p>
-                                <p><strong>Whether appeared and accepted at the same College:</strong> {user?.profile?.sameclgacpt}</p>
-                                <p><strong>Whether appeared and accepted at the same designation:</strong> {user?.profile?.samedestacpt}</p>
-                                <p><strong>Whether retired from Government Medical College:</strong> {user?.profile?.retiredstatus}</p>
-                                <p><strong>If yes, designation at the time of retirement:</strong> {user?.profile?.retiredestination}</p>
+                                <p><strong>Whether appeared and accepted at the same College:</strong> {user?.profile?.sameClgAcpt}</p>
+                                <p><strong>Whether appeared and accepted at the same designation:</strong> {user?.profile?.sameDestAcpt}</p>
+                                <p><strong>Whether retired from Government Medical College:</strong> {user?.profile?.retiredStatus}</p>
+                                <p><strong>If yes, designation at the time of retirement:</strong> {user?.profile?.retireDestination}</p>
                             </div>
                         </div>
-						<p><strong>Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceproofstatus}</p>
-						<p><strong>Residence proof file:</strong><a href={user?.profile?.residenceproof} download>View upload document</a></p>
+						<p><strong>Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceProofStatus}</p>
+						<p><strong>Residence proof file:</strong><a href={user?.profile?.residenceProof} download>View upload document</a></p>
 						<p><strong>ORC Id number:</strong>{user?.profile?.orcIdNo}</p>
 						<p><strong>Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>
 						<p><strong>Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>
-						<p><strong>Date of joining the present institution:</strong>{user?.profile?.dateOfJoining}</p>
-						<p><strong>Joining report file:</strong><a href={user?.profile?.joiningreport} download>View upload document</a></p>
-                		<p><strong>Joining report verified the present/ attached</strong>{user?.profile?.joiningstatus}</p>
-						<p><strong>Joining letter file:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+						<p>
+							<strong>Date of joining the present institution:</strong>
+							{dateOfJoining ? dateOfJoining.toLocaleDateString() : 'Invalid Date'}
+						</p>
+						<p><strong>Joining report file:</strong><a href={user?.profile?.joiningReport} download>View upload document</a></p>
+                		<p><strong>Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>
+						<p><strong>Joining letter file:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
 						<p>
 							<strong>
 								Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
@@ -97,11 +109,18 @@ const UserDetail = ({ params }) => {
 							
 						</p>
 						<div className="workshopattened-section">
-							{user?.profile?.appearance?.status}
-							<p><strong>a. at MCI/NMC Regional MET Centre:</strong>{user?.profile?.appearance?.center}</p>
-							<p><strong>b. at your college under Regional/ Nodal observership :</strong>{user?.profile?.appearance?.observership}</p>
-							<p><strong>c. Any other MET certificates may be attached :</strong>{user?.profile?.appearance?.certs}</p>
-								<p><strong>Uploaded file:</strong><a href={user?.profile?.upload} download>View upload document</a></p>
+							{user?.profile?.appearance?.length > 0 ? (
+							user.profile.appearance.map((appearance, index) => (
+								<div key={index}>
+								<p><strong>Status:</strong> {appearance.status}</p>
+								<p><strong>a. at MCI/NMC Regional MET Centre:</strong> {appearance.center}</p>
+								<p><strong>b. at your college under Regional/ Nodal observership:</strong> {appearance.observership}</p>
+								<p><strong>c. Any other MET certificates may be attached:</strong> {appearance.certs}</p>
+								</div>
+							))
+							) : (
+							<p>No appearances to show.</p>
+							)}
 						</div>
 						<div className="margin-body">
 						<p><strong>Experience:</strong></p>
@@ -129,8 +148,8 @@ const UserDetail = ({ params }) => {
 						<p><strong>Phone no:</strong> {user?.profile?.phoneNo}</p>
 						<p><strong>Email address:</strong> {user.email}</p>	
 					</div>
-					<p><strong>Date of joining:</strong> {user?.profile?.dateOfJoining}</p>
-					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningletter} download>View upload document</a></p>
+					<p><strong>Date of joining:</strong> {dateOfJoining ? dateOfJoining.toLocaleDateString() : 'N/A'}</p>
+					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
 					<p><strong>Educational Qualifications</strong></p>
 					<div className="education-section">
 					<table>
@@ -154,9 +173,9 @@ const UserDetail = ({ params }) => {
 					</table>
 					</div>
 					<div className="edu-section">
-                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmssubject}</p>{/**varaible needed */}
-                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchsubject}</p>{/**varaible needed */}
-                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdsubject}</p>{/**varaible needed */}
+                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
+                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
+                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
                     </div>
 					<p><strong>Passport No:</strong> {user?.profile?.passportNo}</p>
 					<p><strong>KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
@@ -187,17 +206,17 @@ const UserDetail = ({ params }) => {
 							{user.appraisal.academics.teaching.map((teaching, index) => (
 								<tr key={index}>
 									<td>{teaching.hours}</td>
-									<td><a href={teaching.hourupload} download>View upload document</a></td>
+									<td><a href={teaching.hourUpload} download>View upload document</a></td>
 									<td>{teaching.clinicalHours}</td>
-									<td><a href={teaching.clinicalHoursupload} download>View upload document</a></td>
+									<td><a href={teaching.clinicalHoursUpload} download>View upload document</a></td>
 									<td>{teaching.studentsFeedback}</td>
-									<td><a href={teaching.studentsFeedbackupload} download>View upload document</a></td>
+									<td><a href={teaching.studentsFeedbackUpload} download>View upload document</a></td>
 									<td>{teaching.resourceMaterial}</td>
-									<td><a href={teaching.resourceMaterialupload} download>View upload document</a></td>
+									<td><a href={teaching.resourceMaterialUpload} download>View upload document</a></td>
 									<td>{teaching.publicAwarenessWriteup}</td>
-									<td><a href={teaching.publicAwarenessWriteupupload} download>View upload document</a></td>
+									<td><a href={teaching.publicAwarenessWriteupUpload} download>View upload document</a></td>
 									<td>{teaching.cc}</td>
-									<td><a href={teaching.ccupload} download>View upload document</a></td>
+									<td><a href={teaching.ccUpload} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -231,7 +250,7 @@ const UserDetail = ({ params }) => {
 									<td>{publication?.year}</td>
 									<td>{publication?.quartile}</td>
 									<td>{publication?.index}</td>
-									<td>{publication?.CategoryP}</td>
+									<td>{publication?.category}</td>
 									<td>{publication?.postheld}</td>
 									<td>{publication?.doi}</td>
 									<td>{publication?.authorship}</td>
@@ -260,13 +279,13 @@ const UserDetail = ({ params }) => {
 								<tr key={index}>
 									<td>{grant?.title}</td>
 									<td>{grant?.agency}</td>
-									<td>{grant?.startyear}</td>
-									<td>{grant?.endyear}</td>
+									<td>{grant?.startYear}</td>
+									<td>{grant?.endYear}</td>
 									<td>{grant?.recieved}</td>
 									<td>{grant?.utCert}</td>
-									<td>{grant?.workpub}</td>
+									<td>{grant?.workPub}</td>
 									<td>{grant?.amountCategory}</td>
-									<td><a href={grant?.file} download>View upload document</a></td>
+									<td><a href={grant?.uploadUrl} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -292,8 +311,8 @@ const UserDetail = ({ params }) => {
 									<td>{books?.category}</td>
 									<td>{books?.title}</td>
 									<td>{books?.year}</td>
-									<td><a href={books?.Certificate} download>View upload document</a></td>
-									<td>{books?.bookdetails}</td>
+									<td><a href={books?.certificate} download>View upload document</a></td>
+									<td>{books?.bookDetails}</td>
 									<td><a href={books?.uploadUrl} download>View upload document</a></td>
 								</tr>
 							))}
@@ -320,21 +339,21 @@ const UserDetail = ({ params }) => {
 							{user.appraisal.research.guidance.map((guidance, index) => (
 								<tr key={index}>
 									<td>{guidance?.category}</td>
-									<td>{guidance?.studentdetails}</td>
-									<td><a href={guidance?.studentupload} download>View upload document</a></td>
-									<td>{guidance?.startdate}</td>
-									<td>{guidance?.enddate}</td>
+									<td>{guidance?.studentDetails}</td>
+									<td><a href={guidance?.studentUpload} download>View upload document</a></td>
+									<td>{guidance?.startDate.toLocaleDateString()}</td>
+									<td>{guidance?.endDate.toLocaleDateString()}</td>
 									<td>{guidance?.name}</td>
 									<td>{guidance?.title}</td>
-									<td>{guidance?.publishstatus}</td>
+									<td>{guidance?.publishStatus}</td>
 									<td>{guidance?.year}</td>
-									<td>{guidance?.Amount}</td>
-									<td>{guidance?.GrantName}</td>
-									<td>{guidance?.FundedStatus}</td>
-									<td>{guidance?.AgencyName}</td>
-									<td><a href={guidance?.synopsis} download>View upload document</a></td>
-									<td><a href={guidance?.thesis} download>View upload document</a></td>
-									<td><a href={guidance?.report} download>View upload document</a></td>
+									<td>{guidance?.amount}</td>
+									<td>{guidance?.grantName}</td>
+									<td>{guidance?.fundedStatus}</td>
+									<td>{guidance?.agencyName}</td>
+									<td><a href={guidance?.synopsisUrl} download>View upload document</a></td>
+									<td><a href={guidance?.thesisUrl} download>View upload document</a></td>
+									<td><a href={guidance?.reportUrl} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -358,14 +377,14 @@ const UserDetail = ({ params }) => {
 							{user.appraisal.research.conferences.map((conference, index) => (
 								<tr key={index}>
 									<td>{conference?.category}</td>
-									<td>{conference?.confname}</td>
+									<td>{conference?.confName}</td>
 									<td>{conference?.year}</td>
 									<td>{conference?.details}</td>
 									<td>{conference?.type}</td>
 									<td>{conference?.place}</td>
 									<td>{conference?.awards}</td>
 									<td>{conference?.description}</td>
-									<td><a href={conference?.Attachment} download>View upload document</a></td>
+									<td><a href={conference?.attachment} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -388,7 +407,7 @@ const UserDetail = ({ params }) => {
 							</thead>
 							<tbody>
 								<tr>
-									<td>{user.appraisal?.professional?.clinicalDuty?.Patients}</td>
+									<td>{user.appraisal?.professional?.clinicalDuty?.patients}</td>
 									<td>{user.appraisal?.professional?.clinicalDuty?.minorProcedures}</td>
 									<td>{user.appraisal?.professional?.clinicalDuty?.majorProcedures}</td>
 									<td><a href={user.appraisal?.professional?.clinicalDuty?.clinicalDutyFile} download>View upload document</a></td>
@@ -454,7 +473,7 @@ const UserDetail = ({ params }) => {
 							<tbody>
 								<tr>
 									<td>{user?.appraisal?.professional?.coordinatorDuty?.category}</td>
-									<td><a href={user?.appraisal?.professional?.coordinatorDuty?.coordinatorDutyFile} download>View upload document</a></td>
+									<td><a href={user?.appraisal?.professional?.coordinatorDutyFile} download>View upload document</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -475,7 +494,7 @@ const UserDetail = ({ params }) => {
 								{user.appraisal.professional.committee.map((committee, index) => (
 									<tr key={index}>
 										<td>{committee?.committeeName}</td>
-										<td>{committee?.destination}</td>
+										<td>{committee?.designation}</td>
 										<td><a href={committee?.committeeFile} download>View upload document</a></td>
 									</tr>
 								))}
@@ -487,7 +506,7 @@ const UserDetail = ({ params }) => {
 				</div>
 				<p><strong>Conferences</strong></p>
 				<div className="conferences-body">
-					{user.appraisal?.professional?.conference?.length > 0 ? (
+					{user.appraisal?.professional?.conferences?.length > 0 ? (
 						<table>
 							<thead>
 								<tr>
@@ -495,7 +514,7 @@ const UserDetail = ({ params }) => {
 								</tr>
 							</thead>
 							<tbody>
-								{user.appraisal.professional.conference.map((conference, index) => (
+								{user.appraisal.professional.conferences.map((conference, index) => (
 									<tr key={index}>
 										<td>{conference?.designation}</td>
 										<td>{conference?.creditPoints}</td>
