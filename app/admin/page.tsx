@@ -23,7 +23,7 @@ export default function Admin() {
 				</a>
 			</div>
 			<div className="usersTable">
-				<h2>Admin Dashboard</h2>
+				<h2>Admin Dashboard</h2>{/**search to be implemented here**/}
 				{allUsers.length ? (
 					<table>
 						<caption>Users</caption>
@@ -54,7 +54,7 @@ export default function Admin() {
 											/>
 										</td>
 										<td>{user?.name}</td>
-										<td>{user?.email}</td>
+										<td>{user?.email}</td>{/**Neeeds attention as i need to display emailaddress variable n not this */}
 										<td>{user?.department}</td>
 										<td>{user?.designation}</td>
 										<td>

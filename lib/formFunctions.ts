@@ -8,60 +8,68 @@ export async function getInput(type: string) {
         "type": "text",
         "label": "Name of the College",
         "placeholder":"Enter the name of the college",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "name",
         "type": "text",
         "label": "Name",
         "placeholder": "(Last name) (First name) (Middle name)",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "age",
         "type": "number",
         "label": "Age",
         "placeholder": "Enter your Age",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "dob",
         "type": "date",
         "label": "Date of Birth",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "profileUrl",
         "type": "file",
         "label": "Profile Photo",
-        "required": false
+        "required": false,
+        "default": ''
       },
       {
         "name": "designation",
         "type": "text",
         "label": "Designation",
         "placeholder": "Enter Designation",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "appointmentOrderStatus",
         "type": "select",
         "label": "Appointment Order: Certified copy of order at this institute attached",
         "options": ["Yes", "No"],
-        "default": "Yes"
+        "default": "Yes",
       },
       {
         "name": "attachment",
         "type": "file",
         "label": "Upload Appointment order",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "department",
-        "type": "text",
+        "type": "select",
         "label": "Department",
-        "placeholder": "Enter Department",
-        "required": true
+        "options":["Anaesthesiology","Anatomy","Biochemistry","Community Medicine","Dermatology","Forensic Medicine","General Medicine","General Surgery","Microbiology","OBG","Ophthalmology","Orthopaedics","Paediatrics","Pathology","Pharmacology","Physiology","Psychiatry","Radio Diagnosis","ENT","Plastic & Reconstructive Surgery","Neurology","Cardiology","Cardiothoracic & Vascular Surgery","Medical Education","Research Center","Respiratory Medicine","Urology","Endocrinology"],
+        "required": false,
+        "default": 'Anatomy'
       },
       {
         "name": "instituteName",
@@ -145,7 +153,8 @@ export async function getInput(type: string) {
         "type": "text",
         "label": "Present Address",
         "placeholder":"Enter Present Address",
-        "required": false
+        "required": false,
+        "default": ''
       },
       {
         "name": "perAddress",
@@ -164,44 +173,51 @@ export async function getInput(type: string) {
       {
         "name": "residenceProof",
         "type": "file",
-        "label": "(only copies of Passport/ Adhar card/ Voter ID/ Passport/ Electricity bill/ Landline Phone bill will be considered)"
+        "label": "(only copies of Passport/ Adhar card/ Voter ID/ Passport/ Electricity bill/ Landline Phone bill will be considered)",
+        "default": ''
       },
       {
         "name": "officeTel",
         "type": "number",
         "label": "Office telephone with STD code",
         "placeholder": "Enter Office telephone with STD code",
+        "default": ''
       },
       {
         "name": "residenceTel",
         "type": "number",
         "label": "Residence telephone with STD code",
-        "placeholder":"Enter Residence telephone with STD code",
+        "placeholder": "Enter Residence telephone with STD code",
+        "default": ''
       },
       {
         "name": "phoneNo",
         "type": "number",
         "label": "Mobile Phone Number",
         "placeholder":"Enter the Mobile Phone Number",
-        "required": false
+        "required": false,
+        "default": ''
       },
       {
         "name": "emailaddress",
         "type": "text",
         "label": "Email address",
         "placeholder": "Enter the Email address",
-        "required": false
+        "required": false,
+        "default": ''
       },
       {
         "name": "dateOfJoining",
         "type": "date",
         "label": "Date of Joining the present institution",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "joiningLetter",
         "type": "file",
-        "label": "Joining Letter Upload"
+        "label": "Joining Letter Upload",
+        "default": ''
       },
       {
         "name": "joiningStatus",
@@ -213,7 +229,8 @@ export async function getInput(type: string) {
       {
         "name": "joiningReport",
         "type": "file",
-        "label": "Joining Report Upload"
+        "label": "Joining Report Upload",
+        "default": ''
       },
       {
         "name": "appearance",
@@ -251,7 +268,8 @@ export async function getInput(type: string) {
           {
             "name": "upload",
             "type": "file",
-            "label": "Uploads"
+            "label": "Uploads",
+            "default": ''
           }
         ]
       },
@@ -264,7 +282,8 @@ export async function getInput(type: string) {
             "name": "degree",
             "type": "select",
             "label": "Degree",
-            "options": ["MBBS", "MD/MS", "DM/MCh", "PhD"]
+            "options": ["MBBS", "MD/MS", "DM/MCh", "PhD"],
+            "default": 'MBBS'
           },
           {
             "name": "year",
@@ -272,28 +291,32 @@ export async function getInput(type: string) {
             "properties": { "min": 1800, "max": 2150, "step": 1 },
             "label": "Year",
             "placeholder": "Enter the Year of Publication",
-            "required": true
+            "required": false,
+            "default": ''
           }, 
           {
             "name": "collegeName",
             "type": "text",
             "label": "Name of College & University",
             "placeholder": "Enter the Name of College & University",
-            "required": true
+            "required": false,
+            "default": ''
           },
           {
             "name": "regNumWithDate",
             "type": "text",
             "label": "Register number with date of registration",
             "placeholder": "Enter the Register number with date of registration",
-            "required": true
+            "required": false,
+            "default": ''
           },
           {
             "name": "medicalCouncilName",
             "type": "text",
             "label": "Name of State Medical council",
             "placeholder": "Enter the Name of State Medical council",
-            "required": true
+            "required": false,
+            "default": ''
           }
         ],
         "required": false
@@ -329,7 +352,8 @@ export async function getInput(type: string) {
       {
         "name": "certUpload",
         "type": "file",
-        "label": "Certificate Upload"
+        "label": "Certificate Upload",
+        "default": ''
       },
       {
         "name": "regStatus",
@@ -342,7 +366,8 @@ export async function getInput(type: string) {
       {
         "name": "regUpload",
         "type": "file",
-        "label": "Registration Upload"
+        "label": "Registration Upload",
+        "default": ''
       },
       {
         "name": "experience",
@@ -354,40 +379,46 @@ export async function getInput(type: string) {
             "type": "select",
             "label": "Designation",
             "options": ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"],
-            "required": true
+            "required": false,
+            "default": ''
           },
           {
             "name": "department",
             "type": "text",
             "label": "Department",
             "placeholder":"Enter the Name of department",
-            "required": true
+            "required": false,
+            "default": ''
           },
           {
             "name": "institution",
             "type": "text",
             "label": "Institution",
             "placeholder": "Enter the Name of Institution",
-            "required": true
+            "required": false,
+            "default": ''
           },
           {
             "name": "from",
             "type": "date",
             "label": "From",
-            "required": true
+            "required": false,
+            "default": ''
           },
           {
             "name": "to",
             "type": "date",
             "label": "To",
-            "required": true
+            "required": false,
+            "default": ''
           },
           {
             "name": "total",
             "type": "text",
             "label": "Total(y)(m)",
             "placeholder": "Enter the Total(y)(m)",
-            "required": true
+            "required": false,
+            "default": ''
           }
         ],
         "required": false
@@ -436,7 +467,8 @@ export async function getInput(type: string) {
             "name": "date",
             "type": "date",
             "label": "Date",
-            "placeholder":"Enter the Date",
+            "placeholder": "Enter the Date",
+            "default": ''
           },
           {
             "name": "type",
@@ -476,7 +508,8 @@ export async function getInput(type: string) {
           {
             "name": "date",
             "type": "date",
-            "label": "Date on which relieved"
+            "label": "Date on which relieved",
+            "default": ''
           },
           {
             "name": "relieveReason",
@@ -495,7 +528,8 @@ export async function getInput(type: string) {
           {
             "name": "verificationFile",
             "type": "file",
-            "label": "Upload Verification File"
+            "label": "Upload Verification File",
+            "default": ''
           }
         ]
       },
@@ -511,28 +545,32 @@ export async function getInput(type: string) {
         "type": "number",
         "label": "Aadhar Number",
         "placeholder": "Enter the Aadhar Number",
-        "required": false
+        "required": false,
+        "default": ''
       },
       {
         "name": "orcIdNo",
         "type": "text",
         "label": "ORC ID No",
         "placeholder": "Enter ORC ID No",
-        "required": true
+        "required": false,
+        "default": ''
       },
       {
         "name": "passportNo",
         "type": "text",
         "label": "Passport Number",
         "placeholder": "Enter the Passport Number",
-        "required": false
+        "required": false,
+        "default": ''
       },
       {
         "name": "kmcRegistrationNo",
         "type": "text",
         "label": "KMC Registration Number",
         "placeholder": "Enter the KMC Registration Number",
-        "required": false
+        "required": false,
+        "default": ''
       },
       {
         "name": "emoluments",
@@ -576,28 +614,32 @@ export async function getInput(type: string) {
         type: 'text',
         label: 'Title',
         placeholder: 'Enter title',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'author',
         type: 'text',
         label: 'Author',
         placeholder: 'Enter authors',
-        required: true
+        required: false,
+        "default": ''
       },
       {
         name: 'journalName',
         type: 'text',
         label: 'Journal Name',
         placeholder: 'Enter Journal Name',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'volume',
         type: 'number',
         label: 'Volume',
         placeholder: 'Enter volume',
-        required: false
+        required: false,
+        "default": ''
       },
       {
         name: 'issue',
@@ -606,14 +648,16 @@ export async function getInput(type: string) {
         placeholder: 'Enter issue',
         required: false,
         min: 1900,
-        max: 2000
+        max: 2000,
+        "default": ''
       },
       {
         name: 'pageNo',
         type: 'text',
         label: 'Page No',
         placeholder: 'Enter page no',
-        required: false
+        required: false,
+        "default": ''
       },
       {
         name: 'year',
@@ -621,13 +665,15 @@ export async function getInput(type: string) {
         properties:{ min: 1800, max: 2150, step:1 },
         label: 'Year',
         placeholder: 'Enter Year of Publication',
-        required: false
+        required: false,
+        "default": ''
       },
       {
         name: 'quartile',
         type: 'select',
         label: 'Quartile',
-        required: true,
+        "default": '',
+        required: false,
         options: ['Q1', 'Q2', 'Q3', 'Q4', 'No quartile'],
         tooltip: {
           one: '1. Access Scimago Journal & Country Rank from https://www.scimagojr.com/',
@@ -640,22 +686,25 @@ export async function getInput(type: string) {
         name: 'index',
         type: 'select',
         label: 'Index',
-        required: true,
+        required: false,
         options: ['Medline', 'Pubmed', 'CSCI', 'SCI', 'DC', 'Expanded Embase', 'Scopus', 'DoAJ', 'Nil'],
+        "default": 'Medline'
       },
       {
         name: 'category',
         type: 'select',
         label: 'Category',
-        required: true,
+        required: false,
         options: ['National', 'International', 'Institutional', 'Nil'],
+        "default": 'Nil'
       },
       {
         name: 'postheld',
         type: 'text',
         label: 'Post held while published',
-        required: true,
+        required: false,
         placeholder: 'Enter the Post held while published',
+        "default": ''
       },
       {
         name: 'doi',
@@ -663,15 +712,18 @@ export async function getInput(type: string) {
         required: false,
         label: 'DOI',
         placeholder: 'Enter DOI',
+        "default": ''
       },
       {
         name: 'authorship',
         type: 'select',
         label: 'Authorship',
-        required: true,
+        required: false,
         options: ['First', 'Correspondant', 'Second', 'Other'],
+        "default": 'First'
       },
-      { name: 'uploadUrl', type: 'file', required: true, label: 'File' },
+      {
+        name: 'uploadUrl', type: 'file', required: false, label: 'File', "default": '' },
     ],
 
     researchGrants: [
@@ -680,15 +732,16 @@ export async function getInput(type: string) {
         type: 'text',
         label: 'Title',
         placeholder: 'Enter title',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'agency',
         type: 'text',
         label: 'Agency',
         placeholder: 'Enter agency',
-        required: true,
-        default: 0,
+        required: false,
+        default: 0
       }, 
       {
         name: 'startYear',
@@ -696,7 +749,8 @@ export async function getInput(type: string) {
         properties:{ min: 1800, max: 2150, step:1 },
         label: 'Start-Year',
         placeholder: 'Enter the Start year',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'endYear',
@@ -704,14 +758,15 @@ export async function getInput(type: string) {
         properties:{ min: 1800, max: 2150, step:1 },
         label: 'End-Year',
         placeholder: 'Enter the End year',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'recieved',
         type: 'select',
         label: 'Recieved',
         placeholder: 'Enter recieved',
-        required: true,
+        required: false,
         options:[
           'Yes',
           'No'
@@ -737,15 +792,15 @@ export async function getInput(type: string) {
         name: 'workPub',
         type: 'select',
         label: 'Work Published',
-        required:true,
+        required:false,
         options: [
           'Yes',
           'No',
         ],
         default:'Yes',
       },
-      { name: 'uploadUrl', type: 'file', label: 'Upload Proposal', required: false },
-      { name: 'utCert', type: 'file',label:'Utilization Certificate',required :false},
+      { name: 'uploadUrl', type: 'file', label: 'Upload Proposal', required: false, default:'' },
+      { name: 'utCert', type: 'file', label:'Utilization Certificate',required :false, default:'' },
     ],
     
     researchBooks: [
@@ -753,7 +808,7 @@ export async function getInput(type: string) {
         name: 'authorship',
         type: 'select',
         placeholder: 'Authorship',
-        required: true,
+        required: false,
         options: ['Nil', 'Chapter', 'Book'],
         default: 'Nil',
       },
@@ -761,7 +816,7 @@ export async function getInput(type: string) {
         name: 'category',
         type: 'select',
         placeholder: 'Category',
-        required: true,
+        required: false,
         options: ['Nil', 'National', 'International'],
         default: 'Nil',
       },
@@ -769,7 +824,7 @@ export async function getInput(type: string) {
         name:'title',
         type: 'text',
         placeholder: 'Enter title of the book',
-        required: true,
+        required: false,
         default: 'Nil',
       },
       {
@@ -777,19 +832,20 @@ export async function getInput(type: string) {
         type: 'number',
         properties:{ min: 1800, max: 2150, step:1 },
         placeholder: 'Enter the year of publication',
-        required: true,
+        required: false,
         default: 'Nil',
       },
       {
         name: 'certificate',
         type: 'file',
         required: false,
+        "default": ''
       },
       {
         name: 'bookDetails',
         type:'text',
         placeholder: 'Enter the Book details',
-        required: true,
+        required: false,
         default: 'Nil',
       },
       {
@@ -797,6 +853,7 @@ export async function getInput(type: string) {
         type: 'file',
         placeholder:'Upload document',
         required: false,
+        "default": ''
       },
     ],
 
@@ -805,7 +862,7 @@ export async function getInput(type: string) {
         name: 'category',
         type: 'select',
         placeholder: 'Category',
-        required: true,
+        required: false,
         options: ['UG', 'PG', 'PHD', 'Nil'],
         default: 'Nil',
       },
@@ -813,25 +870,29 @@ export async function getInput(type: string) {
         name: 'studentDetails',
         type: 'text',
         placeholder: 'Student Name',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name:'studentCourse',
         type: 'text',
         placeholder: 'Student Course',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'startDate',
         placeholder:'Start Date',
         type: 'Date',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'title',
         type: 'text',
         placeholder: 'Title of the study',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'fundedStatus',
@@ -841,24 +902,26 @@ export async function getInput(type: string) {
           'Yes', 'No'
         ],
         default:'No',
-        required: true,
+        required: false,
       },
       {
         name: 'agencyName',
         type: 'text',
         placeholder: 'Agency Name',
-        required: true, 
+        required: false, 
       },
       {
         name: 'studentUpload',
         type: 'file',
         required: false,
-        placeholder:'Upload',
+        placeholder: 'Upload',
+        "default": ''
       },
       {
         name: 'amount',
         type: 'number',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'publishStatus',
@@ -868,25 +931,28 @@ export async function getInput(type: string) {
           'Yes','No'
         ],
         default:'Yes',
-        required: true,
+        required: false,
       },
       {
         name: 'synopsisUrl',
         type: 'file',
         placeholder: 'Synopsis',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'thesisUrl',
         type: 'file',
         placeholder: 'Thesis',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'reportUrl',
         type: 'file',
         placeholder: 'Report',
-        required: true,
+        required: false,
+        "default": ''
       }
     ],
 
@@ -895,7 +961,7 @@ export async function getInput(type: string) {
         name: 'category',
         type: 'select',
         placeholder: 'Category',
-        required: true,
+        required: false,
         options: ['Nil', 'National', 'International'],
         default: 'Nil',
       },
@@ -903,47 +969,53 @@ export async function getInput(type: string) {
         name: 'confName',
         type: 'text',
         placeholder: 'Conference Name',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'year',
         type: 'number',
         properties:{ min: 1800, max: 2150, step:1 },
         placeholder: 'Year - Date',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'details',
         type: 'text',
         placeholder: 'Conference Details',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'type',
         type: 'select',
         placeholder: 'type',
         options: [ 'Poster', 'Oral', 'Attending'],
-        required: true,
+        required: false,
+        "default": 'Poster  '
       },
       {
         name: 'attachment',
         type: 'file',
         placeholder: 'Attachment upload',
         required: false,
+        "default": ''
       },
       {
         name: 'awards',
         type: 'select',
         placeholder: 'Awards Recieved',
         options: ['Yes', 'No'],
-        required: true,
+        required: false,
+        "default": 'Yes'
       },
       {
         name: 'description',
         type: 'text',
         placeholder: 'Awards description',
         default:'Nil',
-        required: false,
+        required: false
       },
       {
         name:'certificateUpload',
@@ -960,61 +1032,69 @@ export async function getInput(type: string) {
         type: 'text',
         label: 'Patent Country',
         placeholder: 'Enter Patent Country',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'patentNumber',
         type: 'number',
         label: 'Patent Number',
         placeholder: 'Enter Patent Number',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'patentType',
         type: 'text',
         label: 'Patent Type',
         placeholder: 'Enter Patent Type',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'title',
         type: 'text',
         label: 'Title',
         placeholder: 'Enter Title',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'date',
         type: 'date',
         label: 'Date',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'detailsOfInventors',
         type: 'table',
         label: 'Details of Inventors',
-        required: true,
+        required: false,
         inputs: [
           {
             name: 'number',
             type: 'number',
             label: 'Inventor Number',
             placeholder: 'Enter Inventor Number',
-            required: true,
+            required: false,
+            "default": ''
           },
           {
             name: 'name',
             type: 'text',
             label: 'Inventor Name',
             placeholder: 'Enter Inventor Name',
-            required: true,
+            required: false,
+            "default": ''
           },
           {
             name: 'institute',
             type: 'text',
             label: 'Institute',
             placeholder: 'Enter Institute',
-            required: true,
+            required: false,
+            "default": ''
           },
         ],
       },
@@ -1025,40 +1105,43 @@ export async function getInput(type: string) {
         name: 'hours',
         type: 'number',
         placeholder: 'Enter the teaching Hours',
-        required: true,
+        required: false,
         default: 0,
       },
       {
         name:'hoursUpload',
         type:'file',
         placeholder:'Hours acknowledgement',
-        required: true
+        required: false,
+        "default": ''
       },
       {
         name: 'clinicalHours',
         type: 'number',
         placeholder: 'Enter the Clinical Hours',
-        required: true,
+        required: false,
         default: 0,
       },
       {
         name: 'clinicalHoursUpload',
         type: 'file',
         placeholder: 'Clinical Hours acknowledgement',
-        required: true
+        required: false,
+        "default": ''
       },
       {
         name: 'studentsFeedback',
         type: 'number',
         placeholder: 'Enter the Students Feedback',
-        required: true,
+        required: false,
         default: 0,
       },
       {
         name: 'studentsFeedbackUpload',
         type: 'file',
         placeholder: 'Students Feedback acknowledgement',
-        required: true
+        required: false,
+        "default": ''
       },
       {
         name: 'resourceMaterial',
@@ -1071,7 +1154,8 @@ export async function getInput(type: string) {
         name: 'resourceMaterialUpload',
         type: 'file',
         placeholder: 'Resource Material acknowledgement',
-        required: true
+        required: false,
+        "default": ''
       },
       {
         name: 'publicAwarenessWriteup',
@@ -1084,7 +1168,8 @@ export async function getInput(type: string) {
         name: 'publicAwarenessWriteupUpload',
         type: 'file',
         placeholder: 'Public Awareness Writeup acknowledgement',
-        required: true
+        required: false,
+        "default": ''
       },
       {
         name: 'cc',
@@ -1096,7 +1181,7 @@ export async function getInput(type: string) {
         name: 'ccUpload',
         type: 'file',
         placeholder: 'CC acknowledgement',
-        required: true
+        required: false
       },
     ],
 
@@ -1130,6 +1215,7 @@ export async function getInput(type: string) {
         type: 'file',
         label: 'Clinical duty file',
         required: false,
+        "default": ''
       }
     ],
     professionalPostHeld: [
@@ -1137,7 +1223,7 @@ export async function getInput(type: string) {
         name: 'category',
         type: 'select',
         placeholder: 'Category',
-        required: true,
+        required: false,
         options: [
           'Lecturer',
           'Assistant Professor',
@@ -1156,6 +1242,7 @@ export async function getInput(type: string) {
         type: 'file',
         label: 'Post held file',
         required: false,
+        "default": ''
       }
     ],
 
@@ -1164,7 +1251,7 @@ export async function getInput(type: string) {
         name: 'category1',
         type: 'select',
         placeholder: 'Category 1',
-        required: true,
+        required: false,
         options: [
           'Invigilator/Room Supervisor',
           'Deputy Chief Superintendent',
@@ -1177,7 +1264,7 @@ export async function getInput(type: string) {
         name: 'category2',
         type: 'select',
         placeholder: 'Category 2',
-        required: true,
+        required: false,
         options: ['Internal', 'External', 'Nil'],
         default: 'Nil',
       },
@@ -1185,7 +1272,8 @@ export async function getInput(type: string) {
         name: 'examDutyFile',
         type: 'file',
         required: false,
-        label: 'Exam duty file'
+        label: 'Exam duty file',
+        "default": ''
       }
     ],
 
@@ -1194,7 +1282,7 @@ export async function getInput(type: string) {
         name: 'category',
         type: 'select',
         placeholder: 'Category',
-        required: true,
+        required: false,
         options: [
           '1st year',
           '2nd year',
@@ -1210,7 +1298,8 @@ export async function getInput(type: string) {
         name: 'coordinatorDutyFile',
         type: 'file',
         required: false,
-        label: 'Coordinator duty file'
+        label: 'Coordinator duty file',
+        "default": ''
       }
     ],
 
@@ -1219,13 +1308,14 @@ export async function getInput(type: string) {
         name: 'committeeName',
         type: 'text',
         placeholder: 'Enter the Committee Name',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'designation',
         type: 'select',
         placeholder: 'Designation',
-        required: true,
+        required: false,
         options: ['Member', 'Coordinator', 'Head', 'Resource person', 'Nil'],
         default: 'Nil',
       },
@@ -1233,7 +1323,8 @@ export async function getInput(type: string) {
         name: 'committeeFile',
         type: 'file',
         required: false,
-        label: 'Committee File'
+        label: 'Committee File',
+        "default": ''
       }
     ],
     professionalConference: [
@@ -1241,13 +1332,14 @@ export async function getInput(type: string) {
         name:'conferenceName',
         type: 'text',
         placeholder: 'Enter the Conference Name',
-        required: true,
+        required: false,
+        "default": ''
       },
       {
         name: 'designation',
         type: 'select',
         placeholder: 'Designation',
-        required: true,
+        required: false,
         options: ['Member', 'Coordinator', 'Head', 'Nil'],
         default: 'Nil',
       },
@@ -1255,7 +1347,7 @@ export async function getInput(type: string) {
         name: 'creditPoints',
         type: 'select',
         placeholder: 'Credit Points',
-        required: true,
+        required: false,
         options: ['Yes', 'No'],
         default: 'Yes',
       },
@@ -1263,13 +1355,15 @@ export async function getInput(type: string) {
         name: 'conferenceFile',
         type: 'file',
         required: false,
-        label: 'Attach brochure'
+        label: 'Attach brochure',
+        "default": ''
       },
       {
         name:'attendieDetails',
         type: 'text',
         placeholder: 'Enter the Attendie details',
-        required: true,
+        required: false,
+        "default": ''
       }
     ],
     professionalGuestLectures: [
@@ -1277,14 +1371,14 @@ export async function getInput(type: string) {
         name: 'title',
         type: 'text',
         placeholder: 'Enter the Title',
-        required: true,
+        required: false,
         default: '',
       },
       {
         name: 'category',
         type: 'select',
         placeholder: 'Category',
-        required: true,
+        required: false,
         options: ['Internal', 'External', 'Nil'],
         default: 'Internal',
       },
@@ -1292,7 +1386,8 @@ export async function getInput(type: string) {
         name: 'guestLecturesFile',
         type: 'file',
         required: false,
-        label: 'Details'
+        label: 'Details',
+        "default": ''
       }
     ],
     professionalAchievements: {
@@ -1302,14 +1397,15 @@ export async function getInput(type: string) {
           label: 'Serial No',
           placeholder:'Enter the Serial No',
           type: 'text',
-          required: true,
+          required: false,
+          "default": ''
         },
         {
           name: 'year',
           label: 'Year',
           type: 'number',
           placeholder:'Enter the Year',
-          required: true,
+          required: false,
           min: 1800,
           max: 2150,
           default: 2024,
@@ -1319,7 +1415,8 @@ export async function getInput(type: string) {
           label: 'Information',
           placeholder:'Enter the Information',
           type: 'text',
-          required: true,
+          required: false,
+          "default": ''
         },
       ],
     }
