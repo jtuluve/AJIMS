@@ -201,6 +201,11 @@ export async function updateProfile(profile, uid?) {
     uid = uid || (await getUid())
     if (!verifyUid(uid)) throw new Error('Invalid UID');
     profile.experience = JSON.parse(profile.experience);
+    profile.appearance = JSON.parse(profile.appearance);
+    profile.inspectionDetails = JSON.parse(profile.inspectionDetails);
+    profile.numberOfLectures = JSON.parse(profile.numberOfLectures);
+    profile.details = JSON.parse(profile.details);
+    profile.emoluments = JSON.parse(profile.emoluments);
     profile.educationalQualification = JSON.parse(profile.educationalQualification);
     await User.findOneAndUpdate({ uid }, {...profile,profile}); //updating both universal and inner profile property
     return true

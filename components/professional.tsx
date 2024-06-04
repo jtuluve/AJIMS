@@ -142,8 +142,8 @@ export default function Professional() {
 					<a className="name3">Guest Lectures</a>
 					<Table
 						type="professionalGuestLectures"
-						header_row={["Number", "Category", "Uploads"]}
-						keys={["number", "category", "guestLecturesFile"]}
+						header_row={["Title", "Category", "Uploads"]}
+						keys={["title", "category", "guestLecturesFile"]}
 						column={3}
 						values={userData?.appraisal?.professional?.guestLectures}
 					/>
