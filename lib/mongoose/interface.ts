@@ -57,6 +57,7 @@ interface Publication {
   _id?: string;
   category?: "UG" | "PG" | "PHD" | "Nil";
   studentDetails?: string;
+  studentCourse?: string,
   studentUpload?: string;
   startDate?: Date;
   endDate?: Date;
@@ -84,6 +85,7 @@ interface Publication {
   place?: string;
   awards?: "Yes" | "No";
   description?: string;
+  certificateUpload: string;
 }
 
  export interface Patent {
@@ -159,12 +161,14 @@ interface Publication {
   designation?: "Member" | "Coordinator" | "Head" | "Nil";
   creditPoints?: "Yes" | "No";
   conferenceFile?: string;
+  attendieDetails: string;
+  conferenceName?: string;
 }
 
 // Define Guest lectures schema interface
  export interface GuestLecture {
   _id?: string;
-  number?: number;
+  title?: string;
   category?: "Internal" | "External" | "Nil";
   guestLecturesFile?: string;
 }

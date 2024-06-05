@@ -153,6 +153,7 @@ const booksSchema = new mongoose.Schema({
 const guidanceSchema = new mongoose.Schema({
   category: { type: String, enum: ['UG', 'PG', 'PHD', 'Nil'], default: 'Nil' },
   studentDetails: { type: String, required: false, default: 'Nil' },
+  studentCourse: { type: String, required: false, default: 'Nil' },
   startDate: { type: Date, required: false, default: Date.now },
   endDate: { type: Date, required: false, default: Date.now },
   name: { type: String, required: false, default: 'Nil' },
