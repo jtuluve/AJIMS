@@ -301,6 +301,7 @@ interface Profile {
   appointmentType3?: "With Private practice" | "Without Private practice";
   ugpgName?: string;
   college?: string;
+  collegeN?: string;
   sameClgAcpt?: "Yes" | "No";
   sameDestAcpt?: "Yes" | "No";
   retiredStatus?: "Yes" | "No";

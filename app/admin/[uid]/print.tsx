@@ -44,7 +44,7 @@ const PrintDetails = ({ params }) => {
         <div className="page-container">
             <div className="page1">
                 <center><h1>Faculty/ SR/ Tutor/ Demonstrator Declaration Form</h1></center>
-                <p><strong>Name of the college:</strong> {user?.profile?.college}</p>
+                <p><strong>Name of the college:</strong> {user?.profile?.collegeN}</p>
                 <table>
                     <thead>
                         <tr>

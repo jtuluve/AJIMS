@@ -406,6 +406,7 @@ const AppraisalSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   name: { type: String },
+  collegN: { type: String },
   dateOfJoining: { type: Date, default: Date.now },
   aadharNo: { type: Number, },
   passportNo: { type: String, },

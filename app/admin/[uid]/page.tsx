@@ -85,7 +85,7 @@ const UserDetail = ({ params }) => {
 								{user?.profile?.age} years,
 								{dob ? dob.toString() : 'Invalid Date'}
 							</p>
-					<p><strong>Name of the college:</strong> {user?.profile?.college}</p>
+					<p><strong>Name of the college:</strong> {user?.profile?.collegeN}</p>
 					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
 					<div className="designation-section">
                             <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
