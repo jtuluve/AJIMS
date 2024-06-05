@@ -24,7 +24,7 @@ export default function Admin() {
 			</div>
 			<center>
 				<input type="search" name="search" onChange={e=>{
-					let a = allUsers.filter(user=>new RegExp(`.*${e.target.value}.*`).test(user?.profile?.department) || new RegExp(`.*${e.target.value}.*`).test(user?.profile?.department));
+					let a = allUsers.filter(user=>new RegExp(`.*${e.target.value}.*`).test(user?.profile?.department) || new RegExp(`.*${e.target.value}.*`).test(user?.name));
 
 					setUsers(a);
 				}}/>
