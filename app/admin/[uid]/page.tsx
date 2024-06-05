@@ -12,7 +12,7 @@ const UserDetail = ({ params }) => {
 	const [user, setUser] = useState<UserDocument|null>(null);
 
 	const dob = user?.profile?.dob ? new Date(user.profile.dob) : null;
-	const dateOfJoining = user?.profile?.dateOfJoining ? new Date(user.profile.dateOfJoining) : null;
+	const dateOfJoining = user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining) : null;
 	
 
 	useEffect(() => {
@@ -70,6 +70,7 @@ const UserDetail = ({ params }) => {
 					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
 					<div className="designation-section">
                             <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
+							<p><strong>Appointment order:</strong><a href={user?.profile?.attachment} download>View upload document</a></p>
                             <p><strong>Department:</strong> {user?.profile?.department}</p>
                             <p><strong>College/ Institute:</strong> {user?.profile?.instituteName}</p>
                             <p><strong>City/ District:</strong> {user?.profile?.cityName}</p>
@@ -106,7 +107,6 @@ const UserDetail = ({ params }) => {
 								Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
 								Programme (CISP - i/ii/iii), Advanced Course in Medical Education (ACME) for training in MET:
 							</strong>
-							
 						</p>
 						<div className="workshopattened-section">
 							{user?.profile?.appearance?.length > 0 ? (
@@ -116,11 +116,86 @@ const UserDetail = ({ params }) => {
 								<p><strong>a. at MCI/NMC Regional MET Centre:</strong> {appearance.center}</p>
 								<p><strong>b. at your college under Regional/ Nodal observership:</strong> {appearance.observership}</p>
 								<p><strong>c. Any other MET certificates may be attached:</strong> {appearance.certs}</p>
+									<p><strong>Uploads:</strong><a href={appearance?.upload} download>View upload document</a></p>
 								</div>
 							))
 							) : (
 							<p>No appearances to show.</p>
 							)}
+						</div>
+						<p>
+							<strong>
+								Have you been considered in UG/ PG, MCI/ NMC inspection at any other 
+								medical college ina teaching or administrative capacity during last 3 years. 
+								If yes, please give details:
+							</strong>
+							</p>{/**object creation needed */}
+						<table>
+							<thead>
+								<tr>
+									<th>Designtion</th><th>Subject</th><th>College</th><th>Dates</th>
+								</tr>
+							</thead>
+							<tbody>
+								{user?.profile?.inspectionDetails?.length > 0 ? (
+									user?.profile?.inspectionDetails?.map((item, index) => (
+										<tr key={index}>
+											<td>{item.designation}</td>
+											<td>{item.subject}</td>
+											<td>{item.college}</td>
+											<td>{item.dates}</td>
+										</tr>
+									))
+								) : (
+									<tr>
+										<td colSpan={4}>No data available</td>
+									</tr>
+								)}
+							</tbody>
+						</table>
+						<p><strong>Details of employment before joining the present institution:</strong></p>
+						<div className="details-section">
+							{user?.profile?.details && user.profile.details.length > 0 ? (
+								user.profile.details.map((details, index) => (
+									<div key={index}>
+										<p><strong>a. Name of College/ Institution:</strong> {details.name}</p>
+										<p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.date ? new Date(details.date).toLocaleDateString() : 'Invalid Date'}</p>
+										<p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
+										<p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
+										<p><strong>d. Relieving order issued by previous institution attached file:</strong> <a href={details.verificationFile} download>View upload document</a></p>
+									</div>
+								))
+							) : (
+								<p>No data available</p>
+							)}
+						</div>
+						<p>
+							<strong>Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc
+								taken and topics covered in last academic year (attach additional sheet, if required)
+							</strong>
+						</p>{/**object creation needed! */}
+						<div className="number section">
+							<table>
+								<thead>
+									<th>Designation</th><th>Date</th><th>Lecture/ SGT/ Clinic/ others</th><th>Topic</th>
+								</thead>
+								<tbody>
+									{user?.profile?.numberOfLectures?.length > 0 ? (
+									user?.profile?.numberOfLectures?.map((numberOfLectures, index) => (
+										<tr key={index}>
+											<td>{index}</td>
+											<td>{numberOfLectures.date ? numberOfLectures.date.toLocaleDateString() : 'Invalid Date'}</td>
+											<td>{numberOfLectures.type}</td>
+											<td>{numberOfLectures.topic}</td>
+										</tr>
+									))
+									) : (
+									<tr>
+										<td colSpan={4}>No data available</td>
+									</tr>
+								)}
+								</tbody>
+							</table>
 						</div>
 						<div className="margin-body">
 						<p><strong>Experience:</strong></p>
@@ -136,9 +211,12 @@ const UserDetail = ({ params }) => {
 							</div>
 							))
 						) : (
-							<p>No experience information available.</p>
+							<tr>
+                                <td colSpan={6}>No data available</td>
+                            </tr>
 						)}
 						<p><strong>Aadhar No:</strong> {user?.profile?.aadharNo}</p>
+						<p><strong>PAN Card Number:</strong>{user?.profile?.panNo}</p>{/**variable needed*/}
 					</div>
 					<p><strong>Residencial Adderss:</strong> {user?.profile?.residentialAddress}</p>
 					<p><strong>Permanent:</strong>{user?.profile?.perAddress}</p>
@@ -146,7 +224,7 @@ const UserDetail = ({ params }) => {
 					<p><strong>Contact Details:</strong></p>
 					<div className="margin-body">
 						<p><strong>Phone no:</strong> {user?.profile?.phoneNo}</p>
-						<p><strong>Email address:</strong> {user.email}</p>	
+						<p><strong>Email address:</strong>{user?.profile?.emailaddress}</p>	
 					</div>
 					<p><strong>Date of joining:</strong> {dateOfJoining ? dateOfJoining.toLocaleDateString() : 'N/A'}</p>
 					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
@@ -160,22 +238,28 @@ const UserDetail = ({ params }) => {
 						</tr>
 						</thead>
 						<tbody>
-							{user?.profile?.educationalQualification?.map((educationalQualification, index) => (
-							<tr key={index}>
-							<td>{educationalQualification.degree}</td>
-							<td>{educationalQualification.year}</td>
-							<td>{educationalQualification.collegeName}</td>
-							<td>{educationalQualification.regNumWithDate}</td>
-							<td>{educationalQualification.medicalCouncilName}</td>
+						{user?.profile?.educationalQualification?.length > 0 ? (
+							user.profile.educationalQualification.map((educationalQualification, index) => (
+								<tr key={index}>
+									<td>{educationalQualification.degree}</td>
+									<td>{educationalQualification.year}</td>
+									<td>{educationalQualification.collegeName}</td>
+									<td>{educationalQualification.regNumWithDate}</td>
+									<td>{educationalQualification.medicalCouncilName}</td>
+								</tr>
+							))
+						) : (
+							<tr>
+								<td colSpan={5}>No data available</td>
 							</tr>
-						))}
-						</tbody>
+						)}
+					</tbody>
 					</table>
 					</div>
 					<div className="edu-section">
-                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
-                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
-                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
+                        <p><strong>MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
+                        <p><strong>DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
+                        <p><strong>PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
                     </div>
 					<p><strong>Passport No:</strong> {user?.profile?.passportNo}</p>
 					<p><strong>KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
@@ -183,7 +267,7 @@ const UserDetail = ({ params }) => {
 				<div className="profile-photo">
 					<img
 						src={user?.profileUrl}
-						alt="upload profile url"
+						alt=""
 						height={120}
 						width={100}
 					/>
@@ -225,6 +309,13 @@ const UserDetail = ({ params }) => {
 					<p>No teaching data available</p>
 				)}
 			</div>
+			<p><strong>Copies of educational qualifications:</strong></p>  
+                <div className="qualifications-section">
+                    <p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certUpload}</p>{/**Variable needed!*/}
+					<p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>{/**Variable needed!*/}
+                    <p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regUpload}</p>{/**Variable needed!*/}
+					<p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>{/**Variable needed!*/}
+                </div>
 			<p><strong>Publication details:</strong></p>
 			<div className="publication-body">
 				{user.appraisal?.research?.publications?.length > 0 ? (
@@ -263,6 +354,53 @@ const UserDetail = ({ params }) => {
 					<p>No publication data available</p>
 				)}
 			</div>
+			<p><strong>I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/**object creation needed*/}
+            <div className="enoluments-section">
+                <table>
+                    <thead>
+                        <tr><th>Month/Year</th><th>Amount Received</th><th>TDS</th></tr>
+                    </thead>
+                    <tbody>
+                        {user?.profile?.emoluments?.length > 0 ? (
+                            user?.profile?.emoluments?.map((emoluments, index) => (
+                                <tr key={index}>
+                                    <td>{emoluments.month}/{emoluments.year}</td>
+                                    <td>{emoluments.amount}</td>
+                                    <td>{emoluments.tds}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={3}>No emoluments data available</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+			<div className="achievements-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Serial No</th><th>Year</th><th>Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {user?.appraisal?.professional?.achievements?.length > 0 ? (
+                            user.appraisal?.professional?.achievements.map((achievements, index) => (
+                                <tr key={index}>
+                                    <td>{achievements.serialNo}</td>
+                                    <td>{achievements.year}</td>
+                                    <td>{achievements.information}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={3}>No achievements data available</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
 			<p><strong>Grant details:</strong></p>
 			<div className="grant-body">
 				{user.appraisal?.research?.grants?.length > 0 ? (
@@ -286,6 +424,7 @@ const UserDetail = ({ params }) => {
 									<td>{grant?.workPub}</td>
 									<td>{grant?.amountCategory}</td>
 									<td><a href={grant?.uploadUrl} download>View upload document</a></td>
+									<td><a href={grant?.utCert} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -328,7 +467,7 @@ const UserDetail = ({ params }) => {
 					<table>
 						<thead>
 							<tr>
-								<th>Category</th><th>Student Details</th><th>Uploaded file</th>
+								<th>Category</th><th>Student Details</th><th>Student Course</th><th>Uploaded file</th>
 								<th>Start date</th><th>End date</th><th>Name</th>
 								<th>Title</th><th>Publish Status</th><th>Year</th>
 								<th>Amount</th><th>Grant Name</th><th>Funded Status</th><th>Agency Name</th>
@@ -340,6 +479,7 @@ const UserDetail = ({ params }) => {
 								<tr key={index}>
 									<td>{guidance?.category}</td>
 									<td>{guidance?.studentDetails}</td>
+									<td>{guidance?.studentCourse}</td>
 									<td><a href={guidance?.studentUpload} download>View upload document</a></td>
 									<td>{guidance?.startDate.toLocaleDateString()}</td>
 									<td>{guidance?.endDate.toLocaleDateString()}</td>
@@ -385,6 +525,7 @@ const UserDetail = ({ params }) => {
 									<td>{conference?.awards}</td>
 									<td>{conference?.description}</td>
 									<td><a href={conference?.attachment} download>View upload document</a></td>
+									<td><a href={conference?.certificateUpload} download>View upload document</a></td>
 								</tr>
 							))}
 						</tbody>
@@ -393,8 +534,59 @@ const UserDetail = ({ params }) => {
 					<p>No conference data available</p>
 				)}
 			</div>
-		</div>		
-		<div className="professional-body">
+			</div>	
+				<p><strong>Any other information/ achievements/ patents:</strong></p>
+				<div className="patent-section">
+					<table>
+						<thead>
+							<tr>
+								<th>Patent Country</th><th>Patent Number</th><th>Type</th><th>Title</th><th>Date</th><th>Details of the inventor</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user?.appraisal?.research?.patents?.length > 0 ? (
+								user?.appraisal?.research?.patents?.map((patent, index) => (
+									<tr key={index}>
+										<td>{patent.patentCountry}</td>
+										<td>{patent.patentNumber}</td>
+										<td>{patent.patentType}</td>
+										<td>{patent.title}</td>
+										<td>{patent.date ? patent.date.toLocaleDateString() : 'Invalid Date'}</td>
+										<td>
+											{patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
+												<table>
+													<thead>
+														<tr>
+															<th>Number</th><th>Name</th><th>Institute</th>
+														</tr>
+													</thead>
+													<tbody>
+														{patent.detailsOfInventors.map((detailsOfInventors, i) => (
+															<tr key={i}>
+																<td>{detailsOfInventors.number}</td>
+																<td>{detailsOfInventors.name}</td>
+																<td>{detailsOfInventors.institute}</td>
+															</tr>
+														))}
+													</tbody>
+												</table>
+											) : (
+												<tr>
+													<td colSpan={5}>No inventor information available</td>
+												</tr>
+											)}
+										</td>
+									</tr>
+								))
+							) : (
+								<tr>
+									<td colSpan={5}>No Patent information available</td>
+								</tr>
+							)}
+						</tbody>
+					</table>
+				</div>	
+				<div className="professional-body">
 				<p><strong>Clinical Duty</strong></p>
 				<div className="clinical-duty-body">
 					{user.appraisal?.professional?.clinicalDuty ? (
@@ -510,15 +702,17 @@ const UserDetail = ({ params }) => {
 						<table>
 							<thead>
 								<tr>
-									<th>Designation</th><th>Credit Points</th><th>Conference File</th>
+									<th>Conference Name</th><th>Designation</th><th>Credit Points</th><th>Attendie Details</th><th>Conference File</th>
 								</tr>
 							</thead>
 							<tbody>
-								{user.appraisal.professional.conferences.map((conference, index) => (
+								{user?.appraisal?.professional?.conferences.map((conferences, index) => (
 									<tr key={index}>
-										<td>{conference?.designation}</td>
-										<td>{conference?.creditPoints}</td>
-										<td><a href={conference?.conferenceFile} download>View upload document</a></td>
+										<td>{conferences?.conferenceName}</td>
+										<td>{conferences?.designation}</td>
+										<td>{conferences?.creditPoints}</td>
+										<td>{conferences?.attendieDetails}</td>
+										<td><a href={conferences?.conferenceFile} download>View upload document</a></td>
 									</tr>
 								))}
 							</tbody>
@@ -533,13 +727,13 @@ const UserDetail = ({ params }) => {
 						<table>
 							<thead>
 								<tr>
-									<th>Number</th><th>Category</th><th>Guest Lecture File</th>
+									<th>Title</th><th>Category</th><th>Guest Lecture File</th>
 								</tr>
 							</thead>
 							<tbody>
 								{user.appraisal.professional.guestLectures.map((guestLectures, index) => (
 									<tr key={index}>
-										<td>{guestLectures?.number}</td>
+										<td>{guestLectures?.title}</td>
 										<td>{guestLectures?.category}</td>
 										<td><a href={guestLectures?.guestLecturesFile} download>View upload document</a></td>
 									</tr>

@@ -564,7 +564,7 @@ export async function getInput(type: string) {
           },
           {
             "name": "tds",
-            "type": "text",
+            "type": "number",
             "label": "TDS",
             "placeholder": "Enter the TDS amount",
             "default": ""

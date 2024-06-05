@@ -57,6 +57,7 @@ interface Guidance {
   _id?: string;
   category?: "UG" | "PG" | "PHD" | "Nil";
   studentDetails?: string;
+  studentCourse?: string,
   studentUpload?: string;
   startDate?: Date;
   endDate?: Date;
@@ -84,6 +85,7 @@ interface Conference {
   place?: string;
   awards?: "Yes" | "No";
   description?: string;
+  certificateUpload: string;
 }
 
 interface Patent {
@@ -159,12 +161,14 @@ interface ConferenceSchema {
   designation?: "Member" | "Coordinator" | "Head" | "Nil";
   creditPoints?: "Yes" | "No";
   conferenceFile?: string;
+  attendieDetails: string;
+  conferenceName?: string;
 }
 
 // Define Guest lectures schema interface
 interface GuestLecture {
   _id?: string;
-  number?: number;
+  title?: string;
   category?: "Internal" | "External" | "Nil";
   guestLecturesFile?: string;
 }
@@ -265,7 +269,7 @@ interface Emolument {
   month?: "Jan" | "Feb" | "Mar" | "Apr" | "May" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Nov" | "Dec";
   year?: number;
   amount?: number;
-  tds?: string;
+  tds?: number;
 }
 
 // Define profile schema interface
