@@ -13,6 +13,33 @@
     padding: 0;
 }
 
+.search-container {
+	width: 60%;
+	justify-content: center;
+	margin: 1rem auto;
+	display: flex;
+}
+
+.search-container input[type="search"] {
+	width: 100%;
+	padding: 0.5rem 1rem;
+	border: 2px solid #131d38;
+	border-radius: 5px;
+	font-size: 1rem;
+	outline: none;
+	transition: all 0.3s ease;
+}
+
+.search-container input[type="search"]:focus {
+	border-color: #131d38;
+	box-shadow: 0 0 10px #273457;
+}
+
+.search-container input[type="search"]::placeholder {
+	color: #aaa;
+	font-style: italic;
+}
+
 .titlebar .logout {
     color: #ff4c4c;
     margin-right: 10px;

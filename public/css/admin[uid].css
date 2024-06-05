@@ -1,5 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+.titlebaradmin .home {
+  color: #ff4c4c;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+
+.titlebaradmin .home::after {
+  font-family: none;
+  color: white;
+  content: "home";
+  position: absolute;
+  top: 100%;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  font-size: small;
+  right: 0;
+}
+
+.titlebar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: #131d38;
+  color: white;
+  height: 10%;
+  min-height: 100px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  outline: 2px solid #000;
+}
+
+.titlebaradmin .logo {
+  height: 80%;
+  border-radius: 15%;
+  margin-left: 1%;
+}
+
+.titlebaradmin .web-name {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin: auto 10px;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -21,13 +69,13 @@ body {
     margin-top: 30px;
 }
 
-.titlebar {
+.titlebaradmin {
     height: 50px;
     background-color: #333;
     color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .score-card {

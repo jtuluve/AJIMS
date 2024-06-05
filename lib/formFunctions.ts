@@ -58,7 +58,7 @@ export async function getInput(type: string) {
       },
       {
         "name": "department",
-        "type": "text",
+        "type": "select",
         "label": "Department",
         "options":[
           "Anaesthesiology",

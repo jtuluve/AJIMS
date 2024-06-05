@@ -313,7 +313,8 @@ const ConferenceSchema = new mongoose.Schema({
   },
   creditPoints: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
   conferenceFile: { type: String, default: 'Nil' },
-  attendieDetails: { type: String }
+  attendieDetails: { type: String },
+  conferenceName: { type: String }
 })
 
 //Guest lectures schema
