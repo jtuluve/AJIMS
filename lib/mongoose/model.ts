@@ -505,7 +505,7 @@ const profileSchema = new mongoose.Schema({
       default: 2024
     },
     amount: { type: Number, default: 0 },
-    tds: { type: String, default: '' }
+    tds: { type: Number, default: '' }
   })
   ],
 })

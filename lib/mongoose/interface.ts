@@ -27,7 +27,7 @@ interface Publication {
 }
 
 // Define grants schema interface
-interface Grant {
+ export interface Grant {
   _id?: string;
   title?: string;
   agency?: string;
@@ -41,7 +41,7 @@ interface Grant {
 }
 
 // Define books schema interface
-interface Book {
+ export interface Book {
   _id?: string;
   authorship?: "Nil" | "Chapter" | "Book";
   category?: "Nil" | "National" | "International";
@@ -53,7 +53,7 @@ interface Book {
 }
 
 // Define guidance schema interface
-interface Guidance {
+ export interface Guidance {
   _id?: string;
   category?: "UG" | "PG" | "PHD" | "Nil";
   studentDetails?: string;
@@ -73,7 +73,7 @@ interface Guidance {
   reportUrl?: string;
 }
 
-interface Conference {
+ export interface Conference {
   _id?: string;
   category?: "Nil" | "Zonal" | "State" | "National" | "International";
   confName?: string;
@@ -86,7 +86,7 @@ interface Conference {
   description?: string;
 }
 
-interface Patent {
+ export interface Patent {
   _id?: string;
   patentCountry?: string;
   patentNumber?: number;
@@ -101,7 +101,7 @@ interface Patent {
 }
 
 // Define the Research schema interface
-interface Research {
+ export interface Research {
   _id?: string;
   score?: Score;
   publications?: Publication[];
@@ -113,7 +113,7 @@ interface Research {
 }
 
 // Define Teaching schema interface
-interface Teaching {
+ export interface Teaching {
   _id?: string;
   hours?: number;
   hourUpload?: string;
@@ -130,7 +130,7 @@ interface Teaching {
 }
 
 // Define academics schema interface
-interface Academic {
+ export interface Academic {
   _id?: string;
   score?: Score;
   teaching?: Teaching[];
@@ -138,7 +138,7 @@ interface Academic {
 }
 
 // Define ExamDuties schema interface
-interface ExamDuty {
+ export interface ExamDuty {
   _id?: string;
   category1?: "Invigilator/Room Supervisor" | "Deputy Chief Superintendent" | "Chief Superintendent" | "Nil";
   category2?: "Internal" | "External" | "Nil";
@@ -146,7 +146,7 @@ interface ExamDuty {
 }
 
 // Define Committee schema interface
-interface Committee {
+ export interface Committee {
   _id?: string;
   committeeName?: string;
   designation?: "Member" | "Coordinator" | "Head" | "Nil" | "Resource person";
@@ -154,7 +154,7 @@ interface Committee {
 }
 
 // Define Conference schema interface
-interface ConferenceSchema {
+ export interface ConferenceSchema {
   _id?: string;
   designation?: "Member" | "Coordinator" | "Head" | "Nil";
   creditPoints?: "Yes" | "No";
@@ -162,7 +162,7 @@ interface ConferenceSchema {
 }
 
 // Define Guest lectures schema interface
-interface GuestLecture {
+ export interface GuestLecture {
   _id?: string;
   number?: number;
   category?: "Internal" | "External" | "Nil";
@@ -265,7 +265,7 @@ interface Emolument {
   month?: "Jan" | "Feb" | "Mar" | "Apr" | "May" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Nov" | "Dec";
   year?: number;
   amount?: number;
-  tds?: string;
+  tds?: number;
 }
 
 // Define profile schema interface

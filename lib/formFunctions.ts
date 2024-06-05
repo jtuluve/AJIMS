@@ -62,6 +62,8 @@ export async function getInput(type: string) {
         "label": "Department",
         "options": ["Anaesthesiology", "Anatomy", "Biochemistry", "Community Medicine", "Dermatology", "Forensic Medicine", "General Medicine", "General Surgery", "Microbiology", "OBG", "Ophthalmology", "Orthopaedics", "Paediatrics", "Pathology", "Pharmacology", "Physiology", "Psychiatry", "Radio Diagnosis", "ENT", "Plastic & Reconstructive Surgery", "Neurology", "Cardiology", "Cardiothoracic & Vascular Surgery", "Medical Education", "Research Center", "Respiratory Medicine", "Urology", "Endocrinology"],
         "required": true
+      },
+      {
         "name": "attachment",
         "type": "file",
         "label": "Upload Appointment order",
@@ -413,28 +415,32 @@ export async function getInput(type: string) {
             "type": "text",
             "label": "Designation",
             "placeholder":"Enter designation",
-            "default": ""
+            "default": "",
+            required: true
           },
           {
             "name": "subject",
             "type": "text",
             "label": "Subject",
             "placeholder": "Enter Subject",
-            "default": ""
+            "default": "",
+            required: true
           },
           {
             "name": "college",
             "type": "text",
             "label": "College",
             "placeholder": "Enter College Name",
-            "default": ""
+            "default": "",
+            required: true
           },
           {
             "name": "dates",
             "type": "text",
             "label": "Dates",
             "placeholder": "Enter dates",
-            "default": ""
+            "default": "",
+            required: true
           }
         ]
       },
@@ -448,20 +454,23 @@ export async function getInput(type: string) {
             "type": "date",
             "label": "Date",
             "placeholder":"Enter the Date",
+            required: true
           },
           {
             "name": "type",
             "type": "text",
             "label": "Lecture/ SGT/ SDL/ Clinic/ others",
             "placeholder": "Enter the type",
-            "default": ""
+            "default": "",
+            required: true
           },
           {
             "name": "topic",
             "type": "text",
             "label": "Topic",
             "placeholder": "Enter the Topic",
-            "default": ""
+            "default": "",
+            required: true
           }
         ]
       },
@@ -475,38 +484,44 @@ export async function getInput(type: string) {
             "type": "text",
             "label": "Name of College/ Institution",
             "placeholder":"Enter the Name of College/ Institution",
-            "default": 0
+            "default": 0,
+            required: true
           },
           {
             "name": "designation",
             "type": "text",
             "label": "Designation",
             "placeholder": "Enter the Designation",
-            "default": ""
+            "default": "",
+            required: true
           },
           {
             "name": "date",
             "type": "date",
-            "label": "Date on which relieved"
+            "label": "Date on which relieved",
+            required: true
           },
           {
             "name": "relieveReason",
             "type": "select",
             "label": "Reason for being relieved",
             "options":["Tendered resignation","Retired","Transferred","Terminated"],
-            "default": "Transferred"
+            "default": "Transferred",
+            required: true
           },
           {
             "name": "verification",
             "type": "select",
             "label": "Relieving order issued by previous institution verified and attached",
             "options": ["Yes", "No"],
-            "default": "No"
+            "default": "No",
+            required: true
           },
           {
             "name": "verificationFile",
             "type": "file",
-            "label": "Upload Verification File"
+            "label": "Upload Verification File",
+            required: true
           }
         ]
       },
@@ -555,28 +570,32 @@ export async function getInput(type: string) {
             "type": "select",
             "label": "Month",
             "options": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            "default": "Jan"
+            "default": "Jan",
+            required: true
           },
           {
             "name": "year",
             "type": "number",
             "properties": { "min": 1800, "max": 2150, "step": 1 },
             "label": "Year",
-            "default": 2024
+            "default": 2024,
+            required: true
           },
           {
             "name": "amount",
             "type": "number",
             "label": "Amount Received",
             "placeholder":"Enter the received amount",
-            "default": 0
+            "default": 0,
+            required: true
           },
           {
             "name": "tds",
-            "type": "text",
+            "type": "number",
             "label": "TDS",
             "placeholder": "Enter the TDS amount",
-            "default": ""
+            "default": "",
+            required: true
           }
         ]
       },
