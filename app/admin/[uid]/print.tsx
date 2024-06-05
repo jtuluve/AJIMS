@@ -102,10 +102,10 @@ const PrintDetails = ({ params }) => {
             <div className="page2">
                 <p><strong>4. Complete Residential Address of the employee:</strong></p>
                 <div className="address-section">
-                    <p><strong>a. Present:</strong>{user?.profile?.residentialAddress}</p>{/**varaible needed */}
-                    <p><strong>b. Permanent:</strong>{user?.profile?.perAddress}</p>{/**varaible needed */}
+                    <p><strong>a. Present:</strong>{user?.profile?.residentialAddress}</p>
+                    <p><strong>b. Permanent:</strong>{user?.profile?.perAddress}</p>
                 </div>
-                <p><strong>5. Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceProofStatus}</p>{/**variable needed */}
+                <p><strong>5. Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceProofStatus}</p>
                 <div className="smalltext">
                     <p>
                         (Only copies of Passport/ Aadhar card/ Voter ID/ Electricty bill/ Landline Phone bill will be considered)
@@ -113,13 +113,13 @@ const PrintDetails = ({ params }) => {
                 </div>
                 <p><strong>6. Contact details:</strong></p>
                 <div className="contact-section">
-                    <p><strong>a. Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>{/**varaible needed */}
-                    <p><strong>b. Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>{/**varaible needed */}
+                    <p><strong>a. Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>
+                    <p><strong>b. Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>
                     <p><strong>c. Mobile Phone Number: </strong>{user?.profile?.phoneNo}</p>
                     <p><strong>d. Email address:</strong> {user?.profile?.emailaddress}</p>
                 </div> 
                 <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining).toString() : 'N/A'}</p>
-                <p><strong>8. Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>{/**varaible needed */}
+                <p><strong>8. Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>
                 <p>
                     <strong>
                         9. Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
@@ -171,9 +171,9 @@ const PrintDetails = ({ params }) => {
                         </tbody>
                     </table>
                     <div className="edu-section">
-                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
-                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
-                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
+                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>
+                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>
+                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>
                     </div>
                 </div>
                 <div className="smalltext">
@@ -188,8 +188,8 @@ const PrintDetails = ({ params }) => {
             <div className="page3">
                 <p><strong>11. Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
-                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>{/**Variable needed!*/}
-                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>{/**Variable needed!*/}
+                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>
+                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>
                 </div> 
                 <p><strong>12. Details of Teaching experience till date:</strong></p>
                 <div className="teaching-section">
@@ -263,7 +263,7 @@ const PrintDetails = ({ params }) => {
                         medical college ina teaching or administrative capacity during last 3 years. 
                         If yes, please give details:
                     </strong>
-                </p>{/**object creation needed */}
+                </p>
                 <table>
                     <thead>
                         <tr>
@@ -291,7 +291,7 @@ const PrintDetails = ({ params }) => {
                     <strong>14. Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc
                         taken and topics covered in last academic year (attach additional sheet, if required)
                     </strong>
-                </p>{/**object creation needed! */}
+                </p>
                 <div className="number section">
                     <table>
                         <thead>
@@ -333,9 +333,9 @@ const PrintDetails = ({ params }) => {
                         <p>No data available</p>
                     )}
                 </div>
-                <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>{/*variable needed*/}
+                <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>
                 <p><strong>17. Aadhar Card Number:</strong>{user?.profile?.aadharNo}</p>
-                <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/*object creation needed*/}
+                <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>
                 <div className="enoluments-section">
                     <table>
                         <thead>
@@ -520,7 +520,7 @@ const PrintDetails = ({ params }) => {
                         </tbody>
                     </table>
                 </div>
-                <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>{/*object varification needed*/}
+                <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>
                 <div>
                     <div className="conference-details">
                         <table>
@@ -598,7 +598,7 @@ const PrintDetails = ({ params }) => {
                         </table>
                     </div>
                 </div>                
-                <p><strong>24. Awards/ prizes:</strong></p>{/*awards object/variable needed*/}
+                <p><strong>24. Awards/ prizes:</strong></p>
                 <div className="awards-section">
                     <table>
                     <thead>
@@ -622,6 +622,33 @@ const PrintDetails = ({ params }) => {
                     </tbody>
                     </table>
                 </div>
+              { /* <div className="page6">
+                    <p><strong><center>Attached details</center></strong></p>
+                    <p><strong>Publication details:</strong></p>
+                    <div className="publication-body">
+                        {user.appraisal?.research?.publications?.length > 0 ? (
+                            user.appraisal.research.publications.map((publication, index) => (
+                                <div key={index} className="publication-details">
+                                    <p><strong>Title:</strong> {publication?.title}</p>
+                                    <p><strong>Author:</strong> {publication?.author}</p>
+                                    <p><strong>Journal Name:</strong> {publication?.journalName}</p>
+                                    <p><strong>Volume:</strong> {publication?.volume}</p>
+                                    <p><strong>Issue:</strong> {publication?.issue}</p>
+                                    <p><strong>Page No:</strong> {publication?.pageNo}</p>
+                                    <p><strong>Year:</strong> {publication?.year}</p>
+                                    <p><strong>Quartile:</strong> {publication?.quartile}</p>
+                                    <p><strong>Index:</strong> {publication?.index}</p>
+                                    <p><strong>Category:</strong> {publication?.category}</p>
+                                    <p><strong>Post held:</strong> {publication?.postheld}</p>
+                                    <p><strong>DOI:</strong> {publication?.doi}</p>
+                                    <p><strong>Authorship:</strong> {publication?.authorship}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No publication data available</p>
+                        )}
+                    </div>
+                </div>*/}
             </div>        
         </div>
   );
