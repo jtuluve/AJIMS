@@ -62,7 +62,7 @@ const PrintDetails = ({ params }) => {
                 <div className="faculty-details">
                     <div className="details">
                         <p><strong>1. Name of Faculty:</strong> {user?.profile?.name}</p>
-                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years,  {user?.profile?.dob ? new Date(user?.profile?.dob).toLocaleDateString() : 'N/A'}</p>
+                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years,  {user?.profile?.dob? new Date(user?.profile?.dob).toLocaleDateString() : 'N/A'}</p>
                         <p><strong>3. Present Designation:</strong> {user?.profile?.designation}</p>
                         <div className="designation-section">
                             <p><strong>a. Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
@@ -189,8 +189,8 @@ const PrintDetails = ({ params }) => {
             <div className="page3">
                 <p><strong>11. Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
-                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certUpload}</p>{/**Variable needed!*/}
-                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regUpload}</p>{/**Variable needed!*/}
+                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>{/**Variable needed!*/}
+                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>{/**Variable needed!*/}
                 </div> 
                 <p><strong>12. Details of Teaching experience till date:</strong></p>
                 <div className="teaching-section">
@@ -321,39 +321,42 @@ const PrintDetails = ({ params }) => {
             <div className="page4">
                 <p><strong>15. Details of employment before joining the present institution:</strong></p>
                 <div className="details-section">
-                    {user?.profile?.details && user?.profile?.details.map((details, index) => (
-                        <div key={index}>
-                            <p><strong>a. Name of College/ Institution:</strong> {details.name}</p>
-                            <p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong>{details.date ? details.date.toLocaleDateString() : 'Invalid Date'}</p>
-                            <p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
-                            <p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
-                        </div>
-                    ))}
+                    {user?.profile?.details && user.profile.details.length > 0 ? (
+                        user.profile.details.map((details, index) => (
+                            <div key={index}>
+                                <p><strong>a. Name of College/ Institution:</strong> {details.name}</p>
+                                <p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.date ? new Date(details.date).toLocaleDateString() : 'Invalid Date'}</p>
+                                <p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
+                                <p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No data available</p>
+                    )}
                 </div>
                 <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>{/**variable needed*/}
                 <p><strong>17. Aadhar Card Number:</strong>{user?.profile?.aadharNo}</p>
                 <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/**object creation needed*/}
                 <div className="enoluments-section">
-                <table>
-                    <thead>
-                        <tr><th>Month/Year</th><th>Amount Received</th><th>TDS</th></tr>
-                    </thead>
-                    <tbody>
-                        {user?.profile?.emoluments?.length > 0 ? (
-                            user?.profile?.emoluments?.map((emoluments, index) => (
-                                <tr key={index}>
-                                    <td>{emoluments.month}/{emoluments.year}</td>
-                                    <td>{emoluments.amount}</td>
-                                    <td>{emoluments.tds}</td>
+                    <table>
+                        <thead>
+                            <tr><th>Month/Year</th><th>Amount Received</th><th>TDS</th></tr>
+                        </thead>
+                        <tbody>
+                            {user?.profile?.emoluments?.length > 0 ? (
+                                // Extracting the last entry from the emoluments array
+                                <tr>
+                                    <td>{user.profile.emoluments[user.profile.emoluments.length - 1].month}/{user.profile.emoluments[user.profile.emoluments.length - 1].year}</td>
+                                    <td>{user.profile.emoluments[user.profile.emoluments.length - 1].amount}</td>
+                                    <td>{user.profile.emoluments[user.profile.emoluments.length - 1].tds}</td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={3}>No emoluments data available</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+                            ) : (
+                                <tr>
+                                    <td colSpan={3}>No emoluments data available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
                 <p><strong>19. Number of Research articles in Indexed Journals:</strong></p>
                 <div className="research-section">
@@ -367,54 +370,56 @@ const PrintDetails = ({ params }) => {
                     <p><strong>b. Number of Chapters in books: </strong>{totalChapters || 0}</p>
                 </div>
                 </div>
-
                 <div className="page5">
                 <p><strong>21. Any other information/ achievements/ patents:</strong></p>
                 <div className="patent-section">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Patent Country</th><th>Patent Number</th><th>Type</th><th>Date</th><th>Details of the inventor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {user?.appraisal?.research?.patents?.length > 0 ? (
-                        user?.appraisal?.research?.patents?.map((patent, index) => (
-                            <tr key={index}>
-                                <td>{patent.patentCountry}</td>
-                                <td>{patent.patentNumber}</td>
-                                <td>{patent.patentType}</td>
-                                <td>{patent.date ? patent.date.toLocaleDateString() : 'Invalid Date'}</td>
-                                <td>
-                                    {patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Number</th><th>Name</th><th>Institute</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {patent.detailsOfInventors.map((detailsOfInventors, i) => (
-                                                    <tr key={i}>
-                                                        <td>{detailsOfInventors.number}</td>
-                                                        <td>{detailsOfInventors.name}</td>
-                                                        <td>{detailsOfInventors.institute}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    ) : (
-                                        <td colSpan={5}>No inventor information available</td>
-                                    )}
-                                </td>
-                            </tr>
-                        ))):(
+                    <table>
+                        <thead>
                             <tr>
-                                <td colSpan={5}>No Patent information available</td>
+                                <th>Patent Country</th><th>Patent Number</th><th>Type</th><th>Date</th><th>Details of the inventor</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {user?.appraisal?.research?.patents?.length > 0 ? (
+                                user?.appraisal?.research?.patents?.map((patent, index) => (
+                                    <tr key={index}>
+                                        <td>{patent.patentCountry}</td>
+                                        <td>{patent.patentNumber}</td>
+                                        <td>{patent.patentType}</td>
+                                        <td>{patent.date ? patent.date.toLocaleDateString() : 'Invalid Date'}</td>
+                                        <td>
+                                            {patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Number</th><th>Name</th><th>Institute</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {patent.detailsOfInventors.map((detailsOfInventors, i) => (
+                                                            <tr key={i}>
+                                                                <td>{detailsOfInventors.number}</td>
+                                                                <td>{detailsOfInventors.name}</td>
+                                                                <td>{detailsOfInventors.institute}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            ) : (
+                                                <tr>
+                                                    <td colSpan={5}>No inventor information available</td>
+                                                </tr>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={5}>No Patent information available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
                 <div className="achievements-section">
                     <table>
