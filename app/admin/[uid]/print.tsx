@@ -5,7 +5,6 @@ import { useAdminData } from "@/components/adminContext";
 import '@css/print[uid].css'
 import "@css/admin.css";
 import { UserDocument } from "@/lib/mongoose/interface";
-import { UserDocument } from "@/lib/mongoose/interface";
 
 const PrintDetails = ({ params }) => {
 
@@ -43,6 +42,7 @@ const PrintDetails = ({ params }) => {
     }
 
     return (
+        <div>
         <div className="page-container">
             <div className="page1">
                 <center><h1>Faculty/ SR/ Tutor/ Demonstrator Declaration Form</h1></center>
@@ -629,7 +629,7 @@ const PrintDetails = ({ params }) => {
                 </div>
             </div>        
         </div>
-    );
+  );
 };
 
 export default PrintDetails;
