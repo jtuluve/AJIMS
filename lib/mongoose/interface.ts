@@ -332,6 +332,7 @@ export interface UserDocument extends Document {
   isAdmin?: boolean;
   profileUrl?: string;
   category?: string;
+  emailaddress: string;
   designation?: string;
   department?: string;
   profile?: Profile;
