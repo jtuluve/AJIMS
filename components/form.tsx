@@ -126,7 +126,7 @@ export default function Form({
 		setFilePerc(0);
 		setFileUploadError(false);
 		setInputs({status:"loading"})
-		setCanSubmit(false)
+		setCanSubmit(true)
 		if(formState.type)
 		(async () => {
 			try {
@@ -263,7 +263,7 @@ export default function Form({
 						handleUpsertAny(formData)
 							.then(() => {
 								setFormStatus({ status: "submitted", error: false });
-								setFormState({});
+								setFormState({submitted: true});
 							})
 							.catch(() => {
 								setFormStatus({ status: "submitted", error: true });
@@ -463,16 +463,22 @@ function SelectComponent({
 	name,
 	defaultValue,
 	onChange,
+	onLoad
 }: {
 	options: Array<{ label?: string; value: string }> | Array<string>;
 	name: string;
 	defaultValue: string;
 	placeholder: string;
-	onChange: (event: any) => void
+	onChange: (event: any) => void;
+	onLoad?: () => void;
 }) {
+
+	useEffect(()=>{
+		onLoad?.();
+	},[])
 	if (typeof options[0] == "string") {
 		return (
-			<select name={name} onChange={onChange} defaultValue={defaultValue} title="Select an option">
+			<select name={name} onChange={onChange} onLoad={onLoad} defaultValue={defaultValue} title="Select an option">
 			{options.map((option) => (
 				<option key={option} value={option}>
 					{option}
@@ -610,8 +616,12 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 									}
 									placeholder={input.placeholder}
 									onChange={(event) => {
-										values[index][input.name] = event.target.value;
-										setTables({...values});
+										value[input.name] = event.target.value;
+										setTables((prev)=>({...prev, ...values}));
+									}}
+									onLoad={() => {
+										value[input.name] = value?.[input.name] || value?.[input.label] || input.default || "";
+										setTables((prev)=>({...prev, ...values}));
 									}}
 								/>
 							) : (
@@ -624,7 +634,7 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 										input.type==="date"? value?.[input.name]?.slice(0, 10) || input.default || "" : value?.[input.name] || input.default || ""
 									}
 									onChange={(event) => {
-										values[index][input.name] = event.target.value;
+										value[input.name] = event.target.value;
 										setTables((prev)=>({...prev, ...values}));
 									}}
 									{...input.properties}

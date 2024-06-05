@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 
 export const formContext = createContext({})
 export default function FormstateContextProvider({children}){
-  const [formState, setFormState]= useState<{type?:string, _id?:string, data?}>({type:"",_id:""});
+  const [formState, setFormState]= useState<{type?:string, _id?:string, data?, submitted?:boolean}>({type:"",_id:""});
   return(
     <formContext.Provider value={{formState,setFormState}}>
       {children}
@@ -13,5 +13,5 @@ export default function FormstateContextProvider({children}){
 }
 
 export function useFormStateContext(){
-  return useContext(formContext) as {formState: { type?, _id?, data? },setFormState:(state:{ type?, _id?, data? })=>void}
+  return useContext(formContext) as {formState: { type?, _id?, data?, submitted?:boolean }, setFormState:(state:{ type?, _id?, data?, submitted?:boolean })=>void}
 }

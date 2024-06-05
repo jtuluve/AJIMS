@@ -22,6 +22,13 @@ export default function Admin() {
 					logout
 				</a>
 			</div>
+			<center>
+				<input type="search" name="search" onChange={e=>{
+					let a = allUsers.filter(user=>new RegExp(`.*${e.target.value?.toLowerCase()}.*`).test(user?.profile?.department?.toLowerCase()) || new RegExp(`.*${e.target.value?.toLowerCase()}.*`).test(user?.name?.toLowerCase()));
+
+					setUsers(a);
+				}}/>
+			</center>
 			<div className="usersTable">
 				<h2>Admin Dashboard</h2>
 				<div className="search-container">

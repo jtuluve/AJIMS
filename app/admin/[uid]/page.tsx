@@ -5,6 +5,7 @@ import { useAdminData } from "@/components/adminContext";
 import '@css/admin[uid].css'
 import { UserDocument } from "@/lib/mongoose/interface";
 import PrintDetails from "./print";
+import Link from "next/link";
 
 const UserDetail = ({ params }) => {
 	const { uid } = params;
@@ -40,13 +41,13 @@ const UserDetail = ({ params }) => {
 	<div className="adminpage">
 		<div className="titlebaradmin">
 				<a className="web-name">AJIMS Employment Management</a>
-				<a
+				<Link
 					title="home"
 					className="material-symbols-outlined home"
 					href="/admin"
 				>
 					home
-				</a>
+				</Link>
 		</div>
 		<div className="user-detail">
 		<div>
@@ -222,7 +223,7 @@ const UserDetail = ({ params }) => {
 							user?.profile?.experience.map((experience, index) => (
 							<div key={index}>
 								<p><strong>Designation:</strong> {experience.designation}</p>
-								<p><strong>Department:</strong> {experience.department}</p>
+								<p><strong>Department:</strong> {experience.departmentE}</p>
 								<p><strong>Institution:</strong> {experience.institution}</p>
 								<p><strong>From:</strong> {experience.from ? new Date(experience.from).toString() : 'N/A'}</p>
 								<p><strong>To:</strong> {experience.to ? new Date(experience.to).toString() : 'N/A'}</p>

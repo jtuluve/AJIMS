@@ -1,10 +1,11 @@
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 export default function Nav() {
 	return (
 		<div className="titlebar">
-			<a href="/" style={{height:"75%"}}>
+			<Link href="/" style={{height:"75%"}}>
 				<img alt="logo" src="/logo.jpg" className="logo" />
-			</a>
+			</Link>
 			<div className="information">
 				<h2>AJ Institute of Medical Sciences and Research centre</h2>
 				<h3>Employee Management System</h3>

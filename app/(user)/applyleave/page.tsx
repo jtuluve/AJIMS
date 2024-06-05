@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import "@css/comingsoon.css";
+import Link from "next/link";
 export default function Appraisal() {
     //if user not logged in, redirect to login page
     const { data: session } = useSession();
@@ -16,9 +17,9 @@ export default function Appraisal() {
                     <h2>AJ Institute of Medical Sciences and Research centre</h2>
                     <h3>Employee Management System</h3>
                 </div>
-                <a className="clogout" href="/main">
+                <Link className="clogout" href="/main">
                     Home
-                </a>
+                </Link>
             </div>
             <div className="comingsoon">
                 Feature Comming Soon!
