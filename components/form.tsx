@@ -284,7 +284,7 @@ export default function Form({
 							<b>
 								<div className={styles.quartileContainer}>
 									<label htmlFor={e.name || e.label}>
-										{e.label || e.placeholder || e.name}
+										{(e.label || e.placeholder || e.name) + (e.required?' *':'')}
 									</label>
 
                  
@@ -406,7 +406,7 @@ export default function Form({
 							) : e.type === "file" ? (
 								<FileInput color={wrapperStyle?.["color"] || "white"} input={e} handleFileUpload={handleFileUpload} url={formData?.[e.name]}/>
 							) : e.type === "table" ? ( 
-								<InputTable tableName={e.name} setTable={setTableData} inputs={(e as TableInput).inputs}  setCanSubmit={setCanSubmit} values={tableData?.[e.name]||[]}/>
+								<InputTable tableName={e.name} setTables={setTableData} inputs={(e as TableInput).inputs}  setCanSubmit={setCanSubmit} values={tableData?.[e.name]||[]}/>
 							) : (
 								<input
 									type={e.type || "text"}
@@ -509,15 +509,15 @@ function FileInput({ input, handleFileUpload, url, color }){
 		{url && <a href={url}>view current file</a>}
 		<p>
 			{perc===-1 ? (
-				<span style={{ color: "white" }}>
+				<span style={{ color: color || "white" }}>
 					Upload failed. Please, check your internet and try uploading the file again.
 				</span>
 			) : perc > 0 && perc < 100 ? (
 				<span
-					style={{ color: "white" }}
+					style={{ color: color || "white" }}
 				>{`Uploading ${perc}%...`}</span>
 			) : perc === 100 ? (
-				<span style={{ color: "white" }}>
+				<span style={{ color: color || "white" }}>
 					File Succesfully uploaded
 				</span>
 			) : (
@@ -529,8 +529,8 @@ function FileInput({ input, handleFileUpload, url, color }){
 }
 
 
-function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tableName:string, inputs: Input[], setTable: (v)=>void, values:Array<any>, setCanSubmit: (v)=>void }){
-	const handleFileUpload = (file, name, percSet?) => {
+function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tableName:string, inputs: Input[], setTables: (v)=>void, values:Array<any>, setCanSubmit: (v)=>void }){
+	const handleFileUpload = (file, name, percSet?, value?) => {
 		setCanSubmit(false);
 		const storage = getStorage(app);
 		const fileName = Date.now() + file.name;
@@ -561,9 +561,9 @@ function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tabl
 					// 		[name]: { ...file[name], url: downloadURL, message: "Uploaded" }
 					// 	}));
 					// }
-					setTable((prev)=>({
-						...prev, tableName:{...prev[tableName], [name]: downloadURL}
-					}))
+					if(value)
+						value[name] = downloadURL;
+					setTables((prev)=>({...prev}));
 				});
 			}
 		);
@@ -594,7 +594,7 @@ function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tabl
 							{input.type === "file" ? (
 								<FileInput
 									color={"gray"}
-									handleFileUpload={handleFileUpload}
+									handleFileUpload={(file, name, percSet)=>handleFileUpload(file, name, percSet, value)}
 									input={input}
 									url={value[input.name]}
 								/>
@@ -611,7 +611,7 @@ function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tabl
 									placeholder={input.placeholder}
 									onChange={(event) => {
 										values[index][input.name] = event.target.value;
-										setTable((prev) => ({ ...prev }));
+										setTables({...values});
 									}}
 								/>
 							) : (
@@ -621,14 +621,11 @@ function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tabl
 									placeholder={input.placeholder || " "}
 									required={input.required || false}
 									defaultValue={
-										value?.[input.name] ||
-										value?.[input.label] ||
-										input.default ||
-										""
+										input.type==="date"? value?.[input.name]?.slice(0, 10) || input.default || "" : value?.[input.name] || input.default || ""
 									}
 									onChange={(event) => {
 										values[index][input.name] = event.target.value;
-										setTable((prev) => ({ ...prev }));
+										setTables((prev)=>({...prev, ...values}));
 									}}
 									{...input.properties}
 								/>
@@ -640,7 +637,7 @@ function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tabl
 							className={tableStyles["remove"]}
 							onClick={(e) => {
 								e.preventDefault();
-								setTable((prev) => ({
+								setTables((prev) => ({
 									...prev,
 									[tableName]: [
 										...prev[tableName].slice(0, index),
@@ -659,7 +656,7 @@ function InputTable({ tableName, inputs, setTable, values, setCanSubmit }:{ tabl
 						style={{ gridColumn: `${Math.round(inputs.length / 2)}` }}
 						onClick={(e) => {
 							e.preventDefault();
-							setTable((prev) => ({
+							setTables((prev) => ({
 								...prev,
 								[tableName]: [...prev[tableName], {}],
 							}));
