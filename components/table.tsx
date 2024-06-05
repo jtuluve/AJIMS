@@ -8,13 +8,15 @@ export default function Table({
   header_row,
   keys,
   type,
-  values
+  values,
+  readOnly
 }: {
   column: number;
   header_row: Array<string>;
   keys: Array<string>;
   type: string;
   values: any;
+  readOnly?: boolean;
 }) {
   const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile","certUpload","regUpload","residenceProof","postHeldFile"]
   const {setFormState} = useFormStateContext()
@@ -169,6 +171,7 @@ export default function Table({
             {values?.readonly ? (
               <></>
             ) : (
+              !readOnly && 
               <div id="onPrintHideEdit" className={styles["editRowBtnDiv"]}>
                 <button
                   id="onPrintHidden"
