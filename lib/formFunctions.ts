@@ -4,7 +4,7 @@ export async function getInput(type: string) {
   let inputs = {
     profile: [
       {
-        "name": "collegeName",
+        "name": "college",
         "type": "text",
         "label": "Name of the College",
         "placeholder":"Enter the name of the college",
