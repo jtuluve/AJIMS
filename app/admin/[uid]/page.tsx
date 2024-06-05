@@ -148,7 +148,7 @@ const UserDetail = ({ params }) => {
 								medical college ina teaching or administrative capacity during last 3 years. 
 								If yes, please give details:
 							</strong>
-							</p>{/**object creation needed */}
+							</p>
 						<table>
 							<thead>
 								<tr>
@@ -192,7 +192,7 @@ const UserDetail = ({ params }) => {
 							<strong>Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc
 								taken and topics covered in last academic year (attach additional sheet, if required)
 							</strong>
-						</p>{/**object creation needed! */}
+						</p>
 						<div className="number section">
 							<table>
 								<thead>
@@ -231,13 +231,11 @@ const UserDetail = ({ params }) => {
 							</div>
 							))
 						) : (
-							<tr>
-                                <td colSpan={6}>No data available</td>
-                            </tr>
+                                <p>No data available</p>
 						)}
 						</div>
 						<p><strong>Aadhar No:</strong> {user?.profile?.aadharNo}</p>
-						<p><strong>PAN Card Number:</strong>{user?.profile?.panNo}</p>{/**variable needed*/}
+						<p><strong>PAN Card Number:</strong>{user?.profile?.panNo}</p>
 					</div>
 					<p><strong>Residencial Adderss:</strong> {user?.profile?.residentialAddress}</p>
 					<p><strong>Permanent:</strong>{user?.profile?.perAddress}</p>
@@ -278,9 +276,9 @@ const UserDetail = ({ params }) => {
 					</table>
 					</div>
 					<div className="edu-section">
-                        <p><strong>MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
-                        <p><strong>DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
-                        <p><strong>PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
+                        <p><strong>MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>
+                        <p><strong>DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>
+                        <p><strong>PhD subject:</strong>{user?.profile?.phdSubject}</p>
                     </div>
 					<p><strong>Passport No:</strong> {user?.profile?.passportNo}</p>
 					<p><strong>KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
@@ -296,56 +294,78 @@ const UserDetail = ({ params }) => {
 			</div>			
 		</div>
 		<div className="research-body">
-			<div className="teaching-hours-body">
-				<table>
-					<thead>
-						<tr>
-							<th>Teaching Hours</th>
-							<th>Attachment</th>
-							<th>Clinical Hours</th>
-							<th>Attachment</th>
-							<th>Students Feedback</th>
-							<th>Attachment</th>
-							<th>Resource material</th>
-							<th>Attachment</th>
-							<th>Public Awareness Writeup</th>
-							<th>Attachment</th>
-							<th>CC</th>
-							<th>Attachment</th>
-						</tr>
-					</thead>
-					<tbody>
-						{user.appraisal?.academics?.teaching && user.appraisal.academics.teaching.length > 0 ? (
-							user.appraisal.academics.teaching.map((teaching, index) => (
-								<tr key={index}>
-									<td>{teaching.hours}</td>
-									<td><a href={teaching.hourUpload} download>View upload document</a></td>
-									<td>{teaching.clinicalHours}</td>
-									<td><a href={teaching.clinicalHoursUpload} download>View upload document</a></td>
-									<td>{teaching.studentsFeedback}</td>
-									<td><a href={teaching.studentsFeedbackUpload} download>View upload document</a></td>
-									<td>{teaching.resourceMaterial}</td>
-									<td><a href={teaching.resourceMaterialUpload} download>View upload document</a></td>
-									<td>{teaching.publicAwarenessWriteup}</td>
-									<td><a href={teaching.publicAwarenessWriteupUpload} download>View upload document</a></td>
-									<td>{teaching.cc}</td>
-									<td><a href={teaching.ccUpload} download>View upload document</a></td>
-								</tr>
-							))
-						) : (
-							<tr>
-								<td colSpan={12}>No teaching data available</td>
+		<div className="teaching-hours-body">
+			<table>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Teaching Hours</th>
+						<th>Attachment</th>
+						<th>Clinical Hours</th>
+						<th>Attachment</th>
+						<th>Students Feedback</th>
+						<th>Attachment</th>
+					</tr>
+				</thead>
+				<tbody>
+					{user.appraisal?.academics?.teaching && user.appraisal.academics.teaching.length > 0 ? (
+						user.appraisal.academics.teaching.map((teaching, index) => (
+							<tr key={`first-${index}`}>
+								<td>{index + 1}</td>
+								<td>{teaching.hours}</td>
+								<td><a href={teaching.hourUpload} download>View upload document</a></td>
+								<td>{teaching.clinicalHours}</td>
+								<td><a href={teaching.clinicalHoursUpload} download>View upload document</a></td>
+								<td>{teaching.studentsFeedback}</td>
+								<td><a href={teaching.studentsFeedbackUpload} download>View upload document</a></td>
 							</tr>
-						)}
-					</tbody>
-				</table>
-			</div>
+						))
+					) : (
+						<tr>
+							<td colSpan={7}>No teaching data available</td>
+						</tr>
+					)}
+				</tbody>
+			</table>
+			<table>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Resource material</th>
+						<th>Attachment</th>
+						<th>Public Awareness Writeup</th>
+						<th>Attachment</th>
+						<th>CC</th>
+						<th>Attachment</th>
+					</tr>
+				</thead>
+				<tbody>
+					{user.appraisal?.academics?.teaching && user.appraisal.academics.teaching.length > 0 ? (
+						user.appraisal.academics.teaching.map((teaching, index) => (
+							<tr key={`second-${index}`}>
+								<td>{index + 1}</td>
+								<td>{teaching.resourceMaterial}</td>
+								<td><a href={teaching.resourceMaterialUpload} download>View upload document</a></td>
+								<td>{teaching.publicAwarenessWriteup}</td>
+								<td><a href={teaching.publicAwarenessWriteupUpload} download>View upload document</a></td>
+								<td>{teaching.cc}</td>
+								<td><a href={teaching.ccUpload} download>View upload document</a></td>
+							</tr>
+						))
+					) : (
+						<tr>
+							<td colSpan={7}>No teaching data available</td>
+						</tr>
+					)}
+				</tbody>
+			</table>
+		</div>
 			<p><strong>Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
-					<p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>{/**Variable needed!*/}
-                    <p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certUpload}</p>{/**Variable needed!*/}
-					<p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>{/**Variable needed!*/}
-                    <p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regUpload}</p>{/**Variable needed!*/}
+					<p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>
+                    <p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certUpload}</p>
+					<p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>
+                    <p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regUpload}</p>
 					
                 </div>
 			<p><strong>Publication details:</strong></p>
@@ -397,7 +417,7 @@ const UserDetail = ({ params }) => {
 				</tbody>
 			</table>
 		</div>
-			<p><strong>I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/**object creation needed*/}
+			<p><strong>I have drawn total emoluments from this college in the current financial year as under:</strong></p>
             <div className="enoluments-section">
                 <table>
                     <thead>
