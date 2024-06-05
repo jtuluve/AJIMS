@@ -1,14 +1,14 @@
 "use client";
 
 import "@css/admin.css";
-import React from "react";
+import React, { useState } from "react";
 import { signOut } from "next-auth/react";
 import { useAdminData } from "@/components/adminContext";
 import Link from "next/link";
 
 export default function Admin() {
 	const { allUsers } = useAdminData();
-
+	const [users, setUsers] = useState(allUsers);
 	return (
 		<section className="adminpage">
 			<div className="titlebar">
@@ -22,6 +22,13 @@ export default function Admin() {
 					logout
 				</a>
 			</div>
+			<center>
+				<input type="search" name="search" onChange={e=>{
+					let a = allUsers.filter(user=>new RegExp(`.*${e.target.value}.*`).test(user?.profile?.department) || new RegExp(`.*${e.target.value}.*`).test(user?.profile?.department));
+
+					setUsers(a);
+				}}/>
+			</center>
 			<div className="usersTable">
 				<h2>Admin Dashboard</h2>{/**search to be implemented here**/}
 				{allUsers.length ? (
@@ -39,7 +46,7 @@ export default function Admin() {
 							</tr>
 						</thead>
 
-						{allUsers.map((user, index) => {
+						{users.map((user, index) => {
 							const { uid } = user;
 							return (
 								<tbody key={uid} className="accordian">
@@ -55,7 +62,7 @@ export default function Admin() {
 										</td>
 										<td>{user?.name}</td>
 										<td>{user?.profile?.emailaddress}</td>
-										<td>{user?.department}</td>
+										<td>{user?.profile?.department}</td>
 										<td>{user?.designation}</td>
 										<td>
 											<Link href={`/admin/${uid}`}>
