@@ -24,6 +24,9 @@ export default function FacultyDetails() {
 			setFormState({type:"profile",data:profile})
 		// setProfileUrl(localStorage.getItem('profileUrl'))
 	}, [formState.type]);
+	useEffect(()=>{
+		setFormState({type:"profile",data:userData?.profile})
+	},[])
 
 	return (
 		<>

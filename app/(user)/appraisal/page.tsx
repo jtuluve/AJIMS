@@ -9,14 +9,19 @@ import { redirect } from "next/navigation";
 import Scorepage from "@/components/scorepage";
 import Form from "@/components/form";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useFormStateContext } from "@/components/formstateContext";
 
 export default function Appraisal() {
   //if user not logged in, redirect to login page
   const { data: session } = useSession();
+  const { setFormState } = useFormStateContext()
   if (!session) {
     redirect("/");
   }
-  
+  useEffect(()=>{
+    setFormState({});
+  },[])
 
   return (
     <>
