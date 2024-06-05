@@ -303,7 +303,7 @@ const PrintDetails = ({ params }) => {
                                 <tr key={index}>
                                     <td>{index}</td>
                                     <td>{numberOfLectures.dateL ? numberOfLectures.dateL.toString() : 'Invalid Date'}</td>
-                                    <td>{numberOfLectures.type}</td>
+                                    <td>{numberOfLectures.typeL}</td>
                                     <td>{numberOfLectures.topic}</td>
                                 </tr>
                             ))

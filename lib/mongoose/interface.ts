@@ -253,7 +253,7 @@ interface InspectionDetail {
 
 interface Lecture {
   dateL?: Date;
-  type?: string;
+  typeL?: string;
   topic?: string;
 }
 

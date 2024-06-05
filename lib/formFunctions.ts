@@ -473,7 +473,7 @@ export async function getInput(type: string) {
             required: true
           },
           {
-            "name": "type",
+            "name": "typeL",
             "type": "text",
             "label": "Lecture/ SGT/ SDL/ Clinic/ others",
             "placeholder": "Enter the type",
