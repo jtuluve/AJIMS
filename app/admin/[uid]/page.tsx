@@ -159,9 +159,9 @@ const UserDetail = ({ params }) => {
 								{user?.profile?.inspectionDetails?.length > 0 ? (
 									user?.profile?.inspectionDetails?.map((item, index) => (
 										<tr key={index}>
-											<td>{item.designation}</td>
+											<td>{item.designationI}</td>
 											<td>{item.subject}</td>
-											<td>{item.college}</td>
+											<td>{item.collegeI}</td>
 											<td>{item.dates}</td>
 										</tr>
 									))
@@ -177,8 +177,8 @@ const UserDetail = ({ params }) => {
 							{user?.profile?.details && user.profile.details.length > 0 ? (
 								user.profile.details.map((details, index) => (
 									<div key={index}>
-										<p><strong>a. Name of College/ Institution:</strong> {details.name}</p>
-										<p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.date ? new Date(details.date).toString() : 'Invalid Date'}</p>
+										<p><strong>a. Name of College/ Institution:</strong> {details.detailsName}</p>
+										<p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.dateD ? new Date(details.dateD).toString() : 'Invalid Date'}</p>
 										<p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
 										<p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
 										<p><strong>d. Relieving order issued by previous institution attached file:</strong> <a href={details.verificationFile} download>View upload document</a></p>
@@ -203,7 +203,7 @@ const UserDetail = ({ params }) => {
 									user?.profile?.numberOfLectures?.map((numberOfLectures, index) => (
 										<tr key={index}>
 											<td>{index}</td>
-											<td>{numberOfLectures.date ? numberOfLectures.date.toString() : 'Invalid Date'}</td>
+											<td>{numberOfLectures.dateL ? numberOfLectures.dateL.toString() : 'Invalid Date'}</td>
 											<td>{numberOfLectures.type}</td>
 											<td>{numberOfLectures.topic}</td>
 										</tr>
@@ -222,7 +222,7 @@ const UserDetail = ({ params }) => {
 						{user?.profile?.experience && user?.profile?.experience.length > 0 ? (
 							user?.profile?.experience.map((experience, index) => (
 							<div key={index}>
-								<p><strong>Designation:</strong> {experience.designation}</p>
+								<p><strong>Designation:</strong> {experience.designationE}</p>
 								<p><strong>Department:</strong> {experience.departmentE}</p>
 								<p><strong>Institution:</strong> {experience.institution}</p>
 								<p><strong>From:</strong> {experience.from ? new Date(experience.from).toString() : 'N/A'}</p>
