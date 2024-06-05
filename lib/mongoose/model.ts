@@ -329,7 +329,7 @@ const clinicalDuty = new mongoose.Schema({
   patients: { type: Number, default: 0 },
   minorProcedures: { type: Number, default: 0 },
   majorProcedures: { type: Number, default: 0 },
-  clinicalDutyFile: { type: String }
+  clinicalDutyFile : { type: String }
 });
 
 //Define the professional schema
@@ -353,7 +353,7 @@ const professionalSchema = new mongoose.Schema({
         ],
         default: 'Nil',
       },
-      postHeldFile: { type: String }
+      postHeldFile: {type: String}
     }),
     default: {},
   },
@@ -373,13 +373,13 @@ const professionalSchema = new mongoose.Schema({
         ],
         default: 'Nil',
       },
-      coordinatorDutyFile: { type: String }
+      coordinatorDutyFile: {type: String}
     }), default: {}
   },
   committee: { type: [CommitteeSchema], default: [] },
   conferences: { type: [ConferenceSchema], default: [] },
   guestLectures: { type: [guestLecturesSchema], default: 0 },
-  fileUrl: { type: String },
+  fileUrl: { type: String }, 
   achievements: [new mongoose.Schema({
     serialNo: { type: String },
     year: {
@@ -455,7 +455,7 @@ const profileSchema = new mongoose.Schema({
   residenceProof: { type: String },
   officeTel: { type: Number },
   residenceTel: { type: Number },
-  emailaddress: { type: String },
+  emailaddress: { type:String },
   joiningStatus: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
   joiningReport: { type: String },
   joiningLetter: { type: String },
@@ -487,10 +487,10 @@ const profileSchema = new mongoose.Schema({
   ],
   details: [new mongoose.Schema({
     name: { type: String, default: 0 },
-    designation: { type: String, default: '' },
+    designation: { type: String, default:'' },
     date: { type: Date },
     relieveReason: { type: String, enum: ["Tendered resignation", "Retired", "Transferred", "Terminated"], default: 'Transferred' },
-    verification: { type: String, emun: ['Yes', 'No'], default: 'No' },
+    verification: { type: String, emun:[ 'Yes', 'No' ],default: 'No' },
     verificationFile: { type: String }
   })
   ],

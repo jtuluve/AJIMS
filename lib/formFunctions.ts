@@ -4,10 +4,10 @@ export async function getInput(type: string) {
   let inputs = {
     profile: [
       {
-        "name": "college",
+        "name": "collegeName",
         "type": "text",
         "label": "Name of the College",
-        "placeholder": "Enter the name of the college",
+        "placeholder":"Enter the name of the college",
         "required": true
       },
       {
@@ -62,6 +62,17 @@ export async function getInput(type: string) {
         "label": "Department",
         "options": ["Anaesthesiology", "Anatomy", "Biochemistry", "Community Medicine", "Dermatology", "Forensic Medicine", "General Medicine", "General Surgery", "Microbiology", "OBG", "Ophthalmology", "Orthopaedics", "Paediatrics", "Pathology", "Pharmacology", "Physiology", "Psychiatry", "Radio Diagnosis", "ENT", "Plastic & Reconstructive Surgery", "Neurology", "Cardiology", "Cardiothoracic & Vascular Surgery", "Medical Education", "Research Center", "Respiratory Medicine", "Urology", "Endocrinology"],
         "required": true
+        "name": "attachment",
+        "type": "file",
+        "label": "Upload Appointment order",
+        "required": true
+      },
+      {
+        "name": "department",
+        "type": "text",
+        "label": "Department",
+        "placeholder": "Enter Department",
+        "required": true
       },
       {
         "name": "instituteName",
@@ -102,7 +113,7 @@ export async function getInput(type: string) {
         "name": "ugpgName",
         "type": "text",
         "label": "Date of appearance in last MCI/NMC assessment: UG/PG Type",
-        "placeholder": "Enter the UG/ PG/ Any other",
+        "placeholder":"Enter the UG/ PG/ Any other",
         "default": ""
       },
       {
@@ -137,14 +148,14 @@ export async function getInput(type: string) {
         "name": "retireDestination",
         "type": "text",
         "label": "Date of appearance in last MCI/NMC assessment: Ifretired from Government Medical College, destination at the time of retirement",
-        "placeholder": "Enter the destination at the time of retirement ",
+        "placeholder":"Enter the destination at the time of retirement ",
         "default": ""
       },
       {
         "name": "residentialAddress",
         "type": "text",
         "label": "Present Address",
-        "placeholder": "Enter Present Address",
+        "placeholder":"Enter Present Address",
         "required": false
       },
       {
@@ -176,13 +187,13 @@ export async function getInput(type: string) {
         "name": "residenceTel",
         "type": "number",
         "label": "Residence telephone with STD code",
-        "placeholder": "Enter Residence telephone with STD code",
+        "placeholder":"Enter Residence telephone with STD code",
       },
       {
         "name": "phoneNo",
         "type": "number",
         "label": "Mobile Phone Number",
-        "placeholder": "Enter the Mobile Phone Number",
+        "placeholder":"Enter the Mobile Phone Number",
         "required": false
       },
       {
@@ -264,8 +275,7 @@ export async function getInput(type: string) {
             "name": "degree",
             "type": "select",
             "label": "Degree",
-            "options": ["MBBS", "MD/MS", "DM/MCh", "PhD"],
-            "default":"MBBS"
+            "options": ["MBBS", "MD/MS", "DM/MCh", "PhD"]
           },
           {
             "name": "year",
@@ -274,7 +284,7 @@ export async function getInput(type: string) {
             "label": "Year",
             "placeholder": "Enter the Year of Publication",
             "required": true
-          },
+          }, 
           {
             "name": "collegeName",
             "type": "text",
@@ -303,7 +313,7 @@ export async function getInput(type: string) {
         "name": "mdmsSubject",
         "type": "text",
         "label": "MD/MS Subject",
-        "placeholder": "Enter the MD/MS Subject ",
+        "placeholder":"Enter the MD/MS Subject ",
         "default": ""
       },
       {
@@ -355,14 +365,13 @@ export async function getInput(type: string) {
             "type": "select",
             "label": "Designation",
             "options": ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"],
-            "default":"Professor",
             "required": true
           },
           {
             "name": "department",
             "type": "text",
             "label": "Department",
-            "placeholder": "Enter the Name of department",
+            "placeholder":"Enter the Name of department",
             "required": true
           },
           {
@@ -403,7 +412,7 @@ export async function getInput(type: string) {
             "name": "designation",
             "type": "text",
             "label": "Designation",
-            "placeholder": "Enter designation",
+            "placeholder":"Enter designation",
             "default": ""
           },
           {
@@ -438,7 +447,7 @@ export async function getInput(type: string) {
             "name": "date",
             "type": "date",
             "label": "Date",
-            "placeholder": "Enter the Date",
+            "placeholder":"Enter the Date",
           },
           {
             "name": "type",
@@ -465,7 +474,7 @@ export async function getInput(type: string) {
             "name": "name",
             "type": "text",
             "label": "Name of College/ Institution",
-            "placeholder": "Enter the Name of College/ Institution",
+            "placeholder":"Enter the Name of College/ Institution",
             "default": 0
           },
           {
@@ -484,7 +493,7 @@ export async function getInput(type: string) {
             "name": "relieveReason",
             "type": "select",
             "label": "Reason for being relieved",
-            "options": ["Tendered resignation", "Retired", "Transferred", "Terminated"],
+            "options":["Tendered resignation","Retired","Transferred","Terminated"],
             "default": "Transferred"
           },
           {
@@ -505,7 +514,7 @@ export async function getInput(type: string) {
         "name": "panNo",
         "type": "text",
         "label": "PAN Number",
-        "placeholder": "Enter the PAN Card Number",
+        "placeholder":"Enter the PAN Card Number",
         "default": ""
       },
       {
@@ -559,7 +568,7 @@ export async function getInput(type: string) {
             "name": "amount",
             "type": "number",
             "label": "Amount Received",
-            "placeholder": "Enter the received amount",
+            "placeholder":"Enter the received amount",
             "default": 0
           },
           {
@@ -1112,7 +1121,7 @@ export async function getInput(type: string) {
         name: 'patients',
         type: 'number',
         label: 'Patients',
-        placeholder: "Enter the number of patients",
+        placeholder:"Enter the number of patients",
         required: false,
         default: 0,
       },
@@ -1307,7 +1316,7 @@ export async function getInput(type: string) {
         {
           name: 'serialNo',
           label: 'Serial No',
-          placeholder: 'Enter the Serial No',
+          placeholder:'Enter the Serial No',
           type: 'text',
           required: true,
         },
@@ -1315,7 +1324,7 @@ export async function getInput(type: string) {
           name: 'year',
           label: 'Year',
           type: 'number',
-          placeholder: 'Enter the Year',
+          placeholder:'Enter the Year',
           required: true,
           min: 1800,
           max: 2150,
@@ -1324,7 +1333,7 @@ export async function getInput(type: string) {
         {
           name: 'information',
           label: 'Information',
-          placeholder: 'Enter the Information',
+          placeholder:'Enter the Information',
           type: 'text',
           required: true,
         },
