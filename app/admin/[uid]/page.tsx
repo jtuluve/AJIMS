@@ -43,10 +43,10 @@ const UserDetail = ({ params }) => {
 				<a className="web-name">AJIMS Employment Management</a>
 				<a
 					title="home"
-					className="material-symbols-outlined logout"
+					className="material-symbols-outlined home"
 					href="/admin"
 				>
-					logout
+					home
 				</a>
 		</div>
 		<div className="user-detail">
