@@ -17,13 +17,13 @@ export default function Admin() {
 				<a
 					title="logout"
 					className="material-symbols-outlined logout"
-					onClick={() => signOut()} //Sign out function not done
+					onClick={() => signOut()}
 				>
 					logout
 				</a>
 			</div>
 			<div className="usersTable">
-				<h2>Admin Dashboard</h2>
+				<h2>Admin Dashboard</h2>{/**search to be implemented here**/}
 				{allUsers.length ? (
 					<table>
 						<caption>Users</caption>
@@ -47,20 +47,16 @@ export default function Admin() {
 										<td>{index + 1}</td>
 										<td>
 											<img
-												src={user?.profileUrl}
-												alt=""
+												src={(user?.profileUrl === '' || user?.profileUrl === 'user.png') ? '/user.png' : user.profileUrl}
+												alt="profile"
 												height={120}
 												width={100}
 											/>
 										</td>
 										<td>{user?.name}</td>
-										<td>{user?.email}</td>
+										<td>{user?.profile?.emailaddress}</td>
 										<td>{user?.department}</td>
 										<td>{user?.designation}</td>
-										{/* <td className="action-btn">
-											<button>delete</button>
-											<button>view more</button>
-										</td> */}
 										<td>
 											<Link href={`/admin/${uid}`}>
 												<button>view more</button>

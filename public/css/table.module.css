@@ -25,6 +25,8 @@
 .table-header h4 {
     background-color: #132557;
     color:white;
+    display: grid;
+    place-items: center;
 }
 
 .table-row {

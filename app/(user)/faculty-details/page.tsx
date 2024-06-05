@@ -23,7 +23,7 @@ export default function FacultyDetails() {
 			let profile = userData?.profile;
 			setFormState({type:"profile",data:profile})
 		// setProfileUrl(localStorage.getItem('profileUrl'))
-	}, [formState]);
+	}, [formState.type]);
 
 	return (
 		<>

@@ -8,14 +8,17 @@ export default function Table({
   header_row,
   keys,
   type,
-  values
+  values,
+  readOnly
 }: {
   column: number;
   header_row: Array<string>;
   keys: Array<string>;
   type: string;
   values: any;
+  readOnly?: boolean;
 }) {
+  const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile","certUpload","regUpload","residenceProof","postHeldFile"]
   const {setFormState} = useFormStateContext()
   if (values === false) return <p style={{ color: "white" }}>Loading..</p>;
   if (values?.error) {
@@ -53,26 +56,12 @@ export default function Table({
                     }}
                   >
                   {keys.map((key, i) => {
-											return key == "uploadUrl" ||
-												key == "clinicalDutyFile" ||
-												key == "examDutyFile" ||
-												key == "coordinatorDutyFile" ||
-												key == "committeeFile" ||
-												key == "conferenceFile" ||
-												key == "guestLecturesFile" ? (
+											return filesKeys.find((k) => k == key) ? (
 												<span key={key + i}>
-													{e.uploadUrl ||
-													e.examDutyFile ||
-													e.committeeFile ||
-													e.conferenceFile ||
-													e.guestLecturesFile ? (
+													{e[key] ? (
 														<a
 															href={
-																e.uploadUrl ||
-																e.examDutyFile ||
-																e.committeeFile ||
-																e.conferenceFile ||
-																e.guestLecturesFile
+                                e[key]
 															}
 															target="_blank"
 														>
@@ -158,23 +147,16 @@ export default function Table({
             >
               {keys.map((key, i) => {
                 if (i > column - 1) return <></>;
-                return key == "uploadUrl" || key == "clinicalDutyFile" || key == "postHeldFile" || key == "coordinatorDutyFile" ? (
-                  <span key={`uploadUrl` + i || `clinicalDutyFile` + i || `coordinatorDutyFile` + i || `postHeldFile` + i} style={{ display: "block" }}>
+                return filesKeys.find((k) => k == key) ? (
+                  <span key={key + i} style={{ display: "block" }}>
                     {
-                      values?.uploadUrl ||
-                      values?.clinicalDutyFile ||
-                      values?.postHeldFile ||
-                      values?.coordinatorDutyFile ?
+                      values?.[key] ?
                         <a href={
-                          values?.uploadUrl ||
-                          values?.clinicalDutyFile ||
-                          values?.postHeldFile ||
-                          values?.coordinatorDutyFile
+                          values[key]
                         }
                         onClick={(e) => {
                             e.preventDefault()
                             e.stopPropagation()
-                            console.log(values?.uploadUrl || values?.clinicalDutyFile || values?.postHeldFile || values?.coordinatorDutyFile)
                           }
                         }
                         >download</a>
@@ -189,6 +171,7 @@ export default function Table({
             {values?.readonly ? (
               <></>
             ) : (
+              !readOnly && 
               <div id="onPrintHideEdit" className={styles["editRowBtnDiv"]}>
                 <button
                   id="onPrintHidden"

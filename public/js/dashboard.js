@@ -1,3 +1,4 @@
+//unused code, css has been used instead
 let links = document.querySelectorAll('.menuOptions a')
 links.forEach((e)=>{
     e.addEventListener('click',(event)=>{

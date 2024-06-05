@@ -4,101 +4,618 @@ export async function getInput(type: string) {
   let inputs = {
     profile: [
       {
-        name: 'name',
-        type: 'text',
-        label: 'Name',
-        placeholder: 'Enter Name',
-        required: true,
+        "name": "collegeName",
+        "type": "text",
+        "label": "Name of the College",
+        "placeholder":"Enter the name of the college",
+        "required": true
       },
       {
-        name: 'dob',
-        type: 'date',
-        label: 'Date of Birth',
-        required: true,
+        "name": "name",
+        "type": "text",
+        "label": "Name",
+        "placeholder": "(Last name) (First name) (Middle name)",
+        "required": true
       },
       {
-        name: 'Age',
-        type: 'number',
-        label: 'Age',
-        required: true,
+        "name": "age",
+        "type": "number",
+        "label": "Age",
+        "placeholder": "Enter your Age",
+        "required": true
       },
       {
-        name: 'dateOfJoining',
-        type: 'date',
-        label: 'Date of Joining',
-        required: true,
+        "name": "dob",
+        "type": "date",
+        "label": "Date of Birth",
+        "required": true
       },
       {
-        name: 'designation',
-        type: 'text',
-        label: 'Designation',
-        placeholder: 'Enter Designation',
-        required: true,
+        "name": "profileUrl",
+        "type": "file",
+        "label": "Profile Photo",
+        "required": false
       },
       {
-        name: 'attachment',
-        type: 'file',
-        label: 'Attachment',
-        required: true,
+        "name": "designation",
+        "type": "text",
+        "label": "Designation",
+        "placeholder": "Enter Designation",
+        "required": true
       },
       {
-        name: 'department',
-        type: 'text',
-        label: 'Department',
-        placeholder: 'Enter Department',
-        required: true,
+        "name": "appointmentOrderStatus",
+        "type": "select",
+        "label": "Appointment Order: Certified copy of order at this institute attached",
+        "options": ["Yes", "No"],
+        "default": "Yes"
       },
       {
-        name: 'profilePhoto',
-        type: 'file',
-        label: 'Profile Photo',
-        required: false,
+        "name": "attachment",
+        "type": "file",
+        "label": "Upload Appointment order",
+        "required": true
       },
       {
-        name: 'aadharNo',
-        type: 'number',
-        label: 'Aadhar Number',
-        required: false,
+        "name": "department",
+        "type": "text",
+        "label": "Department",
+        "options":[
+          "Anaesthesiology",
+          "Anatomy",
+          "Biochemistry",
+          "Community Medicine",
+          "Dermatology",
+          "Forensic Medicine",
+          "General Medicine",
+          "General Surgery",
+          "Microbiology",
+          "OBG",
+          "Ophthalmology",
+          "Orthopaedics",
+          "Paediatrics",
+          "Pathology",
+          "Pharmacology",
+          "Physiology",
+          "Psychiatry",
+          "Radio Diagnosis",
+          "ENT",
+          "Plastic & Reconstructive Surgery",
+          "Neurology",
+          "Cardiology",
+          "Cardiothoracic & Vascular Surgery",
+          "Medical Education",
+          "Research Center",
+          "Respiratory Medicine",
+          "Urology",
+          "Endocrinology"
+        ],
+        "required": true
       },
       {
-        name: 'passportNo',
-        type: 'text',
-        label: 'Passport Number',
-        required: false,
+        "name": "instituteName",
+        "type": "text",
+        "label": "Institute Name",
+        "placeholder": "Enter College/ Institute",
+        "default": ""
       },
       {
-        name: 'phoneNo',
-        type: 'number',
-        label: 'Phone Number',
-        required: false,
+        "name": "cityName",
+        "type": "text",
+        "label": "City Name",
+        "placeholder": "Enter City/ District",
+        "default": ""
       },
       {
-        name: 'residentialAddress',
-        type: 'text',
-        label: 'Residential Address',
-        required: false,
+        "name": "appointmentType1",
+        "type": "select",
+        "label": "Regular/ Contractual/ Ad - hoc basis",
+        "options": ["Regular", "Contractual", "Ad-hoc basis"],
+        "default": "Regular"
       },
       {
-        name: 'kmcRegistrationNo',
-        type: 'text',
-        label: 'KMC Registration Number',
-        required: false,
+        "name": "appointmentType2",
+        "type": "select",
+        "label": "Full time/ Part time",
+        "options": ["Full time", "Part time"],
+        "default": "Full time"
       },
       {
-        name: 'educationalQualification',
-        type: 'text',
-        label: 'Educational Qualification',
-        required: false,
+        "name": "appointmentType3",
+        "type": "select",
+        "label": "With Private practice/ Without Private practice",
+        "options": ["With Private practice", "Without Private practice"],
+        "default": "Without Private practice"
       },
       {
-        name: 'experience',
-        type: 'text',
-        label: 'Experience',
-        required: false,
+        "name": "ugpgName",
+        "type": "text",
+        "label": "Date of appearance in last MCI/NMC assessment: UG/PG Type",
+        "placeholder":"Enter the UG/ PG/ Any other",
+        "default": ""
       },
-    ]
-    ,
+      {
+        "name": "college",
+        "type": "text",
+        "label": "Date of appearance in last MCI/NMC assessment: Name of College",
+        "placeholder": "Enter the Name of College",
+        "default": ""
+      },
+      {
+        "name": "sameClgAcpt",
+        "type": "select",
+        "label": "Date of appearance in last MCI/NMC assessment: Whether appeared and accepted at the same College",
+        "options": ["Yes", "No"],
+        "default": "No"
+      },
+      {
+        "name": "sameDestAcpt",
+        "type": "select",
+        "label": "Date of appearance in last MCI/NMC assessment: Whether appeared and accepted at the same Designation",
+        "options": ["Yes", "No"],
+        "default": "No"
+      },
+      {
+        "name": "retiredStatus",
+        "type": "select",
+        "label": "Date of appearance in last MCI/NMC assessment: Whether retired from Government Medical College",
+        "options": ["Yes", "No"],
+        "default": "No"
+      },
+      {
+        "name": "retireDestination",
+        "type": "text",
+        "label": "Date of appearance in last MCI/NMC assessment: Ifretired from Government Medical College, destination at the time of retirement",
+        "placeholder":"Enter the destination at the time of retirement ",
+        "default": ""
+      },
+      {
+        "name": "residentialAddress",
+        "type": "text",
+        "label": "Present Address",
+        "placeholder":"Enter Present Address",
+        "required": false
+      },
+      {
+        "name": "perAddress",
+        "type": "text",
+        "label": "Permanent Address",
+        "placeholder": "Enter Permanent Address",
+        "default": ""
+      },
+      {
+        "name": "residenceProofStatus",
+        "type": "select",
+        "label": "Copy of Proof of Residence submitted and original verified",
+        "options": ["Yes", "No"],
+        "default": "Yes"
+      },
+      {
+        "name": "residenceProof",
+        "type": "file",
+        "label": "(only copies of Passport/ Adhar card/ Voter ID/ Passport/ Electricity bill/ Landline Phone bill will be considered)"
+      },
+      {
+        "name": "officeTel",
+        "type": "number",
+        "label": "Office telephone with STD code",
+        "placeholder": "Enter Office telephone with STD code",
+      },
+      {
+        "name": "residenceTel",
+        "type": "number",
+        "label": "Residence telephone with STD code",
+        "placeholder":"Enter Residence telephone with STD code",
+      },
+      {
+        "name": "phoneNo",
+        "type": "number",
+        "label": "Mobile Phone Number",
+        "placeholder":"Enter the Mobile Phone Number",
+        "required": false
+      },
+      {
+        "name": "emailaddress",
+        "type": "text",
+        "label": "Email address",
+        "placeholder": "Enter the Email address",
+        "required": false
+      },
+      {
+        "name": "dateOfJoining",
+        "type": "date",
+        "label": "Date of Joining the present institution",
+        "required": true
+      },
+      {
+        "name": "joiningLetter",
+        "type": "file",
+        "label": "Joining Letter Upload"
+      },
+      {
+        "name": "joiningStatus",
+        "type": "select",
+        "label": "Joining report verified/ attached",
+        "options": ["Yes", "No"],
+        "default": "Yes"
+      },
+      {
+        "name": "joiningReport",
+        "type": "file",
+        "label": "Joining Report Upload"
+      },
+      {
+        "name": "appearance",
+        "type": "table",
+        "label": "Have you atteneded the Basic Course Workshop (BCME), Curriculum Implementation Support Programme (CISP-i/ii/iii), Advanced Course in Medical Education (ACME) for training in MET",
+        "inputs": [
+          {
+            "name": "status",
+            "type": "select",
+            "label": "Attended",
+            "options": ["Yes", "No"],
+            "default": "No"
+          },
+          {
+            "name": "center",
+            "type": "select",
+            "label": "at MCI/ NMC Regional MET Centre",
+            "options": ["Yes", "No"],
+            "default": "No"
+          },
+          {
+            "name": "observership",
+            "type": "select",
+            "label": "at your college under Regional/ Nodal Centre observership",
+            "options": ["Yes", "No"],
+            "default": "No"
+          },
+          {
+            "name": "certs",
+            "type": "select",
+            "label": "Any other MET certificates may be attached",
+            "options": ["Yes", "No"],
+            "default": "No"
+          },
+          {
+            "name": "upload",
+            "type": "file",
+            "label": "Uploads"
+          }
+        ]
+      },
+      {
+        "name": "educationalQualification",
+        "type": "table",
+        "label": "Educational Qualifications",
+        "inputs": [
+          {
+            "name": "degree",
+            "type": "select",
+            "label": "Degree",
+            "options": ["MBBS", "MD/MS", "DM/MCh", "PhD"]
+          },
+          {
+            "name": "year",
+            "type": "number",
+            "properties": { "min": 1800, "max": 2150, "step": 1 },
+            "label": "Year",
+            "placeholder": "Enter the Year of Publication",
+            "required": true
+          }, 
+          {
+            "name": "collegeName",
+            "type": "text",
+            "label": "Name of College & University",
+            "placeholder": "Enter the Name of College & University",
+            "required": true
+          },
+          {
+            "name": "regNumWithDate",
+            "type": "text",
+            "label": "Register number with date of registration",
+            "placeholder": "Enter the Register number with date of registration",
+            "required": true
+          },
+          {
+            "name": "medicalCouncilName",
+            "type": "text",
+            "label": "Name of State Medical council",
+            "placeholder": "Enter the Name of State Medical council",
+            "required": true
+          }
+        ],
+        "required": false
+      },
+      {
+        "name": "mdmsSubject",
+        "type": "text",
+        "label": "MD/MS Subject",
+        "placeholder":"Enter the MD/MS Subject ",
+        "default": ""
+      },
+      {
+        "name": "dmmchSubject",
+        "type": "text",
+        "label": "DM/MCh Subject",
+        "placeholder": "Enter the DM/MCh Subject ",
+        "default": ""
+      },
+      {
+        "name": "phdSubject",
+        "type": "text",
+        "label": "PhD Subject",
+        "placeholder": "Enter the PhD Subject",
+        "default": ""
+      },
+      {
+        "name": "certStatus",
+        "type": "select",
+        "label": "Copies of educational qualifications: Copies of MBBS & PG Degree certificates verified and attached",
+        "options": ["Yes", "No"],
+        "default": "No"
+      },
+      {
+        "name": "certUpload",
+        "type": "file",
+        "label": "Certificate Upload"
+      },
+      {
+        "name": "regStatus",
+        "type": "select",
+        "label": "Copies of educational qualifications: Copies of MBBS & PG Degree Registration verified and attached",
+        "options": ["Yes", "No"],
+        "default": "No"
+      },
 
+      {
+        "name": "regUpload",
+        "type": "file",
+        "label": "Registration Upload"
+      },
+      {
+        "name": "experience",
+        "type": "table",
+        "label": "Details of Teaching experience till date",
+        "inputs": [
+          {
+            "name": "designation",
+            "type": "select",
+            "label": "Designation",
+            "options": ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"],
+            "required": true
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "label": "Department",
+            "placeholder":"Enter the Name of department",
+            "required": true
+          },
+          {
+            "name": "institution",
+            "type": "text",
+            "label": "Institution",
+            "placeholder": "Enter the Name of Institution",
+            "required": true
+          },
+          {
+            "name": "from",
+            "type": "date",
+            "label": "From",
+            "required": true
+          },
+          {
+            "name": "to",
+            "type": "date",
+            "label": "To",
+            "required": true
+          },
+          {
+            "name": "total",
+            "type": "text",
+            "label": "Total(y)(m)",
+            "placeholder": "Enter the Total(y)(m)",
+            "required": true
+          }
+        ],
+        "required": false
+      },
+      {
+        "name": "inspectionDetails",
+        "type": "table",
+        "label": "Have you been considered in UG/ PG, MCI/ NMC inspection at any other medical college ina teaching or administrative capacity during last 3 years.If yes, please give details",
+        "inputs": [
+          {
+            "name": "designation",
+            "type": "text",
+            "label": "Designation",
+            "placeholder":"Enter designation",
+            "default": "",
+            required: true
+          },
+          {
+            "name": "subject",
+            "type": "text",
+            "label": "Subject",
+            "placeholder": "Enter Subject",
+            "default": "",
+            required: true
+          },
+          {
+            "name": "college",
+            "type": "text",
+            "label": "College",
+            "placeholder": "Enter College Name",
+            "default": "",
+            required: true
+          },
+          {
+            "name": "dates",
+            "type": "text",
+            "label": "Dates",
+            "placeholder": "Enter dates",
+            "default": "",
+            required: true
+          }
+        ]
+      },
+      {
+        "name": "numberOfLectures",
+        "type": "table",
+        "label": "Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc taken and topics covered in last academic year(attach additional sheet, if required) ",
+        "inputs": [
+          {
+            "name": "date",
+            "type": "date",
+            "label": "Date",
+            "placeholder":"Enter the Date",
+            required: true
+          },
+          {
+            "name": "type",
+            "type": "text",
+            "label": "Lecture/ SGT/ SDL/ Clinic/ others",
+            "placeholder": "Enter the type",
+            "default": "",
+            required: true
+          },
+          {
+            "name": "topic",
+            "type": "text",
+            "label": "Topic",
+            "placeholder": "Enter the Topic",
+            "default": "",
+            required: true
+          }
+        ]
+      },
+      {
+        "name": "details",
+        "type": "table",
+        "label": "Details of employment before joining the present institution",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "label": "Name of College/ Institution",
+            "placeholder":"Enter the Name of College/ Institution",
+            "default": 0,
+            required: true
+          },
+          {
+            "name": "designation",
+            "type": "text",
+            "label": "Designation",
+            "placeholder": "Enter the Designation",
+            "default": "",
+            required: true
+          },
+          {
+            "name": "date",
+            "type": "date",
+            "label": "Date on which relieved",
+            required: true
+          },
+          {
+            "name": "relieveReason",
+            "type": "select",
+            "label": "Reason for being relieved",
+            "options":["Tendered resignation","Retired","Transferred","Terminated"],
+            "default": "Transferred",
+            required: true
+          },
+          {
+            "name": "verification",
+            "type": "select",
+            "label": "Relieving order issued by previous institution verified and attached",
+            "options": ["Yes", "No"],
+            "default": "No",
+            required: true
+          },
+          {
+            "name": "verificationFile",
+            "type": "file",
+            "label": "Upload Verification File",
+            required: true
+          }
+        ]
+      },
+      {
+        "name": "panNo",
+        "type": "text",
+        "label": "PAN Number",
+        "placeholder":"Enter the PAN Card Number",
+        "default": ""
+      },
+      {
+        "name": "aadharNo",
+        "type": "number",
+        "label": "Aadhar Number",
+        "placeholder": "Enter the Aadhar Number",
+        "required": false
+      },
+      {
+        "name": "orcIdNo",
+        "type": "text",
+        "label": "ORC ID No",
+        "placeholder": "Enter ORC ID No",
+        "required": true
+      },
+      {
+        "name": "passportNo",
+        "type": "text",
+        "label": "Passport Number",
+        "placeholder": "Enter the Passport Number",
+        "required": false
+      },
+      {
+        "name": "kmcRegistrationNo",
+        "type": "text",
+        "label": "KMC Registration Number",
+        "placeholder": "Enter the KMC Registration Number",
+        "required": false
+      },
+      {
+        "name": "emoluments",
+        "type": "table",
+        "label": "I have drawn total emoluments from this college in the current financial year as under",
+        "inputs": [
+          {
+            "name": "month",
+            "type": "select",
+            "label": "Month",
+            "options": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "default": "Jan",
+            required: true
+          },
+          {
+            "name": "year",
+            "type": "number",
+            "properties": { "min": 1800, "max": 2150, "step": 1 },
+            "label": "Year",
+            "default": 2024,
+            required: true
+          },
+          {
+            "name": "amount",
+            "type": "number",
+            "label": "Amount Received",
+            "placeholder":"Enter the received amount",
+            "default": 0,
+            required: true
+          },
+          {
+            "name": "tds",
+            "type": "number",
+            "label": "TDS",
+            "placeholder": "Enter the TDS amount",
+            "default": "",
+            required: true
+          }
+        ]
+      },
+    ],
     researchPublications: [
       {
         name: 'title',
@@ -146,7 +663,8 @@ export async function getInput(type: string) {
       },
       {
         name: 'year',
-        type: 'Date',
+        type: 'number',
+        properties: { min: 1800, max: 2150, step: 1 },
         label: 'Year',
         placeholder: 'Enter Year of Publication',
         required: false
@@ -156,15 +674,9 @@ export async function getInput(type: string) {
         type: 'select',
         label: 'Quartile',
         required: true,
-        options: [
-          { value: 'Q1' },
-          { value: 'Q2' },
-          { value: 'Q3' },
-          { value: 'Q4' },
-          { value: 'No quartile' },
-        ],
+        options: ['Q1', 'Q2', 'Q3', 'Q4', 'No quartile'],
         tooltip: {
-          one: '1. Acces Scimago Journal & Country Rank from https://www.scimagojr.com/',
+          one: '1. Access Scimago Journal & Country Rank from https://www.scimagojr.com/',
           two: "2. To find a journal's quartile ranking within a category, search for the journal by title or ISSN",
           three: '3. Click on the journal title in the results list',
           four: '4. View the quartile in the Quartile box',
@@ -175,29 +687,16 @@ export async function getInput(type: string) {
         type: 'select',
         label: 'Index',
         required: true,
-        options: [
-          { value: 'Medline' },
-          { value: 'Pubmed' },
-          { value: 'CSCI' },
-          { value: 'SCI' },
-          { value: 'DC' },
-          { value: 'Expanded Embase' },
-          { value: 'Scopus' },
-          { value: 'DoAJ' },
-          { value: 'Nil' },
-        ],
+        options: ['Medline', 'Pubmed', 'CSCI', 'SCI', 'DC', 'Expanded Embase', 'Scopus', 'DoAJ', 'Nil'],
+        default:'Medline'
       },
       {
-        name: 'CategoryP',
+        name: 'category',
         type: 'select',
         label: 'Category',
         required: true,
-        options: [
-          { value: 'National' },
-          { value: 'International' },
-          { value: 'Institutional' },
-          { value: 'Nil' },
-        ],
+        options: ['National', 'International', 'Institutional', 'Nil'],
+        default:'National'
       },
       {
         name: 'postheld',
@@ -218,14 +717,10 @@ export async function getInput(type: string) {
         type: 'select',
         label: 'Authorship',
         required: true,
-        options: [
-          { value: 'First' },
-          { value: 'Correspondant' },
-          { value: 'Second' },
-          { value: 'Other' },
-        ],
+        options: ['First', 'Correspondant', 'Second', 'Other'],
+        default:'First'
       },
-      { name: 'file', type: 'file', required: true, label: 'File' },
+      { name: 'uploadUrl', type: 'file', required: true, label: 'File' },
     ],
 
     researchGrants: [
@@ -243,17 +738,19 @@ export async function getInput(type: string) {
         placeholder: 'Enter agency',
         required: true,
         default: 0,
-      }, 
+      },
       {
-        name: 'startyear',
-        type: 'Date',
+        name: 'startYear',
+        type: 'number',
+        properties: { min: 1800, max: 2150, step: 1 },
         label: 'Start-Year',
         placeholder: 'Enter the Start year',
         required: true,
       },
       {
-        name: 'endyear',
-        type: 'Date',
+        name: 'endYear',
+        type: 'number',
+        properties: { min: 1800, max: 2150, step: 1 },
         label: 'End-Year',
         placeholder: 'Enter the End year',
         required: true,
@@ -264,23 +761,11 @@ export async function getInput(type: string) {
         label: 'Recieved',
         placeholder: 'Enter recieved',
         required: true,
-        options:[
+        options: [
           'Yes',
           'No'
         ],
         default: 'No',
-      },
-      { name: 'utCert', type: 'file',label:'Utilization Certificate',required :false},
-      {
-        name: 'workpub',
-        type: 'select',
-        label: 'Work Published',
-        required:true,
-        options: [
-          'Yes',
-          'No',
-        ],
-        default:'Yes',
       },
       {
         name: 'amountCategory',
@@ -297,7 +782,19 @@ export async function getInput(type: string) {
         ],
         default: 'Nil',
       },
+      {
+        name: 'workPub',
+        type: 'select',
+        label: 'Work Published',
+        required: true,
+        options: [
+          'Yes',
+          'No',
+        ],
+        default: 'Yes',
+      },
       { name: 'uploadUrl', type: 'file', label: 'Upload Proposal', required: false },
+      { name: 'utCert', type: 'file', label: 'Utilization Certificate', required: false },
     ],
 
     researchBooks: [
@@ -318,7 +815,7 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
       {
-        name:'title',
+        name: 'title',
         type: 'text',
         placeholder: 'Enter title of the book',
         required: true,
@@ -326,19 +823,20 @@ export async function getInput(type: string) {
       },
       {
         name: 'year',
-        type: 'Date',
+        type: 'number',
+        properties: { min: 1800, max: 2150, step: 1 },
         placeholder: 'Enter the year of publication',
         required: true,
         default: 'Nil',
       },
       {
-        name: 'Certificate',
+        name: 'certificate',
         type: 'file',
         required: false,
       },
       {
-        name: 'bookdetails',
-        type:'text',
+        name: 'bookDetails',
+        type: 'text',
         placeholder: 'Enter the Book details',
         required: true,
         default: 'Nil',
@@ -346,6 +844,7 @@ export async function getInput(type: string) {
       {
         name: 'uploadUrl',
         type: 'file',
+        placeholder: 'Upload document',
         required: false,
       },
     ],
@@ -360,97 +859,80 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
       {
-        name: 'studentdetails',
+        name: 'studentDetails',
         type: 'text',
-        placeholder: 'Student details',
+        placeholder: 'Student Name',
         required: true,
       },
       {
-        name: 'studentupload',
-        type: 'file',
-        required: false,
-        placeholder:'Upload',
-      },
-      {
-        name: 'startdate',
-        placeholder:'Start Date',
-        type: 'Date',
-        required: true,
-      },
-      {
-        name: 'enddate',
-        placeholder: 'End Date',
-        type: 'Date',
-        required: true,
-      },
-      {
-        name: 'name',
+        name: 'studentCourse',
         type: 'text',
-        placeholder: 'Name',
+        placeholder: 'Student Course',
+        required: true,
+      },
+      {
+        name: 'startDate',
+        placeholder: 'Start Date',
+        type: 'Date',
         required: true,
       },
       {
         name: 'title',
         type: 'text',
-        placeholder: 'Title',
+        placeholder: 'Title of the study',
         required: true,
       },
       {
-        name: 'publishstatus',
-        placeholder:'Published?',
-        type: 'select',
-        options: [
-          'Yes','No'
-        ],
-        default:'Yes',
-        required: true,
-      },
-      {
-        name: 'year',
-        type: 'Date',
-        required: true,
-      },
-      {
-        name: 'Amount',
-        type: 'number',
-        required: true,
-      },
-      {
-        name: 'GrantName',
-        type: 'text',
-        placeholder:'Grant Name',
-        required: true,
-      },
-      {
-        name: 'FundedStatus',
+        name: 'fundedStatus',
         type: 'select',
         placeholder: 'Funded?',
         options: [
           'Yes', 'No'
         ],
-        default:'No',
+        default: 'No',
         required: true,
       },
       {
-        name: 'AgencyName',
+        name: 'agencyName',
         type: 'text',
         placeholder: 'Agency Name',
-        required: true, 
+        required: true,
       },
       {
-        name: 'synopsis',
+        name: 'studentUpload',
+        type: 'file',
+        required: false,
+        placeholder: 'Upload',
+      },
+      {
+        name: 'amount',
+        type: 'number',
+        required: true,
+      },
+      {
+        name: 'publishStatus',
+        placeholder: 'Published?',
+        type: 'select',
+        options: [
+          'Yes', 'No'
+        ],
+        default: 'Yes',
+        required: true,
+      },
+      {
+        name: 'synopsisUrl',
         type: 'file',
         placeholder: 'Synopsis',
         required: true,
       },
       {
-        name: 'thesis',
+        name: 'thesisUrl',
         type: 'file',
         placeholder: 'Thesis',
         required: true,
       },
       {
-        name: 'report',
+        name: 'reportUrl',
         type: 'file',
         placeholder: 'Report',
         required: true,
@@ -467,14 +949,15 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
       {
-        name: 'Confname',
+        name: 'confName',
         type: 'text',
         placeholder: 'Conference Name',
         required: true,
       },
       {
         name: 'year',
-        type: 'Date',
+        type: 'number',
+        properties: { min: 1800, max: 2150, step: 1 },
         placeholder: 'Year - Date',
         required: true,
       },
@@ -485,63 +968,132 @@ export async function getInput(type: string) {
         required: true,
       },
       {
-        name: 'Attachment',
-        type: 'file',
-        placeholder: 'Attachment upload',
-        required: false,
-      },
-      {
         name: 'type',
         type: 'select',
         placeholder: 'type',
-        options: [ 'Poster', 'Oral', 'Attending'],
-        required: true,
+        options: ['Poster', 'Oral', 'Attending'],
+        default:"Poster",
+        required: true
       },
       {
-        name: 'place',
-        type: 'text',
-        placeholder: 'Place of Conference',
-        required: true,
+        name: 'attachment',
+        type: 'file',
+        placeholder: 'Attachment upload',
+        required: false,
       },
       {
         name: 'awards',
         type: 'select',
         placeholder: 'Awards Recieved',
         options: ['Yes', 'No'],
-        required: true,
+        default:'Yes',
+        required: true
       },
       {
         name: 'description',
         type: 'text',
         placeholder: 'Awards description',
-        default:'Nil',
+        default: 'Nil',
+        required: false,
+      },
+      {
+        name: 'certificateUpload',
+        type: 'file',
+        placeholder: 'Upload Certificate',
+        default: 'Nil',
         required: false,
       }
+    ],
+
+    researchPatents: [
+      {
+        name: 'patentCountry',
+        type: 'text',
+        label: 'Patent Country',
+        placeholder: 'Enter Patent Country',
+        required: true,
+      },
+      {
+        name: 'patentNumber',
+        type: 'number',
+        label: 'Patent Number',
+        placeholder: 'Enter Patent Number',
+        required: true,
+      },
+      {
+        name: 'patentType',
+        type: 'text',
+        label: 'Patent Type',
+        placeholder: 'Enter Patent Type',
+        required: true,
+      },
+      {
+        name: 'title',
+        type: 'text',
+        label: 'Title',
+        placeholder: 'Enter Title',
+        required: true,
+      },
+      {
+        name: 'date',
+        type: 'date',
+        label: 'Date',
+        required: true,
+      },
+      {
+        name: 'detailsOfInventors',
+        type: 'table',
+        label: 'Details of Inventors',
+        required: true,
+        inputs: [
+          {
+            name: 'number',
+            type: 'number',
+            label: 'Inventor Number',
+            placeholder: 'Enter Inventor Number',
+            required: true,
+          },
+          {
+            name: 'name',
+            type: 'text',
+            label: 'Inventor Name',
+            placeholder: 'Enter Inventor Name',
+            required: true,
+          },
+          {
+            name: 'institute',
+            type: 'text',
+            label: 'Institute',
+            placeholder: 'Enter Institute',
+            required: true,
+          },
+        ],
+      },
     ],
 
     academicsTeaching: [
       {
         name: 'hours',
         type: 'number',
-        placeholder: 'Hours',
+        placeholder: 'Enter the teaching Hours',
         required: true,
         default: 0,
       },
       {
-        name:'hoursupload',
-        type:'file',
-        placeholder:'Hours acknowledgement',
+        name: 'hoursUpload',
+        type: 'file',
+        placeholder: 'Hours acknowledgement',
         required: true
       },
       {
         name: 'clinicalHours',
         type: 'number',
-        placeholder: 'Clinical Hours',
+        placeholder: 'Enter the Clinical Hours',
         required: true,
         default: 0,
       },
       {
-        name: 'clinicalHoursupload',
+        name: 'clinicalHoursUpload',
         type: 'file',
         placeholder: 'Clinical Hours acknowledgement',
         required: true
@@ -549,12 +1101,12 @@ export async function getInput(type: string) {
       {
         name: 'studentsFeedback',
         type: 'number',
-        placeholder: 'Students Feedback',
+        placeholder: 'Enter the Students Feedback',
         required: true,
         default: 0,
       },
       {
-        name: 'studentsFeedbackupload',
+        name: 'studentsFeedbackUpload',
         type: 'file',
         placeholder: 'Students Feedback acknowledgement',
         required: true
@@ -563,11 +1115,11 @@ export async function getInput(type: string) {
         name: 'resourceMaterial',
         type: 'select',
         placeholder: 'Resource Material',
-        options: ['Yes','No'],
+        options: ['Yes', 'No'],
         default: 'No'
       },
       {
-        name: 'resourceMaterialupload',
+        name: 'resourceMaterialUpload',
         type: 'file',
         placeholder: 'Resource Material acknowledgement',
         required: true
@@ -580,7 +1132,7 @@ export async function getInput(type: string) {
         default: 'No'
       },
       {
-        name: 'publicAwarenessWriteupupload',
+        name: 'publicAwarenessWriteupUpload',
         type: 'file',
         placeholder: 'Public Awareness Writeup acknowledgement',
         required: true
@@ -588,11 +1140,11 @@ export async function getInput(type: string) {
       {
         name: 'cc',
         type: 'number',
-        placeholder: 'CC',
+        placeholder: 'Enter the CC',
         default: 0
       },
       {
-        name: 'ccupload',
+        name: 'ccUpload',
         type: 'file',
         placeholder: 'CC acknowledgement',
         required: true
@@ -604,6 +1156,7 @@ export async function getInput(type: string) {
         name: 'patients',
         type: 'number',
         label: 'Patients',
+        placeholder:"Enter the number of patients",
         required: false,
         default: 0,
       },
@@ -611,6 +1164,7 @@ export async function getInput(type: string) {
         name: 'minorProcedures',
         type: 'number',
         label: 'Minor Procedures',
+        placeholder: "Enter the number of Minor Procedures",
         required: false,
         default: 0,
       },
@@ -618,9 +1172,10 @@ export async function getInput(type: string) {
         name: 'majorProcedures',
         type: 'number',
         label: 'Major Procedures',
+        placeholder: "Enter the number of Major Procedures",
         required: false,
         default: 0,
-      }, 
+      },
       {
         name: 'clinicalDutyFile',
         type: 'file',
@@ -714,7 +1269,7 @@ export async function getInput(type: string) {
       {
         name: 'committeeName',
         type: 'text',
-        placeholder: 'Committee Name',
+        placeholder: 'Enter the Committee Name',
         required: true,
       },
       {
@@ -722,7 +1277,7 @@ export async function getInput(type: string) {
         type: 'select',
         placeholder: 'Designation',
         required: true,
-        options: ['Member', 'Coordinator', 'Head', 'Nil'],
+        options: ['Member', 'Coordinator', 'Head', 'Resource person', 'Nil'],
         default: 'Nil',
       },
       {
@@ -733,6 +1288,12 @@ export async function getInput(type: string) {
       }
     ],
     professionalConference: [
+      {
+        name: 'conferenceName',
+        type: 'text',
+        placeholder: 'Enter the Conference Name',
+        required: true,
+      },
       {
         name: 'designation',
         type: 'select',
@@ -753,16 +1314,22 @@ export async function getInput(type: string) {
         name: 'conferenceFile',
         type: 'file',
         required: false,
-        label: 'Conference file'
+        label: 'Attach brochure'
+      },
+      {
+        name: 'attendieDetails',
+        type: 'text',
+        placeholder: 'Enter the Attendie details',
+        required: true,
       }
     ],
     professionalGuestLectures: [
       {
-        name: 'number',
-        type: 'number',
-        placeholder: 'Number',
+        name: 'title',
+        type: 'text',
+        placeholder: 'Enter the Title',
         required: true,
-        default: 0,
+        default: '',
       },
       {
         name: 'category',
@@ -770,15 +1337,44 @@ export async function getInput(type: string) {
         placeholder: 'Category',
         required: true,
         options: ['Internal', 'External', 'Nil'],
-        default: 'Nil',
+        default: 'Internal',
       },
       {
         name: 'guestLecturesFile',
         type: 'file',
         required: false,
-        label: 'Guest lectures file'
+        label: 'Details'
       }
     ],
+    professionalAchievements: {
+      columns: [
+        {
+          name: 'serialNo',
+          label: 'Serial No',
+          placeholder:'Enter the Serial No',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'year',
+          label: 'Year',
+          type: 'number',
+          placeholder:'Enter the Year',
+          required: true,
+          min: 1800,
+          max: 2150,
+          default: 2024,
+        },
+        {
+          name: 'information',
+          label: 'Information',
+          placeholder:'Enter the Information',
+          type: 'text',
+          required: true,
+        },
+      ],
+    }
+
   };
 
   return inputs[type];

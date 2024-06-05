@@ -65,13 +65,13 @@ export default function Profile() {
               <b>Department: </b>
               <a>{profileData?.['department'] || 'N/A'}</a>
             </p>
-            <p className='info-d'>
+           {/* <p className='info-d'>
               <b>Educational Qualification: </b>
               <a>{profileData?.['educationalQualification'] || 'N/A'}</a>
-            </p>
+            </p>*/}
             <p className='info-d'>
               <b>Date of joining: </b>
-              <a>{profileData?.['dateOfJoining'] || 'N/A'}</a>
+              <a>{profileData?.['dateOfJoining']?.toString().slice(0, 10) || 'N/A'}</a>
             </p>
             <p className='info-d'>
               <b>KMC Registration number: </b>

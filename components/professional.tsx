@@ -9,7 +9,7 @@ import {
 	uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../app/firebase";
-import { updateProfessionalFileUrl } from "@/lib/mongoose/functions";
+import { deleteProfessionalFileUrl, updateProfessionalFileUrl } from "@/lib/mongoose/functions";
 import { useUserData } from "./UserDataContext";
 
 export default function Professional() {
@@ -19,6 +19,7 @@ export default function Professional() {
 	//effect to retrieve data
 	useEffect(() => {
 		async function getDataAny() {
+      setFileUrl(undefined)
 			const getFileUrl = await getRetrieveFunction("professionalFileUrl");
 			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
@@ -137,15 +138,24 @@ export default function Professional() {
 						column={3}
 						values={userData?.appraisal?.professional?.conferences}
 					/>
+					
 					<a className="name3">Guest Lectures</a>
 					<Table
 						type="professionalGuestLectures"
-						header_row={["Number", "Category", "Uploads"]}
-						keys={["number", "category", "guestLecturesFile"]}
+						header_row={["Title", "Category", "Uploads"]}
+						keys={["title", "category", "guestLecturesFile"]}
 						column={3}
 						values={userData?.appraisal?.professional?.guestLectures}
 					/>
 
+					<a className="name3">Achievements</a>
+					<Table
+						type="professionalAchievements"
+						header_row={["Serial No", "year", "information"]}
+						keys={["serialNo", "year", "information"]}
+						column={3}
+						values={userData?.appraisal?.professional?.achievements}
+					/>
 					<div className="btn-container" id="hiddenButton">
 						<button
 							type="button"
@@ -176,9 +186,22 @@ export default function Professional() {
 								fileRef && fileRef.current.click();
 							}}
 							className="upload-button"
+              disabled={fileUrl === undefined}
 						>
-							{fileUrl ? "Reupload File" : "Upload File"}
+							{fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
 						</button>
+
+            {fileUrl &&
+              <button
+                className="delete-button"
+                onClick={async () => {
+                    await deleteProfessionalFileUrl()
+                    setFileUrl("")
+                }}
+              >
+                Delete file
+              </button>
+            }
 
 						<input
 							hidden
