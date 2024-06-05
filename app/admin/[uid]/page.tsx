@@ -622,7 +622,7 @@ const UserDetail = ({ params }) => {
 								<td>{conference?.confName}</td>
 								<td>{conference?.year}</td>
 								<td>{conference?.details}</td>
-								<td>{conference?.type}</td>
+								<td>{conference?.typeC}</td>
 								<td>{conference?.place}</td>
 								<td>{conference?.awards}</td>
 								<td>{conference?.description}</td>

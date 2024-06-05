@@ -205,7 +205,7 @@ const conferencesSchema = new mongoose.Schema({
     required: false,
     default: 'Nil'
   },
-  type: {
+  typeC: {
     type: String,
     enum: [
       'Poster', 'Oral', 'Attending'

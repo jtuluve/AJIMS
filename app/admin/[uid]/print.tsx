@@ -457,14 +457,14 @@ const PrintDetails = ({ params }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').length > 0 ? (
-                                user.appraisal?.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.typeC === 'Oral').length > 0 ? (
+                                user.appraisal?.research.conferences.filter(conference => conference.category === 'Zonal' && conference.typeC === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
                                         <td>{conference.year}</td>
                                         <td>{conference.details}</td>
-                                        <td>{conference.type}</td>
+                                        <td>{conference.typeC}</td>
                                     </tr>
                                 ))
                             ) : (
@@ -472,14 +472,14 @@ const PrintDetails = ({ params }) => {
                                     <td colSpan={5}>No oral presentations in zonal conferences available</td>
                                 </tr>
                             )}
-                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Oral').length > 0 ? (
-                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'State' && conference.typeC === 'Oral').length > 0 ? (
+                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'State' && conference.typeC === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
                                         <td>{conference.year}</td>
                                         <td>{conference.details}</td>
-                                        <td>{conference.type}</td>
+                                        <td>{conference.typeC}</td>
                                     </tr>
                                 ))
                             ) : (
@@ -487,14 +487,14 @@ const PrintDetails = ({ params }) => {
                                     <td colSpan={5}>No oral presentations in state conferences available</td>
                                 </tr>
                             )}
-                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Oral').length > 0 ? (
-                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'National' && conference.typeC === 'Oral').length > 0 ? (
+                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'National' && conference.typeC === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
                                         <td>{conference.year}</td>
                                         <td>{conference.details}</td>
-                                        <td>{conference.type}</td>
+                                        <td>{conference.typeC}</td>
                                     </tr>
                                 ))
                             ) : (
@@ -502,14 +502,14 @@ const PrintDetails = ({ params }) => {
                                     <td colSpan={5}>No oral presentations in national conferences available</td>
                                 </tr>
                             )}
-                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Oral').length > 0 ? (
-                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'International' && conference.typeC === 'Oral').length > 0 ? (
+                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'International' && conference.typeC === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
                                         <td>{conference.year}</td>
                                         <td>{conference.details}</td>
-                                        <td>{conference.type}</td>
+                                        <td>{conference.typeC}</td>
                                     </tr>
                                 ))
                             ) : (
@@ -534,14 +534,14 @@ const PrintDetails = ({ params }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').length > 0 ? (
-                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.typeC === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'Zonal' && conference.typeC === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
                                             <td>{conference.year}</td>
                                             <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
+                                            <td>{conference.typeC}</td>
                                         </tr>
                                     ))
                                 ) : (
@@ -549,14 +549,14 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in zonal conferences available</td>
                                     </tr>
                                 )}
-                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Poster').length > 0 ? (
-                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'State' && conference.typeC === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'State' && conference.typeC === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
                                             <td>{conference.year}</td>
                                             <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
+                                            <td>{conference.typeC}</td>
                                         </tr>
                                     ))
                                 ) : (
@@ -564,14 +564,14 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in state conferences available</td>
                                     </tr>
                                 )}
-                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Poster').length > 0 ? (
-                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'National' && conference.typeC === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'National' && conference.typeC === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
                                             <td>{conference.year}</td>
                                             <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
+                                            <td>{conference.typeC}</td>
                                         </tr>
                                     ))
                                 ) : (
@@ -579,14 +579,14 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in national conferences available</td>
                                     </tr>
                                 )}
-                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Poster').length > 0 ? (
-                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'International' && conference.typeC === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'International' && conference.typeC === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
                                             <td>{conference.year}</td>
                                             <td>{conference.details}</td>
-                                            <td>{conference.type}</td>
+                                            <td>{conference.typeC}</td>
                                         </tr>
                                     ))
                                 ) : (

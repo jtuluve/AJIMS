@@ -975,7 +975,7 @@ export async function getInput(type: string) {
         required: true,
       },
       {
-        name: 'type',
+        name: 'typeC',
         type: 'select',
         placeholder: 'type',
         options: ['Poster', 'Oral', 'Attending'],
