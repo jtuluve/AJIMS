@@ -464,7 +464,7 @@ const profileSchema = new mongoose.Schema({
     medicalCouncilName: { type: String }
   })],
   experience: [new mongoose.Schema({
-    designation: { type: String, enum: ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"], default:'Professor' },
+    designationE: { type: String, enum: ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"], default:'Professor' },
     departmentE: { type: String },
     institution: { type: String },
     from: { type: Date },
@@ -509,21 +509,21 @@ const profileSchema = new mongoose.Schema({
   certUpload: { type: String },
   regUpload: { type: String },
   inspectionDetails: [new mongoose.Schema({
-    designation: { type: String, default: '' },
+    designationI: { type: String, default: '' },
     subject: { type: String, default: '' },
-    college: { type: String, default: '' },
+    collegeI: { type: String, default: '' },
     dates: { type: String, default: '' },
   })],
   numberOfLectures: [new mongoose.Schema({
-    date: { type: Date },
+    dateL: { type: Date },
     type: { type: String, default: '' },
     topic: { type: String, default: '' }
   })
   ],
   details: [new mongoose.Schema({
-    name: { type: String, default: 0 },
+    detailsName: { type: String, default: 0 },
     designation: { type: String, default:'' },
-    date: { type: Date },
+    dateD: { type: Date },
     relieveReason: { type: String, enum: ["Tendered resignation", "Retired", "Transferred", "Terminated"], default: 'Transferred' },
     verification: { type: String, emun:[ 'Yes', 'No' ],default: 'No' },
     verificationFile: { type: String }

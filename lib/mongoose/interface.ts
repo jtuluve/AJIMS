@@ -228,7 +228,7 @@ interface EducationalQualification {
 }
 
 interface Experience {
-  designation?: "Junior Resident" | "Senior Resident" | "Demonstrator" | "Tutor" | "Asst. Professor" | "Assoc. Professor" | "Professor";
+  designationE?: "Junior Resident" | "Senior Resident" | "Demonstrator" | "Tutor" | "Asst. Professor" | "Assoc. Professor" | "Professor";
   departmentE?: string;
   institution?: string;
   from?: Date;
@@ -245,22 +245,22 @@ interface Appearance {
 }
 
 interface InspectionDetail {
-  designation?: string;
+  designationI?: string;
   subject?: string;
-  college?: string;
+  collegeI?: string;
   dates?: string;
 }
 
 interface Lecture {
-  date?: Date;
+  dateL?: Date;
   type?: string;
   topic?: string;
 }
 
 interface Detail {
-  name?: number;
+  detailsName?: string;
   designation?: string;
-  date?: Date;
+  dateD?: Date;
   relieveReason?: string;
   verification?: "Yes" | "No";
   verificationFile?: string; // file 7
