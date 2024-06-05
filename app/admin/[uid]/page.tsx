@@ -201,7 +201,7 @@ const UserDetail = ({ params }) => {
 				</div>
 				<div className="profile-photo">
 					<img
-						src={user?.profileUrl}
+            src={(user?.profileUrl === '' || user?.profileUrl === 'user.png') ? '/user.png' : user.profileUrl}
 						alt="upload profile url"
 						height={120}
 						width={100}

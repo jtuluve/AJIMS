@@ -47,8 +47,8 @@ export default function Admin() {
 										<td>{index + 1}</td>
 										<td>
 											<img
-												src={user?.profileUrl}
-												alt=""
+												src={(user?.profileUrl === '' || user?.profileUrl === 'user.png') ? '/user.png' : user.profileUrl}
+												alt="profile"
 												height={120}
 												width={100}
 											/>
