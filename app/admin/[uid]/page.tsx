@@ -1,15 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAdminData } from "@/components/adminContext";
 import '@css/admin[uid].css'
 import "@css/admin.css";
 import { UserDocument } from "@/lib/mongoose/interface";
+import PrintDetails from "./print";
 
 const UserDetail = ({ params }) => {
 	const { uid } = params;
 	const { allUsers } = useAdminData();
 	const [user, setUser] = useState<UserDocument|null>(null);
+  const printRef = useRef<HTMLDivElement>(null);
 
 	const dob = user?.profile?.dob ? new Date(user.profile.dob) : null;
 	const dateOfJoining = user?.profile?.dateOfJoining ? new Date(user.profile.dateOfJoining) : null;
@@ -25,6 +27,15 @@ const UserDetail = ({ params }) => {
 	if (!user) {
 		return <div>Loading...</div>;
 	}
+  
+  const handlePrint = () => {
+      const printContent = printRef.current.innerHTML
+      const originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContent;
+      window.print();
+      document.body.innerHTML = originalContents;
+      window.location.reload();
+  };
 
 	return (
 	<div className="amdminpage">
@@ -58,6 +69,14 @@ const UserDetail = ({ params }) => {
 					<p><strong>Category:</strong> {user.appraisal?.professional?.score?.category}</p>
 				</div>
 			</div>
+      <center>
+        <button 
+          className="print-btn"
+          onClick={handlePrint}
+        >
+          Print
+        </button>
+      </center>
 			<div className="profile-container">
 				<div className="basic-info">
 					<p><strong>Name of the Faculty:</strong> {user?.profile?.name}</p>
@@ -69,26 +88,26 @@ const UserDetail = ({ params }) => {
 					<p><strong>Name of the college:</strong> {user?.profile?.college}</p>
 					<p><strong>Present Designation:</strong> {user?.profile?.designation}</p>
 					<div className="designation-section">
-                            <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
-                            <p><strong>Department:</strong> {user?.profile?.department}</p>
-                            <p><strong>College/ Institute:</strong> {user?.profile?.instituteName}</p>
-                            <p><strong>City/ District:</strong> {user?.profile?.cityName}</p>
-                            <p><strong>Appointment:</strong></p>
-                            <div className="appointment-section">
-                                <p><strong>Regular/ Contractual/ Ad-hoc basis:</strong> {user?.profile?.appointmentType1}</p>
-                                <p><strong>Full time/ Part time:</strong> {user?.profile?.appointmentType2}</p>
-                                <p><strong>With Private practice/ Without Private practice:</strong> {user?.profile?.appointmentType3}</p>
-                            </div>
-                            <p><strong>Date of appearance in last MCI/ NMC assessment:</strong></p>
-                            <div className="date-section">
-                                <p><strong>UG/ PG/ Any other:</strong> {user?.profile?.ugpgName}</p>
-                                <p><strong>Name of College:</strong> {user?.profile?.college}</p>
-                                <p><strong>Whether appeared and accepted at the same College:</strong> {user?.profile?.sameClgAcpt}</p>
-                                <p><strong>Whether appeared and accepted at the same designation:</strong> {user?.profile?.sameDestAcpt}</p>
-                                <p><strong>Whether retired from Government Medical College:</strong> {user?.profile?.retiredStatus}</p>
-                                <p><strong>If yes, designation at the time of retirement:</strong> {user?.profile?.retireDestination}</p>
-                            </div>
-                        </div>
+            <p><strong>Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
+            <p><strong>Department:</strong> {user?.profile?.department}</p>
+            <p><strong>College/ Institute:</strong> {user?.profile?.instituteName}</p>
+            <p><strong>City/ District:</strong> {user?.profile?.cityName}</p>
+            <p><strong>Appointment:</strong></p>
+            <div className="appointment-section">
+                <p><strong>Regular/ Contractual/ Ad-hoc basis:</strong> {user?.profile?.appointmentType1}</p>
+                <p><strong>Full time/ Part time:</strong> {user?.profile?.appointmentType2}</p>
+                <p><strong>With Private practice/ Without Private practice:</strong> {user?.profile?.appointmentType3}</p>
+            </div>
+            <p><strong>Date of appearance in last MCI/ NMC assessment:</strong></p>
+            <div className="date-section">
+                <p><strong>UG/ PG/ Any other:</strong> {user?.profile?.ugpgName}</p>
+                <p><strong>Name of College:</strong> {user?.profile?.college}</p>
+                <p><strong>Whether appeared and accepted at the same College:</strong> {user?.profile?.sameClgAcpt}</p>
+                <p><strong>Whether appeared and accepted at the same designation:</strong> {user?.profile?.sameDestAcpt}</p>
+                <p><strong>Whether retired from Government Medical College:</strong> {user?.profile?.retiredStatus}</p>
+                <p><strong>If yes, designation at the time of retirement:</strong> {user?.profile?.retireDestination}</p>
+            </div>
+            </div>
 						<p><strong>Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceProofStatus}</p>
 						<p><strong>Residence proof file:</strong><a href={user?.profile?.residenceProof} download>View upload document</a></p>
 						<p><strong>ORC Id number:</strong>{user?.profile?.orcIdNo}</p>
@@ -173,10 +192,10 @@ const UserDetail = ({ params }) => {
 					</table>
 					</div>
 					<div className="edu-section">
-                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
-                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
-                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
-                    </div>
+            <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
+            <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
+            <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
+          </div>
 					<p><strong>Passport No:</strong> {user?.profile?.passportNo}</p>
 					<p><strong>KMC Registration No:</strong> {user?.profile?.kmcRegistrationNo}</p>		
 				</div>
@@ -552,6 +571,13 @@ const UserDetail = ({ params }) => {
 				</div>
 			</div>
 		</div>
+    <div
+      ref={printRef}
+      style={{display: "none"}}
+    >
+      <PrintDetails params={params}/> 
+    </div>
+    </div>
 	</div>
 	);
 };

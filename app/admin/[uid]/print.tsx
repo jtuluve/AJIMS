@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAdminData } from "@/components/adminContext";
 import '@css/print[uid].css'
 import "@css/admin.css";
+import { UserDocument } from "@/lib/mongoose/interface";
 
 const PrintDetails = ({ params }) => {
 
     const { uid } = params;
     const { allUsers } = useAdminData();
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<UserDocument | null>(null);
 
     const internationalCount = user?.appraisal?.research?.publications?.filter(
         (publication: any) => publication.category === 'International'
@@ -22,9 +23,9 @@ const PrintDetails = ({ params }) => {
     const stateInstitutionalCount = user?.appraisal?.research?.publications?.filter(
         (publication: any) => publication.category === 'State/Institutional'
     ).length;
-    const booksPublished = user?.appraisal?.books?.length || 0;
+    const booksPublished = user?.appraisal?.research?.books?.length || 0;
     let totalChapters = 0;
-    user?.appraisal?.books?.forEach((book: any) => {
+    user?.appraisal?.research?.books?.forEach((book: any) => {
         totalChapters += book.chapters.length;
     });
 
@@ -44,12 +45,12 @@ const PrintDetails = ({ params }) => {
         <div className="page-container">
             <div className="page1">
                 <center><h1>Faculty/ SR/ Tutor/ Demonstrator Declaration Form</h1></center>
-                <p><strong>Name of the college:</strong> {user?.profile?.collegeName}</p>
+                <p><strong>Name of the college:</strong> {user?.profile?.college}</p>
                 <table>
                     <thead>
                         <tr>
                             <th>Submission date:</th>
-                            <td>_ _/_ _/_ _</td>
+                            <td>_ / / _</td>
                         </tr>
                     </thead>
                 </table>
@@ -61,7 +62,7 @@ const PrintDetails = ({ params }) => {
                 <div className="faculty-details">
                     <div className="details">
                         <p><strong>1. Name of Faculty:</strong> {user?.profile?.name}</p>
-                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years, {user?.profile?.dob}</p>
+                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years,  {user?.profile?.dob? new Date(user?.profile?.dob).toLocaleDateString() : 'N/A'}</p>
                         <p><strong>3. Present Designation:</strong> {user?.profile?.designation}</p>
                         <div className="designation-section">
                             <p><strong>a. Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
@@ -116,46 +117,58 @@ const PrintDetails = ({ params }) => {
                     <p><strong>a. Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>{/**varaible needed */}
                     <p><strong>b. Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>{/**varaible needed */}
                     <p><strong>c. Mobile Phone Number: </strong>{user?.profile?.phoneNo}</p>
-                    <p><strong>d. Email address:</strong> {user.email}</p>
-                </div>
-                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining}</p>
+                    {/* <p><strong>d. Email address:</strong> {user?.profile?.emailaddress}</p> */}
+                </div> 
+                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining).toLocaleDateString() : 'N/A'}</p>
                 <p><strong>8. Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>{/**varaible needed */}
                 <p>
                     <strong>
                         9. Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
                         Programme (CISP - i/ii/iii), Advanced Course in Medical Education (ACME) for training in MET:
                     </strong>
-                    {user?.profile?.appearance?.status}
+                    
                 </p>
                 <div className="smalltext">
-                    <p>
-                        (If Yes, provide certificate/s)
-                    </p>
+                    <p>(If Yes, provide certificate/s)</p>
                 </div>
                 <div className="workshopattened-section">
-                    <p><strong>a. at MCI/NMC Regional MET Centre:</strong>{user?.profile?.appearance?.center}</p>{/**varaible needed */}
-                    <p><strong>b. at your college under Regional/ Nodal observership :</strong>{user?.profile?.appearance?.observership}</p>{/**varaible needed */}
-                    <p><strong>c. Any other MET certificates may be attached :</strong>{user?.profile?.appearance?.certs}</p>{/**varaible needed */}
+                    {user?.profile?.appearance?.map((appearance, index) => (
+                        <div key={index}>
+                            <p><strong>status</strong>{appearance?.status}</p>
+                            <p><strong>a. at MCI/NMC Regional MET Centre:</strong> {appearance?.center}</p>
+                            <p><strong>b. at your college under Regional/ Nodal observership:</strong> {appearance?.observership}</p>
+                            <p><strong>c. Any other MET certificates may be attached:</strong> {appearance?.certs}</p>
+                        </div>
+                    ))}
                 </div>
                 <p><strong>10. Educational Qualifications</strong></p>
                 <div className="education-section">
                     <table>
                         <thead>
                             <tr>
-                                <th>Degree</th><th>Year</th><th>College Name</th>
-                                <th>Registration Number with Date</th><th>Medical Council Name</th>
+                                <th>Degree</th>
+                                <th>Year</th>
+                                <th>College Name</th>
+                                <th>Registration Number with Date</th>
+                                <th>Medical Council Name</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {user?.profile?.educationalQualification?.map((educationalQualification, index) => (
-                                <tr key={index}>
-                                    <td>{educationalQualification.degree}</td>
-                                    <td>{educationalQualification.year}</td>
-                                    <td>{educationalQualification.collegeName}</td>
-                                    <td>{educationalQualification.regNumWithDate}</td>
-                                    <td>{educationalQualification.medicalCouncilName}</td>
+                            {user?.profile?.educationalQualification?.length > 0 ? (
+                                user.profile.educationalQualification.map((educationalQualification, index) => (
+                                    <tr key={index}>
+                                        <td>{educationalQualification.degree}</td>
+                                        <td>{educationalQualification.year}</td>
+                                        <td>{educationalQualification.collegeName}</td>
+                                        <td>{educationalQualification.regNumWithDate}</td>
+                                        <td>{educationalQualification.medicalCouncilName}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={5}>No Educational Qualification data available</td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                     <div className="edu-section">
@@ -176,8 +189,8 @@ const PrintDetails = ({ params }) => {
             <div className="page3">
                 <p><strong>11. Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
-                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certUpload}</p>{/**Variable needed!*/}
-                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regUpload}</p>{/**Variable needed!*/}
+                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>{/*Variable needed!*/}
+                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>{/*Variable needed!*/}
                 </div> 
                 <p><strong>12. Details of Teaching experience till date:</strong></p>
                 <div className="teaching-section">
@@ -189,14 +202,14 @@ const PrintDetails = ({ params }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {user?.appraisal?.academics?.teaching?.length > 0 ? (
-                                    user?.appraisal?.academics?.teaching?.map((experience, index) => (
+                            {user?.profile?.experience?.length > 0 ? (
+                                    user?.profile?.experience?.map((experience, index) => (
                                             <tr key={index}>
                                                 <td>{experience.designation}</td>
                                                 <td>{experience.department}</td>
                                                 <td>{experience.institution}</td>
-                                                <td>{experience.from}</td>
-                                                <td>{experience.to}</td>
+                                                <td>{experience.from ? experience.from.toLocaleDateString() : 'Invalid Date'}</td>
+                                                <td>{experience.to ? experience.to.toLocaleDateString() : 'Invalid Date'}</td>
                                                 <td>{experience.total}</td>
                                             </tr>
                                         ))
@@ -223,23 +236,23 @@ const PrintDetails = ({ params }) => {
                             <tr>
                                 <td>Graded Specialist</td>
                                 <td></td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>__(y)__(m)</td>
+                                <td>_ / / _</td>
+                                <td>_ / / _</td>
+                                <td>(y)(m)</td>
                             </tr>
                             <tr>
                                 <td>Classified Specialist</td>
                                 <td></td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>__(y)__(m)</td>
+                                <td>_ / / _</td>
+                                <td>_ / / _</td>
+                                <td>(y)(m)</td>
                             </tr>
                             <tr>
                                 <td>Advisor</td>
                                 <td></td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>_ _/_ _/_ _</td>
-                                <td>__(y)__(m)</td>
+                                <td>_ / / _</td>
+                                <td>_ / / _</td>
+                                <td>(y)(m)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -290,7 +303,7 @@ const PrintDetails = ({ params }) => {
                             user?.profile?.numberOfLectures?.map((numberOfLectures, index) => (
                                 <tr key={index}>
                                     <td>{index}</td>
-                                    <td>{numberOfLectures.date}</td>
+                                    <td>{numberOfLectures.date ? numberOfLectures.date.toLocaleDateString() : 'Invalid Date'}</td>
                                     <td>{numberOfLectures.type}</td>
                                     <td>{numberOfLectures.topic}</td>
                                 </tr>
@@ -306,37 +319,44 @@ const PrintDetails = ({ params }) => {
             </div> 
 
             <div className="page4">
-                <p><strong>15. Details of employment before joining the present institution:</strong></p>{/**object declaration needed*/}
+                <p><strong>15. Details of employment before joining the present institution:</strong></p>
                 <div className="details-section">
-                    <p><strong>a. Name of College/ Institution:</strong>{user?.profile?.details?.name}</p>
-                    <p><strong>b. Designation:</strong>{user?.profile?.details?.designation}<strong>Date on which relieved:</strong>{user?.profile?.details?.date}</p>
-                    <p><strong>c. Reason for being relieved: </strong>{user?.profile?.details?.relieveReason}</p>
-                    <p><strong>d. Relieving order issued by previous institution verified and attached:</strong>{user?.profile?.details?.verification}</p>
+                    {user?.profile?.details && user.profile.details.length > 0 ? (
+                        user.profile.details.map((details, index) => (
+                            <div key={index}>
+                                <p><strong>a. Name of College/ Institution:</strong> {details.name}</p>
+                                <p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.date ? new Date(details.date).toLocaleDateString() : 'Invalid Date'}</p>
+                                <p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
+                                <p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No data available</p>
+                    )}
                 </div>
-                <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>{/**variable needed*/}
+                <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>{/*variable needed*/}
                 <p><strong>17. Aadhar Card Number:</strong>{user?.profile?.aadharNo}</p>
-                <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/**object creation needed*/}
+                <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/*object creation needed*/}
                 <div className="enoluments-section">
-                <table>
-                    <thead>
-                        <tr><th>Month/Year</th><th>Amount Received</th><th>TDS</th></tr>
-                    </thead>
-                    <tbody>
-                        {user?.profile?.emoluments?.length > 0 ? (
-                            user?.profile?.emoluments?.map((emoluments, index) => (
-                                <tr key={index}>
-                                    <td>{user?.profile?.emoluments.month}/{user?.profile?.emoluments.year}</td>
-                                    <td>{user?.profile?.emoluments.amount}</td>
-                                    <td>{user?.profile?.emoluments.tds}</td>
+                    <table>
+                        <thead>
+                            <tr><th>Month/Year</th><th>Amount Received</th><th>TDS</th></tr>
+                        </thead>
+                        <tbody>
+                            {user?.profile?.emoluments?.length > 0 ? (
+                                // Extracting the last entry from the emoluments array
+                                <tr>
+                                    <td>{user.profile.emoluments[user.profile.emoluments.length - 1].month}/{user.profile.emoluments[user.profile.emoluments.length - 1].year}</td>
+                                    <td>{user.profile.emoluments[user.profile.emoluments.length - 1].amount}</td>
+                                    <td>{user.profile.emoluments[user.profile.emoluments.length - 1].tds}</td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={3}>No emoluments data available</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+                            ) : (
+                                <tr>
+                                    <td colSpan={3}>No emoluments data available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
                 <p><strong>19. Number of Research articles in Indexed Journals:</strong></p>
                 <div className="research-section">
@@ -350,54 +370,56 @@ const PrintDetails = ({ params }) => {
                     <p><strong>b. Number of Chapters in books: </strong>{totalChapters || 0}</p>
                 </div>
                 </div>
-
                 <div className="page5">
                 <p><strong>21. Any other information/ achievements/ patents:</strong></p>
                 <div className="patent-section">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Patent Country</th><th>Patent Number</th><th>Type</th><th>Date</th><th>Details of the inventor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {user?.research?.patents?.length > 0 ? (
-                        user?.research?.patents?.map((patent, index) => (
-                            <tr key={index}>
-                                <td>{patent.patentCountry}</td>
-                                <td>{patent.patentNumber}</td>
-                                <td>{patent.patentType}</td>
-                                <td>{patent.date}</td>
-                                <td>
-                                    {patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Number</th><th>Name</th><th>Institute</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {patent.detailsOfInventors.map((detailsOfInventors, i) => (
-                                                    <tr key={i}>
-                                                        <td>{detailsOfInventors.number}</td>
-                                                        <td>{detailsOfInventors.name}</td>
-                                                        <td>{detailsOfInventors.institute}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    ) : (
-                                        <td colSpan={5}>No inventor information available</td>
-                                    )}
-                                </td>
-                            </tr>
-                        ))):(
+                    <table>
+                        <thead>
                             <tr>
-                                <td colSpan={5}>No Patent information available</td>
+                                <th>Patent Country</th><th>Patent Number</th><th>Type</th><th>Date</th><th>Details of the inventor</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {user?.appraisal?.research?.patents?.length > 0 ? (
+                                user?.appraisal?.research?.patents?.map((patent, index) => (
+                                    <tr key={index}>
+                                        <td>{patent.patentCountry}</td>
+                                        <td>{patent.patentNumber}</td>
+                                        <td>{patent.patentType}</td>
+                                        <td>{patent.date ? patent.date.toLocaleDateString() : 'Invalid Date'}</td>
+                                        <td>
+                                            {patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Number</th><th>Name</th><th>Institute</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {patent.detailsOfInventors.map((detailsOfInventors, i) => (
+                                                            <tr key={i}>
+                                                                <td>{detailsOfInventors.number}</td>
+                                                                <td>{detailsOfInventors.name}</td>
+                                                                <td>{detailsOfInventors.institute}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            ) : (
+                                                <tr>
+                                                    <td colSpan={5}>No inventor information available</td>
+                                                </tr>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={5}>No Patent information available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
                 <div className="achievements-section">
                     <table>
@@ -407,8 +429,8 @@ const PrintDetails = ({ params }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {user?.professional?.achievements?.length > 0 ? (
-                                user.professional?.achievements.map((achievements, index) => (
+                            {user?.appraisal?.professional?.achievements?.length > 0 ? (
+                                user.appraisal?.professional?.achievements.map((achievements, index) => (
                                     <tr key={index}>
                                         <td>{achievements.serialNo}</td>
                                         <td>{achievements.year}</td>
@@ -436,8 +458,8 @@ const PrintDetails = ({ params }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {user?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').length > 0 ? (
-                                user.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').length > 0 ? (
+                                user.appraisal?.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
@@ -451,8 +473,8 @@ const PrintDetails = ({ params }) => {
                                     <td colSpan={5}>No oral presentations in zonal conferences available</td>
                                 </tr>
                             )}
-                            {user?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Oral').length > 0 ? (
-                                user.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Oral').length > 0 ? (
+                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
@@ -466,8 +488,8 @@ const PrintDetails = ({ params }) => {
                                     <td colSpan={5}>No oral presentations in state conferences available</td>
                                 </tr>
                             )}
-                            {user?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Oral').length > 0 ? (
-                                user.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Oral').length > 0 ? (
+                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
@@ -481,8 +503,8 @@ const PrintDetails = ({ params }) => {
                                     <td colSpan={5}>No oral presentations in national conferences available</td>
                                 </tr>
                             )}
-                            {user?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Oral').length > 0 ? (
-                                user.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Oral').map((conference, index) => (
+                            {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Oral').length > 0 ? (
+                                user?.appraisal?.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Oral').map((conference, index) => (
                                     <tr key={index}>
                                         <td>{conference.category}</td>
                                         <td>{conference.confName}</td>
@@ -499,7 +521,7 @@ const PrintDetails = ({ params }) => {
                         </tbody>
                     </table>
                 </div>
-                <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>{/**object varification needed*/}
+                <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>{/*object varification needed*/}
                 <div>
                     <div className="conference-details">
                         <table>
@@ -513,8 +535,8 @@ const PrintDetails = ({ params }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {user?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'Zonal' && conference.type === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
@@ -528,8 +550,8 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in zonal conferences available</td>
                                     </tr>
                                 )}
-                                {user?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'State' && conference.type === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'State' && conference.type === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
@@ -543,8 +565,8 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in state conferences available</td>
                                     </tr>
                                 )}
-                                {user?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'National' && conference.type === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'National' && conference.type === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
@@ -558,8 +580,8 @@ const PrintDetails = ({ params }) => {
                                         <td colSpan={5}>No Poster presentations in national conferences available</td>
                                     </tr>
                                 )}
-                                {user?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Poster').length > 0 ? (
-                                    user.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Poster').map((conference, index) => (
+                                {user?.appraisal?.research?.conferences?.filter(conference => conference.category === 'International' && conference.type === 'Poster').length > 0 ? (
+                                    user?.appraisal?.research.conferences.filter(conference => conference.category === 'International' && conference.type === 'Poster').map((conference, index) => (
                                         <tr key={index}>
                                             <td>{conference.category}</td>
                                             <td>{conference.confName}</td>
@@ -577,7 +599,7 @@ const PrintDetails = ({ params }) => {
                         </table>
                     </div>
                 </div>                
-                <p><strong>24. Awards/ prizes:</strong></p>{/**awards object/variable needed*/}
+                <p><strong>24. Awards/ prizes:</strong></p>{/*awards object/variable needed*/}
                 <div className="awards-section">
                     <table>
                     <thead>
@@ -586,16 +608,16 @@ const PrintDetails = ({ params }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {user?.research?.conference?.awards?.length > 0 ? (
-                        user.research.conference?.awards.map((awards, index) => (
-                            <tr key={index}>
-                                <td>{user.research.conference?.awards}</td>
-                                <td>{user.research.conference?.description}</td>
-                            </tr>
-                        ))
-                        ) : (
+                        {user?.appraisal?.research.conferences && user?.appraisal?.research.conferences.length > 0 ? (
+                            user?.appraisal?.research.conferences?.map((conferences, index) => (
+                        <tr key={index}>
+                            <td>{conferences?.awards}</td>
+                            <td>{conferences?.description}</td>
+                        </tr>
+                    ))
+                    ) : (
                         <tr>
-                            <td colSpan={2}>No awards/prizes available</td>
+                            <td colSpan={2}>No Awards data available</td>
                         </tr>
                         )}
                     </tbody>
