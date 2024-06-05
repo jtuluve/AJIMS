@@ -136,7 +136,7 @@ const booksSchema = new mongoose.Schema({
     default: 'Nil',
   },
   title: { type: String, required: false, default: 'Nil' },
-  chapters: { type: Number, required: false },
+  chapters: { type: Number, required: false, default: 0 },
   year: {
     type: Number,
     min: [1800, 'Enter a valid year'],
@@ -205,7 +205,7 @@ const conferencesSchema = new mongoose.Schema({
     required: false,
     default: 'Nil'
   },
-  type: {
+  typeC: {
     type: String,
     enum: [
       'Poster', 'Oral', 'Attending'
