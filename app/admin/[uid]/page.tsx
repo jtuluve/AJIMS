@@ -223,7 +223,7 @@ const UserDetail = ({ params }) => {
 							user?.profile?.experience.map((experience, index) => (
 							<div key={index}>
 								<p><strong>Designation:</strong> {experience.designation}</p>
-								<p><strong>Department:</strong> {experience.department}</p>
+								<p><strong>Department:</strong> {experience.departmentE}</p>
 								<p><strong>Institution:</strong> {experience.institution}</p>
 								<p><strong>From:</strong> {experience.from ? new Date(experience.from).toLocaleDateString() : 'N/A'}</p>
 								<p><strong>To:</strong> {experience.to ? new Date(experience.to).toLocaleDateString() : 'N/A'}</p>

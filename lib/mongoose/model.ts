@@ -463,7 +463,7 @@ const profileSchema = new mongoose.Schema({
   })],
   experience: [new mongoose.Schema({
     designation: { type: String, enum: ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"], default:'Professor' },
-    department: { type: String },
+    departmentE: { type: String },
     institution: { type: String },
     from: { type: Date },
     to: { type: Date },

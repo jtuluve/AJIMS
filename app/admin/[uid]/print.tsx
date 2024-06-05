@@ -210,7 +210,7 @@ const PrintDetails = ({ params }) => {
                                     user?.profile?.experience?.map((experience, index) => (
                                             <tr key={index}>
                                                 <td>{experience.designation}</td>
-                                                <td>{experience.department}</td>
+                                                <td>{experience.departmentE}</td>
                                                 <td>{experience.institution}</td>
                                                 <td>{experience.from ? experience.from.toLocaleDateString() : 'Invalid Date'}</td>
                                                 <td>{experience.to ? experience.to.toLocaleDateString() : 'Invalid Date'}</td>

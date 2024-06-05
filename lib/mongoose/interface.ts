@@ -228,7 +228,7 @@ interface EducationalQualification {
 
 interface Experience {
   designation?: "Junior Resident" | "Senior Resident" | "Demonstrator" | "Tutor" | "Asst. Professor" | "Assoc. Professor" | "Professor";
-  department?: string;
+  departmentE?: string;
   institution?: string;
   from?: Date;
   to?: Date;
@@ -339,7 +339,6 @@ export interface UserDocument extends Document {
   category?: string;
   emailaddress: string;
   designation?: string;
-  department?: string;
   profile?: Profile;
   appraisal?: Appraisal;
 }

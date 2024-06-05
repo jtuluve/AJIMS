@@ -386,7 +386,7 @@ export async function getInput(type: string) {
             "required": true
           },
           {
-            "name": "department",
+            "name": "departmentE",
             "type": "text",
             "label": "Department",
             "placeholder":"Enter the Name of department",
@@ -1346,8 +1346,7 @@ export async function getInput(type: string) {
         label: 'Details'
       }
     ],
-    professionalAchievements: {
-      columns: [
+    professionalAchievements: [
         {
           name: 'serialNo',
           label: 'Serial No',
@@ -1373,8 +1372,6 @@ export async function getInput(type: string) {
           required: true,
         },
       ],
-    }
-
   };
 
   return inputs[type];
