@@ -520,64 +520,88 @@ const UserDetail = ({ params }) => {
 			</div>
 			<p><strong>Guidance details:</strong></p>
 			<div className="guidance-body">
-			<table>
-				<thead>
-					<tr>
-						<th>Category</th>
-						<th>Student Details</th>
-						<th>Student Course</th>
-						<th>Uploaded file</th>
-						<th>Start date</th>
-						<th>End date</th>
-						<th>Name</th>
-						<th>Title</th>
-						<th>Publish Status</th>
-						<th>Year</th>
-						<th>Amount</th>
-						<th>Grant Name</th>
-						<th>Funded Status</th>
-						<th>Agency Name</th>
-						<th>Synopsis</th>
-						<th>Thesis</th>
-						<th>Report</th>
-					</tr>
-				</thead>
-				<tbody>
-					{user.appraisal?.research?.guidance?.length > 0 ? (
-						user.appraisal.research.guidance.map((guidance, index) => (
-							<tr key={index}>
-								<td>{guidance?.category}</td>
-								<td>{guidance?.studentDetails}</td>
-								<td>{guidance?.studentCourse}</td>
-								<td><a href={guidance?.studentUpload} download>View upload document</a></td>
-								<td>{guidance?.startDate.toString()}</td>
-								<td>{guidance?.endDate.toString()}</td>
-								<td>{guidance?.name}</td>
-								<td>{guidance?.title}</td>
-								<td>{guidance?.publishStatus}</td>
-								<td>{guidance?.year}</td>
-								<td>{guidance?.amount}</td>
-								<td>{guidance?.grantName}</td>
-								<td>{guidance?.fundedStatus}</td>
-								<td>{guidance?.agencyName}</td>
-								<td><a href={guidance?.synopsisUrl} download>View upload document</a></td>
-								<td><a href={guidance?.thesisUrl} download>View upload document</a></td>
-								<td><a href={guidance?.reportUrl} download>View upload document</a></td>
-							</tr>
-						))
-					) : (
+				<table>
+					<thead>
 						<tr>
-							<td colSpan={17}>No guidance data available</td>
+							<th>Category</th>
+							<th>Student Details</th>
+							<th>Student Course</th>
+							<th>Uploaded file</th>
+							<th>Start date</th>
+							<th>End date</th>
+							<th>Name</th>
+							<th>Title</th>
 						</tr>
-					)}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{user.appraisal?.research?.guidance?.length > 0 ? (
+							user.appraisal.research.guidance.map((guidance, index) => (
+								<tr key={index}>
+									<td>{guidance?.category}</td>
+									<td>{guidance?.studentDetails}</td>
+									<td>{guidance?.studentCourse}</td>
+									<td><a href={guidance?.studentUpload} download>View upload document</a></td>
+									<td>{guidance?.startDate?.toString()}</td>
+									<td>{guidance?.endDate?.toString()}</td>
+									<td>{guidance?.name}</td>
+									<td>{guidance?.title}</td>
+								</tr>
+							))
+						) : (
+							<tr>
+								<td colSpan={8}>No guidance data available</td>
+							</tr>
+						)}
+					</tbody>
+				</table>
+			</div>
+
+			<div className="guidance-body">
+				<table>
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Publish Status</th>
+							<th>Year</th>
+							<th>Amount</th>
+							<th>Grant Name</th>
+							<th>Funded Status</th>
+							<th>Agency Name</th>
+							<th>Synopsis</th>
+							<th>Thesis</th>
+							<th>Report</th>
+						</tr>
+					</thead>
+					<tbody>
+						{user.appraisal?.research?.guidance?.length > 0 ? (
+							user.appraisal.research.guidance.map((guidance, index) => (
+								<tr key={index}>
+									<td>{index+1}</td>
+									<td>{guidance?.publishStatus}</td>
+									<td>{guidance?.year}</td>
+									<td>{guidance?.amount}</td>
+									<td>{guidance?.grantName}</td>
+									<td>{guidance?.fundedStatus}</td>
+									<td>{guidance?.agencyName}</td>
+									<td><a href={guidance?.synopsisUrl} download>View upload document</a></td>
+									<td><a href={guidance?.thesisUrl} download>View upload document</a></td>
+									<td><a href={guidance?.reportUrl} download>View upload document</a></td>
+								</tr>
+							))
+						) : (
+							<tr>
+								<td colSpan={10}>No guidance data available</td>
+							</tr>
+						)}
+					</tbody>
+				</table>
 			</div>
 			<p><strong>Conferences details:</strong></p>
 			<div className="conference-details">
 			<table>
 				<thead>
 					<tr>
+						<th>No</th>
 						<th>Category</th>
 						<th>Conference Name</th>
 						<th>Year</th>
@@ -593,6 +617,7 @@ const UserDetail = ({ params }) => {
 					{user.appraisal?.research?.conferences?.length > 0 ? (
 						user.appraisal.research.conferences.map((conference, index) => (
 							<tr key={index}>
+								<td>{index+1}</td>
 								<td>{conference?.category}</td>
 								<td>{conference?.confName}</td>
 								<td>{conference?.year}</td>
@@ -607,7 +632,7 @@ const UserDetail = ({ params }) => {
 						))
 					) : (
 						<tr>
-							<td colSpan={9}>No conference data available</td>
+							<td colSpan={10}>No conference data available</td>
 						</tr>
 					)}
 				</tbody>

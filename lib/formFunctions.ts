@@ -822,6 +822,13 @@ export async function getInput(type: string) {
         default: 'Nil',
       },
       {
+        name: 'chapters',
+        type: 'number',
+        placeholder: 'Enter chapters in the book',
+        required: true,
+        default: 'Nil',  
+      },
+      {
         name: 'year',
         type: 'number',
         properties: { min: 1800, max: 2150, step: 1 },

@@ -25,7 +25,7 @@ const PrintDetails = ({ params }) => {
     const booksPublished = user?.appraisal?.research?.books?.length || 0;
     let totalChapters = 0;
     user?.appraisal?.research?.books?.forEach((book: any) => {
-        totalChapters += book.chapters.length;
+        totalChapters += book.chapters?.length || 0;
     });
 
 

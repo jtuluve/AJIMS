@@ -46,9 +46,10 @@ interface Publication {
   authorship?: "Nil" | "Chapter" | "Book";
   category?: "Nil" | "National" | "International";
   title?: string;
+  chapters?: number;
   year?: number;
   certificate?: string;
-  bookDetails?: string;
+  bookDetails?: number;
   uploadUrl?: string;
 }
 

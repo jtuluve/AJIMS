@@ -16,6 +16,11 @@ html {
     flex-direction: column;
 }
 
+@page {
+	size: A4 portrait;
+margin:0;
+}
+
 .page1,
 .page2,
 .page3,
