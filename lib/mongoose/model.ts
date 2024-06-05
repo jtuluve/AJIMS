@@ -136,7 +136,7 @@ const booksSchema = new mongoose.Schema({
     default: 'Nil',
   },
   title: { type: String, required: false, default: 'Nil' },
-  chapters: { type: Number, required: false, default: 'Nil' },
+  chapters: { type: Number, required: false },
   year: {
     type: Number,
     min: [1800, 'Enter a valid year'],
