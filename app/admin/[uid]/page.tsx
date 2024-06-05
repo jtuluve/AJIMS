@@ -6,6 +6,7 @@ import '@css/admin[uid].css'
 import "@css/admin.css";
 import { UserDocument } from "@/lib/mongoose/interface";
 import PrintDetails from "./print";
+import Link from "next/link";
 
 const UserDetail = ({ params }) => {
 	const { uid } = params;
@@ -41,13 +42,13 @@ const UserDetail = ({ params }) => {
 	<div className="amdminpage">
 		<div className="titlebar">
 				<a className="web-name">AJIMS Employment Management</a>
-				<a
+				<Link
 					title="home"
 					className="material-symbols-outlined logout"
 					href="/admin"
 				>
 					logout
-				</a>
+				</Link>
 		</div>
 		<div className="user-detail">
 		<div>

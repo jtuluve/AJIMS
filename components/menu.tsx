@@ -2,6 +2,7 @@
 import {  useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { useUserData } from './UserDataContext'
+import Link from 'next/link'
 
 export default function Menu() {
   const [user, setUser]: [user: any, setUser: any] = useState({})
@@ -34,9 +35,9 @@ export default function Menu() {
             <a href="#academics" className='academics'>Academics</a>
             <a href="#professional" className='professional'>Professional</a>
             <a className="score scorepage" href="#scorepage">Score</a>
-            <a className="logout" href="/main">
+            <Link className="logout" href="/main">
               Home
-            </a>
+            </Link>
           </div>
         </div>
       </>
