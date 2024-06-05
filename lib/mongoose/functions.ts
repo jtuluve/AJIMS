@@ -207,7 +207,7 @@ export async function updateProfile(profile, uid?) {
     profile.details = JSON.parse(profile.details);
     profile.emoluments = JSON.parse(profile.emoluments);
     profile.educationalQualification = JSON.parse(profile.educationalQualification);
-    await User.findOneAndUpdate({ uid }, {...profile,profile}); //updating both universal and inner profile property
+    await User.findOneAndUpdate({ uid }, { name:profile?.name, profileUrl:profile.profileUrl, profile}); //updating both universal and inner profile property
     return true
   } catch (err) {
     console.error(err)

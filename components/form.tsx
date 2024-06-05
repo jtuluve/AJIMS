@@ -126,7 +126,7 @@ export default function Form({
 		setFilePerc(0);
 		setFileUploadError(false);
 		setInputs({status:"loading"})
-		setCanSubmit(false)
+		setCanSubmit(true)
 		if(formState.type)
 		(async () => {
 			try {
@@ -263,7 +263,7 @@ export default function Form({
 						handleUpsertAny(formData)
 							.then(() => {
 								setFormStatus({ status: "submitted", error: false });
-								setFormState({});
+								setFormState({submitted: true});
 							})
 							.catch(() => {
 								setFormStatus({ status: "submitted", error: true });

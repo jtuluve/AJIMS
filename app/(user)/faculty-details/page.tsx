@@ -14,14 +14,16 @@ export default function FacultyDetails() {
 	let {formState,setFormState} = useFormStateContext();
 	let {userData} = useUserData()
 	const { data: session } = useSession();
-	
 	if (!session) {
 		redirect("/");
 	}
 
 	useEffect(() => {
-			let profile = userData?.profile;
-			setFormState({type:"profile",data:profile})
+		if(formState?.submitted){
+			location.reload();
+		}
+		let profile = userData?.profile;
+		setFormState({type:"profile",data:profile})
 		// setProfileUrl(localStorage.getItem('profileUrl'))
 	}, [formState.type]);
 	useEffect(()=>{
