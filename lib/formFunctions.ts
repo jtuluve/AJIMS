@@ -4,7 +4,7 @@ export async function getInput(type: string) {
   let inputs = {
     profile: [
       {
-        "name": "college",
+        "name": "collegeN",
         "type": "text",
         "label": "Name of the College",
         "placeholder":"Enter the name of the college",
@@ -58,7 +58,7 @@ export async function getInput(type: string) {
       },
       {
         "name": "department",
-        "type": "text",
+        "type": "select",
         "label": "Department",
         "options":[
           "Anaesthesiology",
@@ -379,14 +379,14 @@ export async function getInput(type: string) {
         "label": "Details of Teaching experience till date",
         "inputs": [
           {
-            "name": "designation",
+            "name": "designationE",
             "type": "select",
             "label": "Designation",
             "options": ["Junior Resident", "Senior Resident", "Demonstrator", "Tutor", "Asst. Professor", "Assoc. Professor", "Professor"],
             "required": true
           },
           {
-            "name": "department",
+            "name": "departmentE",
             "type": "text",
             "label": "Department",
             "placeholder":"Enter the Name of department",
@@ -427,7 +427,7 @@ export async function getInput(type: string) {
         "label": "Have you been considered in UG/ PG, MCI/ NMC inspection at any other medical college ina teaching or administrative capacity during last 3 years.If yes, please give details",
         "inputs": [
           {
-            "name": "designation",
+            "name": "designationI",
             "type": "text",
             "label": "Designation",
             "placeholder":"Enter designation",
@@ -443,7 +443,7 @@ export async function getInput(type: string) {
             required: true
           },
           {
-            "name": "college",
+            "name": "collegeI",
             "type": "text",
             "label": "College",
             "placeholder": "Enter College Name",
@@ -466,14 +466,14 @@ export async function getInput(type: string) {
         "label": "Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc taken and topics covered in last academic year(attach additional sheet, if required) ",
         "inputs": [
           {
-            "name": "date",
+            "name": "dateL",
             "type": "date",
             "label": "Date",
             "placeholder":"Enter the Date",
             required: true
           },
           {
-            "name": "type",
+            "name": "typeL",
             "type": "text",
             "label": "Lecture/ SGT/ SDL/ Clinic/ others",
             "placeholder": "Enter the type",
@@ -496,7 +496,7 @@ export async function getInput(type: string) {
         "label": "Details of employment before joining the present institution",
         "inputs": [
           {
-            "name": "name",
+            "name": "detailsName",
             "type": "text",
             "label": "Name of College/ Institution",
             "placeholder":"Enter the Name of College/ Institution",
@@ -820,6 +820,13 @@ export async function getInput(type: string) {
         placeholder: 'Enter title of the book',
         required: true,
         default: 'Nil',
+      },
+      {
+        name: 'chapters',
+        type: 'number',
+        placeholder: 'Enter chapters in the book',
+        required: true,
+        default: 'Nil',  
       },
       {
         name: 'year',
@@ -1346,8 +1353,7 @@ export async function getInput(type: string) {
         label: 'Details'
       }
     ],
-    professionalAchievements: {
-      columns: [
+    professionalAchievements: [
         {
           name: 'serialNo',
           label: 'Serial No',
@@ -1373,9 +1379,9 @@ export async function getInput(type: string) {
           required: true,
         },
       ],
-    }
-
   };
 
   return inputs[type];
 }
+
+

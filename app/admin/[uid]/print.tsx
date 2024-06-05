@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useAdminData } from "@/components/adminContext";
 import '@css/print[uid].css'
-import "@css/admin.css";
 import { UserDocument } from "@/lib/mongoose/interface";
 
 const PrintDetails = ({ params }) => {
@@ -26,7 +25,7 @@ const PrintDetails = ({ params }) => {
     const booksPublished = user?.appraisal?.research?.books?.length || 0;
     let totalChapters = 0;
     user?.appraisal?.research?.books?.forEach((book: any) => {
-        totalChapters += book.chapters.length;
+        totalChapters += book.chapters?.length || 0;
     });
 
 
@@ -42,16 +41,15 @@ const PrintDetails = ({ params }) => {
     }
 
     return (
-        <div>
         <div className="page-container">
             <div className="page1">
                 <center><h1>Faculty/ SR/ Tutor/ Demonstrator Declaration Form</h1></center>
-                <p><strong>Name of the college:</strong> {user?.profile?.college}</p>
+                <p><strong>Name of the college:</strong> {user?.profile?.collegeN}</p>
                 <table>
                     <thead>
                         <tr>
                             <th>Submission date:</th>
-                            <td>_ / / _</td>
+                            <td>_ _ / _ _ / _ _ _ _</td>
                         </tr>
                     </thead>
                 </table>
@@ -63,7 +61,7 @@ const PrintDetails = ({ params }) => {
                 <div className="faculty-details">
                     <div className="details">
                         <p><strong>1. Name of Faculty:</strong> {user?.profile?.name}</p>
-                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years,  {user?.profile?.dob? new Date(user?.profile?.dob).toLocaleDateString() : 'N/A'}</p>
+                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years,  {user?.profile?.dob? new Date(user?.profile?.dob).toString() : 'N/A'}</p>
                         <p><strong>3. Present Designation:</strong> {user?.profile?.designation}</p>
                         <div className="designation-section">
                             <p><strong>a. Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
@@ -89,11 +87,11 @@ const PrintDetails = ({ params }) => {
                     </div>
                     <div className="profile-photo">
                         <img
-                            src={user?.profileUrl}
-                            alt="upload profile url"
-                            height={120}
-                            width={100}
-                        />
+                        src={(user?.profileUrl === '' || user?.profileUrl === 'user.png') ? '/user.png' : user.profileUrl}
+						alt="upload profile url"
+						height={120}
+						width={100}
+					/>
                     </div>
                 </div>
                 <div id="signatures">
@@ -104,10 +102,10 @@ const PrintDetails = ({ params }) => {
             <div className="page2">
                 <p><strong>4. Complete Residential Address of the employee:</strong></p>
                 <div className="address-section">
-                    <p><strong>a. Present:</strong>{user?.profile?.residentialAddress}</p>{/**varaible needed */}
-                    <p><strong>b. Permanent:</strong>{user?.profile?.perAddress}</p>{/**varaible needed */}
+                    <p><strong>a. Present:</strong>{user?.profile?.residentialAddress}</p>
+                    <p><strong>b. Permanent:</strong>{user?.profile?.perAddress}</p>
                 </div>
-                <p><strong>5. Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceProofStatus}</p>{/**variable needed */}
+                <p><strong>5. Copy of Proof of Residence submitted and original verified:</strong>{user?.profile?.residenceProofStatus}</p>
                 <div className="smalltext">
                     <p>
                         (Only copies of Passport/ Aadhar card/ Voter ID/ Electricty bill/ Landline Phone bill will be considered)
@@ -115,16 +113,13 @@ const PrintDetails = ({ params }) => {
                 </div>
                 <p><strong>6. Contact details:</strong></p>
                 <div className="contact-section">
-                    <p><strong>a. Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>{/**varaible needed */}
-                    <p><strong>b. Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>{/**varaible needed */}
+                    <p><strong>a. Office telephone with STD code:</strong>{user?.profile?.officeTel}</p>
+                    <p><strong>b. Residence telephone with STD code:</strong>{user?.profile?.residenceTel}</p>
                     <p><strong>c. Mobile Phone Number: </strong>{user?.profile?.phoneNo}</p>
                     <p><strong>d. Email address:</strong> {user?.profile?.emailaddress}</p>
                 </div> 
-                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining).toLocaleDateString() : 'N/A'}</p>
-                    {/* <p><strong>d. Email address:</strong> {user?.profile?.emailaddress}</p> */}
-                </div> 
-                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining).toLocaleDateString() : 'N/A'}</p>
-                <p><strong>8. Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>{/**varaible needed */}
+                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining).toString() : 'N/A'}</p>
+                <p><strong>8. Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>
                 <p>
                     <strong>
                         9. Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
@@ -176,9 +171,9 @@ const PrintDetails = ({ params }) => {
                         </tbody>
                     </table>
                     <div className="edu-section">
-                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>{/**varaible needed */}
-                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>{/**varaible needed */}
-                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>{/**varaible needed */}
+                        <p><strong>a. MD/ MS subject:</strong>{user?.profile?.mdmsSubject}</p>
+                        <p><strong>b. DM/ Mch subject:</strong>{user?.profile?.dmmchSubject}</p>
+                        <p><strong>c. PhD subject:</strong>{user?.profile?.phdSubject}</p>
                     </div>
                 </div>
                 <div className="smalltext">
@@ -193,8 +188,8 @@ const PrintDetails = ({ params }) => {
             <div className="page3">
                 <p><strong>11. Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
-                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>{/**Variable needed!*/}
-                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>{/**Variable needed!*/}
+                    <p><strong>a. Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>
+                    <p><strong>b. Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>
                 </div> 
                 <p><strong>12. Details of Teaching experience till date:</strong></p>
                 <div className="teaching-section">
@@ -209,11 +204,11 @@ const PrintDetails = ({ params }) => {
                             {user?.profile?.experience?.length > 0 ? (
                                     user?.profile?.experience?.map((experience, index) => (
                                             <tr key={index}>
-                                                <td>{experience.designation}</td>
-                                                <td>{experience.department}</td>
+                                                <td>{experience.designationE}</td>
+                                                <td>{experience.departmentE}</td>
                                                 <td>{experience.institution}</td>
-                                                <td>{experience.from ? experience.from.toLocaleDateString() : 'Invalid Date'}</td>
-                                                <td>{experience.to ? experience.to.toLocaleDateString() : 'Invalid Date'}</td>
+                                                <td>{experience.from ? experience.from.toString() : 'Invalid Date'}</td>
+                                                <td>{experience.to ? experience.to.toString() : 'Invalid Date'}</td>
                                                 <td>{experience.total}</td>
                                             </tr>
                                         ))
@@ -240,22 +235,22 @@ const PrintDetails = ({ params }) => {
                             <tr>
                                 <td>Graded Specialist</td>
                                 <td></td>
-                                <td>_ / / _</td>
-                                <td>_ / / _</td>
+                                <td>_ _ / _ _ / _ _</td>
+                                <td>_ _ / _ _ / _ _</td>
                                 <td>(y)(m)</td>
                             </tr>
                             <tr>
                                 <td>Classified Specialist</td>
                                 <td></td>
-                                <td>_ / / _</td>
-                                <td>_ / / _</td>
+                                <td>_ _ / _ _ / _ _</td>
+                                <td>_ _ / _ _ / _ _</td>
                                 <td>(y)(m)</td>
                             </tr>
                             <tr>
                                 <td>Advisor</td>
                                 <td></td>
-                                <td>_ / / _</td>
-                                <td>_ / / _</td>
+                                <td>_ _ / _ _ / _ _</td>
+                                <td>_ _ / _ _ / _ _</td>
                                 <td>(y)(m)</td>
                             </tr>
                         </tbody>
@@ -268,7 +263,7 @@ const PrintDetails = ({ params }) => {
                         medical college ina teaching or administrative capacity during last 3 years. 
                         If yes, please give details:
                     </strong>
-                </p>{/**object creation needed */}
+                </p>
                 <table>
                     <thead>
                         <tr>
@@ -279,9 +274,9 @@ const PrintDetails = ({ params }) => {
                         {user?.profile?.inspectionDetails?.length > 0 ? (
                             user?.profile?.inspectionDetails?.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.designation}</td>
+                                    <td>{item.designationI}</td>
                                     <td>{item.subject}</td>
-                                    <td>{item.college}</td>
+                                    <td>{item.collegeI}</td>
                                     <td>{item.dates}</td>
                                 </tr>
                             ))
@@ -296,7 +291,7 @@ const PrintDetails = ({ params }) => {
                     <strong>14. Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc
                         taken and topics covered in last academic year (attach additional sheet, if required)
                     </strong>
-                </p>{/**object creation needed! */}
+                </p>
                 <div className="number section">
                     <table>
                         <thead>
@@ -307,8 +302,8 @@ const PrintDetails = ({ params }) => {
                             user?.profile?.numberOfLectures?.map((numberOfLectures, index) => (
                                 <tr key={index}>
                                     <td>{index}</td>
-                                    <td>{numberOfLectures.date ? numberOfLectures.date.toLocaleDateString() : 'Invalid Date'}</td>
-                                    <td>{numberOfLectures.type}</td>
+                                    <td>{numberOfLectures.dateL ? numberOfLectures.dateL.toString() : 'Invalid Date'}</td>
+                                    <td>{numberOfLectures.typeL}</td>
                                     <td>{numberOfLectures.topic}</td>
                                 </tr>
                             ))
@@ -328,8 +323,8 @@ const PrintDetails = ({ params }) => {
                     {user?.profile?.details && user.profile.details.length > 0 ? (
                         user.profile.details.map((details, index) => (
                             <div key={index}>
-                                <p><strong>a. Name of College/ Institution:</strong> {details.name}</p>
-                                <p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.date ? new Date(details.date).toLocaleDateString() : 'Invalid Date'}</p>
+                                <p><strong>a. Name of College/ Institution:</strong> {details.detailsName}</p>
+                                <p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.dateD ? new Date(details.dateD).toString() : 'Invalid Date'}</p>
                                 <p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
                                 <p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
                             </div>
@@ -338,9 +333,9 @@ const PrintDetails = ({ params }) => {
                         <p>No data available</p>
                     )}
                 </div>
-                <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>{/*variable needed*/}
+                <p><strong>16. PAN Card Number:</strong>{user?.profile?.panNo}</p>
                 <p><strong>17. Aadhar Card Number:</strong>{user?.profile?.aadharNo}</p>
-                <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>{/*object creation needed*/}
+                <p><strong>18. I have drawn total emoluments from this college in the current financial year as under:</strong></p>
                 <div className="enoluments-section">
                     <table>
                         <thead>
@@ -390,7 +385,7 @@ const PrintDetails = ({ params }) => {
                                         <td>{patent.patentCountry}</td>
                                         <td>{patent.patentNumber}</td>
                                         <td>{patent.patentType}</td>
-                                        <td>{patent.date ? patent.date.toLocaleDateString() : 'Invalid Date'}</td>
+                                        <td>{patent.date ? patent.date.toString() : 'Invalid Date'}</td>
                                         <td>
                                             {patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
                                                 <table>
@@ -525,7 +520,7 @@ const PrintDetails = ({ params }) => {
                         </tbody>
                     </table>
                 </div>
-                <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>{/*object varification needed*/}
+                <p><strong>23. Poster presentations: in zonal/ State/ National/ International Conference.</strong></p>
                 <div>
                     <div className="conference-details">
                         <table>
@@ -603,7 +598,7 @@ const PrintDetails = ({ params }) => {
                         </table>
                     </div>
                 </div>                
-                <p><strong>24. Awards/ prizes:</strong></p>{/*awards object/variable needed*/}
+                <p><strong>24. Awards/ prizes:</strong></p>
                 <div className="awards-section">
                     <table>
                     <thead>
@@ -627,6 +622,33 @@ const PrintDetails = ({ params }) => {
                     </tbody>
                     </table>
                 </div>
+              { /* <div className="page6">
+                    <p><strong><center>Attached details</center></strong></p>
+                    <p><strong>Publication details:</strong></p>
+                    <div className="publication-body">
+                        {user.appraisal?.research?.publications?.length > 0 ? (
+                            user.appraisal.research.publications.map((publication, index) => (
+                                <div key={index} className="publication-details">
+                                    <p><strong>Title:</strong> {publication?.title}</p>
+                                    <p><strong>Author:</strong> {publication?.author}</p>
+                                    <p><strong>Journal Name:</strong> {publication?.journalName}</p>
+                                    <p><strong>Volume:</strong> {publication?.volume}</p>
+                                    <p><strong>Issue:</strong> {publication?.issue}</p>
+                                    <p><strong>Page No:</strong> {publication?.pageNo}</p>
+                                    <p><strong>Year:</strong> {publication?.year}</p>
+                                    <p><strong>Quartile:</strong> {publication?.quartile}</p>
+                                    <p><strong>Index:</strong> {publication?.index}</p>
+                                    <p><strong>Category:</strong> {publication?.category}</p>
+                                    <p><strong>Post held:</strong> {publication?.postheld}</p>
+                                    <p><strong>DOI:</strong> {publication?.doi}</p>
+                                    <p><strong>Authorship:</strong> {publication?.authorship}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No publication data available</p>
+                        )}
+                    </div>
+                </div>*/}
             </div>        
         </div>
   );

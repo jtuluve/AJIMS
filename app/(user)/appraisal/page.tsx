@@ -8,22 +8,28 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Scorepage from "@/components/scorepage";
 import Form from "@/components/form";
+import Link from "next/link";
+import { useEffect } from "react";
+import { useFormStateContext } from "@/components/formstateContext";
 
 export default function Appraisal() {
   //if user not logged in, redirect to login page
   const { data: session } = useSession();
+  const { setFormState } = useFormStateContext()
   if (!session) {
     redirect("/");
   }
-  
+  useEffect(()=>{
+    setFormState({});
+  },[])
 
   return (
     <>
       <link rel="stylesheet" href="css/appraisal.css?v=1.2.3" />
       <div className="titlebar">
-        <a href="/" className="logo">
+        <Link href="/" className="logo">
           <img alt="logo" src="/logo.jpg" style={{height:"100%"}}/>
-        </a>
+        </Link>
         <a className="web-name">AJIMS Employment Management</a>
       </div>
       <div className="menu-container">

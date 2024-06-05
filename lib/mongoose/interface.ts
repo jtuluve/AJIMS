@@ -46,9 +46,10 @@ interface Publication {
   authorship?: "Nil" | "Chapter" | "Book";
   category?: "Nil" | "National" | "International";
   title?: string;
+  chapters?: number;
   year?: number;
   certificate?: string;
-  bookDetails?: string;
+  bookDetails?: number;
   uploadUrl?: string;
 }
 
@@ -227,8 +228,8 @@ interface EducationalQualification {
 }
 
 interface Experience {
-  designation?: "Junior Resident" | "Senior Resident" | "Demonstrator" | "Tutor" | "Asst. Professor" | "Assoc. Professor" | "Professor";
-  department?: string;
+  designationE?: "Junior Resident" | "Senior Resident" | "Demonstrator" | "Tutor" | "Asst. Professor" | "Assoc. Professor" | "Professor";
+  departmentE?: string;
   institution?: string;
   from?: Date;
   to?: Date;
@@ -244,22 +245,22 @@ interface Appearance {
 }
 
 interface InspectionDetail {
-  designation?: string;
+  designationI?: string;
   subject?: string;
-  college?: string;
+  collegeI?: string;
   dates?: string;
 }
 
 interface Lecture {
-  date?: Date;
-  type?: string;
+  dateL?: Date;
+  typeL?: string;
   topic?: string;
 }
 
 interface Detail {
-  name?: number;
+  detailsName?: string;
   designation?: string;
-  date?: Date;
+  dateD?: Date;
   relieveReason?: string;
   verification?: "Yes" | "No";
   verificationFile?: string; // file 7
@@ -300,6 +301,7 @@ interface Profile {
   appointmentType3?: "With Private practice" | "Without Private practice";
   ugpgName?: string;
   college?: string;
+  collegeN?: string;
   sameClgAcpt?: "Yes" | "No";
   sameDestAcpt?: "Yes" | "No";
   retiredStatus?: "Yes" | "No";
@@ -339,7 +341,6 @@ export interface UserDocument extends Document {
   category?: string;
   emailaddress: string;
   designation?: string;
-  department?: string;
   profile?: Profile;
   appraisal?: Appraisal;
 }
