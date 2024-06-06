@@ -592,6 +592,7 @@ export async function getInput(type: string) {
           {
             "name": "year",
             "type": "number",
+            "placeholder": "Enter the year",
             "properties": { "min": 1800, "max": 2150, "step": 1 },
             "label": "Year",
             required: true

@@ -363,10 +363,9 @@ const UserDetail = ({ params }) => {
 			<p><strong>Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
 					<p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>
-                    <p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certUpload}</p>
+                    <p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong><a href={user?.profile?.certUpload} download>View upload document</a></p>
 					<p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>
-                    <p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regUpload}</p>
-					
+					<p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong><a href={user?.profile?.regUpload} download>View upload document</a></p>
                 </div>
 			<p><strong>Publication details:</strong></p>
 			<div className="publication-body">
