@@ -23,7 +23,7 @@ interface Publication {
   volume?: number;
   issue?: number;
   year?: number;
-  pageNo?: number;
+  pageNo?: string;
 }
 
 // Define grants schema interface
