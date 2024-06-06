@@ -588,7 +588,7 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 				}}
 			>
 				{inputs.map((input: any) => (
-					<h4 key={input.name} style={{fontSize:"small"}}>{input.label}</h4>
+					<h4 key={input.name} style={{fontSize:"small"}}>{input.label + (input.required ? " *" : "")}</h4>
 				))}
 			</div>
 			{values.map?.((value: any, index) => (
