@@ -68,7 +68,7 @@ export default function Form({
     (async()=>{
       setUserData(await getUserObject())
     })()
-  },[formState?.type])
+  },[formState])
 	
 	const [inputs, setInputs] = useState<{ status?: string; inputs?: Array<Input> }>({
 		status: "loading",
@@ -127,6 +127,8 @@ export default function Form({
 		setFileUploadError(false);
 		setInputs({status:"loading"})
 		setCanSubmit(true)
+		setTableData({})
+		setFiles({})
 		if(formState.type)
 		(async () => {
 			try {
