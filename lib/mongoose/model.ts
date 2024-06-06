@@ -69,7 +69,7 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 2024
   },
-  pageNo: { type: Number, required: false, default: 0 },
+  pageNo: { type: String, required: false, default: 0 },
   default: {}
 })
 
