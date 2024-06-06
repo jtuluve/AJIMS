@@ -136,7 +136,7 @@ export default function Form({
 				}
 				else setProfilePhotoUrl(formData?.profileUrl);
 				setInputs({ status: "loaded", inputs });
-				let a = inputs?.filter?.((e) => e.type === "file");
+				let a = inputs?.filter?.((e) => e.type === "file" && e.name !== "profileUrl");
 				if (a?.length !== 0) setCanSubmit(false);
 				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
 				a = inputs.filter(e=>e.type==="table");
@@ -204,6 +204,10 @@ export default function Form({
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 					if (name === "profileUrl") {
+						setFiles((prevFiles) => ({
+							...prevFiles,
+							[name]: { ...file[name], url: downloadURL, message: "Uploaded" }
+						}));
 						setProfilePhotoUrl(downloadURL);
 					} else {
 						setFiles((prevFiles) => ({
