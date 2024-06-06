@@ -61,7 +61,7 @@ const PrintDetails = ({ params }) => {
                 <div className="faculty-details">
                     <div className="details">
                         <p><strong>1. Name of Faculty:</strong> {user?.profile?.name}</p>
-                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years,  {user?.profile?.dob? new Date(user?.profile?.dob).toString() : 'N/A'}</p>
+                        <p><strong>2. Age & Date of birth:</strong> {user?.profile?.age} years,  {user?.profile?.dob? user?.profile?.dob?.toString().slice(0, 10) : 'N/A'}</p>
                         <p><strong>3. Present Designation:</strong> {user?.profile?.designation}</p>
                         <div className="designation-section">
                             <p><strong>a. Appointment order:</strong> Certified copy of order at this institute attached: {user?.profile?.appointmentOrderStatus}</p>
@@ -118,7 +118,7 @@ const PrintDetails = ({ params }) => {
                     <p><strong>c. Mobile Phone Number: </strong>{user?.profile?.phoneNo}</p>
                     <p><strong>d. Email address:</strong> {user?.profile?.emailaddress}</p>
                 </div> 
-                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining).toString() : 'N/A'}</p>
+                <p><strong>7. Date of joining the present institution:</strong>{user?.profile?.dateOfJoining ? user?.profile?.dateOfJoining?.toString().slice(0, 10) : 'N/A'}</p>
                 <p><strong>8. Joining report verified the present/ attached</strong>{user?.profile?.joiningStatus}</p>
                 <p>
                     <strong>
@@ -207,8 +207,8 @@ const PrintDetails = ({ params }) => {
                                                 <td>{experience.designationE}</td>
                                                 <td>{experience.departmentE}</td>
                                                 <td>{experience.institution}</td>
-                                                <td>{experience.from ? experience.from.toString() : 'Invalid Date'}</td>
-                                                <td>{experience.to ? experience.to.toString() : 'Invalid Date'}</td>
+                                                <td>{experience.from ? experience.from?.toString().slice(0, 10) : 'Invalid Date'}</td>
+                                                <td>{experience.to ? experience.to?.toString().slice(0, 10) : 'Invalid Date'}</td>
                                                 <td>{experience.total}</td>
                                             </tr>
                                         ))
@@ -302,7 +302,7 @@ const PrintDetails = ({ params }) => {
                             user?.profile?.numberOfLectures?.map((numberOfLectures, index) => (
                                 <tr key={index}>
                                     <td>{index}</td>
-                                    <td>{numberOfLectures.dateL ? numberOfLectures.dateL.toString() : 'Invalid Date'}</td>
+                                    <td>{numberOfLectures.dateL ? numberOfLectures.dateL?.toString().slice(0, 10) : 'Invalid Date'}</td>
                                     <td>{numberOfLectures.typeL}</td>
                                     <td>{numberOfLectures.topic}</td>
                                 </tr>
@@ -324,7 +324,7 @@ const PrintDetails = ({ params }) => {
                         user.profile.details.map((details, index) => (
                             <div key={index}>
                                 <p><strong>a. Name of College/ Institution:</strong> {details.detailsName}</p>
-                                <p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.dateD ? new Date(details.dateD).toString() : 'Invalid Date'}</p>
+                                <p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.dateD ? details.dateD?.toString().slice(0, 10) : 'Invalid Date'}</p>
                                 <p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
                                 <p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
                             </div>
@@ -385,7 +385,7 @@ const PrintDetails = ({ params }) => {
                                         <td>{patent.patentCountry}</td>
                                         <td>{patent.patentNumber}</td>
                                         <td>{patent.patentType}</td>
-                                        <td>{patent.date ? patent.date.toString() : 'Invalid Date'}</td>
+                                        <td>{patent.date ? patent.date?.toString().slice(0, 10) : 'Invalid Date'}</td>
                                         <td>
                                             {patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
                                                 <table>
