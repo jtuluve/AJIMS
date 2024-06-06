@@ -19,7 +19,7 @@ export default function Table({
   readOnly?: boolean;
 }) {
   const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile", "certUpload", "regUpload", "residenceProof", "postHeldFile","patentcert"]
-  const dateKeys = ["date","dob","from","to","dateOfJoining","dateL"]
+  const dateKeys = ["date","dateD","dob","from","to","dateOfJoining","dateL","startDate","endDate"]
   const {setFormState} = useFormStateContext()
   if (values === false) return <p style={{ color: "white" }}>Loading..</p>;
   if (values?.error) {
@@ -73,7 +73,7 @@ export default function Table({
 													)}
 												</span>
 											) : (
-												<span key={key + i}>{dateKeys.includes(e[key])? e[key]?.slice?.(0, 10) : e[key]?.toString?.()}</span>
+												<span key={key + i}>{dateKeys.includes(key) ? e[key]?.toString()?.slice?.(0, 10) : e[key]?.toString?.()}</span>
 											);
 										})}
                     <span id="onPrintHiddenButton" className={styles["table-buttons"]}>
@@ -165,7 +165,7 @@ export default function Table({
                     }
                   </span>
                 ) : (
-                  <span key={key + i} style={{ display: "block" }}>{values?.[key]}</span>
+                  <span key={key + i} style={{ display: "block" }}>{dateKeys.includes(values[key]) ? values[key]?.slice?.(0, 10) : values[key]?.toString?.()}</span>
                 );
               })}
             </div>
