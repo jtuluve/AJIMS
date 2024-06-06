@@ -19,6 +19,7 @@ export default function Table({
   readOnly?: boolean;
 }) {
   const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile","certUpload","regUpload","residenceProof","postHeldFile"]
+  const dateKeys = ["date","dob","from","to","dateOfJoining","dateL"]
   const {setFormState} = useFormStateContext()
   if (values === false) return <p style={{ color: "white" }}>Loading..</p>;
   if (values?.error) {
@@ -56,7 +57,7 @@ export default function Table({
                     }}
                   >
                   {keys.map((key, i) => {
-											return filesKeys.find((k) => k == key) ? (
+											return filesKeys.includes(key) ? (
 												<span key={key + i}>
 													{e[key] ? (
 														<a
@@ -72,7 +73,7 @@ export default function Table({
 													)}
 												</span>
 											) : (
-												<span key={key + i}>{e[key]}</span>
+												<span key={key + i}>{dateKeys.includes(e[key])? e[key]?.slice?.(0, 10) : e[key]?.toString?.()}</span>
 											);
 										})}
                     <span id="onPrintHiddenButton" className={styles["table-buttons"]}>
