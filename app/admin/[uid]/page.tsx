@@ -294,8 +294,9 @@ const UserDetail = ({ params }) => {
 			</div>			
 		</div>
 		<div className="research-body">
+			<p><strong>Academic Details</strong></p>
 		<div className="teaching-hours-body">
-			<table>
+			<table style={{marginBottom:0}}>
 				<thead>
 					<tr>
 						<th>#</th>
@@ -327,6 +328,7 @@ const UserDetail = ({ params }) => {
 					)}
 				</tbody>
 			</table>
+
 			<table>
 				<thead>
 					<tr>
@@ -539,7 +541,7 @@ const UserDetail = ({ params }) => {
 			</div>
 			<p><strong>Guidance details:</strong></p>
 			<div className="guidance-body">
-				<table>
+			<table style={{marginBottom:0}}>
 					<thead>
 						<tr>
 							<th>Category</th>
@@ -860,7 +862,6 @@ const UserDetail = ({ params }) => {
 				</div>
 				<p><strong>Guest Lectures</strong></p>
 				<div className="guest-lectures-body">
-					{user.appraisal?.professional?.guestLectures?.length > 0 ? (
 						<table>
 							<thead>
 								<tr>
@@ -868,18 +869,21 @@ const UserDetail = ({ params }) => {
 								</tr>
 							</thead>
 							<tbody>
-								{user.appraisal.professional.guestLectures.map((guestLectures, index) => (
+								{user.appraisal?.professional?.guestLectures?.length > 0 ? (
+								user.appraisal.professional.guestLectures.map((guestLectures, index) => (
 									<tr key={index}>
 										<td>{guestLectures?.title}</td>
 										<td>{guestLectures?.category}</td>
 										<td><a href={guestLectures?.guestLecturesFile} download>View upload document</a></td>
 									</tr>
-								))}
+								))
+									) : (
+										<tr>
+											<td colSpan={3}>No guest lectures data available</td>
+										</tr>
+								)}
 							</tbody>
 						</table>
-					) : (
-						<p>No guest lectures data available</p>
-					)}
 				</div>
 			</div>
 		</div>
