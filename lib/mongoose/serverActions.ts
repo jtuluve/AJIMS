@@ -102,8 +102,8 @@ export async function handleUpsertAny(formData: FormData) {
   }
 
   try {
+    
     let res = await functions[type as string]?.(newobj)
-    // console.log(res);
     if (!res) throw new Error('Function not found or upsert failed')
     // revalidatePath("/")
     return { submitted: true, error: false }

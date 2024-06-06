@@ -82,7 +82,7 @@ interface Publication {
   year?: number;
   details?: string;
   attachment?: string;
-  type?: "Poster" | "Oral" | "Attending";
+  typeC?: "Poster" | "Oral" | "Attending";
   place?: string;
   awards?: "Yes" | "No";
   description?: string;

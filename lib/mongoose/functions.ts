@@ -366,6 +366,7 @@ export async function upsertResearchConference(conference, uid?) {
 //update/insert appraisal->research->patents
 export async function upsertResearchPatents(patent, uid?) {
   try {
+    patent.detailsOfInventors = JSON.parse(patent.detailsOfInventors) || [];
     await initializeDb()
     uid = uid || (await getUid())
     if (!verifyUid(uid)) throw "uid doesn't match the server uid."
