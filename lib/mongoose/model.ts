@@ -473,7 +473,7 @@ const profileSchema = new mongoose.Schema({
     total: { type: String }
   })],
   orcIdNo: { type: String },
-  profileUrl: { type: String },
+  profileUrl: { type: String, default:'user.png' },
   appointmentOrderStatus: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
   instituteName: { type: String, default: '' },
   cityName: { type: String, default: '' },
