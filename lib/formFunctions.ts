@@ -560,7 +560,7 @@ export async function getInput(type: string) {
         "type": "text",
         "label": "ORC ID No",
         "placeholder": "Enter ORC ID No",
-        "required": true
+        "required": false
       },
       {
         "name": "passportNo",
@@ -594,7 +594,6 @@ export async function getInput(type: string) {
             "type": "number",
             "properties": { "min": 1800, "max": 2150, "step": 1 },
             "label": "Year",
-            "default": 2024,
             required: true
           },
           {
@@ -819,14 +818,12 @@ export async function getInput(type: string) {
         type: 'text',
         placeholder: 'Enter title of the book',
         required: true,
-        default: 'Nil',
       },
       {
         name: 'chapters',
         type: 'number',
         placeholder: 'Enter chapters in the book',
-        required: true,
-        default: 'Nil',  
+        required: true,  
       },
       {
         name: 'year',
@@ -834,7 +831,6 @@ export async function getInput(type: string) {
         properties: { min: 1800, max: 2150, step: 1 },
         placeholder: 'Enter the year of publication',
         required: true,
-        default: 'Nil',
       },
       {
         name: 'certificate',
@@ -846,7 +842,6 @@ export async function getInput(type: string) {
         type: 'text',
         placeholder: 'Enter the Book details',
         required: true,
-        default: 'Nil',
       },
       {
         name: 'uploadUrl',
@@ -914,6 +909,7 @@ export async function getInput(type: string) {
       {
         name: 'amount',
         type: 'number',
+        placeholder:'Enter the amount',
         required: true,
       },
       {
@@ -1000,7 +996,6 @@ export async function getInput(type: string) {
         name: 'description',
         type: 'text',
         placeholder: 'Awards description',
-        default: 'Nil',
         required: false,
       },
       {
