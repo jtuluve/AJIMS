@@ -512,7 +512,7 @@ export async function getInput(type: string) {
             required: true
           },
           {
-            "name": "date",
+            "name": "dateD",
             "type": "date",
             "label": "Date on which relieved",
             required: true
