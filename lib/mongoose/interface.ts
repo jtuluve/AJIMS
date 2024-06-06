@@ -92,10 +92,11 @@ interface Publication {
  export interface Patent {
   _id?: string;
   patentCountry?: string;
-  patentNumber?: number;
+  patentNumber?: string;
   patentType?: string;
   title?: string;
   date?: Date;
+  patentcert?: string,
   detailsOfInventors?: {
     number?: number;
     name?: string;

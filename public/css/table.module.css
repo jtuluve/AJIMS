@@ -110,7 +110,7 @@
     background: rgb(0, 150, 0);
 }
 
-@media (max-width: 600px){
+@media (max-width: 480px){
     .table:not(:has(.object))>* {
         grid-template-columns: 4fr 1fr !important;
     }
