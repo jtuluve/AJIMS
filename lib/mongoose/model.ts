@@ -239,10 +239,11 @@ const ResearchSchema = new mongoose.Schema({
   conferences: { type: [conferencesSchema], default: [] },
   patents: [new mongoose.Schema({
     patentCountry: { type: String },
-    patentNumber: { type: Number },
+    patentNumber: { type: String },
     patentType: { type: String },
     title: { type: String },
     date: { type: Date },
+    patentcert: { type: String },
     detailsOfInventors: [new mongoose.Schema({
       number: { type: Number },
       name: { type: String },

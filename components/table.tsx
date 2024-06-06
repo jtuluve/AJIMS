@@ -18,7 +18,7 @@ export default function Table({
   values: any;
   readOnly?: boolean;
 }) {
-  const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile","certUpload","regUpload","residenceProof","postHeldFile"]
+  const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile", "certUpload", "regUpload", "residenceProof", "postHeldFile","patentcert"]
   const dateKeys = ["date","dob","from","to","dateOfJoining","dateL"]
   const {setFormState} = useFormStateContext()
   if (values === false) return <p style={{ color: "white" }}>Loading..</p>;

@@ -23,10 +23,10 @@ export default function Research() {
                     <Table type="researchGuidance" column={5} header_row={["Category", "Student Name", "Title", "Start date", "Funded"]} keys={["category", "studentDetails", "title", "startDate","fundedStatus"]}  values={userData?.appraisal?.research?.guidance}/>
                     
                     <a className="name3">V. Conferences</a>
-                    <Table type="researchConferences" column={4} header_row={["Year", "Conference Name", "Category", "Type"]} keys={["year","confName", "category","type"]}  values={userData?.appraisal?.research?.conferences}/>
+                    <Table type="researchConferences" column={4} header_row={["Year", "Conference Name", "Category", "Type"]} keys={["year","confName", "category","typeC"]}  values={userData?.appraisal?.research?.conferences}/>
                     
                     <a className="name3">V. Patents</a>
-                    <Table type="researchPatents" column={5} header_row={["Patent Country", "Patent Number", "Patent Type", "Title", "Date"]} keys={["patentCountry", "patentNumber", "patentType","title","date"]}  values={userData?.appraisal?.research?.patents}/>
+                    <Table type="researchPatents" column={6} header_row={["Patent Country", "Patent Number", "Patent Type", "Patent Certificate", "Title", "Date"]} keys={["patentCountry", "patentNumber", "patentType","patentcert","title","date"]}  values={userData?.appraisal?.research?.patents}/>
                     
                 </div>
             </div>
