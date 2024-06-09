@@ -10,7 +10,6 @@ body {
   background-color: white;
 }
 
-
 .titlebar {
   position: relative;
   display: flex;
@@ -51,12 +50,13 @@ body {
   content: "logout";
   position: absolute;
   top: 100%;
+  width: -moz-fit-content;
   width: fit-content;
   text-align: center;
   font-size: small;
   right: 0;
 }
-/* Main styles */
+
 .wrapper {
   display: flex;
   flex-direction: row;
@@ -175,15 +175,14 @@ body {
   border: none;
   border-radius: 30px;
   cursor: pointer;
+  width: -moz-fit-content;
   width: fit-content;
   font-size: 24px;
-  /* Match the font size with the logout button */
   margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s, transform 0.2s;
   font-weight: bold;
   font-family: inherit;
-  /* Use the same font family as the parent element */
 }
 
 .profileform .profileEditBtn:hover {
@@ -208,8 +207,7 @@ body {
   display: block;
 }
 
-
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:480px) {
   body {
     overflow-x: hidden;
   }
@@ -223,20 +221,20 @@ body {
 
   .information h2{
     font-size: 18px;
-    /* Adjust the font size as needed */
     font-weight: bold;
     text-align: center;
   }
 
   .information h3 {
     font-size: 12px;
-    /* Adjust the font size as needed */
     font-style: italic;
     text-align: center;
   }
+
   .profilepic{
     display: none;
   }
+
   .profileform .info-d{
     display:flex ;
     font-size: small;
@@ -244,11 +242,13 @@ body {
     row-gap: 0px;
     flex-wrap: wrap;
   }
+
   .profileform{
     display:flex ;
     padding: auto;
     height: max-content;
   }
+  
   .profileoutput{
     font-size: smaller;
   }

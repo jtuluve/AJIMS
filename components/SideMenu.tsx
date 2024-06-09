@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 
 export default function SideMenu(){
@@ -5,24 +6,24 @@ export default function SideMenu(){
   <>
     <div className="divisions">
 					<div className="box">
-						<img src="/user.png" />
-						<a href="/faculty-details">Faculty Details</a>
+						<img alt="user" src="/user.png" />
+						<Link href="/faculty-details">Faculty Details</Link>
 					</div>
 					<div className="box">
-						<img src="/appraisal.png" />
-						<a href="/appraisal">Faculty appraisal</a>
+						<img alt="appraisal" src="/appraisal.png" />
+						<Link href="/appraisal">Faculty appraisal</Link>
 					</div>
 					<div className="box">
-						<img src="/leave.png" />
-						<a href="/applyleave">Apply Leave</a>
+						<img alt="leave" src="/leave.png" />
+						<Link href="/applyleave">Apply Leave</Link>
 					</div>
 					<div className="box">
-						<img src="/tax.png" />
-						<a href="/taxplanning">Tax Planning</a>
+						<img alt="tax" src="/tax.png" />
+						<Link href="/taxplanning">Tax Planning</Link>
 					</div>
 					<div className="box">
-						<img src="/paySlip.png" />
-						<a href="/payslip">Pay Slip</a>
+						<img alt="payslip" src="/paySlip.png" />
+						<Link href="/payslip">Pay Slip</Link>
 					</div>
 
 				</div>

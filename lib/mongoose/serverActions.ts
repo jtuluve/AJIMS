@@ -16,6 +16,7 @@ export async function getRetrieveFunction(
     researchGuidance: mongomethods.getResearchGuidance,
     researchConferences: mongomethods.getResearchConferences,
     researchScore: mongomethods.getResearchScore,
+    researchPatents: mongomethods.getResearchPatents,
 
     academicsTeaching: mongomethods.getAcademicsTeaching,
     academicsScore: mongomethods.getAcademicsScore,
@@ -26,10 +27,10 @@ export async function getRetrieveFunction(
     professionalExamDuties: mongomethods.getProfessionalExamDuties,
     professionalCoordinatorDuty: mongomethods.getProfessionalCoordinatorDuty,
     professionalFileUrl: mongomethods.getProfessionalFileUrl,
-
     professionalCommittee: mongomethods.getProfessionalCommittee,
     professionalConference: mongomethods.getProfessionalConferences,
     professionalGuestLectures: mongomethods.getProfessionalGuestLectures,
+    professionalAchievements: mongomethods.getProfessionalAchievements,
     professionalScore: mongomethods.getProfessionalScore,
 
     overallScore: mongomethods.getOverallScore
@@ -42,7 +43,6 @@ export async function getRetrieveFunction(
 //get method
 export async function getDataAny(type, _id?) {
   try{
-
     let retrieveFunction = await getRetrieveFunction(type)
     let data;
     // console.log(type, retrieveFunction)
@@ -87,8 +87,9 @@ export async function handleUpsertAny(formData: FormData) {
     researchBooks: mongomethods.upsertResearchBooks,
     researchGuidance: mongomethods.upsertResearchGuidance,
     researchConferences: mongomethods.upsertResearchConference,
+    researchPatents: mongomethods.upsertResearchPatents,
 
-    academicsTeaching: mongomethods.updateAcademicsTeaching,
+    academicsTeaching: mongomethods.upsertAcademicsTeaching,
 
     professionalClinicalDuty: mongomethods.updateProfessionalClinicalDuty,
     professionalPostHeld: mongomethods.updateProfessionalPostHeld,
@@ -97,11 +98,12 @@ export async function handleUpsertAny(formData: FormData) {
     professionalCommittee: mongomethods.upsertProfessionalCommittee,
     professionalConference: mongomethods.upsertProfessionalConference,
     professionalGuestLectures: mongomethods.upsertProfessionalGuestLecture,
+    professionalAchievements: mongomethods.upsertProfessionalAchievement,
   }
 
   try {
+    
     let res = await functions[type as string]?.(newobj)
-    // console.log(res);
     if (!res) throw new Error('Function not found or upsert failed')
     // revalidatePath("/")
     return { submitted: true, error: false }
@@ -112,6 +114,7 @@ export async function handleUpsertAny(formData: FormData) {
   }
 }
 
+//delete function for any data
 export async function handleDeleteAny(type: string, _id: string) {
   if (!_id || !type) {
     return { error: 'Invalid request', submitted: false }
@@ -122,11 +125,14 @@ export async function handleDeleteAny(type: string, _id: string) {
     researchBooks: mongomethods.deleteResearchBook,
     researchGuidance: mongomethods.deleteResearchGuidance,
     researchConference: mongomethods.deleteResearchConference,
+    researchPatents: mongomethods.deleteResearchPatent,
 
+    academicsTeaching: mongomethods.deleteAcademicsTeaching,
     professionalExamDuties: mongomethods.deleteProfessionalExamDuty,
     professionalCommittee: mongomethods.deleteProfessionalCommittee,
     professionalGuestLectures: mongomethods.deleteProfessionalGuestLecture,
-    professionalConference: mongomethods.deleteProfessionalConference
+    professionalConference: mongomethods.deleteProfessionalConference,
+    professionalAchievements: mongomethods.deleteProfessionalAchievement,
   }
   try {
     let res = await functions[type]?.(_id)

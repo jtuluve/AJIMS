@@ -1,22 +1,28 @@
 body {
     background-image: url('/ajims.png');
-    background-attachment: scroll; /* Changed to scroll for a static background image */
+    background-attachment: scroll; 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
-    justify-content: flex-start; /* Aligns to the start (left) */
+    justify-content: flex-start; 
     align-items: center;
     height: 100dvh;
     margin: 0;
+
+    #watermark {
+      display: none;
+    } 
 } 
+
 .loginContainer {
     width: 300px;
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+    background-color: rgba(255, 255, 255, 0.5); 
     padding: 20px;
-    border-radius: 15px; /* Added border radius */
-    margin-left: 100px; /* Adjusted the left margin to 100px */
+    border-radius: 15px; 
+    margin-left: 100px; 
 }
+
 .loginContainer input[type="text"],
 .loginContainer input[type="password"] {
     width: 100%;
@@ -25,8 +31,9 @@ body {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    border-radius: 5px; /* Added border radius for the input fields */
+    border-radius: 5px; 
 }
+
 .loginContainer input[type="submit"] {
     width: 100%;
     background-color: #4CAF50;
@@ -35,24 +42,26 @@ body {
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    border-radius: 5px; /* Added border radius for the submit button */
+    border-radius: 5px;
 }
+
 .loginContainer input[type="submit"]:hover {
     background-color: #45a049;
 }
+
 .head{
     font-size: 22px;
     font-display: underline;
     background-color: initial;
 }
 
-/* Media query for mobile responsiveness */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 480px) {
     body {
-        justify-content: center; /* Center aligns the content horizontally */
+        justify-content: center; 
     }
+
     .loginContainer {
-        width: 80%; /* Adjusted the width for smaller screens */
-        margin-left: 0; /* Removed the left margin for smaller screens */
+        width: 80%;
+        margin-left: 0;
     }
 }

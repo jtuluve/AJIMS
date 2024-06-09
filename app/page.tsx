@@ -1,19 +1,21 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
+import { isAdmin } from "@/lib/mongoose/functions";
 
 export default function Home() {
   const { data: session } = useSession();
-  if (session) redirect("/main");
+  if(session) redirect("/main")
 
   //states
   const [formData, setFormData] = useState({ id: "", password: "" });
   const [authStatus, setAuthStatus] = useState(null);
   const [pending, setPending] = useState(false)
-  //event handlers
+  /* event handlers */
+  //login event handler
   const handleLogin = async (e) => {
     e.preventDefault();
     setPending(true)
@@ -30,6 +32,7 @@ export default function Home() {
     }
     setPending(false)
   };
+  // update formdata to state
   const handleChange = (e) => {
     e.preventDefault();
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
