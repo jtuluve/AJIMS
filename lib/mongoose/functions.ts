@@ -1112,6 +1112,24 @@ export async function deleteAcademicsFileUrl(uid?: string) {
   }
 }
 
+export async function deleteAcademicsTeaching(_id: string, uid?: string) {
+  try {
+    uid = uid || (await getUid())
+    await initializeDb()
+    const user = await getUser(uid)
+    if (!user) throw 'User not found'
+    const index = user.appraisal.academics.teaching.findIndex(
+      (teaching) => teaching?._id.toString?.() === _id
+    )
+    if (index === -1) throw 'Teaching not found'
+    user.appraisal.academics.teaching.splice(index, 1)
+    await user.save()
+    return true
+  } catch (err) {
+    console.error(err?.msg || err?.message || err)
+  }
+}
+
 //delete appraisal->professional->examDuties (array)
 export async function deleteProfessionalExamDuty(_id: string, uid?: string) {
   try {

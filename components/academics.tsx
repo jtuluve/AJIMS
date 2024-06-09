@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
 import Table from "./table";
 import { getRetrieveFunction } from "@/lib/mongoose/serverActions";
@@ -160,8 +161,8 @@ export default function Academics() {
 						</p>
 					</div>
 					<section id="signatures" style={{ display: "none" }}>
-						<div style={{ color: "#131D38" }}>Applicant</div>
-						<div style={{ color: "#131D38" }}>H.O.D</div>
+						<div style={{ color: "#131D38", marginRight: "10px" }}>Applicant</div>
+						<div style={{ color: "#131D38", marginLeft: "10px" }}>H.O.D</div>
 					</section>
 				</div>
 			</div>

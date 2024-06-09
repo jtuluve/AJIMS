@@ -512,7 +512,7 @@ export async function getInput(type: string) {
             required: true
           },
           {
-            "name": "date",
+            "name": "dateD",
             "type": "date",
             "label": "Date on which relieved",
             required: true
@@ -592,6 +592,7 @@ export async function getInput(type: string) {
           {
             "name": "year",
             "type": "number",
+            "placeholder": "Enter the year",
             "properties": { "min": 1800, "max": 2150, "step": 1 },
             "label": "Year",
             required: true
@@ -1017,7 +1018,7 @@ export async function getInput(type: string) {
       },
       {
         name: 'patentNumber',
-        type: 'number',
+        type: 'text',
         label: 'Patent Number',
         placeholder: 'Enter Patent Number',
         required: true,
@@ -1041,6 +1042,12 @@ export async function getInput(type: string) {
         type: 'date',
         label: 'Date',
         required: true,
+      },
+      {
+        name:'patentcert',
+        type:'file',
+        label: 'Patent Certificate',
+        required: false
       },
       {
         name: 'detailsOfInventors',
@@ -1078,40 +1085,34 @@ export async function getInput(type: string) {
         name: 'hours',
         type: 'number',
         placeholder: 'Enter the teaching Hours',
-        required: true,
         default: 0,
       },
       {
         name: 'hoursUpload',
         type: 'file',
-        placeholder: 'Hours acknowledgement',
-        required: true
+        placeholder: 'Hours acknowledgement'
       },
       {
         name: 'clinicalHours',
         type: 'number',
         placeholder: 'Enter the Clinical Hours',
-        required: true,
         default: 0,
       },
       {
         name: 'clinicalHoursUpload',
         type: 'file',
-        placeholder: 'Clinical Hours acknowledgement',
-        required: true
+        placeholder: 'Clinical Hours acknowledgement'
       },
       {
         name: 'studentsFeedback',
         type: 'number',
         placeholder: 'Enter the Students Feedback',
-        required: true,
         default: 0,
       },
       {
         name: 'studentsFeedbackUpload',
         type: 'file',
-        placeholder: 'Students Feedback acknowledgement',
-        required: true
+        placeholder: 'Students Feedback acknowledgement'
       },
       {
         name: 'resourceMaterial',
@@ -1123,8 +1124,7 @@ export async function getInput(type: string) {
       {
         name: 'resourceMaterialUpload',
         type: 'file',
-        placeholder: 'Resource Material acknowledgement',
-        required: true
+        placeholder: 'Resource Material acknowledgement'
       },
       {
         name: 'publicAwarenessWriteup',
@@ -1137,7 +1137,6 @@ export async function getInput(type: string) {
         name: 'publicAwarenessWriteupUpload',
         type: 'file',
         placeholder: 'Public Awareness Writeup acknowledgement',
-        required: true
       },
       {
         name: 'cc',
@@ -1148,8 +1147,7 @@ export async function getInput(type: string) {
       {
         name: 'ccUpload',
         type: 'file',
-        placeholder: 'CC acknowledgement',
-        required: true
+        placeholder: 'CC acknowledgement'
       },
     ],
 

@@ -127,6 +127,7 @@ export async function handleDeleteAny(type: string, _id: string) {
     researchConference: mongomethods.deleteResearchConference,
     researchPatents: mongomethods.deleteResearchPatent,
 
+    academicsTeaching: mongomethods.deleteAcademicsTeaching,
     professionalExamDuties: mongomethods.deleteProfessionalExamDuty,
     professionalCommittee: mongomethods.deleteProfessionalCommittee,
     professionalGuestLectures: mongomethods.deleteProfessionalGuestLecture,

@@ -13,8 +13,8 @@ const UserDetail = ({ params }) => {
 	const [user, setUser] = useState<UserDocument|null>(null);
   const printRef = useRef<HTMLDivElement>(null);
 
-	const dob = user?.profile?.dob ? new Date(user.profile.dob) : null;
-	const dateOfJoining = user?.profile?.dateOfJoining ? new Date(user?.profile?.dateOfJoining) : null;
+	const dob = user?.profile?.dob ? user.profile.dob?.toString().slice(0, 10) : null;
+	const dateOfJoining = user?.profile?.dateOfJoining ? user?.profile?.dateOfJoining?.toString().slice(0, 10) : null;
 	
 
 	useEffect(() => {
@@ -178,7 +178,7 @@ const UserDetail = ({ params }) => {
 								user.profile.details.map((details, index) => (
 									<div key={index}>
 										<p><strong>a. Name of College/ Institution:</strong> {details.detailsName}</p>
-										<p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.dateD ? new Date(details.dateD).toString() : 'Invalid Date'}</p>
+										<p><strong>b. Designation:</strong> {details.designation} <strong>Date on which relieved:</strong> {details.dateD ? details.dateD?.toString().slice(0, 10) : 'Invalid Date'}</p>
 										<p><strong>c. Reason for being relieved:</strong> {details.relieveReason}</p>
 										<p><strong>d. Relieving order issued by previous institution verified and attached:</strong> {details.verification}</p>
 										<p><strong>d. Relieving order issued by previous institution attached file:</strong> <a href={details.verificationFile} download>View upload document</a></p>
@@ -225,8 +225,8 @@ const UserDetail = ({ params }) => {
 								<p><strong>Designation:</strong> {experience.designationE}</p>
 								<p><strong>Department:</strong> {experience.departmentE}</p>
 								<p><strong>Institution:</strong> {experience.institution}</p>
-								<p><strong>From:</strong> {experience.from ? new Date(experience.from).toString() : 'N/A'}</p>
-								<p><strong>To:</strong> {experience.to ? new Date(experience.to).toString() : 'N/A'}</p>
+								<p><strong>From:</strong> {experience.from ? experience.from?.toString().slice(0, 10) : 'N/A'}</p>
+								<p><strong>To:</strong> {experience.to ? experience.to?.toString().slice(0, 10) : 'N/A'}</p>
 								<p><strong>Total Duration:</strong> {experience.total}</p>
 							</div>
 							))
@@ -245,7 +245,7 @@ const UserDetail = ({ params }) => {
 						<p><strong>Phone no:</strong> {user?.profile?.phoneNo}</p>
 						<p><strong>Email address:</strong>{user?.profile?.emailaddress}</p>	
 					</div>
-					<p><strong>Date of joining:</strong> {dateOfJoining ? dateOfJoining.toString() : 'N/A'}</p>
+					<p><strong>Date of joining:</strong> {dateOfJoining ? dateOfJoining?.toString().slice(0, 10) : 'N/A'}</p>
 					<p><strong>Joining Letter:</strong><a href={user?.profile?.joiningLetter} download>View upload document</a></p>
 					<p><strong>Educational Qualifications</strong></p>
 					<div className="education-section">
@@ -294,8 +294,9 @@ const UserDetail = ({ params }) => {
 			</div>			
 		</div>
 		<div className="research-body">
+			<p><strong>Academic Details</strong></p>
 		<div className="teaching-hours-body">
-			<table>
+			<table style={{marginBottom:0}}>
 				<thead>
 					<tr>
 						<th>#</th>
@@ -327,6 +328,7 @@ const UserDetail = ({ params }) => {
 					)}
 				</tbody>
 			</table>
+
 			<table>
 				<thead>
 					<tr>
@@ -363,10 +365,9 @@ const UserDetail = ({ params }) => {
 			<p><strong>Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
 					<p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certStatus}</p>
-                    <p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong>{user?.profile?.certUpload}</p>
+                    <p><strong>Copies of MBBS & PG Degree Certificates verified and attached:</strong><a href={user?.profile?.certUpload} download>View upload document</a></p>
 					<p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regStatus}</p>
-                    <p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong>{user?.profile?.regUpload}</p>
-					
+					<p><strong>Copies of MBBS & PG Degree Registation verified and attached:</strong><a href={user?.profile?.regUpload} download>View upload document</a></p>
                 </div>
 			<p><strong>Publication details:</strong></p>
 			<div className="publication-body">
@@ -540,7 +541,7 @@ const UserDetail = ({ params }) => {
 			</div>
 			<p><strong>Guidance details:</strong></p>
 			<div className="guidance-body">
-				<table>
+			<table style={{marginBottom:0}}>
 					<thead>
 						<tr>
 							<th>Category</th>
@@ -561,8 +562,8 @@ const UserDetail = ({ params }) => {
 									<td>{guidance?.studentDetails}</td>
 									<td>{guidance?.studentCourse}</td>
 									<td><a href={guidance?.studentUpload} download>View upload document</a></td>
-									<td>{guidance?.startDate?.toString()}</td>
-									<td>{guidance?.endDate?.toString()}</td>
+									<td>{guidance?.startDate?.toString().slice(0, 10)}</td>
+									<td>{guidance?.endDate?.toString().slice(0, 10)}</td>
 									<td>{guidance?.name}</td>
 									<td>{guidance?.title}</td>
 								</tr>
@@ -861,7 +862,6 @@ const UserDetail = ({ params }) => {
 				</div>
 				<p><strong>Guest Lectures</strong></p>
 				<div className="guest-lectures-body">
-					{user.appraisal?.professional?.guestLectures?.length > 0 ? (
 						<table>
 							<thead>
 								<tr>
@@ -869,18 +869,21 @@ const UserDetail = ({ params }) => {
 								</tr>
 							</thead>
 							<tbody>
-								{user.appraisal.professional.guestLectures.map((guestLectures, index) => (
+								{user.appraisal?.professional?.guestLectures?.length > 0 ? (
+								user.appraisal.professional.guestLectures.map((guestLectures, index) => (
 									<tr key={index}>
 										<td>{guestLectures?.title}</td>
 										<td>{guestLectures?.category}</td>
 										<td><a href={guestLectures?.guestLecturesFile} download>View upload document</a></td>
 									</tr>
-								))}
+								))
+									) : (
+										<tr>
+											<td colSpan={3}>No guest lectures data available</td>
+										</tr>
+								)}
 							</tbody>
 						</table>
-					) : (
-						<p>No guest lectures data available</p>
-					)}
 				</div>
 			</div>
 		</div>

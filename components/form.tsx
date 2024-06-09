@@ -68,7 +68,7 @@ export default function Form({
     (async()=>{
       setUserData(await getUserObject())
     })()
-  },[formState?.type])
+  },[formState])
 	
 	const [inputs, setInputs] = useState<{ status?: string; inputs?: Array<Input> }>({
 		status: "loading",
@@ -127,6 +127,8 @@ export default function Form({
 		setFileUploadError(false);
 		setInputs({status:"loading"})
 		setCanSubmit(true)
+		setTableData({})
+		setFiles({})
 		if(formState.type)
 		(async () => {
 			try {
@@ -136,7 +138,7 @@ export default function Form({
 				}
 				else setProfilePhotoUrl(formData?.profileUrl);
 				setInputs({ status: "loaded", inputs });
-				let a = inputs?.filter?.((e) => e.type === "file");
+				let a = inputs?.filter?.((e) => e.type === "file" && e.name !== "profileUrl");
 				if (a?.length !== 0) setCanSubmit(false);
 				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
 				a = inputs.filter(e=>e.type==="table");
@@ -204,6 +206,10 @@ export default function Form({
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 					if (name === "profileUrl") {
+						setFiles((prevFiles) => ({
+							...prevFiles,
+							[name]: { ...file[name], url: downloadURL, message: "Uploaded" }
+						}));
 						setProfilePhotoUrl(downloadURL);
 					} else {
 						setFiles((prevFiles) => ({
@@ -584,7 +590,7 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 				}}
 			>
 				{inputs.map((input: any) => (
-					<h4 key={input.name} style={{fontSize:"small"}}>{input.label}</h4>
+					<h4 key={input.name} style={{fontSize:"small"}}>{input.label + (input.required ? " *" : "")}</h4>
 				))}
 			</div>
 			{values.map?.((value: any, index) => (

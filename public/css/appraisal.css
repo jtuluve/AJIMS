@@ -276,7 +276,7 @@ tbody tr:hover {
   padding: 5px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 480px) {
   .menu-container {
     flex-direction: column;
     height: 92%;
@@ -482,6 +482,7 @@ span.print-icon::after {
 		justify-content: space-around;
     margin-top: auto;
     margin-bottom: 4rem;
+    width: 100dvw;
 	}
 
   #professionalSignatures {
@@ -512,7 +513,6 @@ span.print-icon::after {
 	@page {
 		size: A4 portrait;
     margin:0;
-    
 	}
 
   html, body {
