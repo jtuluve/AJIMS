@@ -24,6 +24,11 @@ export default function Admin() {
 			</div>
 			<div className="usersTable">
 				<h2>Admin Dashboard</h2>
+				<div className="button-container">
+					<Link href={'/admin/firebase'}>
+						<button>Login Credentials</button>
+					</Link>
+				</div>
 				<div className="search-container">
 					<input title="Search" type="search" name="search" onChange={e => {
 						let a = allUsers.filter(user => new RegExp(`.*${e.target.value?.toLowerCase()}.*`).test(user?.profile?.department?.toLowerCase()) || new RegExp(`.*${e.target.value?.toLowerCase()}.*`).test(user?.name?.toLowerCase()));

@@ -1,0 +1,161 @@
+.crudpage {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.titlebar .logo {
+  height: 80%;
+  border-radius: 15%;
+  margin-left: 1%;
+}
+
+.titlebar .web-name {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin: auto 10px;
+}
+
+.crud-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.user-form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.user-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 2px solid #131d38;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.user-form input:focus {
+  border-color: #131d38;
+  box-shadow: 0 0 10px #273457;
+}
+
+.user-form button {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #131d38;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.user-form button:hover {
+  background-color: #273457;
+}
+
+.user-list {
+  width: 100%;
+}
+
+.user-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.user-list th,
+.user-list td {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.user-list th {
+  background-color: #131d38;
+  color: white;
+}
+
+.user-list tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.user-list tr:hover {
+  background-color: #ddd;
+}
+
+.user-list button {
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #131d38;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.user-list button:hover {
+  background-color: #273457;
+}
+.titlebar .home {
+  color: #ff4c4c;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.titlebar .home::after {
+  font-family: none;
+  color: white;
+  content: "home";
+  position: absolute;
+  top: 100%;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  font-size: small;
+  right: 0;
+}
+
+.titlebar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #131d38;
+  color: white;
+  height: 10%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  outline: 2px solid #000;
+}
+
+.titlebar .logo {
+  height: 80%;
+  border-radius: 15%;
+  margin-left: 1%;
+}
+
+.titlebar .web-name {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin: auto 10px;
+}
