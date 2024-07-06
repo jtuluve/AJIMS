@@ -388,26 +388,17 @@ const PrintDetails = ({ params }) => {
                                         <td>{patent.date ? patent.date?.toString().slice(0, 10) : 'Invalid Date'}</td>
                                         <td>
                                             {patent.detailsOfInventors && patent.detailsOfInventors.length > 0 ? (
-                                                <table>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Number</th><th>Name</th><th>Institute</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {patent.detailsOfInventors.map((detailsOfInventors, i) => (
-                                                            <tr key={i}>
-                                                                <td>{detailsOfInventors.number}</td>
-                                                                <td>{detailsOfInventors.name}</td>
-                                                                <td>{detailsOfInventors.institute}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
+                                                <div>
+                                                    {patent.detailsOfInventors.map((inventor, i) => (
+                                                        <div key={i} className="inventor-details">
+                                                            <p>{inventor.number}.{inventor.name},{inventor.institute}</p>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             ) : (
-                                                <tr>
-                                                    <td colSpan={5}>No inventor information available</td>
-                                                </tr>
+                                                <div className="no-inventor-details">
+                                                    <p>No inventor information available</p>
+                                                </div>
                                             )}
                                         </td>
                                     </tr>
