@@ -231,3 +231,23 @@
 		} */
 	}
 }
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin: 1rem 0;
+
+	& button {
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 5px;
+		background-color: #131d38;
+		color: white;
+		font-size: 1rem;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	& button:hover {
+		background-color: #273457;
+	}
+}
