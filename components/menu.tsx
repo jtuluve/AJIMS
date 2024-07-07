@@ -1,4 +1,5 @@
 'use client'
+
 import {  useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { useUserData } from './UserDataContext'
@@ -8,14 +9,9 @@ export default function Menu() {
   const [user, setUser]: [user: any, setUser: any] = useState({})
   const { data: session } = useSession()
   const {userData} = useUserData()
-  // useEffect(() => {
-  //   setProfileUrl(localStorage.getItem('profileUrl'))
-  // }, [])
 
-  //effect to retrieve profile data
   useEffect(() => {
     setUser(userData?.profile)
-    // setProfileUrl(localStorage.getItem('profileUrl'))
   }, [])
 
   if (session)

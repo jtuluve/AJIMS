@@ -76,7 +76,6 @@ body {
   overflow-x: hidden;
 }
 
-
 .menu-container:not(:has(*:target)) .menu  .research {
   color: black;
   background: #869fff;
@@ -86,7 +85,6 @@ body {
   color: black;
   background: #869fff;
 }
-
 
 .menu-container:has(#academics:target) .menu .academics {
   color: black;
@@ -535,8 +533,7 @@ span.print-icon::after {
 	align-items: center;
 	background: #ffffff;
 	border: 0 solid #e2e8f0;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
 	color: #1a202c;
 	display: inline-flex;
@@ -563,8 +560,7 @@ span.print-icon::after {
   color: white;
 	background: red;
 	border: 0 solid #e2e8f0;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
 	display: inline-flex;
 	font-family: Inter, sans-serif;

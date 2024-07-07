@@ -1,14 +1,9 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
 import Table from "./table";
 import { getRetrieveFunction } from "@/lib/mongoose/serverActions";
-
-import {
-	getDownloadURL,
-	getStorage,
-	ref,
-	uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref,uploadBytesResumable } from "firebase/storage";
 import { app } from "../app/firebase";
 import { deleteProfessionalFileUrl, updateProfessionalFileUrl } from "@/lib/mongoose/functions";
 import { useUserData } from "./UserDataContext";
@@ -17,31 +12,28 @@ export default function Professional() {
 	const { userData } = useUserData();
 	const [fileUrl, setFileUrl] = useState("");
 	const fileRef = useRef(null);
-	//effect to retrieve data
+	
 	useEffect(() => {
 		async function getDataAny() {
       setFileUrl(undefined)
 			const getFileUrl = await getRetrieveFunction("professionalFileUrl");
-			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
-			// console.log(fileUrl);
 			setFileUrl(fileUrl);
 		}
 		getDataAny();
 	}, []);
 
-	// file upload
 	const [file, setFile] = useState(undefined);
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
-	//effect to handle file upload and state
+
 	useEffect(() => {
 		if (file) {
 			setFileUrl("");
 			handleFileUpload(file);
 		}
 	}, [file]);
-	//method to handle file upload
+
 	const handleFileUpload = (file) => {
 		const storage = getStorage(app);
 		const fileName = new Date().getTime() + file.name;
@@ -53,7 +45,6 @@ export default function Professional() {
 			(snapshot) => {
 				const progress =
 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				// console.log(progress);
 				setFilePerc(Math.round(progress));
 			},
 			(error) => {
@@ -63,7 +54,6 @@ export default function Professional() {
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
 					setFileUrl(downloadURL);
-					// console.log(downloadURL);
 					await updateProfessionalFileUrl(downloadURL);
 				});
 			}
@@ -157,6 +147,7 @@ export default function Professional() {
 						column={3}
 						values={userData?.appraisal?.professional?.achievements}
 					/>
+
 					<div className="btn-container" id="hiddenButton">
 						<button
 							type="button"
@@ -187,22 +178,22 @@ export default function Professional() {
 								fileRef && fileRef.current.click();
 							}}
 							className="upload-button"
-              disabled={fileUrl === undefined}
+              				disabled={fileUrl === undefined}
 						>
 							{fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
 						</button>
 
-            {fileUrl &&
-              <button
-                className="delete-button"
-                onClick={async () => {
-                    await deleteProfessionalFileUrl()
-                    setFileUrl("")
-                }}
-              >
-                Delete file
-              </button>
-            }
+						{fileUrl &&
+						<button
+							className="delete-button"
+							onClick={async () => {
+								await deleteProfessionalFileUrl()
+								setFileUrl("")
+							}}
+						>
+							Delete file
+						</button>
+						}
 
 						<input
 							hidden
@@ -214,6 +205,7 @@ export default function Professional() {
 							onChange={(e) => setFile(e.target.files[0])}
 							defaultValue={fileUrl || ""}
 						/>
+
 						<p>
 							{fileUploadError ? (
 								<span style={{ color: "white" }}>Error in file uplaod</span>
@@ -230,7 +222,6 @@ export default function Professional() {
 							)}
 						</p>
 					</div>
-
 					<section id="professionalSignatures" style={{ display: "none" }}>
 						<div style={{ color: "#131D38" }}>Applicant</div>
 						<div style={{ color: "#131D38" }}>H.O.D</div>

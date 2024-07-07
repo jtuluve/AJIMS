@@ -22,12 +22,12 @@ const PrintDetails = ({ params }) => {
     const stateInstitutionalCount = user?.appraisal?.research?.publications?.filter(
         (publication: any) => publication.category === 'State/Institutional'
     ).length;
+
     const booksPublished = user?.appraisal?.research?.books?.length || 0;
     let totalChapters = 0;
     user?.appraisal?.research?.books?.forEach((book: any) => {
         totalChapters += book.chapters?.length || 0;
     });
-
 
     useEffect(() => {
         if (allUsers.length > 0) {
@@ -87,11 +87,11 @@ const PrintDetails = ({ params }) => {
                     </div>
                     <div className="profile-photo">
                         <img
-                        src={(user?.profileUrl === '' || user?.profileUrl === 'user.png') ? '/user.png' : user.profileUrl}
-						alt="upload profile url"
-						height={120}
-						width={100}
-					/>
+                            src={(user?.profileUrl === '' || user?.profileUrl === 'user.png') ? '/user.png' : user.profileUrl}
+                            alt="upload profile url"
+                            height={120}
+                            width={100}
+					    />
                     </div>
                 </div>
                 <div id="signatures">
@@ -124,8 +124,7 @@ const PrintDetails = ({ params }) => {
                     <strong>
                         9. Have you attended the Basic Course Workshop(BCME), Curriculum Implementation Support
                         Programme (CISP - i/ii/iii), Advanced Course in Medical Education (ACME) for training in MET:
-                    </strong>
-                    
+                    </strong>                    
                 </p>
                 <div className="smalltext">
                     <p>(If Yes, provide certificate/s)</p>
@@ -145,11 +144,8 @@ const PrintDetails = ({ params }) => {
                     <table>
                         <thead>
                             <tr>
-                                <th>Degree</th>
-                                <th>Year</th>
-                                <th>College Name</th>
-                                <th>Registration Number with Date</th>
-                                <th>Medical Council Name</th>
+                                <th>Degree</th><th>Year</th><th>College Name</th>
+                                <th>Registration Number with Date</th><th>Medical Council Name</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -184,7 +180,6 @@ const PrintDetails = ({ params }) => {
                     </p>
                 </div>                
             </div>
-
             <div className="page3">
                 <p><strong>11. Copies of educational qualifications:</strong></p>  
                 <div className="qualifications-section">
@@ -202,22 +197,22 @@ const PrintDetails = ({ params }) => {
                         </thead>
                         <tbody>
                             {user?.profile?.experience?.length > 0 ? (
-                                    user?.profile?.experience?.map((experience, index) => (
-                                            <tr key={index}>
-                                                <td>{experience.designationE}</td>
-                                                <td>{experience.departmentE}</td>
-                                                <td>{experience.institution}</td>
-                                                <td>{experience.from ? experience.from?.toString().slice(0, 10) : 'Invalid Date'}</td>
-                                                <td>{experience.to ? experience.to?.toString().slice(0, 10) : 'Invalid Date'}</td>
-                                                <td>{experience.total}</td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan={6}>No data available</td>
+                                user?.profile?.experience?.map((experience, index) => (
+                                        <tr key={index}>
+                                            <td>{experience.designationE}</td>
+                                            <td>{experience.departmentE}</td>
+                                            <td>{experience.institution}</td>
+                                            <td>{experience.from ? experience.from?.toString().slice(0, 10) : 'Invalid Date'}</td>
+                                            <td>{experience.to ? experience.to?.toString().slice(0, 10) : 'Invalid Date'}</td>
+                                            <td>{experience.total}</td>
                                         </tr>
-                                    )
-                                }
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={6}>No data available</td>
+                                    </tr>
+                                )
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -225,11 +220,7 @@ const PrintDetails = ({ params }) => {
                     <p>To be filled in by personnel from Indian Defence Service ONLY:</p>
                     <table>
                         <thead>
-                            <th>Designation</th>
-                            <th>Institution</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Total</th>
+                            <th>Designation</th><th>Institution</th><th>From</th><th>To</th><th>Total</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -288,7 +279,8 @@ const PrintDetails = ({ params }) => {
                     </tbody>
                 </table>
                 <p>
-                    <strong>14. Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc
+                    <strong>
+                        14. Number of lectures/ small group teachings/ self-directed learning sessions/ clinics/ etc
                         taken and topics covered in last academic year (attach additional sheet, if required)
                     </strong>
                 </p>
@@ -299,24 +291,24 @@ const PrintDetails = ({ params }) => {
                         </thead>
                         <tbody>
                             {user?.profile?.numberOfLectures?.length > 0 ? (
-                            user?.profile?.numberOfLectures?.map((numberOfLectures, index) => (
-                                <tr key={index}>
-                                    <td>{index}</td>
-                                    <td>{numberOfLectures.dateL ? numberOfLectures.dateL?.toString().slice(0, 10) : 'Invalid Date'}</td>
-                                    <td>{numberOfLectures.typeL}</td>
-                                    <td>{numberOfLectures.topic}</td>
-                                </tr>
-                            ))
-                            ) : (
-                            <tr>
-                                <td colSpan={4}>No data available</td>
-                            </tr>
-                        )}
+                                user?.profile?.numberOfLectures?.map((numberOfLectures, index) => (
+                                    <tr key={index}>
+                                        <td>{index}</td>
+                                        <td>{numberOfLectures.dateL ? numberOfLectures.dateL?.toString().slice(0, 10) : 'Invalid Date'}</td>
+                                        <td>{numberOfLectures.typeL}</td>
+                                        <td>{numberOfLectures.topic}</td>
+                                    </tr>
+                                ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={4}>No data available</td>
+                                    </tr>
+                                )
+                            }
                         </tbody>
                     </table>
                 </div>
             </div> 
-
             <div className="page4">
                 <p><strong>15. Details of employment before joining the present institution:</strong></p>
                 <div className="details-section">
@@ -343,7 +335,6 @@ const PrintDetails = ({ params }) => {
                         </thead>
                         <tbody>
                             {user?.profile?.emoluments?.length > 0 ? (
-                                // Extracting the last entry from the emoluments array
                                 <tr>
                                     <td>{user.profile.emoluments[user.profile.emoluments.length - 1].month}/{user.profile.emoluments[user.profile.emoluments.length - 1].year}</td>
                                     <td>{user.profile.emoluments[user.profile.emoluments.length - 1].amount}</td>
@@ -368,8 +359,8 @@ const PrintDetails = ({ params }) => {
                     <p><strong>a. Number of Books published: </strong>{booksPublished || 0}</p>
                     <p><strong>b. Number of Chapters in books: </strong>{totalChapters || 0}</p>
                 </div>
-                </div>
-                <div className="page5">
+            </div>
+            <div className="page5">
                 <p><strong>21. Any other information/ achievements/ patents:</strong></p>
                 <div className="patent-section">
                     <table>
@@ -440,11 +431,7 @@ const PrintDetails = ({ params }) => {
                     <table>
                         <thead>
                             <tr>
-                                <th>Category</th>
-                                <th>Conference Name</th>
-                                <th>Year</th>
-                                <th>Details</th>
-                                <th>Type</th>
+                                <th>Category</th><th>Conference Name</th><th>Year</th><th>Details</th><th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -517,11 +504,7 @@ const PrintDetails = ({ params }) => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Category</th>
-                                    <th>Conference Name</th>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                    <th>Type</th>
+                                    <th>Category</th><th>Conference Name</th><th>Year</th><th>Details</th><th>Type</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -592,54 +575,28 @@ const PrintDetails = ({ params }) => {
                 <p><strong>24. Awards/ prizes:</strong></p>
                 <div className="awards-section">
                     <table>
-                    <thead>
-                        <tr>
-                        <th>Awards</th><th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {user?.appraisal?.research.conferences && user?.appraisal?.research.conferences.length > 0 ? (
-                            user?.appraisal?.research.conferences?.map((conferences, index) => (
-                        <tr key={index}>
-                            <td>{conferences?.awards}</td>
-                            <td>{conferences?.description}</td>
-                        </tr>
-                    ))
-                    ) : (
-                        <tr>
-                            <td colSpan={2}>No Awards data available</td>
-                        </tr>
-                        )}
-                    </tbody>
+                        <thead>
+                            <tr>
+                                <th>Awards</th><th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {user?.appraisal?.research.conferences && user?.appraisal?.research.conferences.length > 0 ? (
+                                user?.appraisal?.research.conferences?.map((conferences, index) => (
+                                    <tr key={index}>
+                                        <td>{conferences?.awards}</td>
+                                        <td>{conferences?.description}</td>
+                                    </tr>
+                                ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={2}>No Awards data available</td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
                     </table>
                 </div>
-              { /* <div className="page6">
-                    <p><strong><center>Attached details</center></strong></p>
-                    <p><strong>Publication details:</strong></p>
-                    <div className="publication-body">
-                        {user.appraisal?.research?.publications?.length > 0 ? (
-                            user.appraisal.research.publications.map((publication, index) => (
-                                <div key={index} className="publication-details">
-                                    <p><strong>Title:</strong> {publication?.title}</p>
-                                    <p><strong>Author:</strong> {publication?.author}</p>
-                                    <p><strong>Journal Name:</strong> {publication?.journalName}</p>
-                                    <p><strong>Volume:</strong> {publication?.volume}</p>
-                                    <p><strong>Issue:</strong> {publication?.issue}</p>
-                                    <p><strong>Page No:</strong> {publication?.pageNo}</p>
-                                    <p><strong>Year:</strong> {publication?.year}</p>
-                                    <p><strong>Quartile:</strong> {publication?.quartile}</p>
-                                    <p><strong>Index:</strong> {publication?.index}</p>
-                                    <p><strong>Category:</strong> {publication?.category}</p>
-                                    <p><strong>Post held:</strong> {publication?.postheld}</p>
-                                    <p><strong>DOI:</strong> {publication?.doi}</p>
-                                    <p><strong>Authorship:</strong> {publication?.authorship}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p>No publication data available</p>
-                        )}
-                    </div>
-                </div>*/}
             </div>        
         </div>
   );

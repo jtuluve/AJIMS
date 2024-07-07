@@ -9,7 +9,6 @@ body {
     align-items: center;
     height: 100dvh;
     margin: 0;
-
     #watermark {
       display: none;
     } 

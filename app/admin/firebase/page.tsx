@@ -6,19 +6,19 @@ import Link from 'next/link';
 
 const UserCrudPage = () => {
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e:any) => {
         //CODE HERE
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         //CODE HERE
     };
 
-    const handleEdit = (index) => {
+    const handleEdit = (index:any) => {
        //CODE HERE
     };
 
-    const handleDelete = (index) => {
+    const handleDelete = (index:any) => {
         //CODE HERE
     };
 

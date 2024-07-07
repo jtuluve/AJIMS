@@ -98,9 +98,9 @@ interface Publication {
   date?: Date;
   patentcert?: string,
   detailsOfInventors?: {
-    number?: number;
-    name?: string;
-    institute?: string;
+  number?: number;
+  name?: string;
+  institute?: string;
   }[];
 }
 
@@ -355,4 +355,3 @@ export interface FileState {
   required: boolean;
   url?: string;
 }
-
