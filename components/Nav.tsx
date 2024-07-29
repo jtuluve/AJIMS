@@ -1,5 +1,6 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+
 export default function Nav() {
 	return (
 		<div className="titlebar">

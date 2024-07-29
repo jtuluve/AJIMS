@@ -355,4 +355,3 @@ export interface FileState {
   required: boolean;
   url?: string;
 }
-

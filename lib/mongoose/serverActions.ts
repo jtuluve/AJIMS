@@ -1,4 +1,5 @@
 'use server'
+
 import * as mongomethods from '@/lib/mongoose/functions'
 import { revalidatePath } from 'next/cache'
 
@@ -36,7 +37,8 @@ export async function getRetrieveFunction(
     overallScore: mongomethods.getOverallScore
   }
   let func = functions[type]
-  if(func) return functions[type] 
+  if(func) 
+    return functions[type] 
   throw new Error('No retrieve function found for ' + type)
 }
 
@@ -104,7 +106,8 @@ export async function handleUpsertAny(formData: FormData) {
   try {
     
     let res = await functions[type as string]?.(newobj)
-    if (!res) throw new Error('Function not found or upsert failed')
+    if (!res) 
+      throw new Error('Function not found or upsert failed')
     // revalidatePath("/")
     return { submitted: true, error: false }
   } catch (e) {
@@ -136,7 +139,8 @@ export async function handleDeleteAny(type: string, _id: string) {
   }
   try {
     let res = await functions[type]?.(_id)
-    if (!res) throw 'Failed to delete'
+    if (!res)
+       throw 'Failed to delete'
     return { submitted: true, error: false, res }
   } catch (e) {
     console.error(e)

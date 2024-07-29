@@ -1,8 +1,10 @@
 import Table from "./table"
 import { useUserData } from "./UserDataContext";
+
 export default function Research() {
     const {userData} = useUserData();
-    if(!userData) return <p style={{color:"white"}}>Failed to load data. Please, signout and signin again.</p>
+    if(!userData) 
+        return <p style={{color:"white"}}>Failed to load data. Please, signout and signin again.</p>
     
     return (
         <>
@@ -26,8 +28,7 @@ export default function Research() {
                     <Table type="researchConferences" column={4} header_row={["Year", "Conference Name", "Category", "Type"]} keys={["year","confName", "category","typeC"]}  values={userData?.appraisal?.research?.conferences}/>
                     
                     <a className="name3">V. Patents</a>
-                    <Table type="researchPatents" column={6} header_row={["Patent Country", "Patent Number", "Patent Type", "Patent Certificate", "Title", "Date"]} keys={["patentCountry", "patentNumber", "patentType","patentcert","title","date"]}  values={userData?.appraisal?.research?.patents}/>
-                    
+                    <Table type="researchPatents" column={6} header_row={["Patent Country", "Patent Number", "Patent Type", "Patent Certificate", "Title", "Date"]} keys={["patentCountry", "patentNumber", "patentType","patentcert","title","date"]}  values={userData?.appraisal?.research?.patents}/>                    
                 </div>
             </div>
       </>

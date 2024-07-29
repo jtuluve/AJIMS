@@ -1,4 +1,3 @@
-// "use client"
 import "@css/globals.css";
 import SessionProvider from "@comp/sessionprovider";
 import React from "react";
@@ -21,9 +20,9 @@ export default async function RootLayout({
 
 	return (
 		<>
-				<UserDataContextProvider data={data}>
-					<FormstateContextProvider>{children}</FormstateContextProvider>
-				</UserDataContextProvider>
+			<UserDataContextProvider data={data}>
+				<FormstateContextProvider>{children}</FormstateContextProvider>
+			</UserDataContextProvider>
 		</>
 	);
 }

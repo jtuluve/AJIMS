@@ -9,6 +9,7 @@ import Link from "next/link";
 export default function Admin() {
 	const { allUsers } = useAdminData();
 	const [users, setUsers] = useState(allUsers);
+
 	return (
 		<section className="adminpage">
 			<div className="titlebar">
@@ -49,7 +50,6 @@ export default function Admin() {
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
-
 						{users.map((user, index) => {
 							const { uid } = user;
 							return (
