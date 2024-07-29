@@ -41,8 +41,13 @@ export default function Admin() {
 					<table>
 						<thead>
 							<tr>
-								<th scope="col">Sl no</th><th scope="col">Profile</th><th scope="col">Name</th><th scope="col">Email</th>
-								<th scope="col">Department</th><th scope="col">Designation</th><th scope="col">Actions</th>
+								<th scope="col">Sl no</th>
+								<th scope="col">Profile</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Department</th>
+								<th scope="col">Designation</th>
+								<th scope="col">Actions</th>
 							</tr>
 						</thead>
 						{users.map((user, index) => {

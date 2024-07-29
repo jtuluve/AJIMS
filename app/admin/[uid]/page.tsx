@@ -28,12 +28,12 @@ const UserDetail = ({ params }) => {
 	}
   
   	const handlePrint = () => {
-    const printContent = printRef.current.innerHTML
-    const originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContent;
-    window.print();
-    document.body.innerHTML = originalContents;
-    window.location.reload();
+		const printContent = printRef.current.innerHTML
+		const originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContent;
+		window.print();
+		document.body.innerHTML = originalContents;
+		window.location.reload();
   	};
 
   	return (

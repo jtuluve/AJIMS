@@ -32,6 +32,7 @@ export default function Table({
   return (
     <>
       <div className={styles["table"]}>
+        {/* Check if the "values" is array or just one object and render accordingly*/}
         {Array.isArray(values) ? (
           <>
             <div
