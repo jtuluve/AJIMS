@@ -7,6 +7,7 @@ import { deleteAcademicsFileUrl, updateAcademicsFileUrl } from "@/lib/mongoose/f
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../app/firebase";
 import { useUserData} from "./UserDataContext";
+import '@css/appraisal.css'
 
 export default function Academics() {
 	const {userData} = useUserData();
