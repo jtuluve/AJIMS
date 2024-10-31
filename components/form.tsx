@@ -1,16 +1,11 @@
 "use client";
+
 import { getInput } from "@/lib/formFunctions";
 import { handleUpsertAny } from "@/lib/mongoose/serverActions";
 import styles from "@css/form.module.css";
 import tableStyles from "@css/table.module.css";
 import { CSSProperties, ChangeEvent, startTransition, useEffect, useRef, useState } from "react";
-
-import {
-	getDownloadURL,
-	getStorage,
-	ref,
-	uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../app/firebase";
 import { useFormStateContext } from "./formstateContext";
 import { useUserData } from "./UserDataContext";
@@ -68,7 +63,7 @@ export default function Form({
     (async()=>{
       setUserData(await getUserObject())
     })()
-  },[formState?.type])
+  },[formState])
 	
 	const [inputs, setInputs] = useState<{ status?: string; inputs?: Array<Input> }>({
 		status: "loading",
@@ -127,6 +122,8 @@ export default function Form({
 		setFileUploadError(false);
 		setInputs({status:"loading"})
 		setCanSubmit(true)
+		setTableData({})
+		setFiles({})
 		if(formState.type)
 		(async () => {
 			try {
@@ -136,7 +133,7 @@ export default function Form({
 				}
 				else setProfilePhotoUrl(formData?.profileUrl);
 				setInputs({ status: "loaded", inputs });
-				let a = inputs?.filter?.((e) => e.type === "file");
+				let a = inputs?.filter?.((e) => e.type === "file" && e.name !== "profileUrl");
 				if (a?.length !== 0) setCanSubmit(false);
 				a?.forEach( e=>setFiles( (prev)=>({ ...prev, [e.name]:{ name:e.name, required: e.required, url: formData?.[e.name] }}) ) );
 				a = inputs.filter(e=>e.type==="table");
@@ -147,38 +144,6 @@ export default function Form({
 			}
 		})();
 	}, [formState?.type, formState?._id]);
-	
-	// const handleFileUpload = (file, type, name?) => {
-	// 	const storage = getStorage(app);
-	// 	const fileName = type === "profile" ? new Date().getTime() + file.name : new Date().getTime() + file[name].name
-    // const storageRef = ref(storage, fileName);
-	// 	const uploadTask = type === "profile" ? uploadBytesResumable(storageRef, file) : uploadBytesResumable(storageRef, file[name].file);
-		
-	// 	uploadTask.on(
-	// 		"state_changed",
-	// 		(snapshot) => {
-	// 			const progress =
-	// 			(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-	// 			// console.log(progress);
-        // if(type === "profile") setFilePerc(Math.round(progress));
-	// 			else setFiles({...files,  [name]: { ...file[name], filePerc: Math.round(progress) }});
-	// 		},
-	// 		(error) => {
-	// 			console.log(error);
-          // setFiles({...files,  [name]: { ...file[name], error, message: "Error while uploading the file" }});
-	// 		},
-	// 		() => {
-	// 			getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-	// 				// console.log(downloadURL)
-	// 				if (type === "profile") {
-	// 					setProfilePhotoUrl(downloadURL);
-	// 				} else {
-	// 			    setFiles({...files,  [name]: { ...file[name], fileUrl: downloadURL, message: "Uploaded" }});
-	// 				}
-	// 			});
-	// 		}
-	// 		);
-	// 	};
 		
 	const handleFileUpload = (file, name, percSet?) => {
 		setCanSubmit(false);
@@ -204,6 +169,10 @@ export default function Form({
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 					if (name === "profileUrl") {
+						setFiles((prevFiles) => ({
+							...prevFiles,
+							[name]: { ...file[name], url: downloadURL, message: "Uploaded" }
+						}));
 						setProfilePhotoUrl(downloadURL);
 					} else {
 						setFiles((prevFiles) => ({
@@ -215,8 +184,6 @@ export default function Form({
 			}
 		);
 	};
-
-	//jsx part
 
 	if (!(formState?.type)) return <></>;
 	if (inputs?.status === "loading" || !(inputs?.inputs))
@@ -278,7 +245,6 @@ export default function Form({
 					<input type="hidden" name="type" value={formState?.type} />
 				</span>
 				{inputs?.inputs?.map((e) => {	
-
 					return (
 						<span key={(e.name || e.label || Math.random()) + "Key"}>
 							<b>
@@ -286,8 +252,6 @@ export default function Form({
 									<label htmlFor={e.name || e.label}>
 										{(e.label || e.placeholder || e.name) + (e.required?' *':'')}
 									</label>
-
-                 
 									{e.tooltip ? (
 										<button
 											type="button"
@@ -316,11 +280,11 @@ export default function Form({
 										formData?.[e.name] || formData?.[e.label] || e.default || ""
 									}
 									placeholder={(e as SelectInput).placeholder}
-                  onChange={(event)=>{
-                   if(formData?.[e.name]) formData[e.name] = event.target.value;
-                   if(formData?.[e.label]) formData[e.label] = event.target.value;
-                   e.default = event.target.value;
-                  }}
+									onChange={(event)=>{
+									if(formData?.[e.name]) formData[e.name] = event.target.value;
+									if(formData?.[e.label]) formData[e.label] = event.target.value;
+									e.default = event.target.value;
+									}}
 								/>
 							) : e.type === "file" && e.name === "profileUrl" ? (
 								<section
@@ -361,10 +325,7 @@ export default function Form({
 											ref={photoRef}
 											type="file"
 											accept="image/*"
-											// onLoad={() => setFileExists(true)}
 											onChange={(e) => {
-												// setFile(e.target.files[0])
-												// console.log(e.target.files[0])
 												setProfilePhoto(e.target.files[0]);
 											}}
 											name={e.name}
@@ -436,7 +397,6 @@ export default function Form({
 							formStatus.status === "submitting" ? "SUBMITTING.." : "SUBMIT"
 						}
 					/>
-
 					<button
 						className={styles.cancel}
 						onClick={(e) => {
@@ -450,14 +410,10 @@ export default function Form({
 					</button>
 				</span>
 			</form>
-
 		</div>
 	);
 }
 
-
-//Helper components
-/* Select component */
 function SelectComponent({
 	options,
 	name,
@@ -547,11 +503,7 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 			"state_changed",
 			(snapshot) => {
 				const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				// if (name === "profileUrl") {
-				// 	setFilePerc(Math.round(progress));
-				// } else {
 					percSet(Math.round(progress));
-				// }
 			},
 			(error) => {
 				console.log(error);
@@ -559,14 +511,6 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-					// if (name === "profileUrl") {
-					// 	// setProfilePhotoUrl(downloadURL);
-					// } else {
-					// 	setFiles((prevFiles) => ({
-					// 		...prevFiles,
-					// 		[name]: { ...file[name], url: downloadURL, message: "Uploaded" }
-					// 	}));
-					// }
 					if(value)
 						value[name] = downloadURL;
 					setTables((prev)=>({...prev}));
@@ -584,7 +528,7 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 				}}
 			>
 				{inputs.map((input: any) => (
-					<h4 key={input.name} style={{fontSize:"small"}}>{input.label}</h4>
+					<h4 key={input.name} style={{fontSize:"small"}}>{input.label + (input.required ? " *" : "")}</h4>
 				))}
 			</div>
 			{values.map?.((value: any, index) => (
@@ -662,18 +606,18 @@ function InputTable({ tableName, inputs, setTables, values, setCanSubmit }:{ tab
 				</div>
 			))}
 			<div className={tableStyles["addRowBtnDiv"]}>
-					<button
-						style={{ gridColumn: `${Math.round(inputs.length / 2)}` }}
-						onClick={(e) => {
-							e.preventDefault();
-							setTables((prev) => ({
-								...prev,
-								[tableName]: [...prev[tableName], {}],
-							}));
-						}}
-					>
-						Add
-					</button>
+				<button
+					style={{ gridColumn: `${Math.round(inputs.length / 2)}` }}
+					onClick={(e) => {
+						e.preventDefault();
+						setTables((prev) => ({
+							...prev,
+							[tableName]: [...prev[tableName], {}],
+						}));
+					}}
+				>
+					Add
+				</button>
 			</div>
 		</div>
 	);

@@ -35,7 +35,6 @@ export default function Appraisal() {
       <div className="menu-container">
         <Menu />
         <div id="onPrintScale" className="menu2">
-          {/* <Profile /> */}
             <Form />
             <Research />
             <Academics />
@@ -43,7 +42,6 @@ export default function Appraisal() {
             <Scorepage />
         </div>
       </div>
-      {/* <script src="/js/dashboard.js" defer></script> */}
     </>
   );
 }

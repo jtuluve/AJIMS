@@ -3,8 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { createUserIfNotExists } from "@/lib/mongoose/functions";
-import { NextApiRequest } from "next";
-import { NextRequest, NextResponse } from "next/server";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -24,7 +22,7 @@ const authOptions:AuthOptions = {
       name: "Sign In",
       type: "credentials",
       credentials: {},
-      // credentials options
+      
       async authorize(credentials, req) {
         try {
           const auth = getAuth(app);
@@ -47,7 +45,6 @@ const authOptions:AuthOptions = {
         }
       },
     }),
-    // other providers
   ],
   pages: {
     signIn: "/",

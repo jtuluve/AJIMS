@@ -1,4 +1,5 @@
 "use client"
+
 import Nav from "@/components/Nav"
 import SideMenu from "@/components/SideMenu"
 import { useUserData } from "@/components/UserDataContext"
@@ -11,7 +12,7 @@ import { useEffect } from "react"
 export default function Main() {
 	const {userData} = useUserData();
 	const { data: session } = useSession();
-  if (!session) redirect("/");
+  	if (!session) redirect("/");
 	if(!userData) signOut()
 	useEffect(()=>{
 		(async()=>{

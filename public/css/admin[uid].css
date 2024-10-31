@@ -7,7 +7,6 @@
   position: relative;
 }
 
-
 .titlebaradmin .home::after {
   font-family: none;
   color: white;
@@ -49,79 +48,79 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .user-detail {
-    max-width: 1000px;
-    margin: auto;
-    padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
 }
 
 .user-detail h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .user-detail h2, .user-detail h3, .user-detail h4 {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .titlebaradmin {
-    height: 50px;
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .score-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    text-align: center;
-    margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  text-align: center;
+  margin: 10px;
 }
 
 .scores-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .profilephoto{
-    display: flex;
-    flex: 4;
+  display: flex;
+  flex: 4;
 }
 .profile-container {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 .basic-info {
-    flex: 1;
-    padding-right: 20px; 
+  flex: 1;
+  padding-right: 20px; 
 }
 
 .margin-body {
-    margin-left: 20px; 
+  margin-left: 20px; 
 }
 
 .profile-photo {
-    width: 120px;
-    text-align: center; 
+  width: 120px;
+  text-align: center; 
 }
 
 .profile-photo img {
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -153,8 +152,7 @@ tbody tr:nth-child(even) {
 	align-items: center;
 	background: #eeeeee;
 	border: 0 solid #e2e8f0;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
 	color: #1a202c;
 	display: inline-flex;

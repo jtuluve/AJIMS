@@ -1,12 +1,12 @@
 .adminpage {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  overflow-x: auto;
-  overflow-y: auto;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	height: 100dvh;
+	overflow-x: auto;
+	overflow-y: auto;
 }
 * {
     margin: 0;
@@ -211,23 +211,26 @@
 				min-width: 22rem;
 			}
 		}
+	}
+}
 
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin: 1rem 0;
 
-		/* .action-btn {
-			display: flex;
-			justify-content: space-evenly;
-			align-items: center;
+	& button {
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 5px;
+		background-color: #131d38;
+		color: white;
+		font-size: 1rem;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
 
-			& button {
-				padding: 1rem;
-				margin: 1rem;
-				border-radius: 0.5rem;
-				border: none;
-			}
-
-            & button:first-child {
-                background-color: blue;
-            }
-		} */
+	& button:hover {
+		background-color: #273457;
 	}
 }

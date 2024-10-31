@@ -1,16 +1,13 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import Table from "./table";
 import { getRetrieveFunction } from "@/lib/mongoose/serverActions";
 import { deleteAcademicsFileUrl, updateAcademicsFileUrl } from "@/lib/mongoose/functions";
-
-import {
-	getDownloadURL,
-	getStorage,
-	ref,
-	uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../app/firebase";
 import { useUserData} from "./UserDataContext";
+import '@css/appraisal.css'
 
 export default function Academics() {
 	const {userData} = useUserData();
@@ -19,16 +16,14 @@ export default function Academics() {
 	
 	useEffect(() => {
 		async function getDataAny() {
-      setFileUrl(undefined)
+      	setFileUrl(undefined)
 			const getFileUrl = await getRetrieveFunction("academicsFileUrl");
-			// console.log(getFileUrl);
 			const fileUrl = await getFileUrl?.();
 			setFileUrl(fileUrl);
 		}
 		getDataAny();
 	}, []);
 	
-	// file upload
 	const [file, setFile] = useState(undefined);
 	const [filePerc, setFilePerc] = useState(0);
 	const [fileUploadError, setFileUploadError] = useState(false);
@@ -51,7 +46,6 @@ export default function Academics() {
 			(snapshot) => {
 				const progress =
 				(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				// console.log(progress);
 				setFilePerc(Math.round(progress));
 			},
 			(error) => {
@@ -61,14 +55,18 @@ export default function Academics() {
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
 					setFileUrl(downloadURL);
-					// console.log(downloadURL);
 					await updateAcademicsFileUrl(downloadURL);
 				});
 			}
 			);
 		};
 		
-		if(!userData) return <p style={{color:"white"}}>Failed to load data. Please, signout and signin again.</p>
+		if(!userData) 
+			return (
+				<p style={{color:"white"}}>
+					Failed to load data. Please, signout and signin again.
+				</p>
+			);
 		
 		return (
 		<>
@@ -109,30 +107,28 @@ export default function Academics() {
 								parentElement.removeChild(h2);
 							}}
 						>
-							<span className="print-icon">print</span>
+						<span className="print-icon">print</span>
 						</button>
-
-            <button
-              onClick={() => {
-                fileRef && fileRef.current.click();
-              }}
-              className="upload-button"
-              disabled={fileUrl === undefined}
-            >
-              {fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
-            </button>
-            {fileUrl &&
-              <button
-                className="delete-button"
-                onClick={async () => {
-                    await deleteAcademicsFileUrl()
-                    setFileUrl("")
-                }}
-              >
-                Delete file
-              </button>
-            }
-
+						<button
+							onClick={() => {
+								fileRef && fileRef.current.click();
+							}}
+							className="upload-button"
+							disabled={fileUrl === undefined}
+							>
+							{fileUrl ? "Reupload File" : fileUrl === undefined ? "Loading..." : "Upload File"}
+						</button>
+						{fileUrl &&
+							<button
+								className="delete-button"
+								onClick={async () => {
+									await deleteAcademicsFileUrl()
+									setFileUrl("")
+								}}
+							>
+								Delete file
+							</button>
+            			}
 						<input
 							hidden
 							type="file"
@@ -160,8 +156,8 @@ export default function Academics() {
 						</p>
 					</div>
 					<section id="signatures" style={{ display: "none" }}>
-						<div style={{ color: "#131D38" }}>Applicant</div>
-						<div style={{ color: "#131D38" }}>H.O.D</div>
+						<div style={{ color: "#131D38", marginRight: "10px" }}>Applicant</div>
+						<div style={{ color: "#131D38", marginLeft: "10px" }}>H.O.D</div>
 					</section>
 				</div>
 			</div>

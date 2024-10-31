@@ -2,7 +2,6 @@ import styles from "@css/table.module.css";
 import { handleDeleteAny } from "@/lib/mongoose/serverActions";
 import { useFormStateContext } from "./formstateContext";
 
-
 export default function Table({
   column,
   header_row,
@@ -18,9 +17,13 @@ export default function Table({
   values: any;
   readOnly?: boolean;
 }) {
-  const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile","certUpload","regUpload","residenceProof","postHeldFile"]
+  const filesKeys = ["uploadUrl", "clinicalDutyFile", "examDutyFile", "coordinatorDutyFile", "committeeFile", "conferenceFile", "guestLecturesFile", "certUpload", "regUpload", "residenceProof", "postHeldFile","patentcert"]
+  const dateKeys = ["date","dateD","dob","from","to","dateOfJoining","dateL","startDate","endDate"]
   const {setFormState} = useFormStateContext()
-  if (values === false) return <p style={{ color: "white" }}>Loading..</p>;
+
+  if (values === false) 
+    return <p style={{ color: "white" }}>Loading..</p>;
+
   if (values?.error) {
     return <p style={{ color: "white" }}>Internal Error Occured</p>;
   }
@@ -46,7 +49,6 @@ export default function Table({
               <div>No data found!</div>
             ) : (
               values.map((e) => {
-              // console.log(e)
                 return (
                   <div
                     className={styles["table-row"]}
@@ -56,7 +58,7 @@ export default function Table({
                     }}
                   >
                   {keys.map((key, i) => {
-											return filesKeys.find((k) => k == key) ? (
+											return filesKeys.includes(key) ? (
 												<span key={key + i}>
 													{e[key] ? (
 														<a
@@ -72,7 +74,7 @@ export default function Table({
 													)}
 												</span>
 											) : (
-												<span key={key + i}>{e[key]}</span>
+												<span key={key + i}>{dateKeys.includes(key) ? e[key]?.toString()?.slice?.(0, 10) : e[key]?.toString?.()}</span>
 											);
 										})}
                     <span id="onPrintHiddenButton" className={styles["table-buttons"]}>
@@ -164,7 +166,7 @@ export default function Table({
                     }
                   </span>
                 ) : (
-                  <span key={key + i} style={{ display: "block" }}>{values?.[key]}</span>
+                  <span key={key + i} style={{ display: "block" }}>{dateKeys.includes(values[key]) ? values[key]?.slice?.(0, 10) : values[key]?.toString?.()}</span>
                 );
               })}
             </div>

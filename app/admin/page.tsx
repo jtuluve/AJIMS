@@ -9,6 +9,7 @@ import Link from "next/link";
 export default function Admin() {
 	const { allUsers } = useAdminData();
 	const [users, setUsers] = useState(allUsers);
+
 	return (
 		<section className="adminpage">
 			<div className="titlebar">
@@ -24,6 +25,11 @@ export default function Admin() {
 			</div>
 			<div className="usersTable">
 				<h2>Admin Dashboard</h2>
+				<div className="button-container">
+					<Link href={'/admin/firebase'}>
+						<button>Login Credentials</button>
+					</Link>
+				</div>
 				<div className="search-container">
 					<input title="Search" type="search" name="search" onChange={e => {
 						let a = allUsers.filter(user => new RegExp(`.*${e.target.value?.toLowerCase()}.*`).test(user?.profile?.department?.toLowerCase()) || new RegExp(`.*${e.target.value?.toLowerCase()}.*`).test(user?.name?.toLowerCase()));
@@ -44,7 +50,6 @@ export default function Admin() {
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
-
 						{users.map((user, index) => {
 							const { uid } = user;
 							return (

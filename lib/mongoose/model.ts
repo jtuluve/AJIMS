@@ -69,7 +69,7 @@ const PublicationsSchema = new mongoose.Schema({
     required: false,
     default: 2024
   },
-  pageNo: { type: Number, required: false, default: 0 },
+  pageNo: { type: String, required: false, default: 0 },
   default: {}
 })
 
@@ -239,10 +239,11 @@ const ResearchSchema = new mongoose.Schema({
   conferences: { type: [conferencesSchema], default: [] },
   patents: [new mongoose.Schema({
     patentCountry: { type: String },
-    patentNumber: { type: Number },
+    patentNumber: { type: String },
     patentType: { type: String },
     title: { type: String },
     date: { type: Date },
+    patentcert: { type: String },
     detailsOfInventors: [new mongoose.Schema({
       number: { type: Number },
       name: { type: String },
@@ -473,7 +474,7 @@ const profileSchema = new mongoose.Schema({
     total: { type: String }
   })],
   orcIdNo: { type: String },
-  profileUrl: { type: String },
+  profileUrl: { type: String, default:'user.png' },
   appointmentOrderStatus: { type: String, enum: ['Yes', 'No'], default: 'Yes' },
   instituteName: { type: String, default: '' },
   cityName: { type: String, default: '' },

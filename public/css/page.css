@@ -9,7 +9,6 @@ body {
     align-items: center;
     height: 100dvh;
     margin: 0;
-
     #watermark {
       display: none;
     } 
@@ -55,7 +54,7 @@ body {
     background-color: initial;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 480px) {
     body {
         justify-content: center; 
     }

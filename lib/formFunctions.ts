@@ -512,7 +512,7 @@ export async function getInput(type: string) {
             required: true
           },
           {
-            "name": "date",
+            "name": "dateD",
             "type": "date",
             "label": "Date on which relieved",
             required: true
@@ -560,7 +560,7 @@ export async function getInput(type: string) {
         "type": "text",
         "label": "ORC ID No",
         "placeholder": "Enter ORC ID No",
-        "required": true
+        "required": false
       },
       {
         "name": "passportNo",
@@ -592,9 +592,9 @@ export async function getInput(type: string) {
           {
             "name": "year",
             "type": "number",
+            "placeholder": "Enter the year",
             "properties": { "min": 1800, "max": 2150, "step": 1 },
             "label": "Year",
-            "default": 2024,
             required: true
           },
           {
@@ -819,14 +819,12 @@ export async function getInput(type: string) {
         type: 'text',
         placeholder: 'Enter title of the book',
         required: true,
-        default: 'Nil',
       },
       {
         name: 'chapters',
         type: 'number',
         placeholder: 'Enter chapters in the book',
-        required: true,
-        default: 'Nil',  
+        required: true,  
       },
       {
         name: 'year',
@@ -834,7 +832,6 @@ export async function getInput(type: string) {
         properties: { min: 1800, max: 2150, step: 1 },
         placeholder: 'Enter the year of publication',
         required: true,
-        default: 'Nil',
       },
       {
         name: 'certificate',
@@ -846,7 +843,6 @@ export async function getInput(type: string) {
         type: 'text',
         placeholder: 'Enter the Book details',
         required: true,
-        default: 'Nil',
       },
       {
         name: 'uploadUrl',
@@ -914,6 +910,7 @@ export async function getInput(type: string) {
       {
         name: 'amount',
         type: 'number',
+        placeholder:'Enter the amount',
         required: true,
       },
       {
@@ -1000,7 +997,6 @@ export async function getInput(type: string) {
         name: 'description',
         type: 'text',
         placeholder: 'Awards description',
-        default: 'Nil',
         required: false,
       },
       {
@@ -1022,7 +1018,7 @@ export async function getInput(type: string) {
       },
       {
         name: 'patentNumber',
-        type: 'number',
+        type: 'text',
         label: 'Patent Number',
         placeholder: 'Enter Patent Number',
         required: true,
@@ -1046,6 +1042,12 @@ export async function getInput(type: string) {
         type: 'date',
         label: 'Date',
         required: true,
+      },
+      {
+        name:'patentcert',
+        type:'file',
+        label: 'Patent Certificate',
+        required: false
       },
       {
         name: 'detailsOfInventors',
@@ -1083,40 +1085,34 @@ export async function getInput(type: string) {
         name: 'hours',
         type: 'number',
         placeholder: 'Enter the teaching Hours',
-        required: true,
         default: 0,
       },
       {
         name: 'hoursUpload',
         type: 'file',
-        placeholder: 'Hours acknowledgement',
-        required: true
+        placeholder: 'Hours acknowledgement'
       },
       {
         name: 'clinicalHours',
         type: 'number',
         placeholder: 'Enter the Clinical Hours',
-        required: true,
         default: 0,
       },
       {
         name: 'clinicalHoursUpload',
         type: 'file',
-        placeholder: 'Clinical Hours acknowledgement',
-        required: true
+        placeholder: 'Clinical Hours acknowledgement'
       },
       {
         name: 'studentsFeedback',
         type: 'number',
         placeholder: 'Enter the Students Feedback',
-        required: true,
         default: 0,
       },
       {
         name: 'studentsFeedbackUpload',
         type: 'file',
-        placeholder: 'Students Feedback acknowledgement',
-        required: true
+        placeholder: 'Students Feedback acknowledgement'
       },
       {
         name: 'resourceMaterial',
@@ -1128,8 +1124,7 @@ export async function getInput(type: string) {
       {
         name: 'resourceMaterialUpload',
         type: 'file',
-        placeholder: 'Resource Material acknowledgement',
-        required: true
+        placeholder: 'Resource Material acknowledgement'
       },
       {
         name: 'publicAwarenessWriteup',
@@ -1142,7 +1137,6 @@ export async function getInput(type: string) {
         name: 'publicAwarenessWriteupUpload',
         type: 'file',
         placeholder: 'Public Awareness Writeup acknowledgement',
-        required: true
       },
       {
         name: 'cc',
@@ -1153,8 +1147,7 @@ export async function getInput(type: string) {
       {
         name: 'ccUpload',
         type: 'file',
-        placeholder: 'CC acknowledgement',
-        required: true
+        placeholder: 'CC acknowledgement'
       },
     ],
 

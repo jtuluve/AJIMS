@@ -1,4 +1,3 @@
-// "use client"
 import "@css/globals.css";
 import SessionProvider from "@comp/sessionprovider";
 import React from "react";
@@ -9,7 +8,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  //fetch user session
   const session = await getServerSession();
 
   return (
@@ -24,8 +22,7 @@ export default async function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
         />
       </head>
-      <body /* className={inter.className} */>
-        {/* User session context */}
+      <body>
         <SessionProvider session={session}>{children}</SessionProvider>
         <div id="watermark">AJIMS</div>
       </body>
