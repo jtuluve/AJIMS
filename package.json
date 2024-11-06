@@ -13,7 +13,7 @@
     "firebase": "^10.7.2",
     "firebase-admin": "^12.1.1",
     "fs": "^0.0.1-security",
-    "mongodb": "^6.3.0",
+    "mongodb": "^6.10.0",
     "mongoose": "^8.0.1",
     "next": "^14.2.3",
     "next-auth": "^4.24.5",
