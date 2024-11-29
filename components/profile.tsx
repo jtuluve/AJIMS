@@ -57,7 +57,7 @@ export default function Profile() {
               <figure className='profilepic'>
                 <img
                   src={profileData.profileUrl || 'user.png'}
-                  alt=""
+                  alt={profileData.profileUrl || 'user.png'}
                   width={240}
                   height={240}
                   style={{ objectFit: 'cover' }}
