@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.9",
     "@types/react-dom": "^18.3.1",
     "firebase": "^11.0.2",
     "firebase-admin": "^13.0.0",
@@ -25,6 +26,7 @@
     "@types/node": "22.10.1",
     "@types/react": "18.3.12",
     "@types/react-dom": "^18.3.1",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "webpack": "^5.97.1"
   }
 }
