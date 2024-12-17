@@ -10,19 +10,19 @@
   },
   "dependencies": {
     "@types/react-dom": "^18.3.1",
-    "firebase": "^11.0.2",
+    "firebase": "^11.1.0",
     "firebase-admin": "^13.0.0",
     "fs": "^0.0.1-security",
     "mongodb": "^6.11.0",
     "mongoose": "^8.0.1",
-    "next": "^14.2.3",
     "next-auth": "^4.24.11",
+    "next": "^15.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-toastify": "^10.0.6"
   },
   "devDependencies": {
-    "@types/node": "22.10.1",
+    "@types/node": "22.10.2",
     "@types/react": "18.3.12",
     "@types/react-dom": "^18.3.1",
     "typescript": "^5.7.2"
