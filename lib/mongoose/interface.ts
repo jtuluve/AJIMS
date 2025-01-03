@@ -333,7 +333,7 @@ interface Profile {
 
 // Define the User schema interface
 export interface UserDocument extends Document {
-  _id?: string;
+  _id: string;
   name?: string;
   email?: string;
   uid?: string;
