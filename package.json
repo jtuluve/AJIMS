@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "firebase": "^11.2.0",
+    "firebase": "^11.3.1",
     "firebase-admin": "^13.0.2",
     "fs": "^0.0.1-security",
     "mongodb": "^6.12.0",
